@@ -92,7 +92,7 @@ trait HeadwayVisualEditorPanelAPITrait {
 	public function create_inputs($tab){
 		parent::create_inputs($tab);
 	}
-	public function render_input($input){
+	public function render_input($input = []){
 		parent::render_input($input);
 	}
 	public function repeater($input){

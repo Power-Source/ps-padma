@@ -1,8 +1,8 @@
 ===PS Padma ===
 Contributors: PSOURCE
 Requires at least: WordPress 4.7
-Tested up to: WordPress 5.5
-Version: 1.0.4
+Tested up to: WordPress 5.5, ClassicPress 2.6.0
+Version: 1.0.5
 Requires at least: 4.9
 Tested up to: 6.8.1
 Requires PHP: 7.3
@@ -42,6 +42,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 
 == Changelog ==
+
+= 1.0.5 = 
+
+* Fix kritischer Error Headway Support
 
 = 1.0.4 = 
 

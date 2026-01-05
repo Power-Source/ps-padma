@@ -6,7 +6,6 @@ title: "PS Padma"
 <h2 align="center" style="color:#38c2bb;">📚 PS Padma</h2>
 
 <div class="menu">
-  <a href="https://github.com/Power-Source/padma/discussions" style="color:#38c2bb;">💬 Forum</a>
   <a href="https://github.com/Power-Source/padma/releases" style="color:#38c2bb;">📝 Download</a>
 </div>
 
@@ -15,34 +14,6 @@ title: "PS Padma"
 We are developing a comprehensive guide to allow Padma | Unlimited users to become familiar with the platform and its tools.  
 
 This documentation is in the process of development and we work hard to get it ready as soon as possible.
-
-
-## Installation
-
-Follow next easy steps to get our **forever free Theme** **Builder** available on your WordPress installation.
-
-1. Go to [https://cp-psource.github.io/ps-padma//](https://cp-psource.github.io/ps-padma//) and click the **Download** » Button.
-
-2. Access your **WordPress** Dashboard. Select Appearance/ Themes in the main menu. 
-![enter image description here](https://docs.padmaunlimited.com/wp-content/uploads/2018/03/Padma-Unlimited-Appearance-Themes.png)
-
-3. Press the **Add** new button. 
-![enter image description here](https://docs.padmaunlimited.com/wp-content/uploads/2018/03/Padma-Unlimited-add-new.png)
-
-4. Press the **Upload Theme** button.
-![enter image description here](https://docs.padmaunlimited.com/wp-content/uploads/2018/03/Padma-Unlimited-Upload-Theme.png)
-
-5. Press **Choose File** button, locate and select the the folder where you downloaded **Padma | unlimited** zip file.
-![enter image description here](https://docs.padmaunlimited.com/wp-content/uploads/2018/03/Padma-Unlimited-Select-Theme-File.png)
-
-6. Select the downloaded file and Press **open**.
- ![enter image description here](https://docs.padmaunlimited.com/wp-content/uploads/2018/03/Padma-Unlimited-Locate-Theme-zip.png)
-
-7. Press the **Install** Now button.
-![enter image description here](https://docs.padmaunlimited.com/wp-content/uploads/2018/03/Padma-Unlimited-Select-Theme-File.png)
-
-8. When installation is complete, Activate **Padma | unlimited theme**.
-![enter image description here](https://docs.padmaunlimited.com/wp-content/uploads/2018/03/Padma-Unlimited-Activation.png)
 
 
 ### Security Considerations
