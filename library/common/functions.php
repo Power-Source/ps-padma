@@ -210,6 +210,11 @@ function padma_get_current_url() {
  **/
 function padma_change_to_unix_path($path) {
 
+	// Ignore non-string values (arrays, callables, etc.)
+	if ( !is_string($path) ) {
+		return $path;
+	}
+
 	return str_replace('\\', '/', $path);
 
 }

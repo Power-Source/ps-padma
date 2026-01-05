@@ -1754,7 +1754,7 @@ class PadmaElementProperties {
 	public static function complex_property_filter($args) {
 
 		$filter = $args['properties']['filter'];
-		$value 	= $args['properties']['filter-value'];
+		$value 	= isset($args['properties']['filter-value']) ? $args['properties']['filter-value'] : 0;
 		$unit 	= '%';
 
 		if($filter  == 'blur'){
