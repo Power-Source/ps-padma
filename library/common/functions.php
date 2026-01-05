@@ -210,10 +210,6 @@ function padma_get_current_url() {
  **/
 function padma_change_to_unix_path($path) {
 
-	if ( is_array($path) ) {
-		return $path;
-	}
-
 	return str_replace('\\', '/', $path);
 
 }

@@ -1,8 +1,8 @@
 ===PS Padma ===
 Contributors: PSOURCE
-Tested up to: WordPress 6.4.0
-Tested up to: ClassicPress 2.6.0
-Version: 1.0.5
+Requires at least: WordPress 4.7
+Tested up to: WordPress 5.5
+Version: 1.0.4
 Requires at least: 4.9
 Tested up to: 6.8.1
 Requires PHP: 7.3
@@ -24,7 +24,7 @@ PS Padma ist ein Template-Builder-Theme mit Drag-and-Drop-Bearbeitung, Point-and
 
 == Copyright ==
 
-Copyright 2014-2026 PSOURCE
+Copyright 2014-2025 PSOURCE
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -42,10 +42,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 
 == Changelog ==
-
-= 1.0.5 =
-
-* Fix kritischer Error im Headway Support
 
 = 1.0.4 = 
 
