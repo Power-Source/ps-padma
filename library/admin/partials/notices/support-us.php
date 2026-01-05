@@ -12,7 +12,7 @@
 			<p><?php _e( 'PS Padma ist der offizielle Nachfolger unseres UpFront-Frameworks. Beachte bitte, derzeit befindet sich dieser Theme-Builder in der Finalen Testphase.', 'padma' ); ?></p>
 			<h4><?php _e( 'Möchtest Du mitarbeiten?', 'padma' ); ?></h4>
 			<ul>				
-				<li><?php _e( '- Fehler melden: https://github.com/cp-psource/ps-padma/issues', 'padma' ); ?></li>
+				<li><?php _e( '- Fehler melden: https://github.com/Power-Source/ps-padma/issues', 'padma' ); ?></li>
 				<li><?php _e( '- Gemeinsames Programmieren über GitHub', 'padma' ); ?></li>
 				<li><?php _e( '- Schlage Funktionalitäten, Blöcke oder Plugins vor', 'padma' ); ?></li>
 				<li><?php _e( '- Trete unseren Netzwerk bei', 'padma' ); ?></li>
@@ -24,7 +24,7 @@
 		</div>
 
 		<p class="padma-unlimited-notice-rate-actions">		
-			<a href="https://github.com/cp-psource/ps-padma" class="padma-admin-social-icon" target="_blank"><img src="<?php echo get_template_directory_uri() . '/library/admin/images/github.png'; ?>"></a>			
+			<a href="https://github.com/Power-Source/ps-padma" class="padma-admin-social-icon" target="_blank"><img src="<?php echo get_template_directory_uri() . '/library/admin/images/github.png'; ?>"></a>			
 			<a href="<?php echo self::get_dismiss_link(); ?>" class="padma-unlimited-notice-rate-dismiss"><?php _e( 'Hab es gelesen', 'padma' ); ?></a>
 		</p>
 
