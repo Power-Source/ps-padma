@@ -16,7 +16,7 @@ class PadmaCustomCodeBlock extends PadmaBlockAPI {
 		$this->id 				= 'custom-code';	
 		$this->name 			= __('Custom Code','padma');
 		$this->options_class 	= 'PadmaCustomCodeBlockOptions';
-		$this->description 		= __('Place in custom HTML, PHP, or even WordPress shortcodes into this block.','padma');
+		$this->description 		= __('Fügen Sie in diesen Block benutzerdefinierte HTML-, PHP- oder sogar Shortcodes ein.','padma');
 		$this->categories 		= array('core','code');
 		$this->inline_editable 	= array('block-title', 'block-subtitle', 'content');
 
@@ -32,7 +32,7 @@ class PadmaCustomCodeBlock extends PadmaBlockAPI {
 			echo '<div class="custom-code-content content">'.padma_parse_php(do_shortcode(stripslashes($content))).'</div>';			
 
 		else
-			echo '<p class="content">' . __('There is no custom code to display.','padma') .'</p>';
+			echo '<p class="content">' . __('Es gibt keinen benutzerdefinierten Code anzuzeigen.','padma') .'</p>';
 
 	}
 
@@ -130,7 +130,7 @@ class PadmaCustomCodeBlockOptions extends PadmaBlockOptionsAPI {
 					'name' 		=> __('content','padma'),
 					'label' 	=> __('Content','padma'),
 					'default' 	=> null,
-					'tooltip' => __('Write your custom code here. To enable PHP Execution please add define(\'PADMA_DISABLE_PHP_PARSING\', false); to your wp-config.php','padma')
+					'tooltip' => __('Schreibe hier deinen benutzerdefinierten Code. Um die PHP-Ausführung zu aktivieren, füge bitte define(\'PADMA_DISABLE_PHP_PARSING\', false); zu deiner wp-config.php hinzu.','padma')
 				),
 			),
 		);
@@ -141,7 +141,7 @@ class PadmaCustomCodeBlockOptions extends PadmaBlockOptionsAPI {
 
 		if ( defined('PADMA_DISABLE_PHP_PARSING') && PADMA_DISABLE_PHP_PARSING === true ){
 
-			$this->tab_notices['content'] = __('PHP Parsing is currently disable, to enable PHP Execution please add: <br><pre>define(\'PADMA_DISABLE_PHP_PARSING\', false);</pre><br> to your wp-config.php','padma');
+			$this->tab_notices['content'] = __('PHP Parsing ist derzeit deaktiviert. Um die PHP-Ausführung zu aktivieren, füge bitte <br><pre>define(\'PADMA_DISABLE_PHP_PARSING\', false);</pre><br> zu deiner wp-config.php hinzu.','padma');
 
 		}
 

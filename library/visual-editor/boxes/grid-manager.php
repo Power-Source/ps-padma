@@ -46,7 +46,7 @@ class PadmaGridManagerBox extends PadmaVisualEditorBoxAPI {
 
 	function __construct(){
 		$this->title = __('Grid Manager','padma');
-		$this->description = __('Choose a preset or a page to clone','padma');
+		$this->description = __('Wähle ein Preset oder eine Seite zum Klonen','padma');
 	}
 	public function content() {
 
@@ -60,7 +60,7 @@ class PadmaGridManagerBox extends PadmaVisualEditorBoxAPI {
 			<?php			
 			if ( $pages_to_clone_select_options !== '' || $templates_to_assign_select_options !== '' ) {
 
-				echo '<li><a href="#grid-manager-tab-clone-page">Clone Existing Layout</a></li>';
+				echo '<li><a href="#grid-manager-tab-clone-page">Vorhandenes Layout klonen</a></li>';
 				echo '<li><a href="#grid-manager-tab-presets">Presets</a></li>';
 
 			} else {
@@ -70,7 +70,7 @@ class PadmaGridManagerBox extends PadmaVisualEditorBoxAPI {
 			}
 
 			if ( $templates_to_assign_select_options !== '' && strpos($current_layout, 'template-') === false ){
-				echo '<li><a href="#grid-manager-tab-assign-template">Use Shared Layout</a></li>';
+				echo '<li><a href="#grid-manager-tab-assign-template">Gemeinsames Layout verwenden</a></li>';
 			}
 
 			echo '<li><a href="#grid-manager-tab-import-export">Import/Export</a></li>';
@@ -107,9 +107,9 @@ class PadmaGridManagerBox extends PadmaVisualEditorBoxAPI {
 
 			<div id="grid-manager-presets-step-2">
 
-				<h4>Select Which Blocks to Mirror</h4>
+				<h4>Wähle Blöcke zum Spiegeln</h4>
 
-				<p class="grid-manager-info">To save time, Padma allows you to "mirror" your blocks.  If you already have a widget area or sidebar that's configured, you may choose to use it by using the select boxes below.</p>
+				<p class="grid-manager-info">Um Zeit zu sparen, ermöglicht Padma das "Spiegeln" deiner Blöcke. Wenn du bereits einen Widget-Bereich oder eine Sidebar konfiguriert hast, kannst du diese mit den untenstehenden Auswahlfeldern verwenden.</p>
 
 				<div id="grid-manager-presets-mirroring-column-1" class="grid-manager-presets-mirroring-column">
 					<div id="grid-manager-presets-mirroring-select-header">
@@ -117,7 +117,7 @@ class PadmaGridManagerBox extends PadmaVisualEditorBoxAPI {
 
 						<div class="select-container">
 							<select>
-								<option value="">&mdash; Do Not Mirror &mdash;</option>
+								<option value="">&mdash; Nicht spiegeln &mdash;</option>
 								<?php
 								echo self::get_blocks_select_options_for_mirroring('header');
 								?>
@@ -130,7 +130,7 @@ class PadmaGridManagerBox extends PadmaVisualEditorBoxAPI {
 
 						<div class="select-container">
 							<select>
-								<option value="">&mdash; Do Not Mirror &mdash;</option>
+								<option value="">&mdash; Nicht spiegeln &mdash;</option>
 								<?php
 								echo self::get_blocks_select_options_for_mirroring('navigation');
 								?>
@@ -143,7 +143,7 @@ class PadmaGridManagerBox extends PadmaVisualEditorBoxAPI {
 
 						<div class="select-container">
 							<select>
-								<option value="">&mdash; Do Not Mirror &mdash;</option>
+								<option value="">&mdash; Nicht spiegeln &mdash;</option>
 								<?php
 								echo self::get_blocks_select_options_for_mirroring('content');
 								?>
@@ -158,7 +158,7 @@ class PadmaGridManagerBox extends PadmaVisualEditorBoxAPI {
 
 						<div class="select-container">
 							<select>
-								<option value="">&mdash; Do Not Mirror &mdash;</option>
+								<option value="">&mdash; Nicht spiegeln &mdash;</option>
 								<?php
 								echo self::get_blocks_select_options_for_mirroring('widget-area');
 								?>
@@ -171,7 +171,7 @@ class PadmaGridManagerBox extends PadmaVisualEditorBoxAPI {
 
 						<div class="select-container">
 							<select>
-								<option value="">&mdash; Do Not Mirror &mdash;</option>
+								<option value="">&mdash; Nicht spiegeln &mdash;</option>
 								<?php
 								echo self::get_blocks_select_options_for_mirroring('widget-area');
 								?>
@@ -184,7 +184,7 @@ class PadmaGridManagerBox extends PadmaVisualEditorBoxAPI {
 
 						<div class="select-container">
 							<select>
-								<option value="">&mdash; Do Not Mirror &mdash;</option>
+								<option value="">&mdash; Nicht spiegeln &mdash;</option>
 								<?php
 								echo self::get_blocks_select_options_for_mirroring('footer');
 								?>
@@ -196,7 +196,7 @@ class PadmaGridManagerBox extends PadmaVisualEditorBoxAPI {
 			</div><!-- #grid-manager-presets-step-2 -->
 
 			<div class="grid-manager-buttons">
-				<span class="grid-manager-use-empty-grid">Use Empty Grid</span>
+				<span class="grid-manager-use-empty-grid">Leeres Raster verwenden</span>
 
 				<?php
 				if ( $pages_to_clone_select_options !== '' ) {
@@ -211,9 +211,9 @@ class PadmaGridManagerBox extends PadmaVisualEditorBoxAPI {
 
 				}
 
-				echo '<span id="grid-manager-button-preset-next" class="button grid-manager-button-next"' . $next_button_style . '>Next &rarr;</span>';
-				echo '<span id="grid-manager-button-preset-use-preset" class="button grid-manager-button-next"' . $use_button_style . '>Finish &rarr;</span>';
-				echo '<span id="grid-manager-button-preset-previous" class="button grid-manager-button-previous" style="display: none;">&larr; Previous</span>';
+				echo '<span id="grid-manager-button-preset-next" class="button grid-manager-button-next"' . $next_button_style . '>Weiter &rarr;</span>';
+				echo '<span id="grid-manager-button-preset-use-preset" class="button grid-manager-button-next"' . $use_button_style . '>Fertig &rarr;</span>';
+				echo '<span id="grid-manager-button-preset-previous" class="button grid-manager-button-previous" style="display: none;">&larr; Zurück</span>';
 				?>
 			</div>
 
@@ -224,7 +224,7 @@ class PadmaGridManagerBox extends PadmaVisualEditorBoxAPI {
 		?>
 		<div id="grid-manager-tab-clone-page" class="tab-content">
 
-			<h4>Choose a Layout to Clone</h4>
+			<h4>Wähle ein Layout zum Klonen</h4>
 
 			<?php
 			echo '<div class="select-container"><select id="grid-manager-pages-to-clone">';
@@ -245,9 +245,9 @@ class PadmaGridManagerBox extends PadmaVisualEditorBoxAPI {
 			?>
 
 			<div class="grid-manager-buttons">
-				<span class="grid-manager-use-empty-grid">Use Empty Grid</span>
+				<span class="grid-manager-use-empty-grid">Leeres Raster verwenden</span>
 
-				<span id="grid-manager-button-clone-page" class="button grid-manager-button-next">Clone Layout &rarr;</span>
+				<span id="grid-manager-button-clone-page" class="button grid-manager-button-next">Layout klonen &rarr;</span>
 			</div>
 
 		</div><!-- #grid-manager-tab-clone-page -->
@@ -259,12 +259,12 @@ class PadmaGridManagerBox extends PadmaVisualEditorBoxAPI {
 		?>
 		<div id="grid-manager-tab-assign-template" class="tab-content">
 
-			<h4>Choose a Shared Layout</h4>
+			<h4>Wähle ein Shared Layout</h4>
 
 			<?php
 			echo '<div class="select-container"><select id="grid-manager-assign-template">';
 
-				echo '<option value="" disabled="disabled">&mdash; Select a Shared Layout &mdash;</option>';
+				echo '<option value="" disabled="disabled">&mdash; Wähle ein Shared Layout &mdash;</option>';
 
 				echo $templates_to_assign_select_options;
 
@@ -272,9 +272,9 @@ class PadmaGridManagerBox extends PadmaVisualEditorBoxAPI {
 			?>
 
 			<div class="grid-manager-buttons">
-				<span class="grid-manager-use-empty-grid">Use Empty Grid</span>
+				<span class="grid-manager-use-empty-grid">Leeres Raster verwenden</span>
 
-				<span id="grid-manager-button-assign-template" class="button grid-manager-button-next">Assign Layout &rarr;</span>
+				<span id="grid-manager-button-assign-template" class="button grid-manager-button-next">Layout zuweisen &rarr;</span>
 			</div>
 
 		</div><!-- #grid-manager-tab-assign-template -->
@@ -286,15 +286,15 @@ class PadmaGridManagerBox extends PadmaVisualEditorBoxAPI {
 
 			<div id="grid-manager-import" class="grid-manager-buttons grid-manager-import-export-group">
 				<h4>Import Layout</h4>
-				<p>Select the Padma Layout file you would like to import.<br /><br /><strong>Note:</strong> When you browse to and select a file below the imported layout's blocks will automatically be added to the current layout.</p>
+				<p>Wähle die Padma Layout-Datei, die du importieren möchtest.<br /><br /><strong>Hinweis:</strong> Wenn du unten eine Datei auswählst, werden die Blöcke des importierten Layouts automatisch zum aktuellen Layout hinzugefügt.</p>
 				<input type="file" />
-				<span class="button" id="grid-manager-import-select-file">Select File &amp; Import</span>
+				<span class="button" id="grid-manager-import-select-file">Datei auswählen &amp; importieren</span>
 			</div><!-- #grid-manager-import -->
 
 			<div id="grid-manager-export" class="grid-manager-buttons grid-manager-import-export-group">
-				<h4>Export Current Layout</h4>
-				<p>Clicking on the button below will package up the current layout and its blocks into a file to be saved and imported later.</p>
-				<span class="button" id="grid-manager-export-download-file">Download Export File</span>
+				<h4>Exportiere aktuelles Layout</h4>
+				<p>Wenn du auf die Schaltfläche unten klickst, wird das aktuelle Layout und seine Blöcke in eine Datei verpackt, die gespeichert und später importiert werden kann.</p>
+				<span class="button" id="grid-manager-export-download-file">Exportdatei herunterladen</span>
 			</div><!-- #grid-manager-export -->
 
 		</div><!-- #grid-manager-tab-import-export -->

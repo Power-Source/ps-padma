@@ -41,7 +41,7 @@ class PadmaSidePanelDesignEditor {
 				<li><a href="#design-editor-element-selector-container">Navigator</a></li>
 				<li><a href="#design-editor-styles-container">Styles</a></li>
 
-				<span id="side-panel-collapse-arrow" title="' . __('Toggle Design Editor','padma') . '" class="tooltip-top-right"></span>
+				<span id="side-panel-collapse-arrow" title="' . __('Design-Editor umschalten','padma') . '" class="tooltip-top-right"></span>
 			</ul>
 		';
 
@@ -51,8 +51,8 @@ class PadmaSidePanelDesignEditor {
 
 			echo '</ul><!-- #design-editor-element-selector -->';
 
-			echo '<span class="button button-blue" id="element-selector-show-all-elements">' . __('Show All Elements','padma') . '</span>';
-			echo '<span class="button" id="element-selector-show-current-layout-elements">' . __('Show Current Layout Elements','padma') . '</span>';
+			echo '<span class="button button-blue" id="element-selector-show-all-elements">' . __('Zeige alle Elemente','padma') . '</span>';
+			echo '<span class="button" id="element-selector-show-current-layout-elements">' . __('Zeige Elemente des aktuellen Layouts','padma') . '</span>';
 
 		echo '</div><!-- #design-editor-element-selector-container -->';
 
@@ -62,18 +62,17 @@ class PadmaSidePanelDesignEditor {
 
 			echo '<div id="design-editor-styles-nothing-selected" class="design-editor-styles-message">';
 
-				echo '<p>' . __('You <strong>have not selected an element</strong> to edit.','padma') . '</p>';
-				echo '<p>' . __('Use the inspector to inspect an element you want to edit.','padma') . '</p>';
+				echo '<p>' . __('Du hast <strong>kein Element</strong> zum Bearbeiten ausgewählt..','padma') . '</p>';
+				echo '<p>' . __('Verwende den Inspektor, um ein Element auszuwählen, das du bearbeiten möchtest.','padma') . '</p>';
 
 				// Pending update docs
-				//echo '<a href="http://docs.padmaunlimited.com/article/49-the-inspector" target="_blank">Learn more about the inspector</a>';
-
+				//echo '<a href="http://docs.padmaunlimited.com/article/49-the-inspector" target="_blank">Learn more about the inspector</a>";
 			echo '</div><!-- #design-editor-styles-nothing-selected -->';
 
 
 			echo '<div id="design-editor-styles-no-styles" class="design-editor-styles-message">';
 
-				echo '<p>' . __('This element does not have any customized properties or instances.','padma') . '</p>';
+				echo '<p>' . __('Dieses Element besitzt keine benutzerdefinierten Eigenschaften oder Instanzen.','padma') . '</p>';
 
 			echo '</div><!-- #design-editor-styles-nothing-selected -->';
 
@@ -92,7 +91,7 @@ class PadmaSidePanelDesignEditor {
 		echo '
 			<div class="design-editor-info" style="display: none;">
 					<div class="design-editor-selection">
-						<strong>' . __('Editing:','padma') . '</strong>
+						<strong>' . __('Bearbeite:','padma') . '</strong>
 
 						<span class="design-editor-selection-details">
 							<strong class="design-editor-selected-element"></strong>
@@ -100,15 +99,15 @@ class PadmaSidePanelDesignEditor {
 							<span class="design-editor-selection-details-state-container"><span class="design-editor-selection-details-state-before"></span> <strong class="design-editor-selection-details-state"></strong></span>
 						</span>
 
-						<span class="button button-small design-editor-info-button customize-element-for-layout">' . __('Customize For Current Layout','padma') . '</span>
-						<span class="button button-small design-editor-info-button customize-for-regular-element">' . __('Customize Regular Element','padma') . '</span>
+						<span class="button button-small design-editor-info-button customize-element-for-layout">' . __('Passe für aktuelles Layout an','padma') . '</span>
+						<span class="button button-small design-editor-info-button customize-for-regular-element">' . __('Passe reguläres Element an','padma') . '</span>
 					</div>
 				</div><!-- .design-editor-info -->
 
 			<div class="design-editor-options-filter">
 				<input type="text" id="options-filter" placeholder="Filter" title="Filter options">
 				<a class="options-filter-reset"><span>x</span></a>
-				<a class="options-filter-only-modified">' . __('Show only modified options','padma') . '<input type="checkbox" id="options-filter-only-modified"></a>
+				<a class="options-filter-only-modified">' . __('Zeige nur geänderte Optionen','padma') . '<input type="checkbox" id="options-filter-only-modified"></a>
 			</div>
 			<div class="design-editor-options-container">
 

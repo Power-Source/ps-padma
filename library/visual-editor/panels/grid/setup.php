@@ -19,9 +19,9 @@ class GridSetupPanel extends PadmaVisualEditorPanelAPI {
 
 		$this->tab_notices = array(
 
-			'grid' => __('<strong>Note:</strong> the content in the grid above will not reflect how your site actually looks.  The content inside the blocks is to give you a general reference while you wireframe and build the layout to your site.<br /><br />The settings below are <strong>global</strong> and are not customized on a per-layout basis.','padma'),
+			'grid' => __('<strong>Hinweis:</strong> der Inhalt im Raster oben spiegelt nicht wider, wie Deine Webseite tatsächlich aussieht. Der Inhalt innerhalb der Blöcke dient als allgemeine Referenz, während Du das Layout Deiner Website entwirfst und erstellst.<br /><br />Die untenstehenden Einstellungen sind <strong>global</strong> und werden nicht pro Layout angepasst.','padma'),
 
-			'responsive-grid' => __('The Padma Responsive Grid allows the powerful grid in Padma Base to be custom-tailored depending on the device that the visitor is viewing the site from.  Please note: some sites may benefit from having the responsive grid enabled while other will not.  As the designer of the website, it is up to you to decide.  The responsive grid can be enabled or disabled at any time.','padma')
+			'responsive-grid' => __('Das Padma Responsive Grid ermöglicht es, das leistungsstarke Raster in Padma Base je nach Gerät, von dem der Besucher die Webseite betrachtet, individuell anzupassen. Bitte beachte: Einige Webseiten profitieren davon, das responsive Raster zu aktivieren, während andere dies nicht tun. Als Designer der Webseite liegt es an Dir, dies zu entscheiden. Das responsive Raster kann jederzeit aktiviert oder deaktiviert werden.','padma')
 		);
 
 		$this->inputs = array(
@@ -29,9 +29,9 @@ class GridSetupPanel extends PadmaVisualEditorPanelAPI {
 				'columns' => array(
 					'type' => 'slider',
 					'name' => 'columns',
-					'label' => __('Default Column Count','padma'), /* Column count is default only because you can't change it on the fly */
+					'label' => __('Standard-Spaltenanzahl','padma'), /* Column count is default only because you can't change it on the fly */
 					'default' => 24,
-					'tooltip' => __('The column count is the number of columns in the grid.  This is represented by the grey regions on the grid.<br /><br /><strong>This will NOT affect wrappers that are already created.  It only affects wrappers that are created after this setting is changed.</strong>','padma'),
+					'tooltip' => __('Die Spaltenanzahl ist die Anzahl der Spalten im Raster. Dies wird durch die grauen Bereiche im Raster dargestellt.<br /><br /><strong>Dies wirkt sich NICHT auf bereits erstellte Wrapper aus. Es betrifft nur Wrapper, die nach der Änderung dieser Einstellung erstellt werden.</strong>','padma'),
 					'slider-min' => 6,
 					'slider-max' => 24,
 					'slider-interval' => 1,
@@ -41,9 +41,9 @@ class GridSetupPanel extends PadmaVisualEditorPanelAPI {
 				'column-width' => array(
 					'type' => 'slider',
 					'name' => 'column-width',
-					'label' => __('Global Column Width','padma'),
+					'label' => __('Globale Spaltenbreite','padma'),
 					'default' => 26,
-					'tooltip' => __('The column width is the amount of space inside of each column.  This is represented by the grey regions on the grid.','padma'),
+					'tooltip' => __('Die Spaltenbreite ist der Raum innerhalb jeder Spalte. Dies wird durch die grauen Bereiche im Raster dargestellt.','padma'),
 					'unit' => 'px',
 					'slider-min' => 10,
 					'slider-max' => 120,
@@ -54,9 +54,9 @@ class GridSetupPanel extends PadmaVisualEditorPanelAPI {
 				'gutter-width' => array(
 					'type' => 'slider',
 					'name' => 'gutter-width',
-					'label' => __('Global Gutter Width','padma'),
+					'label' => __('Globale Gutter-Breite','padma'),
 					'default' => 22,
-					'tooltip' => __('The gutter width is the amount of space between each column.  This is the space between each of the grey regions on the grid.','padma'),
+					'tooltip' => __('Die Gutter-Breite ist der Abstand zwischen den einzelnen Spalten. Dies ist der Abstand zwischen den grauen Bereichen im Raster.','padma'),
 					'unit' => 'px',
 					'slider-min' => 0,
 					'slider-max' => 60,
@@ -69,7 +69,7 @@ class GridSetupPanel extends PadmaVisualEditorPanelAPI {
 					'unit' => 'px',
 					'default' => 1130,
 					'name' => 'grid-width',
-					'label' => __('Global Grid Width','padma'),
+					'label' => __('Globale Rasterbreite','padma'),
 					'readonly' => true
 				)
 			),
@@ -78,9 +78,9 @@ class GridSetupPanel extends PadmaVisualEditorPanelAPI {
 				'enable-responsive-grid' => array(
 					'type' => 'checkbox',
 					'name' => 'enable-responsive-grid',
-					'label' => __('Enable Responsive Grid','padma'),
+					'label' => __('Responsive Raster aktivieren','padma'),
 					'default' => true,
-					'tooltip' => __('If Padma\'s responsive grid is enabled, the grid will automatically adjust depending on the visitor\'s device (computer, iPhone, iPad, etc).  Enabling the responsive grid can be extremely beneficial for some websites, but may not be wortbthile for other websites.  If the responsive grid is enabled, the user will always have the option to disable the responsive grid via a link in the footer block.<br /><br /><strong>Please Note:</strong> with the responsive grid enabled, the exact pixel widths of blocks may differ very slightly from when it is <em>disabled</em>.','padma')
+					'tooltip' => __('Wenn Padmas responsive Raster aktiviert ist, passt sich das Raster automatisch an das Gerät des Besuchers an (Computer, iPhone, iPad usw.). Das Aktivieren des responsiven Rasters kann für einige Webseiten äußerst vorteilhaft sein, für andere jedoch weniger sinnvoll. Wenn das responsive Raster aktiviert ist, hat der Benutzer immer die Möglichkeit, das responsive Raster über einen Link im Footer-Block zu deaktivieren.<br /><br /><strong>Bitte beachte:</strong> Bei aktiviertem responsive Raster können die genauen Pixelbreiten der Blöcke geringfügig von denen abweichen, wenn es <em>deaktiviert</em> ist.','padma')
 				),
 
 				'responsive-video-resizing' => array(
@@ -88,7 +88,7 @@ class GridSetupPanel extends PadmaVisualEditorPanelAPI {
 					'name' => 'responsive-video-resizing',
 					'label' => __('Responsive Video Resizing','padma'),
 					'default' => true,
-					'tooltip' => __('If the Responsive Grid is enabled and the user visits the site when there are YouTube, Vimeo, or any other videos, then the videos will not resize properly unless then is checked.','padma')
+					'tooltip' => __('Wenn das Responsive Raster aktiviert ist und der Benutzer die Webseite besucht, während YouTube-, Vimeo- oder andere Videos vorhanden sind, werden die Videos nicht richtig skaliert, es sei denn, diese Option ist aktiviert.','padma')
 				)
 			)
 		);

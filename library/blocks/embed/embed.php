@@ -14,7 +14,7 @@ class PadmaEmbedBlock extends PadmaBlockAPI {
 		$this->id = 'embed';	
 		$this->name = __('Embed','padma');
 		$this->options_class = 'PadmaEmbedBlockOptions';	
-		$this->description = __('The Embed block allows you to embed YouTube, Vimeo, or any other popular oEmbed supported service.','padma');
+		$this->description = __('Mit dem Einbettungsblock kannst Du YouTube, Vimeo oder jeden anderen gängigen, von oEmbed unterstützten Dienst einbetten.','padma');
 		$this->categories = array('core','media');
 	}
 
@@ -46,7 +46,7 @@ class PadmaEmbedBlock extends PadmaBlockAPI {
 
 		} else {
 
-			echo '<div class="alert alert-yellow"><p>' . __('There is no content to display. Please enter a valid embed URL in the visual editor.','padma') . '</p></div>';
+			echo '<div class="alert alert-yellow"><p>' . __('Es gibt keine Inhalte anzuzeigen. Bitte gib eine gültige Einbettungs-URL im visuellen Editor ein.','padma') . '</p></div>';
 
 		}
 
@@ -129,7 +129,7 @@ class PadmaEmbedBlockOptions extends PadmaBlockOptionsAPI {
 		parent::__construct($block_type_object);
 
 		$this->tabs = array(
-			'embed-options' => __('Embed Options','padma')
+			'embed-options' => __('Embed Optionen','padma')
 		);
 
 		$this->inputs = array(
@@ -137,7 +137,7 @@ class PadmaEmbedBlockOptions extends PadmaBlockOptionsAPI {
 				'embed-notice' => array(
 					'name' => 'embed-notice',
 					'type' => 'notice',
-					'notice' => __('Enter the URL <strong>(No HTML)</strong> to the media you wish to embed.  We support most major video and photo sites including (but not limited to) YouTube, Vimeo, Flickr, blip.tv, Hulu, and more.  <em>Need more info about oEmbed?  <a href="http://codex.wordpress.org/Embeds" target="_blank">Read More &rarr;</a></em>','padma')
+					'notice' => __('Gib die URL <strong>(kein HTML)</strong> zu den Medien ein, die Du einbetten möchtest. Wir unterstützen die meisten großen Video- und Fotoseiten, einschließlich (aber nicht beschränkt auf) YouTube, Vimeo, Flickr, blip.tv, Hulu und mehr. <em>Mehr Infos zu oEmbed?  <a href="http://codex.wordpress.org/Embeds" target="_blank">Mehr erfahren &rarr;</a></em>','padma')
 				),
 
 				'embed-url' => array(
@@ -145,7 +145,7 @@ class PadmaEmbedBlockOptions extends PadmaBlockOptionsAPI {
 					'name' => 'embed-url',
 					'label' => __('Embed URL','padma'),
 					'default' => null,
-					'placeholder' => __('URL of Media','padma')
+					'placeholder' => __('URL der Medien','padma')
 				)
 			)
 		);

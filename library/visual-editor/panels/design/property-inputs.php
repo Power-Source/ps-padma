@@ -148,7 +148,7 @@ class PadmaPropertyInputs {
 					continue;
 
 				$customized_box_class = ' design-editor-box-customized';
-				$property_box_title = ' title="' . __('You have customized a property in this property group.', 'padma') . '"';
+				$property_box_title = ' title="' . __('Du hast eine Eigenschaft in dieser Eigenschaftsgruppe angepasst.', 'padma') . '"';
 
 				break;
 
@@ -265,8 +265,8 @@ class PadmaPropertyInputs {
 				}	
 
 			/* Set up elements and attributes */
-				$uncustomize_button = $element_args['special_element_type'] != 'default' ? '<span class="uncustomize-property tooltip" title="Delete this customization."></span>' : null;
-				$customize_button = $element_args['special_element_type'] != 'default' ? '<div class="customize-property"><span class="tooltip" title="Click to change the value for this property.  If left uncustomized, the property will automatically inherit to the default set for this element type in the defaults tab or the parent element if editing a state, instance, or layout-specific element.">Customize</span></div>' : null;
+				$uncustomize_button = $element_args['special_element_type'] != 'default' ? '<span class="uncustomize-property tooltip" title="Lösche diese Anpassung."></span>' : null;
+				$customize_button = $element_args['special_element_type'] != 'default' ? '<div class="customize-property"><span class="tooltip" title="Klicke, um den Wert für diese Eigenschaft zu ändern. Wenn nicht angepasst, erbt die Eigenschaft automatisch den Standardwert für diesen Elementtyp im Tab "Standards" oder das übergeordnete Element, wenn ein zustands-, instanz- oder layoutspezifisches Element bearbeitet wird.">Anpassen</span></div>' : null;
 
 
 				$js_callback = ( !empty($property_options['js-callback']) ) ? $property_options['js-callback'] : '';
@@ -301,7 +301,7 @@ class PadmaPropertyInputs {
 				if ( $property_options['customized'] ) {
 
 					$property_classes[] = 'customized-property-by-user';
-					$property_title = ' title="' . __('You have customized this property.', 'padma') . '"';
+					$property_title = ' title="' . __('Du hast diese Eigenschaft angepasst.', 'padma') . '"';
 
 				} else if ( $element_args['special_element_type'] !== 'default' ) {
 
@@ -497,11 +497,11 @@ class PadmaPropertyInputs {
 		$filename = end($filename_parts);
 
 		echo '
-			<span class="button">Choose</span>
+			<span class="button">Wählen</span>
 
 			<div class="image-input-controls-container"' . $src_visibility . '>
 				<span class="src">' . $filename . '</span>
-				<span class="delete-image">Delete</span>
+				<span class="delete-image">Löschen</span>
 			</div>
 		';
 

@@ -16,7 +16,7 @@ class PadmaDividerBlock extends PadmaBlockAPI {
 		$this->id = 'divider';
 		$this->name = __('Divider','padma');
 		$this->options_class = 'PadmaDividerBlockOptions';
-		$this->description = __('Implement a design that makes use of well-divided sections.','padma');
+		$this->description = __('Setze ein Design um, das gut unterteilte Abschnitte nutzt.','padma');
 		$this->categories 	= array('core');
 		$this->inline_editable = array('block-title', 'block-subtitle');
 
@@ -291,18 +291,18 @@ class PadmaDividerBlockOptions extends PadmaBlockOptionsAPI {
 				'style' => array(
 					'type' => 'select',
 					'name' => 'style',
-					'label' => __('Divider style','padma'),
+					'label' => __('Trennlinienstil','padma'),
 					'default' => 'style-1',
 					'options' => array(
-						'style-1' => 'Style 1 - Diagonal left to bottom',
-						'style-2' => 'Style 2 - Diagonal right to bottom',
-						'style-3' => 'Style 3 - Diagonal left to top',
-						'style-4' => 'Style 4 - Diagonal right to top',
-						'style-5' => 'Style 5 - Arrow to down',
-						'style-6' => 'Style 6 - Arrow to up',
-						'style-7' => 'Style 7 - Triangles',
-						'style-8' => 'Style 8 - Double Diagonal to right',
-						'style-9' => 'Style 9 - Double Diagonal to left',
+						'style-1' => 'Stil 1 – Diagonal von links nach unten',
+						'style-2' => 'Stil 2 – Diagonal von rechts nach unten',
+						'style-3' => 'Stil 3 – Diagonal von links nach oben',
+						'style-4' => 'Stil 4 – Diagonal von rechts nach oben',
+						'style-5' => 'Stil 5 – Pfeil nach unten',
+						'style-6' => 'Stil 6 – Pfeil nach oben',
+						'style-7' => 'Stil 7 – Dreiecke',
+						'style-8' => 'Stil 8 – Doppelte Diagonale nach rechts',
+						'style-9' => 'Stil 9 – Doppelte Diagonale nach links',
 					),
 					'toggle' => array(
 						'style-1' => array(
@@ -350,25 +350,25 @@ class PadmaDividerBlockOptions extends PadmaBlockOptionsAPI {
 				'height' => array(
 					'type' => 'integer',
 					'name' => 'height',
-					'label' => __('Divider height','padma'),
+					'label' => __('Trennlinienhöhe','padma'),
 					'default' => '100',					
 				),
 				'main-color' => array(
 					'type' => 'colorpicker',
 					'name' => 'main-color',
-					'label' => __('Main color','padma'),
+					'label' => __('Hauptfarbe','padma'),
 					'default' => '#c62040',
 				),
 				'secondary-color' => array(
 					'type' => 'colorpicker',
 					'name' => 'secondary-color',
-					'label' => __('Secondary color','padma'),
+					'label' => __('Sekundärfarbe','padma'),
 					'default' => '#73a6c0',
 				),
 				'bg-color' => array(
 					'type' => 'colorpicker',
 					'name' => 'bg-color',
-					'label' => __('background color','padma'),
+					'label' => __('Hintergrundfarbe','padma'),
 					'default' => '#fff',
 				),
 			)

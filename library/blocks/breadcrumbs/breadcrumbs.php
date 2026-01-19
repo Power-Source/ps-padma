@@ -18,7 +18,7 @@ class PadmaBreadcrumbsBlock extends PadmaBlockAPI {
 		$this->id = 'breadcrumbs';
 		$this->name = __('Breadcrumbs','padma');
 		$this->fixed_height = true;
-		$this->description = __('Breadcrumbs aid in the navigation of your site by showing a visual hierarchy of where your visitor is.<br /><strong>Example:</strong> Home &raquo; Blog &raquo; Sample Blog Post','padma');	
+		$this->description = __('Breadcrumbs helfen bei der Navigation Deiner Webseite, indem sie eine visuelle Hierarchie dessen anzeigen, wo sich der Besucher befindet.<br /><strong>Beispiel:</strong> Startseite &raquo; Blog &raquo; Beispiel Blog Beitrag','padma');	
 		$this->options_class = 'PadmaBreadcrumbsBlockOptions';
 		$this->categories 	= array('core','navigation');		
 		$this->inline_editable = array('block-title', 'block-subtitle', 'prefix-text', 'separator');
@@ -40,7 +40,7 @@ class PadmaBreadcrumbsBlock extends PadmaBlockAPI {
 
 		$this->register_block_element(array(
 			'id' => 'separators',
-			'name' => __('Separators','padma'),
+			'name' => __('Trennzeichen','padma'),
 			'selector' => 'span.sep'
 		));
 
@@ -115,7 +115,7 @@ class PadmaBreadcrumbsBlock extends PadmaBlockAPI {
 		/* Searches */
 			else if ( is_search() ) {
 
-				$breadcrumbs[] = __('Search Results For:', 'padma') . ' ' . get_search_query();
+				$breadcrumbs[] = __('Suchergebnisse für:', 'padma') . ' ' . get_search_query();
 
 			}
 
@@ -124,28 +124,28 @@ class PadmaBreadcrumbsBlock extends PadmaBlockAPI {
 
 				$author = get_queried_object();
 
-				$breadcrumbs[] = __('Author Archives:', 'padma') . ' ' . $author->display_name;
+				$breadcrumbs[] = __('Autor Archiv:', 'padma') . ' ' . $author->display_name;
 
 			}
 
 		/* Tag Archives */
 			else if ( is_tag() ) {
 
-				$breadcrumbs[] = __('Tag Archives:', 'padma') . ' ' . single_tag_title('', false);
+				$breadcrumbs[] = __('Tag Archiv:', 'padma') . ' ' . single_tag_title('', false);
 
 			}
 
 		/* Date Archives */
 			else if ( is_date() ) {
 
-				$breadcrumbs[] = __('Archives:', 'padma') . ' ' . get_the_time('F Y'); 
+				$breadcrumbs[] = __('Archiv:', 'padma') . ' ' . get_the_time('F Y'); 
 
 			}
 
 		/* 404's */
 			else if ( is_404() ) {
 
-				$breadcrumbs[] = __('Whoops! Page Not Found...', 'padma');
+				$breadcrumbs[] = __('Hoppla! Seite nicht gefunden...', 'padma');
 
 			}
 
@@ -153,7 +153,7 @@ class PadmaBreadcrumbsBlock extends PadmaBlockAPI {
 			echo '<p class="breadcrumbs" xmlns:v="http://rdf.data-vocabulary.org/#">';
 
 				if ( parent::get_setting($block, 'show-prefix', false) )
-					echo '<span class="breadcrumbs-prefix prefix-text">' . parent::get_setting($block, 'prefix-text', __('You Are Here:', 'padma')) . '</span>&ensp;';
+					echo '<span class="breadcrumbs-prefix prefix-text">' . parent::get_setting($block, 'prefix-text', __('Du bist hier:', 'padma')) . '</span>&ensp;';
 
 				$breadcrumbs = apply_filters('padma_breadcrumbs', $breadcrumbs);
 
@@ -209,25 +209,25 @@ class PadmaBreadcrumbsBlockOptions extends PadmaBlockOptionsAPI {
 			'general' => array(
 				'show-prefix' => array(
 					'name' => 'show-prefix',
-					'label' => __('Show "You Are Here" prefix','padma'),
+					'label' => __('"Du bist hier:" Präfix anzeigen','padma'),
 					'type' => 'checkbox',
-					'tooltip' => __('If you would like the breadcrumbs to show "You Are Here:" or anything similar in front of the breadcrumb trail, then check this.','padma'),
+					'tooltip' => __('Wenn Du möchtest, dass die Breadcrumbs "Du bist hier:" oder etwas Ähnliches vor der Breadcrumb-Spur anzeigen, dann aktiviere diese Option.','padma'),
 					'default' => false
 				),
 
 				'prefix-text' => array(
 					'name' => 'prefix-text',
-					'label' => __('Prefix Text','padma'),
+					'label' => __('Präfixtext','padma'),
 					'type' => 'text',
-					'tooltip' => __('If the previous checkbox is checked, then you may customize the prefix text.','padma'),
-					'default' => __('You Are Here:','padma')
+					'tooltip' => __('Wenn das vorherige Kontrollkästchen aktiviert ist, kannst Du den Präfixtext anpassen.','padma'),
+					'default' => __('Du bist hier:','padma')
 				),
 
 				'separator' => array(
 					'name' => 'separator',
-					'label' => __('Separator','padma'),
+					'label' => __('Trennzeichen','padma'),
 					'type' => 'text',
-					'tooltip' => __('This will be shown between each breadcrumb.  e.g. If the separator is "&raquo;" then it will be shown as Home &raquo; Page Name.','padma'),
+					'tooltip' => __('Dies wird zwischen jedem Breadcrumb angezeigt. Zum Beispiel, wenn das Trennzeichen "&raquo;" ist, wird es als Home &raquo; Seitenname angezeigt.','padma'),
 					'default' => '&raquo;'
 				)
 			)

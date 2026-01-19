@@ -831,26 +831,26 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 		parent::__construct($block_type_object);
 
 		$this->tab_notices = array(
-			'mode' => __('The content block is extremely versatile.  If the default mode is selected, it will do what you expect it to do.  For example, if you add this on a page, it will display that page\'s content.  If you add it on the Blog Index layout, it will list the posts like a normal blog template and if you add this box on a category layout, it will list posts of that category.  If you wish to change what the content block displays, change the mode to <em>Custom Query</em> and use the settings in the <em>Query Filters</em> tab.','padma'),
+			'mode' => __('Der Content Block ist äußerst vielseitig.  Wenn der Standardmodus ausgewählt ist, verhält sich das Element wie erwartet. Wenn Du es beispielsweise auf einer Seite hinzufügst, wird deren Inhalt angezeigt. Fügee es im Blog-Übersichtslayout hinzu, werden die Beiträge wie in einer normalen Blogvorlage aufgelistet, und füge es in einem Kategorielayout hinzu, werden die Beiträge dieser Kategorie angezeigt. Um die Anzeige des Inhaltsblocks anzupassen, ändere den Modus auf „Benutzerdefinierte Abfrage“ und verwendest die Einstellungen im Tab „Abfragefilter“.','padma'),
 
-			'query-setup' => __('For more control over queries and how the query is displayed, Padma works perfectly out-of-the-box with <a href="http://pluginbuddy.com/purchase/loopbuddy/" target="_blank">LoopBuddy</a>.','padma'),
+			'query-setup' => __('Für mehr Kontrolle über Abfragen und deren Anzeige funktioniert Padma perfekt mit <a href="http://pluginbuddy.com/purchase/loopbuddy/" target="_blank">LoopBuddy</a>.','padma'),
 
 			'meta' => __('
-				<p>The entry meta is the information that appears below the post title and below the post content.  By default, it will contain information about the entry author, the categories, and comments.</p>
-				<p><strong>Available Variables:</strong></p>
+				<p>Die Metadaten eines Beitrags sind die Informationen, die unterhalb des Beitragstitels und des Beitragsinhalts angezeigt werden. Standardmäßig enthalten sie Informationen zum Autor des Beitrags, den Kategorien und Kommentaren.</p>
+				<p><strong>Verfügbare Variablen:</strong></p>
 				<p>%date% &bull; %modified_date% &bull; %time% &bull; %comments% &bull; %comments_no_link% &bull; %respond% &bull; %author% &bull; %author_no_link% &bull; %categories% &bull; %tags% &bull; %publisher% &bull; %publisher_img% &bull; %publisher_no_img%</p>
 			','padma')
 		);
 
 
 		$this->tabs = array(
-			'mode' 				=> __('Mode','padma'),
-			'query-filters' 	=> __('Query Filters','padma'),
-			'display' 			=> __('Display','padma'),
-			'custom-fields'		=> __('Custom Fields','padma'),
-			'meta' 				=> __('Meta','padma'),		
-			'comments' 			=> __('Comments','padma'),
-			'post-thumbnails' 	=> __('Featured Images','padma')
+			'mode' 				=> __('Modus','padma'),
+			'query-filters' 	=> __('Abfragefilter','padma'),
+			'display' 			=> __('Anzeige','padma'),
+			'custom-fields'		=> __('Benutzerdefinierte Felder','padma'),
+			'meta' 				=> __('Metadaten','padma'),		
+			'comments' 			=> __('Kommentare','padma'),
+			'post-thumbnails' 	=> __('Featured Bilder','padma')
 		);
 
 
@@ -860,11 +860,11 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 				'mode' => array(
 					'type' => 'select',
 					'name' => 'mode',
-					'label' => __('Query Mode','padma'),
+					'label' => __('Abfragemodus','padma'),
 					'tooltip' => '',
 					'options' => array(
-						'default' => __('Default Behavior','padma'),
-						'custom-query' => __('Custom Query','padma')
+						'default' => __('Standardverhalten','padma'),
+						'custom-query' => __('Benutzerdefinierte Abfrage','padma')
 					),
 					'toggle'    => array(
 						'custom-query' => array(
@@ -885,28 +885,28 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 				'page-fetch-query-heading' => array(
 					'name' => 'page-fetch--query-heading',
 					'type' => 'heading',
-					'label' => __('Fetch a Page','padma')
+					'label' => __('Seite abrufen','padma')
 				),
 
 				'fetch-page-content' => array(
 					'type' => 'select',
 					'name' => 'fetch-page-content',
-					'label' => __('Fetch Page Content','padma'),
-					'tooltip' => __('Query options have no effect if you have chosen to Fetch a Page','padma'),
+					'label' => __('Seiteninhalt abrufen','padma'),
+					'tooltip' => __('Abfrageoptionen haben keine Auswirkung, wenn Du Dich entschieden hast, eine Seite abzurufen','padma'),
 					'options' => 'get_pages()'
 				),
 
 				'custom-query-heading' => array(
 					'name' => 'custom-query-heading',
 					'type' => 'heading',
-					'label' => __('Query Filters','padma'),
-					'tooltip' => __('Query options have no effect if you have chosen to Fetch a Page\'s content above','padma')
+					'label' => __('Abfragefilter','padma'),
+					'tooltip' => __('Abfrageoptionen haben keine Auswirkung, wenn Du Dich entschieden hast, eine Seite abzurufen','padma')
 				),
 
 				'categories' => array(
 					'type' => 'multi-select',
 					'name' => 'categories',
-					'label' => __('Categories','padma'),
+					'label' => __('Kategorien','padma'),
 					'tooltip' => '',
 					'options' => 'get_categories()'
 				),
@@ -914,11 +914,11 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 				'categories-mode' => array(
 					'type' => 'select',
 					'name' => 'categories-mode',
-					'label' => __('Categories Mode','padma'),
+					'label' => __('Kategorien Modus','padma'),
 					'tooltip' => '',
 					'options' => array(
-						'include' => __('Include','padma'),
-						'exclude' => __('Exclude','padma')
+						'include' => __('Einbeziehen','padma'),
+						'exclude' => __('Ausschließen','padma')
 					)
 				),
 
@@ -926,7 +926,7 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 					'type' => 'checkbox',
 					'name' => 'tags-filter',
 					'label' => __('Tags Filter','padma'),
-					'tooltip' => __('Check this to allow the tags filter show.','padma'),
+					'tooltip' => __('Aktiviere dies, um den Tags-Filter anzuzeigen.','padma'),
 					'default' => false,
 					'toggle'    => array(
 						'false' => array(
@@ -953,7 +953,7 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 				'post-type' => array(
 					'type' => 'multi-select',
 					'name' => 'post-type',
-					'label' => __('Post Type','padma'),
+					'label' => __('Beitragstyp','padma'),
 					'tooltip' => '',
 					'options' => 'get_post_types()',
 					'callback' => 'reloadBlockOptions(block.id)'
@@ -962,7 +962,7 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 				'post-status' => array(
 					'type' => 'multi-select',
 					'name' => 'post-status',
-					'label' => __('Post Status','padma'),
+					'label' => __('Beitragsstatus','padma'),
 					'tooltip' => '',
 					'options' => 'get_post_status()'
 				),
@@ -970,7 +970,7 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 				'author' => array(
 					'type' => 'multi-select',
 					'name' => 'author',
-					'label' => __('Author','padma'),
+					'label' => __('Autor','padma'),
 					'tooltip' => '',
 					'options' => 'get_authors()'
 				),
@@ -978,7 +978,7 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 				'number-of-posts' => array(
 					'type' => 'integer',
 					'name' => 'number-of-posts',
-					'label' => __('Number of Posts','padma'),
+					'label' => __('Anzahl der Beiträge','padma'),
 					'tooltip' => '',
 					'default' => 10
 				),
@@ -987,83 +987,83 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 					'type' => 'integer',
 					'name' => 'offset',
 					'label' => __('Offset','padma'),
-					'tooltip' => __('The offset is the number of entries or posts you would like to skip.  If the offset is 1, then the first post will be skipped.','padma'),
+					'tooltip' => __('Der Offset ist die Anzahl der Einträge oder Beiträge, die Du überspringen möchtest. Wenn der Offset 1 ist, wird der erste Beitrag übersprungen.','padma'),
 					'default' => 0
 				),
 
 				'order-by' => array(
 					'type' => 'select',
 					'name' => 'order-by',
-					'label' => __('Order By','padma'),
+					'label' => __('Sortieren nach','padma'),
 					'tooltip' => '',
 					'options' => array(
-						'date' => __('Date','padma'),
-						'title' => __('Title','padma'),
-						'rand' => __('Random','padma'),
-						'comment_count' => __('Comment Count','padma'),
+						'date' => __('Datum','padma'),
+						'title' => __('Titel','padma'),
+						'rand' => __('Zufällig','padma'),
+						'comment_count' => __('Anzahl der Kommentare','padma'),
 						'ID' => 'ID',
-						'author' => __('Author','padma'),
-						'type' => __('Post Type','padma'),
-						'menu_order' => __('Custom Order','padma')
+						'author' => __('Autor','padma'),
+						'type' => __('Beitragstyp','padma'),
+						'menu_order' => __('Benutzerdefinierte Reihenfolge','padma')
 					)
 				),
 
 				'order' => array(
 					'type' => 'select',
 					'name' => 'order',
-					'label' => __('Order','padma'),
+					'label' => __('Reihenfolge','padma'),
 					'tooltip' => '',
 					'options' => array(
-						'desc' => __('Descending','padma'),
-						'asc' => __('Ascending','padma'),
+						'desc' => __('Absteigend','padma'),
+						'asc' => __('Aufsteigend','padma'),
 					)
 				),
 				'byid-include' => array(
 					'type' => 'text',
 					'name' => 'byid-include',
-					'label' => __('Include by ID','padma'),
-					'tooltip' => __('In both Include and Exclude by ID, you use a comma separated list of IDs of your post type.','padma')
+					'label' => __('Inkludiert nach ID','padma'),
+					'tooltip' => __('Sowohl bei "Inkludiert nach ID" als auch bei "Ausschließen nach ID" verwendest Du eine durch Kommas getrennte Liste von IDs Deines Beitragstyps.','padma')
 					),
 
 				'byid-exclude' => array(
 					'type' => 'text',
 					'name' => 'byid-exclude',
-					'label' => __('Exclude by ID','padma'),
-					'tooltip' => __('In both Include and Exclude by ID, you use a comma separated list of IDs of your post type.','padma')
+					'label' => __('Ausschließen nach ID','padma'),
+					'tooltip' => __('Sowohl bei "Inkludiert nach ID" als auch bei "Ausschließen nach ID" verwendest Du eine durch Kommas getrennte Liste von IDs Deines Beitragstyps.','padma')
 				)
 			),
 
 			'display' => array(
 				'read-more-text' => array(
 					'type' => 'text',
-					'label' => __('Read More Text','padma'),
+					'label' => __('Weiterlesen Text','padma'),
 					'name' => 'read-more-text',
-					'default' => __('Continue Reading','padma'),
-					'tooltip' => __('If excerpts are being shown or a featured post is truncated using WordPress\' read more shortcode, then this will be shown after the excerpt or truncated content.','padma')
+					'default' => __('Weiterlesen','padma'),
+					'tooltip' => __('Falls Auszüge angezeigt werden oder ein vorgestellter Beitrag mit dem WordPress "Weiterlesen" Shortcode gekürzt wird, wird dieser Text nach dem Auszug oder gekürzten Inhalt angezeigt.','padma')
 				),
 
 				'show-titles' => array(
 					'type' => 'checkbox',
 					'name' => 'show-titles',
-					'label' => __('Show Titles','padma'),
+					'label' => __('Titel anzeigen','padma'),
 					'default' => true,
-					'tooltip' => __('If you wish to only show the content and meta of the entry, you can hide the entry (post or page) titles with this option.','padma')
+					'tooltip' => __('Wenn Du nur den Inhalt und die Metadaten des Eintrags anzeigen möchtest, kannst Du mit dieser Option die Titel des Eintrags (Beitrag oder Seite) ausblenden.','padma')
 				),
 
 				'link-titles'  => array(
 					'type' => 'checkbox',
 					'name' => 'link-titles',
-					'label' => __('Link Titles?','padma'),
+					'label' => __('Titel verlinken?','padma'),
 					'default' => true,
-					'tooltip' => __('If you wish to turn off the link to Post/Page titles, uncheck this','padma')
+					'tooltip' => __('Wenn Du den Link zu den Beitrags-/Seitentiteln deaktivieren möchtest, deaktiviere diese Option.','padma')
 				),
 
 				'show-archive-title'  => array(
 					'type' => 'checkbox',
 					'name' => 'show-archive-title',
-					'label' => __('Show Archive Title?','padma'),
+					'label' => __('Archiv-Titel anzeigen?','padma'),
 					'default' => true,
-					'tooltip' => __('If you wish to turn off the page title on archive layouts (e.g. category, tag, etc), uncheck this','padma')
+					'tooltip' => __('Wenn Du den Seitentitel in Archiv-Layouts (z.B. Kategorie, Schlagwort, etc.) ausschalten möchtest, deaktiviere diese Option.','padma')
 				),
 
 				'show-archive-title-type' => array(
@@ -1072,11 +1072,11 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 					'default' => 'normal',
 					'options' => array(
 						'normal' => 'Normal',
-						'only-archive-name' => __('Only archive name','padma'),
-						'show-custom-archive-title' => __('Custom title','padma'),
+						'only-archive-name' => __('Nur Archivname','padma'),
+						'show-custom-archive-title' => __('Benutzerdefinierter Titel','padma'),
 					),
-					'label' => __('Archive Title type','padma'),
-					'tooltip' => __('Display normal title, only archive (category, tag, etc) or Custom Archive Title','padma'),
+					'label' => __('Archiv-Titel Typ','padma'),
+					'tooltip' => __('Zeige normalen Titel, nur Archiv (Kategorie, Schlagwort, etc.) oder benutzerdefinierten Archiv-Titel an','padma'),
 					'toggle' => array(
 						'normal' => array(
 							'hide' => array(
@@ -1101,29 +1101,29 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 				'custom-archive-title'  => array(
 					'type' => 'text',
 					'name' => 'custom-archive-title',
-					'label' => __('Custom Archive title','padma'),
-					'tooltip' => __('Use custom title for archive. Use %archive% for category, tag, etc: example "Category Archives: %archive%"','padma')				
+					'label' => __('Benutzerdefinierter Archiv-Titel','padma'),
+					'tooltip' => __('Verwende einen benutzerdefinierten Titel für das Archiv. Verwende %archive% für Kategorie, Schlagwort, etc.: Beispiel "Kategorie-Archiv: %archive%"','padma')				
 				),
 
 				'show-readmore' => array(
 					'type' => 'checkbox',
 					'name' => 'show-readmore',
-					'label' => __('Show Read More','padma'),
+					'label' => __('Weiterlesen anzeigen','padma'),
 					'default' => true,
-					'tooltip' => __('Show and hide the continue reading or read more text/button.','padma')
+					'tooltip' => __('Zeige oder verstecke den "Weiterlesen" Text/Knopf.','padma')
 				),
 
 				'entry-content-display' => array(
 					'type' => 'select',
 					'name' => 'entry-content-display',
-					'label' => __('Entry Content Display','padma'),
-					'tooltip' => __('The entry content is the actual body of the entry.  This is what you enter in the rich text area when creating an entry (post or page).  When set to normal, Padma will determine if full entries or excerpts should be displayed based off of the <em>Featured Posts</em> setting and what page is being displayed.<br /><br /><strong>Tip:</strong> Set this to <em>Hide Entry Content</em> to create a simple listing of posts.','padma'),
+					'label' => __('Eintragsinhalt anzeigen','padma'),
+					'tooltip' => __('Der Eintragsinhalt ist der eigentliche Text des Eintrags. Dies ist das, was Du im Rich-Text-Bereich eingibst, wenn Du einen Eintrag (Beitrag oder Seite) erstellst. Wenn auf "Normal" gesetzt, bestimmt Padma, ob vollständige Einträge oder Auszüge basierend auf der Einstellung <em>Featured Posts</em> und der angezeigten Seite angezeigt werden.<br /><br /><strong>Tipp:</strong> Setze dies auf <em>Eintragsinhalt ausblenden</em>, um eine einfache Auflistung von Beiträgen zu erstellen.','padma'),
 					'default' => 'normal',
 					'options' => array(
 						'normal' => 'Normal',
-						'full-entries' => __('Show Full Entries','padma'),
-						'excerpts' => __('Show Excerpts','padma'),
-						'hide' => __('Hide Entry Content','padma')
+						'full-entries' => __('Vollständige Einträge anzeigen','padma'),
+						'excerpts' => __('Auszüge anzeigen','padma'),
+						'hide' => __('Eintragsinhalt ausblenden','padma')
 					),
 					'toggle' => array(
 						'normal' => array(
@@ -1156,46 +1156,46 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 				'show-entry' => array(
 					'type' => 'checkbox',
 					'name' => 'show-entry',
-					'label' => __('Show Entry','padma'),
+					'label' => __('Eintrag anzeigen','padma'),
 					'default' => true,
-					'tooltip' => __('By default, the entries will always be shown.  However, there may be certain cases where you wish to show the entry content in one Content Block, but the comments in another.  With this option, you can do that.','padma')
+					'tooltip' => __('Standardmäßig werden die Einträge immer angezeigt. Es kann jedoch Fälle geben, in denen Du den Eintragsinhalt in einem Inhaltsblock anzeigen möchtest, aber die Kommentare in einem anderen. Mit dieser Option kannst Du das tun.','padma')
 				),
 
 				'comments-visibility' => array(
 					'type' => 'select',
 					'name' => 'comments-visibility',
-					'label' => __('Comments Visibility','padma'),
+					'label' => __('Kommentare anzeigen','padma'),
 					'default' => 'auto',
 					'options' => array(
-						'auto' => 'Automatic',
-						'hide' => __('Always Hide Comments','padma'),
-						'show' => __('Always Show Comments','padma')
+						'auto' => 'Automatisch',
+						'hide' => __('Kommentare immer ausblenden','padma'),
+						'show' => __('Kommentare immer anzeigen','padma')
 					),
-					'tooltip' => __('When set to automatic, the comments will only show on single post pages.  However, there may be times where you want to force comment visibility to allow comments on pages.  Or, you may hide the comments if you wish to not see them at all.<br /><br /><strong>Tip:</strong> Create unique layouts by using this option in conjunction with the Show Entry option to show the entry content in one Content Block and show the comments in another Content Block.','padma')
+					'tooltip' => __('Falls auf Automatisch gesetzt, werden die Kommentare nur auf einzelnen Beitragsseiten angezeigt. Es kann jedoch Zeiten geben, in denen Du die Kommentarsichtbarkeit erzwingen möchtest, um Kommentare auf Seiten zuzulassen. Oder Du kannst die Kommentare ausblenden, wenn Du sie überhaupt nicht sehen möchtest.<br /><br /><strong>Tipp:</strong> Erstelle einzigartige Layouts, indem Du diese Option in Verbindung mit der Option Eintrag anzeigen verwendest, um den Eintragsinhalt in einem Inhaltsblock anzuzeigen und die Kommentare in einem anderen Inhaltsblock anzuzeigen.','padma')
 				),
 
 				'featured-posts' => array(
 					'type' => 'integer',
 					'name' => 'featured-posts',
-					'label' => __('Featured Posts','padma'),
+					'label' => __('Hervorgehobene Beiträge','padma'),
 					'default' => 1,
-					'tooltip' => __('Featured posts are the posts where all of the content is displayed, unless limited by using the WordPress more tag.  After the featured posts are displayed, the content will automatically switch to showing automatically truncated excerpts.','padma')
+					'tooltip' => __('Hervorgehobene Beiträge sind Beiträge, in denen der gesamte Inhalt angezeigt wird, sofern dies nicht durch den WordPress-Tag „Mehr“ eingeschränkt wird. Nach der Anzeige der hervorgehobenen Beiträge wird automatisch auf die Darstellung von gekürzten Auszügen umgeschaltet.','padma')
 				),
 
 				'paginate' => array(
 					'type' => 'checkbox',
 					'name' => 'paginate',
-					'label' => __('Show Older/Newer Posts Navigation','padma'),
-					'tooltip' => __('On archive layouts: Show links at the bottom of the loop for the visitor to view older or newer posts.','padma'),
+					'label' => __('Ältere/Neuere Beiträge Navigation anzeigen','padma'),
+					'tooltip' => __('In Archiv-Layouts: Zeige Links am Ende der Schleife an, damit der Besucher ältere oder neuere Beiträge ansehen kann.','padma'),
 					'default' => true
 				),
 
 				'show-single-post-navigation' => array(
 					'type' => 'checkbox',
 					'name' => 'show-single-post-navigation',
-					'label' => __('Show Single Post Navigation','padma'),
+					'label' => __('Einzelbeitragsnavigation anzeigen','padma'),
 					'default' => true,
-					'tooltip' => __('By default, Padma will show links to the previous and next posts below an entry when viewing only one entry at a time.  You can choose to hide those links with this option.','padma'),
+					'tooltip' => __('Standardmäßig zeigt Padma Links zu den vorherigen und nächsten Beiträgen unter einem Eintrag an, wenn jeweils nur ein Eintrag angezeigt wird. Du kannst diese Links mit dieser Option ausblenden.','padma'),
 					'toggle' => array(
 
 						'true' => array(
@@ -1214,9 +1214,9 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 				'show-single-post-navigation-enable-tax' => array(
 					'type' => 'checkbox',
 					'name' => 'show-single-post-navigation-enable-tax',
-					'label' => __('Single Post Navigation: Same Tax?','padma'),
+					'label' => __('Einzelbeitragsnavigation: Gleiche Taxonomie?','padma'),
 					'default' => false,
-					'tooltip' => __('If you have Show Single Post Navigation turned on, by default WordPress/Padma will show links the next and previous post in chronological order. If you want the next/previous posts to only link to posts in the same taxonomy as the current post, enable this.','padma'),
+					'tooltip' => __('Wenn die Einzelbeitragsnavigation aktiviert ist, zeigt WordPress/Padma standardmäßig Links zum nächsten und vorherigen Beitrag in chronologischer Reihenfolge an. Wenn du möchtest, dass die nächsten/vorherigen Beiträge nur auf Beiträge in derselben Taxonomie wie der aktuelle Beitrag verlinken, aktiviere diese Option.','padma'),
 					'toggle' => array(
 
 						'true' => array(
@@ -1231,32 +1231,32 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 				'show-single-post-navigation-tax' => array(
 					'type' => 'select',
 					'name' => 'show-single-post-navigation-tax',
-					'label' => __('Single Post Navigation Taxonomy','padma'),
+					'label' => __('Einzelbeitragsnavigation Taxonomie','padma'),
 					'default' => 'category',
-					'tooltip' => __('If you have enabled Same Tax for Single Post Navigation, you can choose which taxonomy you want it to apply to.  By default, it will apply to the category taxonomy.','padma'),
+					'tooltip' => __('Wenn du die Option "Gleiche Taxonomie" für die Einzelbeitragsnavigation aktiviert hast, kannst du hier auswählen, auf welche Taxonomie sie angewendet werden soll. Standardmäßig wird sie auf die Kategorie-Taxonomie angewendet.','padma'),
 					'options' => 'get_taxonomies()'
 				),
 
 				'show-edit-link' => array(
 					'type' => 'checkbox',
 					'name' => 'show-edit-link',
-					'label' => __('Show Edit Link','padma'),
+					'label' => __('Bearbeitungslink anzeigen','padma'),
 					'default' => true,
-					'tooltip' => __('The edit link is a convenient link that will be shown next to the post title.  It will take you straight to the WordPress admin to edit the entry.','padma')
+					'tooltip' => __('Der Bearbeitungslink ist ein praktischer Link, der neben dem Beitragstitel angezeigt wird. Er führt dich direkt zum WordPress-Adminbereich, um den Eintrag zu bearbeiten.','padma')
 				),
 
 				'custom-excerpts-heading' => array(
 					'name' => 'custom-excerpts-heading',
 					'type' => 'heading',
-					'label' => __('Custom Excerpts','padma')
+					'label' => __('Benutzerdefinierte Auszüge','padma')
 				),
 
 				'custom-excerpts' => array(
 					'type' => 'checkbox',
 					'name' => 'custom-excerpts',
-					'label' => __('Custom Excerpts Length','padma'),
+					'label' => __('Benutzerdefinierte Auszugslänge','padma'),
 					'default' => false,
-					'tooltip' => __('By default the excerpts are set to 55 words. This can be far too many and a PHP hook will need to be set to change it. Instead you can set a custom amount here by specifically stating the number of words you want to show.','padma'),
+					'tooltip' => __('Standardmäßig sind die Auszüge auf 55 Wörter eingestellt. Dies kann zu lang sein und erfordert normalerweise einen PHP-Hook, um geändert zu werden. Stattdessen kannst du hier eine benutzerdefinierte Anzahl angeben, indem du die gewünschte Wortanzahl festlegst.','padma'),
 					'toggle' => array(
 						'true' => array(
 							'show' => '#input-excerpts-length'
@@ -1270,23 +1270,23 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 				'excerpts-length' => array(
 					'type' => 'integer',
 					'name' => 'excerpts-length',
-					'label' => __('Excerpts Length','padma'),
+					'label' => __('Benutzerdefinierte Auszugslänge','padma'),
 					'default' => '55',
-					'tooltip' => __('Control the length of the excerpt. By default they are set to display 55 words. This setting allows you to reduce or even lengthen that as you like and can be very handy to customise the look of your archive pages.','padma')
+					'tooltip' => __('Steuere die Länge des Auszugs. Standardmäßig sind sie auf 55 Wörter eingestellt. Mit dieser Einstellung kannst du die Länge nach Belieben verkürzen oder verlängern, was sehr praktisch ist, um das Aussehen deiner Archivseiten anzupassen.','padma')
 				),
 
 				'column-layout-heading' => array(
 					'name' => 'column-layout-heading',
 					'type' => 'heading',
-					'label' => __('Column Layout','padma')
+					'label' => __('Spaltenlayout','padma')
 				),
 
 				'enable-column-layout' => array(
 					'type' => 'checkbox',
 					'name' => 'enable-column-layout',
-					'label' => __('Enable Column Layout','padma'),
+					'label' => __('Spaltenlayout aktivieren','padma'),
 					'default' => false,
-					'tooltip' => __('Enable this option to display articles side by side as columns.','padma'),
+					'tooltip' => __('Aktiviere diese Option, um Artikel nebeneinander als Spalten anzuzeigen.','padma'),
 					'toggle'    => array(
 						'true' => array(
 							'show' => array(
@@ -1314,20 +1314,20 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 					'slider-interval' => 1,
 					'tooltip' => '',
 					'default' => 2,
-					'tooltip' => __('How many posts to show per row.','padma'),
+					'tooltip' => __('Wie viele Beiträge pro Reihe angezeigt werden sollen.','padma'),
 					'callback' => ''
 				),
 
 				'post-gutter-width' => array(
 					'type' => 'slider',
 					'name' => 'post-gutter-width', 
-					'label' => 'Gutter Width',
+					'label' => 'Abstand zwischen den Spalten',
 					'slider-min' => 0,
 					'slider-max' => 100,
 					'slider-interval' => 1,
 					'default' => 15,
 					'unit' => 'px',
-					'tooltip' => __('The amount of horizontal spacing between posts.','padma')
+					'tooltip' => __('Der horizontale Abstand zwischen den Beiträgen.','padma')
 				)
 			),
 
@@ -1337,75 +1337,75 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 				'show-entry-meta-post-types' => array(
 					'type' => 'multi-select',
 					'name' => 'show-entry-meta-post-types',
-					'label' => __('Entry Meta Display (Per Post Type)','padma'),
-					'tooltip' => __('Choose which post types you wish for the entry meta to appear on.','padma'),
+					'label' => __('Entry Meta Anzeige (Pro Beitragstyp)','padma'),
+					'tooltip' => __('Wähle aus, für welche Beitragstypen die Entry Meta angezeigt werden soll.','padma'),
 					'options' => 'get_post_types()',
 					'default' => array('post')
 				),
 
 				'entry-meta-above' => array(
 					'type' => 'textarea',
-					'label' => __('Meta Above Content','padma'),
+					'label' => __('Meta über dem Inhalt','padma'),
 					'name' => 'entry-meta-above',
-					'default' => __('Posted on %date% by %author% &bull; %comments%','padma')
+					'default' => __('Posted am %date% von %author% &bull; %comments%','padma')
 				),
 
 				'entry-utility-below' => array(
 					'type' => 'textarea',
-					'label' => __('Meta Below Content','padma'),
+					'label' => __('Meta unter dem Inhalt','padma'),
 					'name' => 'entry-utility-below',
-					'default' => __('Filed Under: %categories%','padma')
+					'default' => __('Abgelegt unter: %categories%','padma')
 				),
 
 				'date-format' => array(
 					'type' => 'select',
 					'name' => 'date-format',
-					'label' => __('Date Format','padma')
+					'label' => __('Datumsformat','padma')
 				),
 
 				'time-format' => array(
 					'type' => 'select',
 					'name' => 'time-format',
-					'label' => __('Time Format','padma')
+					'label' => __('Zeitformat','padma')
 				),
 
 				'comments-meta-heading' => array(
 					'name' => 'comments-meta-heading',
 					'type' => 'heading',
-					'label' => __('Comments Meta','padma')
+					'label' => __('Kommentare Meta','padma')
 				),
 
 					'comment-format' => array(
 						'type' => 'text',
-						'label' => __('Comment Format &ndash; More Than 1 Comment','padma'),
+						'label' => __('Kommentarformat &ndash; Mehr als 1 Kommentar','padma'),
 						'name' => 'comment-format',
-						'default' => '%num% Comments',
-						'tooltip' => __('Controls what the %comments% and %comments_no_link% variables will output in the entry meta if there is <strong>more than 1 comment</strong> on the entry.','padma')
+						'default' => '%num% Kommentare',
+						'tooltip' => __('Steuert, was die Variablen %comments% und %comments_no_link% im Entry Meta ausgeben, wenn es <strong>mehr als 1 Kommentar</strong> zum Beitrag gibt.','padma')
 					),
 
 					'comment-format-1' => array(
 						'type' => 'text',
-						'label' => __('Comment Format &ndash; 1 Comment','padma'),
+						'label' => __('Kommentarformat &ndash; 1 Kommentar','padma'),
 						'name' => 'comment-format-1',
-						'default' => '%num% Comment',
-						'tooltip' => __('Controls what the %comments% and %comments_no_link% variables will output in the entry meta if there is <strong>just 1 comment</strong> on the entry.','padma')
+						'default' => '%num% Kommentar',
+						'tooltip' => __('Steuert, was die Variablen %comments% und %comments_no_link% im Entry Meta ausgeben, wenn es <strong>genau 1 Kommentar</strong> zum Beitrag gibt.','padma')
 					),
 
 					'comment-format-0' => array(
 						'type' => 'text',
-						'label' => __('Comment Format &ndash; 0 Comments','padma'),
+						'label' => __('Kommentarformat &ndash; 0 Kommentare','padma'),
 						'name' => 'comment-format-0',
-						'default' => '%num% Comments',
-						'tooltip' => __('Controls what the %comments% and %comments_no_link% variables will output in the entry meta if there are <strong>0 comments</strong> on the entry.','padma')
+						'default' => '%num% Kommentare',
+						'tooltip' => __('Steuert, was die Variablen %comments% und %comments_no_link% im Entry Meta ausgeben, wenn es <strong>0 Kommentare</strong> zum Beitrag gibt.','padma')
 
 					),
 
 					'respond-format' => array(
 						'type' => 'text',
-						'label' => __('Respond Format','padma'),
+						'label' => __('Antwortformat','padma'),
 						'name' => 'respond-format',
-						'default' => __('Leave a comment!','padma'),
-						'tooltip' => __('Determines the %respond% variable for the entry meta.','padma')
+						'default' => __('Hinterlasse einen Kommentar!','padma'),
+						'tooltip' => __('Steuert, was die Variable %respond% im Entry Meta ausgibt.','padma')
 					)
 			),
 
@@ -1413,17 +1413,17 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 				'comments-area' => array(
 					'name' => 'comments-area',
 					'type' => 'heading',
-					'label' => __('Comments Area Heading','padma')
+					'label' => __('Kommentare Bereich Überschrift','padma')
 				),
 
 					'comments-area-heading' => array(
 						'type' => 'text',
-						'label' => __('Comments Area Heading Format','padma'),
+						'label' => __('Kommentare Bereich Überschrift Format','padma'),
 						'name' => 'comments-area-heading',
 						'default' => '%responses% to <em>%title%</em>',
-						'tooltip' => __('Heading above all comments.
+						'tooltip' => __('Überschrift über allen Kommentaren.
 						<br />
-						<br /><strong>Available Variables:</strong>
+						<br /><strong>Verfügbare Variablen:</strong>
 						<ul>
 							<li>%responses%</li>
 							<li>%title%</li>
@@ -1432,56 +1432,56 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 
 					'comments-area-heading-responses-number' => array(
 						'type' => 'text',
-						'label' => __('Responses Format &ndash; More Than 1 Comment','padma'),
+						'label' => __('Antwort Format &ndash; Mehr als 1 Kommentar','padma'),
 						'name' => 'comments-area-heading-responses-number',
 						'default' => '%num% Responses',
-						'tooltip' => __('Controls what the %responses% variable will output in the comments area heading if there is <strong>more than 1 comment</strong> on the entry.','padma')
+						'tooltip' => __('Steuert, was die Variable %responses% in der Kommentare Bereich Überschrift ausgibt, wenn es <strong>mehr als 1 Kommentar</strong> zum Beitrag gibt.','padma')
 					),
 
 					'comments-area-heading-responses-number-1' => array(
 						'type' => 'text',
-						'label' => __('Responses Format &ndash; 1 Comment','padma'),
+						'label' => __('Antwort Format &ndash; 1 Kommentar','padma'),
 						'name' => 'comments-area-heading-responses-number-1',
-						'default' => __('One Response','padma'),
-						'tooltip' => __('Controls what the %responses% variable will output in the comments area heading if there is <strong>just 1 comment</strong> on the entry.','padma')
+						'default' => __('Eine Antwort','padma'),
+						'tooltip' => __('Steuert, was die Variable %responses% in der Kommentare Bereich Überschrift ausgibt, wenn es <strong>genau 1 Kommentar</strong> zum Beitrag gibt.','padma')
 					),
 
 				'reply-area-heading' => array(
 					'name' => 'reply-area-heading',
 					'type' => 'heading',
-					'label' => __('Reply Area','padma')
+					'label' => __('Antwort Bereich','padma')
 				),
 
 					'leave-reply' => array(
 						'type' => 'text',
-						'label' => __('Comment Form Title','padma'),
+						'label' => __('Kommentar Formular Titel','padma'),
 						'name' => 'leave-reply',
-						'default' => __('Leave a reply','padma'),
-						'tooltip' => __('This is the text that displays above the comment form.','padma')
+						'default' => __('Hinterlasse eine Antwort','padma'),
+						'tooltip' => __('Dies ist der Text, der über dem Kommentarformular angezeigt wird.','padma')
 					),
 
 					'leave-reply-to' => array(
 						'type' => 'text',
-						'label' => __('Reply Form Title','padma'),
+						'label' => __('Kommentar Formular Titel beim Antworten','padma'),
 						'name' => 'leave-reply-to',
-						'default' => __('Leave a Reply to %s','padma'),
-						'tooltip' => __('The title of comment form when replying to a comment.','padma')
+						'default' => __('Hinterlasse eine Antwort an %s','padma'),
+						'tooltip' => __('Der Titel des Kommentarformulars beim Antworten auf einen Kommentar.','padma')
 					),
 
 					'cancel-reply-link' => array(
 						'type' => 'text',
-						'label' => 'Cancel Reply Text',
+						'label' => __('Abbrechen Antwort Text','padma'),
 						'name' => 'cancel-reply-link',
-						'default' => 'Cancel reply',
-						'tooltip' => 'The text for the cancel reply button.'
+						'default' => __('Antwort abbrechen','padma'),
+						'tooltip' => __('Der Text für die Schaltfläche "Antwort abbrechen".','padma')
 					),
 
 					'label-submit-text' => array(
 						'type' => 'text',
-						'label' => __('Submit Text','padma'),
+						'label' => __('Absenden Text','padma'),
 						'name' => 'label-submit-text',
-						'default' => __('Post Comment','padma'),
-						'tooltip' => __('The submit button text.','padma')
+						'default' => __('Kommentar absenden','padma'),
+						'tooltip' => __('Der Text für die Absenden-Schaltfläche.','padma')
 					)
 			),
 
@@ -1490,7 +1490,7 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 				'show-post-thumbnails' => array(
 					'type' => 'checkbox',
 					'name' => 'show-post-thumbnails',
-					'label' => __('Show Featured Images','padma'),
+					'label' => __('Beitragsbild anzeigen','padma'),
 					'default' => true,
 					'toggle'    => array(
 						'true' => array(
@@ -1509,7 +1509,7 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 				'featured-image-as-background' => array(
 					'type' => 'checkbox',
 					'name' => 'featured-image-as-background',
-					'label' => __('Use featured image as background','padma'),
+					'label' => __('Beitragsbild als Hintergrund verwenden','padma'),
 					'default' => false,
 					'toggle'    => array(
 						'true' => array(
@@ -1528,27 +1528,27 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 				'featured-image-as-background-overlay' => array(
 					'type' => 'colorpicker',
 					'name' => 'featured-image-as-background-overlay',
-					'label' => __('Featured image overlay','padma'),
+					'label' => __('Beitragsbild Overlay','padma'),
 					'default' => '00000003',
 				),
 
 				'featured-image-as-background-overlay-hover' => array(
 					'type' => 'colorpicker',
 					'name' => 'featured-image-as-background-overlay-hover',
-					'label' => __('Featured image overlay hover','padma'),
+					'label' => __('Beitragsbild Overlay Hover','padma'),
 					'default' => '00000000',
 				),
 
 				'post-thumbnails-link' => array(
 					'type' => 'select',
 					'name' => 'post-thumbnails-link',
-					'label' => __('Link Featured Image','padma'),
+					'label' => __('Link Beitragsbild','padma'),
 					'default' => 'entry',
 					'options' => array(
 						'entry' => __('Entry (Default)','padma'),
-						'media' => __('Attachment Page','padma'),
-						'none' => __('None','padma'),
-						'custom' => __('Custom','padma'),
+						'media' => __('Anhangsseite','padma'),
+						'none' => __('Keine','padma'),
+						'custom' => __('Benutzerdefiniert','padma'),
 					),
 					'toggle'    => array(
 						'custom' => array(
@@ -1580,19 +1580,19 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 							)
 						),
 					),
-					'tooltip' => __('By default, Padma will create a link around the featured image which links back to the post. Choose no link or to link to the image\'s attachment page instead.','padma')
+					'tooltip' => __('Standardmäßig erstellt Padma einen Link um das Beitragsbild, der zurück zum Beitrag führt. Wählen Sie keinen Link oder einen Link zur Anhangsseite des Bildes.','padma')
 				),
 
 				'post-thumbnails-custom-link' => array(
 					'type' => 'text',
-					'label' => __('Custom Link','padma'),
+					'label' => __('Benutzerdefinierter Link','padma'),
 					'name' => 'post-thumbnails-custom-link',
 					'default' => '',
 				),
 
 				'post-thumbnails-link-new-tab' => array(
 					'type' => 'checkbox',
-					'label' => __('Open in new tab','padma'),
+					'label' => __('In neuem Tab öffnen','padma'),
 					'name' => 'post-thumbnails-link-new-tab',
 					'default' => '',
 				),
@@ -1600,61 +1600,61 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 				'post-thumbnail-position' => array(
 					'type' => 'select',
 					'name' => 'post-thumbnail-position',
-					'label' => __('Image Position','padma'),
+					'label' => __('Bildposition','padma'),
 					'default' => 'left',
 					'options' => array(
-						'left' => __('Left of Title','padma'),
-						'right' => __('Right of Title','padma'),
-						'left-content' => __('Left of Content','padma'),
-						'right-content' => __('Right of Content','padma'),
-						'above-title' => __('Above Title','padma'),
-						'above-content' => __('Above Content','padma'),
-						'below-content' => __('Below Content','padma')
+						'left' => __('Links vom Titel','padma'),
+						'right' => __('Rechts vom Titel','padma'),
+						'left-content' => __('Links vom Inhalt','padma'),
+						'right-content' => __('Rechts vom Inhalt','padma'),
+						'above-title' => __('Über dem Titel','padma'),
+						'above-content' => __('Über dem Inhalt','padma'),
+						'below-content' => __('Unter dem Inhalt','padma')
 					)
 				),
 
 				'use-entry-thumbnail-position' => array(
 					'type' => 'checkbox',
 					'name' => 'use-entry-thumbnail-position',
-					'label' => __('Use Per-Entry Featured Image Positions','padma'),
+					'label' => __('Verwende pro Beitrag festgelegte Bildpositionen','padma'),
 					'default' => true,
-					'tooltip' => __('In the WordPress write panel, there is a Padma meta box that allows you to change the featured image position for the entry being edited.<br /><br />By default, the block will use that value, but you may uncheck this so that the blocks thumbnail position is always used.','padma')
+					'tooltip' => __('Im ClassicPress Schreibbereich gibt es eine Padma-Metabox, mit der Du die Position des Beitragsbildes für den gerade bearbeiteten Beitrag ändern kannst.<br /><br />Standardmäßig verwendet der Block diesen Wert, aber Du kannst diese Option deaktivieren, damit immer die Bildposition des Blocks verwendet wird.','padma')
 				),
 
 				'thumbnail-sizing-heading' => array(
 					'name' => 'thumbnail-sizing-heading',
 					'type' => 'heading',
-					'label' => __('Featured Image Sizing','padma')
+					'label' => __('Größe des Beitragsbildes','padma')
 				),
 
 					'post-thumbnail-size' => array(
 						'type' => 'slider',
 						'name' => 'post-thumbnail-size',
-						'label' => __('Featured Image Size (Left/Right)','padma'),
+						'label' => __('Größe des Beitragsbildes (Links/Rechts)','padma'),
 						'default' => 125,
 						'slider-min' => 20,
 						'slider-max' => 400,
 						'slider-interval' => 1,
-						'tooltip' => __('Adjust the size of the featured image sizes.  This is used for both the width and height of the images.','padma'),
+						'tooltip' => __('Passe die Größe der Beitragsbilder an. Dies wird sowohl für die Breite als auch für die Höhe der Bilder verwendet.','padma'),
 						'unit' => 'px'
 					),
 
 					'post-thumbnail-height-ratio' => array(
 						'type' => 'slider',
 						'name' => 'post-thumbnail-height-ratio',
-						'label' => __('Featured Image Height Ratio (Above Title/Content)','padma'),
+						'label' => __('Höhenverhältnis des Beitragsbildes (Über dem Titel/Inhalt)','padma'),
 						'default' => 35,
 						'slider-min' => 10,
 						'slider-max' => 200,
 						'slider-interval' => 5,
-						'tooltip' => __('Adjust the height of feature images when set to the above title or above content positions.  This value controls what percent the height of the image will be in regards to the width of the block.<br /><br />Example: If the block width is 500 pixels and the ratio is 50% then the feature image size will be 500px by 250px.','padma'),
+						'tooltip' => __('Passe die Höhe der Beitragsbilder an, wenn diese über dem Titel oder dem Inhalt positioniert sind. Dieser Wert bestimmt, wie viel Prozent der Bildhöhe im Verhältnis zur Blockbreite liegt.<br /><br />Beispiel: Bei einer Blockbreite von 500 Pixeln und einem Seitenverhältnis von 50 % beträgt die Größe des Beitragsbildes 500 x 250 Pixel.','padma'),
 						'unit' => '%'
 					),
 
 					'crop-post-thumbnails' => array(
 						'type' => 'checkbox',
 						'name' => 'crop-post-thumbnails',
-						'label' => __('Crop Featured Images','padma'),
+						'label' => __('Beitragsbilder zuschneiden','padma'),
 						'default' => true
 					)
 			)
@@ -1706,7 +1706,7 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 			);
 
 			$this->tab_notices = array(
-				'loopbuddy' => sprintf( __('<strong>Even though we have the options to choose a LoopBuddy layout and query here, we recommend you configure LoopBuddy using its <a href="%s" target="_blank">options panel</a>.</strong><br /><br />The options below are more useful if you\'re using two Content Blocks on one layout and wish to configure them separately.  <strong>Note:</strong> You MUST have a query selected in order to also select a LoopBuddy layout.','padma'), admin_url('admin.php?page=pluginbuddy_loopbuddy') )
+				'loopbuddy' => sprintf( __('<strong>Auch wenn wir hier die Optionen haben, ein LoopBuddy-Layout und eine Abfrage auszuwählen, empfehlen wir, LoopBuddy über sein <a href="%s" target="_blank">Optionsfeld</a> zu konfigurieren.</strong><br /><br />Die untenstehenden Optionen sind nützlicher, wenn Du zwei Inhaltsblöcke in einem Layout verwendest und diese separat konfigurieren möchtest.  <strong>Hinweis:</strong> Du MUSST eine Abfrage ausgewählt haben, um auch ein LoopBuddy-Layout auswählen zu können.','padma'), admin_url('admin.php?page=pluginbuddy_loopbuddy') )
 			);
 
 			return;
@@ -1726,14 +1726,14 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 				'name'    => 'swp-engine',
 				'label'   => __('SearchWP Engine','padma'),
 				'options' => 'get_swp_engines()',
-				'tooltip' => __('If you wish to display the results of a supplemented SearchWP engine, please select the engine here.','padma'),
+				'tooltip' => __('Wenn Du die Ergebnisse einer ergänzten SearchWP-Suchmaschine anzeigen möchtest, wähle bitte hier die Suchmaschine aus.','padma'),
 				'default' => ''
 			);
 
 		}
 
 		$this->inputs['meta']['date-format']['options'] = array(
-			'wordpress-default' => 'WordPress Default',
+			'wordpress-default' => 'ClassicPress Standard',
 			'F j, Y' => date('F j, Y'),
 			'm/d/y' => date('m/d/y'),
 			'd/m/y' => date('d/m/y'),
@@ -1745,7 +1745,7 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 		);
 
 		$this->inputs['meta']['time-format']['options'] = array(
-			'wordpress-default' => 'WordPress Default',
+			'wordpress-default' => 'ClassicPress Standard',
 			'g:i A' => date('g:i A'),
 			'g:i A T' => date('g:i A T'),
 			'g:i:s A' => date('g:i:s A'),
@@ -1780,9 +1780,9 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 		if(count($custom_fields)==0){
 
 			if($this->block['settings']['mode'] == 'custom-query')
-				$this->tab_notices['custom-fields'] = __('The selected post type does not have custom fields.','padma');
+				$this->tab_notices['custom-fields'] = __('Der ausgewählte Beitragstyp verfügt über keine benutzerdefinierten Felder.','padma');
 			else
-				$this->tab_notices['custom-fields'] = __('There is not custom fields to show.','padma');
+				$this->tab_notices['custom-fields'] = __('Es sind keine benutzerdefinierten Felder vorhanden.','padma');
 
 		}else{
 
@@ -1865,7 +1865,7 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 
 	function get_pages() {
 
-		$page_options = array( __('&ndash; Do Not Fetch &ndash;','padma') );
+		$page_options = array( __('&ndash; Nicht abrufen &ndash;','padma') );
 
 		$page_select_query = get_pages();
 
@@ -1892,7 +1892,7 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 		$tags_select_query = get_terms('post_tag');
 		foreach ($tags_select_query as $tag)
 			$tag_options[$tag->term_id] = $tag->name;
-		$tag_options = (count($tag_options) == 0) ? array('text'	 => __('No tags available','padma') ) : $tag_options;
+		$tag_options = (count($tag_options) == 0) ? array('text'	 => __('Keine Schlagwörter verfügbar','padma') ) : $tag_options;
 		return $tag_options;
 
 	}
@@ -1960,7 +1960,7 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 
 	function get_swp_engines() {
 
-		$options = array( __('&ndash; Select an Engine &ndash;','padma') );
+		$options = array( __('&ndash; Wähle eine Suchmaschine &ndash;','padma') );
 
 		if ( !function_exists('SWP') ) {
 			return $options;
@@ -1992,7 +1992,7 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 		$loopbuddy_options = get_option('pluginbuddy_loopbuddy');
 
 		$queries = array(
-			'' => __('&ndash; Use Default Query &ndash;','padma')
+			'' => __('&ndash; Standardabfrage verwenden &ndash;','padma')
 		);
 
 		foreach ( $loopbuddy_options['queries'] as $query_id => $query ) {
@@ -2011,7 +2011,7 @@ class PadmaContentBlockOptions extends PadmaBlockOptionsAPI {
 		$loopbuddy_options = get_option('pluginbuddy_loopbuddy');
 
 		$layouts = array(
-			'' => __('&ndash; Use Default Layout &ndash;','padma')
+			'' => __('&ndash; Standardlayout verwenden &ndash;','padma')
 		);
 
 		foreach ( $loopbuddy_options['layouts'] as $layout_id => $layout ) {

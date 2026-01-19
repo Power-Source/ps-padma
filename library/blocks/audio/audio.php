@@ -24,7 +24,7 @@ class PadmaAudioBlock extends PadmaBlockAPI {
 										'itemscope' => '',
 										'itemtype' => 'http://schema.org/AudioObject'
 									);
-		$this->description 	= __('Display an audio','padma');
+		$this->description 	= __('Zeige eine Audioausgabe an','padma');
 		$this->categories 	= array('core','media');
 
 		$this->show_content_in_grid = false;
@@ -42,7 +42,7 @@ class PadmaAudioBlock extends PadmaBlockAPI {
 
 		$this->register_block_element(array(
 			'id' => 'audio-container',
-			'name' => __('Audio container','padma'),
+			'name' => __('Audio Container','padma'),
 			'selector' => 'div.audio'
 		));
 
@@ -176,7 +176,7 @@ class PadmaAudioBlock extends PadmaBlockAPI {
 			if(parent::get_setting($block, 'audio-wav'))
 				$audioHTML .= '<source src="' . padma_format_url_ssl($audio_ogg) . '" type="audio/wav">';
 
-			$audioHTML .= __('Your browser does not support the audio tag.','padma');
+			$audioHTML .= __('Dein Browser unterstützt das Audio-Tag nicht.','padma');
 			$audioHTML .= '</audio></div>';
 
 			echo $audioHTML;
@@ -184,7 +184,7 @@ class PadmaAudioBlock extends PadmaBlockAPI {
 
 		} else {
 
-			echo '<div style="margin: 5px;" class="alert alert-yellow"><p>' . __('You have not added an audio yet. Please upload and apply an audio.','padma') . '</p></div>';
+			echo '<div style="margin: 5px;" class="alert alert-yellow"><p>' . __('Du hast noch keine Audio hinzugefügt. Bitte lade eine hoch und wende sie an.','padma') . '</p></div>';
 		}
 
 		/* Output position styling for Grid mode */
@@ -209,7 +209,7 @@ class PadmaAudioBlockOptions extends PadmaBlockOptionsAPI {
 		parent::__construct($block_type_object);
 
 		$this->tabs = array(
-			'general' => 'General'
+			'general' => 'Allgemein'
 		);
 
 		$this->inputs = array(
@@ -219,7 +219,7 @@ class PadmaAudioBlockOptions extends PadmaBlockOptionsAPI {
 				'audio-heading' => array(
 					'name' => 'audio-heading',
 					'type' => 'heading',
-					'label' => __('Add an Audio','padma')
+					'label' => 'Audio hinzufügen',
 				),
 
 				'audio-mp3' => array(
@@ -248,15 +248,15 @@ class PadmaAudioBlockOptions extends PadmaBlockOptionsAPI {
 					'label' => 'Autoplay',
 					'type' => 'checkbox',
 					'default' => false,
-					'tooltip' => __('Specifies that the audio will start playing as soon as it is ready','padma')
+					'tooltip' => __('Gibt an, dass das Audio abgespielt wird, sobald es bereit ist','padma')
 				),
 
 				'controls' => array(
 					'name' => 'controls',
-					'label' =>  __('Controls','padma'),
+					'label' =>  __('Steuerung','padma'),
 					'type' => 'checkbox',
 					'default' => false,
-					'tooltip' => __('Specifies that audio controls should be displayed (such as a play/pause button etc).','padma')
+					'tooltip' => __('Gibt an, dass die Audiosteuerung angezeigt werden soll (z. B. eine Wiedergabe-/Pause-Schaltfläche usw.).','padma')
 				),
 
 				'loop' => array(
@@ -264,15 +264,15 @@ class PadmaAudioBlockOptions extends PadmaBlockOptionsAPI {
 					'label' => __('Loop','padma'),
 					'type' => 'checkbox',
 					'default' => false,
-					'tooltip' => __('Specifies that the audio will start over again, every time it is finished','padma')
+					'tooltip' => __('Gibt an, dass das Audio jedes Mal von vorne beginnt, wenn es beendet ist','padma')
 				),
 
 				'muted' => array(
 					'name' => 'muted',
-					'label' => __('Muted','padma'),
+					'label' => __('Stumm','padma'),
 					'type' => 'checkbox',
 					'default' => false,
-					'tooltip' => __('Specifies that the audio output of the audio should be muted','padma')
+					'tooltip' => __('Gibt an, dass die Audioausgabe stummgeschaltet sein soll','padma')
 				),
 
 				'preload' => array(
@@ -285,7 +285,7 @@ class PadmaAudioBlockOptions extends PadmaBlockOptionsAPI {
 						'auto'		=> 'Auto',
 						'metadata'	=> 'Metadata',
 					),
-					'tooltip' => __('Specifies if and how the author thinks the audio should be loaded when the page loads','padma')
+					'tooltip' => __('Gibt an, ob und wie der Autor denkt, dass das Audio geladen werden soll, wenn die Seite geladen wird','padma')
 				),
 
 
@@ -297,21 +297,21 @@ class PadmaAudioBlockOptions extends PadmaBlockOptionsAPI {
 
 				'audio-position' => array(
 					'name' => 'audio-position',
-					'label' => __('Position audio inside container','padma'),
+					'label' => __('Position Audio innerhalb des Containers','padma'),
 					'type' => 'select',
-					'tooltip' => __('You can position this audio in relation to the block using the positions provided','padma'),
+					'tooltip' => __('Du kannst dieses Audio in Bezug auf den Block mit den bereitgestellten Positionen positionieren','padma'),
 					'default' => 'none',
 					'options' => array(
-						'' => 'None',
-						'top_left' => __('Top Left','padma'),
-						'top_center' => __('Top Center','padma'),
-						'top_right' => __('Top Right','padma'),
-						'center_left' => __('Center Left','padma'),
-						'center_center' => __('Center Center','padma'),
-						'center_right' => __('Center Right','padma'),
-						'bottom_left' => __('Bottom Left','padma'),
-						'bottom_center' => __('Bottom Center','padma'),
-						'bottom_right' => __('Bottom Right','padma')
+						'' => 'Keine',
+						'top_left' => __('Oben Links','padma'),
+						'top_center' => __('Oben Mitte','padma'),
+						'top_right' => __('Oben Rechts','padma'),
+						'center_left' => __('Mitte Links','padma'),
+						'center_center' => __('Mitte Mitte','padma'),
+						'center_right' => __('Mitte Rechts','padma'),
+						'bottom_left' => __('Unten Links','padma'),
+						'bottom_center' => __('Unten Mitte','padma'),
+						'bottom_right' => __('Unten Rechts','padma')
 					)
 				)
 

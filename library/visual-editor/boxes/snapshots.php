@@ -39,20 +39,20 @@ class PadmaSnapshotsBox extends PadmaVisualEditorBoxAPI {
 	protected $resizable = false;
 
 	function __construct(){
-		$this->description = __('Restore your work with snapshots.','padma');
+		$this->description = __('Stelle Deine Arbeit mit Snapshots wieder her.','padma');
 	}
 
 
 	public function content() {
 
 		echo '
-		<span class="button button-blue" data-bind="click: saveSnapshot">Save Snapshot</span>
+		<span class="button button-blue" data-bind="click: saveSnapshot">Snapshot speichern</span>
 		<span class="spinner"></span>
 
 		<ul id="snapshots-list" data-bind="foreach: snapshots">
 			<li data-bind="attr: {id: \'snapshot-\' + id}">
 				<span class="snapshot-timestamp" data-bind="text: $parent.formatSnapshotDatetime(timestamp)"></span>
-				<span class="snapshot-delete" data-bind="click: $parent.deleteSnapshot" title="Delete Snapshot">Delete</span>
+				<span class="snapshot-delete" data-bind="click: $parent.deleteSnapshot" title="Snapshot löschen">Löschen</span>
 
 				<span class="button button-small" data-bind="click: $parent.rollbackToSnapshot">Rollback</span>
 

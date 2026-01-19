@@ -51,7 +51,8 @@ class PadmaVisualEditor {
 		add_action('padma_grid_iframe_footer', array(__CLASS__, 'iframe_tooltip_container'));
 		add_action('padma_body_close', array(__CLASS__, 'iframe_tooltip_container'));
 
-        wp_enqueue_media();
+		add_action('admin_enqueue_scripts', array(__CLASS__, 'maybe_enqueue_media'));
+		add_action('wp_enqueue_scripts', array(__CLASS__, 'maybe_enqueue_media'));
 
 		padma_register_web_font_provider('PadmaTraditionalFonts');
 
@@ -59,6 +60,39 @@ class PadmaVisualEditor {
 			padma_register_web_font_provider('PadmaGoogleFonts');
 		}			
 
+
+	}
+
+
+	public static function maybe_enqueue_media() {
+
+		static $enqueued = false;
+
+		if ( $enqueued )
+			return;
+
+		if ( !PadmaCapabilities::can_user_visually_edit() )
+			return;
+
+		$visual_editor_request = PadmaRoute::is_visual_editor() || PadmaRoute::is_visual_editor_iframe();
+
+		if ( is_admin() ) {
+
+			$screen = function_exists('get_current_screen') ? get_current_screen() : null;
+			$on_padma_screen = $screen && isset($screen->id) && strpos($screen->id, 'padma') !== false;
+
+			if ( !$on_padma_screen && !$visual_editor_request )
+				return;
+
+		} else {
+
+			if ( !$visual_editor_request )
+				return;
+
+		}
+
+		wp_enqueue_media();
+		$enqueued = true;
 
 	}
 
