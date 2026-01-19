@@ -16,7 +16,7 @@ class PadmaImageBlock extends PadmaBlockAPI {
 	function __construct(){
 
 		$this->id 				= 'image';
-		$this->name 			= __('Image','padma');
+		$this->name 			= __('Bild','padma');
 		$this->options_class 	= 'PadmaImageBlockOptions';	
 		$this->fixed_height 	= true;	
 		$this->html_tag 		= 'figure';
@@ -24,7 +24,7 @@ class PadmaImageBlock extends PadmaBlockAPI {
 										'itemscope' => '',
 										'itemtype' => 'http://schema.org/ImageObject'
 									);
-		$this->description 	= __('Display an image','padma');
+		$this->description 	= __('Zeigt ein Bild an','padma');
 		$this->categories 		= array('core','media');		
 		$this->show_content_in_grid = true;
 
@@ -34,14 +34,14 @@ class PadmaImageBlock extends PadmaBlockAPI {
 
 		$this->register_block_element(array(
 			'id' => 'image',
-			'name' => __('Image','padma'),
+			'name' => __('Bild','padma'),
 			'selector' => 'img',
 			'properties' => array('background', 'borders', 'padding', 'corners', 'box-shadow', 'animation', 'sizes', 'advanced', 'transition', 'outlines', 'filter')
 		));
 
 		$this->register_block_element(array(
 			'id' => 'image-link',
-			'name' => __('Image Link','padma'),
+			'name' => __('Bild-Link','padma'),
 			'selector' => 'a img',
 			'states' => array(
 				'Hover' => 'a:hover img',
@@ -125,7 +125,7 @@ class PadmaImageBlock extends PadmaBlockAPI {
 
 		} else {
 
-			echo '<div style="margin: 5px;" class="alert alert-yellow"><p>' . __('You have not added an image yet. Please upload and apply an image.','padma') . '</p></div>';
+			echo '<div style="margin: 5px;" class="alert alert-yellow"><p>' . __('Du hast noch kein Bild hinzugefügt. Bitte lade ein Bild hoch und wende es an.','padma') . '</p></div>';
 		}
 
 		/* Output position styling for Grid mode */
@@ -160,34 +160,34 @@ class PadmaImageBlockOptions extends PadmaBlockOptionsAPI {
 				'image-heading' => array(
 					'name' => 'image-heading',
 					'type' => 'heading',
-					'label' => __('Add an Image','padma')
+					'label' => __('Bild hinzufügen','padma')
 				),
 
 				'image' => array(
 					'type' => 'image',
 					'name' => 'image',
-					'label' => __('Image','padma'),
+					'label' => __('Bild','padma'),
 					'default' => null
 				),
 
 				'resize-image' => array(
 					'name' => 'resize-image',
-					'label' => __('Automatically Resize Image','padma'),
+					'label' => __('Bild automatisch skalieren','padma'),
 					'type' => 'checkbox',
-					'tooltip' => __('If you would like Padma to automatically scale and crop the image to the blocks dimensions, keep this checked.<br /><br /><em><strong>Important:</strong> In order for the image to be resized and cropped it must be uploaded <strong>From Computer</strong>. <strong>NOT</strong> <strong>From URL</strong>.</em>','padma'),
+					'tooltip' => __('Wenn Du möchtest, dass Padma das Bild automatisch auf die Blockabmessungen skaliert und zuschneidet, lasse diese Option aktiviert.<br /><br /><em><strong>Wichtig:</strong> Damit das Bild skaliert und zugeschnitten werden kann, muss es <strong>Vom Computer</strong> hochgeladen werden. <strong>Nicht</strong> <strong>Von URL</strong>.</em>','padma'),
 					'default' => true
 				),
 
 				'image-title' => array(
 					'name' => 'image-title',
-					'label' => 'Image Title',
+					'label' => 'Bildtitel',
 					'type' => 'text',
 					'tooltip' => __('This will be used as the "title" attribute for the image.  The title attribute is beneficial for SEO (Search Engine Optimization) and will allow your visitors to move their mouse over the image and read about it.','padma'),
 				),
 
 				'image-alt' => array(
 					'name' => 'image-alt',
-					'label' => 'Image Alternate Text',
+					'label' => 'Alternativer Bildtext',
 					'type' => 'text',
 					'tooltip' => __('This will be used as the "alt" attribute for the image.  The alt attribute is <em>hugely</em> beneficial for SEO (Search Engine Optimization) and for general accessibility.','padma'),
 				),

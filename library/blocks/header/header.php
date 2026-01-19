@@ -26,7 +26,7 @@ class PadmaHeaderBlock extends PadmaBlockAPI {
 			'itemscope' => '',
 			'itemtype' => 'http://schema.org/WPHeader'
 		);
-		$this->description = __('Display your banner, logo, or site title and tagline.  This typically goes at the top of your website.','padma');
+		$this->description = __('Zeigt Dein Banner, Logo oder Deinen Seitentitel und Slogan an. Dies wird üblicherweise oben auf Deiner Webseite platziert.','padma');
 		$this->allow_titles = false;	
 		$this->show_content_in_grid = true;
 		$this->categories = array('core','content');
@@ -37,7 +37,7 @@ class PadmaHeaderBlock extends PadmaBlockAPI {
 
 		$this->register_block_element(array(
 			'id' => 'site-title',
-			'name' => __('Site Title','padma'),
+			'name' => __('Seitentitel','padma'),
 			'selector' => 'span.banner a',
 			'states' => array(
 				'Hover' => 'span.banner a:hover',
@@ -59,7 +59,7 @@ class PadmaHeaderBlock extends PadmaBlockAPI {
 
 		$this->register_block_element(array(
 			'id' => 'banner-image-img',
-			'name' => __('Banner Image','padma'),
+			'name' => __('Banner Bild','padma'),
 			'selector' => 'a.banner-image img',
 			'states' => array(
 				'Shrinked' => 'a.banner-image img.is_shrinked',
@@ -68,7 +68,7 @@ class PadmaHeaderBlock extends PadmaBlockAPI {
 
 		$this->register_block_element(array(
 			'id' => 'site-tagline',
-			'name' => __('Site Tagline','padma'),
+			'name' => __('Seitenslogan','padma'),
 			'selector' => '.tagline'
 		));
 

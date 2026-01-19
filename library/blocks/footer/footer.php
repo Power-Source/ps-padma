@@ -25,7 +25,7 @@ class PadmaFooterBlock extends PadmaBlockAPI {
 			'itemscope' => '',
 			'itemtype' => 'http://schema.org/WPFooter'
 		);
-		$this->description = __('This typically goes at the bottom of your site and will display the copyright, and miscellaneous links.','padma');
+		$this->description = __('Dieser Abschnitt befindet sich üblicherweise am Ende Deiner Webseite und zeigt den Copyright-Vermerk sowie diverse Links an.','padma');
 		$this->allow_titles = false;	
 		$this->show_content_in_grid = true;
 		$this->categories 	= array('core','content');
@@ -52,14 +52,14 @@ class PadmaFooterBlock extends PadmaBlockAPI {
 
 		$this->register_block_element(array(
 			'id' => 'administration-panel',
-			'name' => __('Administration Panel','padma'),
+			'name' => __('Verwaltungspanel','padma'),
 			'selector' => 'a.footer-admin-link',
 			'properties' => array('fonts', 'animation')
 		));
 
 		$this->register_block_element(array(
 			'id' => 'go-to-top',
-			'name' => __('Go To Top Link','padma'),
+			'name' => __('Zum Seitenanfang Link','padma'),
 			'selector' => 'a.footer-go-to-top-link',
 			'states' => array(
 				'Hover' => 'a.footer-go-to-top-link:hover'
@@ -68,7 +68,7 @@ class PadmaFooterBlock extends PadmaBlockAPI {
 
 		$this->register_block_element(array(
 			'id' => 'responsive-grid-link',
-			'name' => __('Responsive Grid Toggle Link','padma'),
+			'name' => __('Responsive Grid Umschaltlink','padma'),
 			'selector' => 'a.footer-responsive-grid-link',
 			'properties' => array('fonts', 'animation')
 		));
@@ -93,10 +93,10 @@ class PadmaFooterBlock extends PadmaBlockAPI {
 
 		//Go To Top Link
 		if ( parent::get_setting($block, 'show-go-to-top-link', true) == true ){
-			$go_to_top_text = parent::get_setting($block, 'custom-go-to-top-text', 'Go To Top');
+			$go_to_top_text = parent::get_setting($block, 'custom-go-to-top-text', 'Zum Seitenanfang');
 
 			if( ! $go_to_top_text )
-				$go_to_top_text = 'Go To Top';
+				$go_to_top_text = 'Zum Seitenanfang';
 
 			self::show_go_to_top_link($go_to_top_text);
 		}
@@ -134,9 +134,9 @@ class PadmaFooterBlock extends PadmaBlockAPI {
 	public static function show_admin_link() {
 
 		if ( is_user_logged_in() )
-		    echo apply_filters('padma_admin_link', '<a href="' . admin_url() . '" class="footer-right footer-admin-link footer-link">'.__('Administration Panel', 'padma') . '</a>');
+		    echo apply_filters('padma_admin_link', '<a href="' . admin_url() . '" class="footer-right footer-admin-link footer-link">'.__('Verwaltungspanel', 'padma') . '</a>');
 		else
-		    echo apply_filters('padma_admin_link', '<a href="' . admin_url() . '" class="footer-right footer-admin-link footer-link">'.__('Administration Login', 'padma') . '</a>');
+		    echo apply_filters('padma_admin_link', '<a href="' . admin_url() . '" class="footer-right footer-admin-link footer-link">'.__('Verwaltungsanmeldung', 'padma') . '</a>');
 
 	}
 
@@ -151,8 +151,8 @@ class PadmaFooterBlock extends PadmaBlockAPI {
 	 **/
 	public static function show_padma_link() {
 
-		$padma_location = 'https://cp-psource.github.io/ps-padma//';
-		echo apply_filters('padma_link', '<p class="footer-left footer-padma-link footer-link">' . ' <a href="' . $padma_location . '" title="Unlimited by Padma">' . __('Unlimited by Padma', 'padma') . '</a></p>' );
+		$padma_location = 'https://power-source.github.io/ps-padma/';
+		echo apply_filters('padma_link', '<p class="footer-left footer-padma-link footer-link">' . ' <a href="' . $padma_location . '" title="Unlimited von Padma durch PSOURCE Open-Source">' . __('Unlimited von Padma durch PSOURCE Open-Source', 'padma') . '</a></p>' );
 
 	}
 
@@ -201,14 +201,14 @@ class PadmaFooterBlock extends PadmaBlockAPI {
 			$url = add_query_arg(array('full-site' => 'true'), $current_url);
 			$classes = 'footer-responsive-grid-link footer-responsive-grid-disable footer-link';
 
-			echo apply_filters('padma_responsive_disable_link', '<p class="footer-responsive-grid-link-container footer-responsive-grid-link-disable-container"><a href="' . $url . '" rel="nofollow" class="' . $classes . '">' . __('View Full Site', 'padma') . '</a></p>');
+			echo apply_filters('padma_responsive_disable_link', '<p class="footer-responsive-grid-link-container footer-responsive-grid-link-disable-container"><a href="' . $url . '" rel="nofollow" class="' . $classes . '">' . __('Vollständige Webseite anzeigen', 'padma') . '</a></p>');
 
 		} elseif ( PadmaResponsiveGrid::is_user_disabled() ) {
 
 			$url = add_query_arg(array('full-site' => 'false'), $current_url);
 			$classes = 'footer-responsive-grid-link footer-responsive-grid-enable footer-link';
 
-			echo apply_filters('padma_responsive_enable_link', '<p class="footer-responsive-grid-link-container footer-responsive-grid-link-enable-container"><a href="' . $url . '" rel="nofollow" class="' . $classes . '">' . __('View Mobile Site', 'padma') . '</a></p>');
+			echo apply_filters('padma_responsive_enable_link', '<p class="footer-responsive-grid-link-container footer-responsive-grid-link-enable-container"><a href="' . $url . '" rel="nofollow" class="' . $classes . '">' . __('Mobile Webseite anzeigen', 'padma') . '</a></p>');
 
 		}
 
@@ -236,13 +236,13 @@ class PadmaFooterBlockOptions extends PadmaBlockOptionsAPI {
 				'show-admin-link' => array(
 					'type' => 'checkbox',
 					'name' => 'show-admin-link',
-					'label' => __('Show Admin Link/Login','padma'),
+					'label' => __('Admin-Link/Login anzeigen','padma'),
 					'default' => true
 				),
 
 				'show-go-to-top-link' => array(
 					'name' => 'show-go-to-top-link',
-					'label' => __('Show Go To Top Link','padma'),
+					'label' => __('Nach oben Link anzeigen','padma'),
 					'type' => 'checkbox',
 					'default' => true,
 					'toggle'    => array(
@@ -261,37 +261,37 @@ class PadmaFooterBlockOptions extends PadmaBlockOptionsAPI {
 
 				'custom-go-to-top-text' => array(
 					'name' => 'custom-go-to-top-text',
-					'label' => __('Custom "Go to Top" text','padma'),
+					'label' => __('Benutzerdefinierter Nach oben Text','padma'),
 					'type' => 'text',
-					'tooltip' => __('Custom "Go to Top" text','padma')
+					'tooltip' => __('Benutzerdefinierter Nach oben Text','padma')
 				),
 
 				'hide-padma-attribution' => array(
 					'name' => 'hide-padma-attribution',
-					'label' => __('Hide Padma Theme Attribution','padma'),
+					'label' => __('Padma Theme Attribution ausblenden','padma'),
 					'type' => 'checkbox',
 					'default' => false
 				),
 
 				'show-copyright' => array(
 					'name' => 'show-copyright',
-					'label' => __('Show Copyright','padma'),
+					'label' => __('Copyright anzeigen','padma'),
 					'type' => 'checkbox',
 					'default' => true
 				),
 
 				'custom-copyright' => array(
 					'name' => 'custom-copyright',
-					'label' => __('Custom Copyright','padma'),
+					'label' => __('Benutzerdefiniertes Copyright','padma'),
 					'type' => 'text',
-					'tooltip' => __('If you would like to change the copyright in the footer to say something different, enter it here. Use %Y% for current year.','padma')
+					'tooltip' => __('Wenn Du das Copyright im Footer ändern möchtest, gib es hier ein. Verwende %Y% für das aktuelle Jahr.','padma')
 				),
 
 				'show-responsive-grid-link' => array(
 					'name' => 'show-responsive-grid-link',
-					'label' => __('Hide a link to view the full site on mobile.','padma'),
+					'label' => __('Link zum Anzeigen der vollständigen Webseite auf Mobilgeräten ausblenden','padma'),
 					'type' => 'checkbox',
-					'tooltip' => __('Shows a link to either view the full site or view the mobile site.','padma'),
+					'tooltip' => __('Zeigt einen Link an, um entweder die vollständige Webseite oder die mobile Webseite anzuzeigen.','padma'),
 					'default' => false
 				)
 			)
