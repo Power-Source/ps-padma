@@ -182,27 +182,27 @@ class PadmaImageBlockOptions extends PadmaBlockOptionsAPI {
 					'name' => 'image-title',
 					'label' => 'Bildtitel',
 					'type' => 'text',
-					'tooltip' => __('This will be used as the "title" attribute for the image.  The title attribute is beneficial for SEO (Search Engine Optimization) and will allow your visitors to move their mouse over the image and read about it.','padma'),
+					'tooltip' => __('Dies wird als „Titel“-Attribut für das Bild verwendet. Das Titel-Attribut ist für die Suchmaschinenoptimierung (SEO) von Vorteil und ermöglicht es Besuchern, mit der Maus über das Bild zu fahren und mehr darüber zu erfahren.','padma'),
 				),
 
 				'image-alt' => array(
 					'name' => 'image-alt',
 					'label' => 'Alternativer Bildtext',
 					'type' => 'text',
-					'tooltip' => __('This will be used as the "alt" attribute for the image.  The alt attribute is <em>hugely</em> beneficial for SEO (Search Engine Optimization) and for general accessibility.','padma'),
+					'tooltip' => __('Dies wird als „alt“-Attribut für das Bild verwendet. Das alt-Attribut ist <em>sehr</em> vorteilhaft für die Suchmaschinenoptimierung (SEO) und für die allgemeine Zugänglichkeit.','padma'),
 				),
 
 				'link-heading' => array(
 					'name' => 'link-heading',
 					'type' => 'heading',
-					'label' => __('Link Image','padma')
+					'label' => __('Bild verlinken','padma')
 				),
 
 				'link-image' => array(
 					'name' => 'link-image',
-					'label' => __('Link the image?','padma'),
+					'label' => __('Bild verlinken?','padma'),
 					'type' => 'checkbox',
-					'tooltip' => __('If you would like to link the image to a url activate this setting. Must add http:// first','padma'),
+					'tooltip' => __('Wenn Du möchtest, dass das Bild mit einer URL verlinkt wird, aktiviere diese Einstellung. Du musst http:// zuerst hinzufügen','padma'),
 					'default' => false,
 					'toggle' => array(
 						'true' => array(
@@ -224,16 +224,16 @@ class PadmaImageBlockOptions extends PadmaBlockOptionsAPI {
 
 				'link-url' => array(
 					'name' => 'link-url',
-					'label' => __('Link image URL?','padma'),
+					'label' => __('Bild-URL verlinken?','padma'),
 					'type' => 'text',
-					'tooltip' => __('Set the URL for the image to link to','padma')
+					'tooltip' => __('Gib die URL ein, zu der das Bild verlinken soll','padma')
 				),
 
 				'link-target' => array(
 					'name' => 'link-target',
-					'label' => __('Open in a new window?','padma'),
+					'label' => __('In einem neuen Fenster öffnen?','padma'),
 					'type' => 'checkbox',
-					'tooltip' => __('If you would like to open the link in a new window check this option','padma'),
+					'tooltip' => __('Wenn Du möchtest, dass der Link in einem neuen Fenster geöffnet wird, aktiviere diese Option','padma'),
 					'default' => false,
 				),
 
@@ -241,33 +241,33 @@ class PadmaImageBlockOptions extends PadmaBlockOptionsAPI {
 					'name' => 'link-rel',
 					'label' => 'Rel',
 					'type' => 'text',
-					'tooltip' => 'Here you can add value for the rel attribute. Example values: noreferrer, noopener, nofollow, lightbox',
+					'tooltip' => 'Hier kannst Du einen Wert für das rel-Attribut hinzufügen. Beispielwerte: noreferrer, noopener, nofollow, lightbox',
 					'default' => 'noreferrer',
 				),
 
 				'position-heading' => array(
 					'name' => 'position-heading',
 					'type' => 'heading',
-					'label' => __('Position Image','padma')
+					'label' => __('Bild positionieren','padma')
 				),
 
 				'image-position' => array(
 					'name' => 'image-position',
-					'label' => __('Position image inside container','padma'),
+					'label' => __('Bildposition innerhalb des Containers','padma'),
 					'type' => 'select',
-					'tooltip' => __('You can position this image in relation to the block using the positions provided','padma'),
+					'tooltip' => __('Du kannst dieses Bild in Bezug auf den Block mit den bereitgestellten Positionen positionieren','padma'),
 					'default' => 'none',
 					'options' => array(
-						'' => 'None',
-						'top_left' => __('Top Left','padma'),
-						'top_center' => __('Top Center','padma'),
-						'top_right' => __('Top Right','padma'),
-						'center_left' => __('Center Left','padma'),
-						'center_center' => __('Center Center','padma'),
-						'center_right' => __('Center Right','padma'),
-						'bottom_left' => __('Bottom Left','padma'),
-						'bottom_center' => __('Bottom Center','padma'),
-						'bottom_right' => __('Bottom Right','padma')
+						'' => 'Keine',
+						'top_left' => __('Oben Links','padma'),
+						'top_center' => __('Oben Mitte','padma'),
+						'top_right' => __('Oben Rechts','padma'),
+						'center_left' => __('Mitte Links','padma'),
+						'center_center' => __('Mitte Mitte','padma'),
+						'center_right' => __('Mitte Rechts','padma'),
+						'bottom_left' => __('Unten Links','padma'),
+						'bottom_center' => __('Unten Mitte','padma'),
+						'bottom_right' => __('Unten Rechts','padma')
 					)
 				)
 

@@ -65,7 +65,7 @@ class PadmaListingBlockDisplay {
 				if ( !$this->query->have_posts() ) {
 
 					echo '<div class="entry-content">';
-						echo apply_filters('padma_search_no_results', __('<p>Sorry, there was no content that matched your search.</p>', 'padma'));
+						echo apply_filters('padma_search_no_results', __('<p>Leider gab es keine Inhalte, die Deiner Suche entsprachen.</p>', 'padma'));
 					echo '</div>';
 
 				}

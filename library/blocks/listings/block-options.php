@@ -11,9 +11,9 @@ class PadmaListingsBlockOptions extends PadmaBlockOptionsAPI {
 		parent::__construct($block_type_object);
 
 		$this->tabs = array(
-			'listing-type' => __('Select Listing Type','padma'),
-			'posts-pages-filters' => __('Posts &amp; Pages Filters','padma'),
-			'taxonomy-options' => __('Taxonomy Options','padma')
+			'listing-type' => __('Listentyp auswählen','padma'),
+			'posts-pages-filters' => __('Beiträge &amp; Seiten Filter','padma'),
+			'taxonomy-options' => __('Taxonomieoptionen','padma')
 		);
 
 		$this->inputs = array(
@@ -22,12 +22,12 @@ class PadmaListingsBlockOptions extends PadmaBlockOptionsAPI {
 				'listing-type' => array(
 					'type' => 'select',
 					'name' => 'listing-type',
-					'label' => __('List?','padma'),
-					'tooltip' => __('Select a type of list output and then configure it with the options on the left.','padma'),
+					'label' => __('Liste?','padma'),
+					'tooltip' => __('Wähle einen Typ der Listenausgabe und konfiguriere ihn dann mit den Optionen links.','padma'),
 					'options' => array(
-						'taxonomy' => __('Taxonomy (category, tag etc)','padma'),
-						'content' => __('Posts or Pages (custom posts)','padma'),
-						'authors' => __('Authors','padma')
+						'taxonomy' => __('Taxonomie (Kategorie, Schlagwort etc)','padma'),
+						'content' => __('Beiträge oder Seiten (benutzerdefinierte Beiträge)','padma'),
+						'authors' => __('Autoren','padma')
 					),
 					'default' => 'taxonomy',
 					'toggle'    => array(
@@ -57,11 +57,11 @@ class PadmaListingsBlockOptions extends PadmaBlockOptionsAPI {
 				'terms-select-taxonomy-heading' => array(
 					'name' => 'terms-select-taxonomy-heading',
 					'type' => 'heading',
-					'label' => __('Select Taxonomy','padma')
+					'label' => __('Taxonomie auswählen','padma')
 				),
 
 				'select-taxonomy' => array(
-					'label' => __('Select Taxonomy to display','padma'),
+					'label' => __('Taxonomie zum Anzeigen auswählen','padma'),
 					'type' => 'select',
 					'name' => 'select-taxonomy',
 					'options' => 'get_taxonomies()',
@@ -71,20 +71,20 @@ class PadmaListingsBlockOptions extends PadmaBlockOptionsAPI {
 				'terms-options-sorting-heading' => array(
 					'name' => 'terms-options-sorting-heading',
 					'type' => 'heading',
-					'label' => __('Sort Taxonomy','padma')
+					'label' => __('Taxonomie sortieren','padma')
 				),
 
 				'terms-orderby' => array(
 					'type' => 'select',
 					'name' => 'terms-orderby',
-					'label' => __('Order By?','padma'),
-					'tooltip' => __('Sort term alphabetically, by unique Term ID, or by the count of items in that Term','padma'),
+					'label' => __('Sortieren nach?','padma'),
+					'tooltip' => __('Sortiere Begriffe alphabetisch, nach eindeutiger Term-ID oder nach der Anzahl der Elemente in diesem Begriff','padma'),
 					'options' => array(
-						'none' => __('None','padma'),
+						'none' => __('Keine','padma'),
 						'ID' => 'ID',
 						'name' => __('Name','padma'),
 						'slug' => __('Slug','padma'),
-						'count' => __('Count','padma'),
+						'count' => __('Anzahl','padma'),
 						//'term_group' => 'Term Group'
 					),
 					'default' => 'name'
@@ -93,11 +93,11 @@ class PadmaListingsBlockOptions extends PadmaBlockOptionsAPI {
 				'terms-order' => array(
 					'type' => 'select',
 					'name' => 'terms-order',
-					'label' => __('Order?','padma'),
-					'tooltip' => __('Sort order for term (either ascending or descending).','padma'),
+					'label' => __('Sortierreihenfolge?','padma'),
+					'tooltip' => __('Sortierreihenfolge für Begriffe (entweder aufsteigend oder absteigend).','padma'),
 					'options' => array(
-						'DESC' => __('Descending','padma'),
-						'ASC' => __('Ascending','padma')
+						'DESC' => __('Absteigend','padma'),
+						'ASC' => __('Aufsteigend','padma')
 					),
 					'default' => 'ASC'
 				),
@@ -105,7 +105,7 @@ class PadmaListingsBlockOptions extends PadmaBlockOptionsAPI {
 				'terms-options-filter-heading' => array(
 					'name' => 'terms-options-filter-heading',
 					'type' => 'heading',
-					'label' => __('Filter Taxonomy','padma')
+					'label' => __('Taxonomie filtern','padma')
 				),
 
 				'terms-number' => array(
@@ -114,64 +114,64 @@ class PadmaListingsBlockOptions extends PadmaBlockOptionsAPI {
 					'slider-max' => 30,
 					'slider-interval' => 1,
 					'name' => 'terms-number',
-					'label' => __('Number of terms','padma'),
+					'label' => __('Anzahl der Begriffe','padma'),
 					'default' => '10',
-					'tooltip' => __('Sets the number of terms to display. Default 0 for no limit.','padma')
+					'tooltip' => __('Legt die Anzahl der anzuzeigenden Begriffe fest. Standard ist 0 für keine Begrenzung.','padma')
 				),
 
 				'terms-child-of' => array(
 					'type' => 'select',
 					'name' => 'terms-child-of',
-					'label' => __('Child Of','padma'),
+					'label' => __('Child von','padma'),
 					'options' => 'get_listing_terms()',
 					'default' => '',
-					'tooltip' => __('Only display terms that are children of what you specify here.','padma')
+					'tooltip' => __('Nur Begriffe anzeigen, die Kinder von dem sind, was Du hier angibst.','padma')
 				),
 
 				'terms-exclude' => array(
 					'type' => 'multi-select',
 					'name' => 'terms-exclude',
-					'label' => __('Exclude','padma'),
+					'label' => __('Ausschließen','padma'),
 					'options' => 'get_listing_terms()',
 					'default' => '',
-					'tooltip' => __('Exclude one or more term from the results.','padma')
+					'tooltip' => __('Schließe einen oder mehrere Begriffe von den Ergebnissen aus.','padma')
 				),
 
 				'terms-include' => array(
 					'type' => 'multi-select',
 					'name' => 'terms-include',
-					'label' => __('Include','padma'),
+					'label' => __('Einschließen','padma'),
 					'options' => 'get_listing_terms()',
 					'default' => '',
-					'tooltip' => __('Only include certain terms in the list.','padma')
+					'tooltip' => __('Nur bestimmte Begriffe in der Liste einschließen.','padma')
 				),
 
 				'terms-slug' => array(
 					'name' => 'terms-slug',
 					'type' => 'text',
 					'label' => 'Slug',
-					'tooltip' => __('Returns terms whose "slug" matches this value. Default is empty string.','padma')
+					'tooltip' => __('Gibt Begriffe zurück, deren "Slug" diesem Wert entspricht. Standard ist ein leerer String.','padma')
 				),
 
 				'terms-options-display-heading' => array(
 					'name' => 'terms-options-display-heading',
 					'type' => 'heading',
-					'label' => __('Display Taxonomy','padma')
+					'label' => __('Taxonomie anzeigen','padma')
 				),
 
 				'terms-hide-empty' => array(
 					'type' => 'checkbox',
 					'name' => 'terms-hide-empty', 
-					'label' => __('Hide Empty?','padma'),
-					'tooltip' => __('Toggles the display of term with no posts.','padma'),
+					'label' => __('Leer ausblenden?','padma'),
+					'tooltip' => __('Blendet Begriffe ohne Beiträge aus.','padma'),
 					'default' => true
 				),
 
 				'terms-hierarchical' => array(
 					'type' => 'checkbox',
 					'name' => 'terms-hierarchical', 
-					'label' => __('Hierarchical?','padma'),
-					'tooltip' => __('Whether to include terms that have non-empty descendants .','padma'),
+					'label' => __('Hierarchisch?','padma'),
+					'tooltip' => __('Ob Begriffe mit nicht-leeren Nachkommen eingeschlossen werden sollen.','padma'),
 					'default' => true
 				)
 
@@ -182,7 +182,7 @@ class PadmaListingsBlockOptions extends PadmaBlockOptionsAPI {
 				'number-of-posts' => array(
 					'type' => 'integer',
 					'name' => 'number-of-posts',
-					'label' => __('Number of Posts','padma'),
+					'label' => __('Anzahl der Beiträge','padma'),
 					'tooltip' => '',
 					'default' => 5
 				),
@@ -190,13 +190,13 @@ class PadmaListingsBlockOptions extends PadmaBlockOptionsAPI {
 				'posts-pages-post-type-heading' => array(
 					'name' => 'posts-pages-post-type-heading',
 					'type' => 'heading',
-					'label' => __('Filter Content','padma')
+					'label' => __('Inhalt filtern','padma')
 				),
 
 				'post-type' => array(
 					'type' => 'select',
 					'name' => 'post-type',
-					'label' => __('Post Type','padma'),
+					'label' => __('Beitragstyp','padma'),
 					'tooltip' => '',
 					'options' => 'get_post_types()',
 					'toggle'    => array(
@@ -211,7 +211,7 @@ class PadmaListingsBlockOptions extends PadmaBlockOptionsAPI {
 				),
 
 				'post-taxonomy-filter' => array(
-					'label' => __('Select Taxonomy to filter','padma'),
+					'label' => __('Taxonomie zum Filtern auswählen','padma'),
 					'type' => 'select',
 					'name' => 'post-taxonomy-filter',
 					'options' => 'get_taxonomies()',
@@ -236,7 +236,7 @@ class PadmaListingsBlockOptions extends PadmaBlockOptionsAPI {
 				'author' => array(
 					'type' => 'multi-select',
 					'name' => 'author',
-					'label' => __('Author','padma'),
+					'label' => __('Autor','padma'),
 					'tooltip' => '',
 					'options' => 'get_authors()'
 				),
@@ -245,26 +245,26 @@ class PadmaListingsBlockOptions extends PadmaBlockOptionsAPI {
 					'type' => 'integer',
 					'name' => 'offset',
 					'label' => __('Offset','padma'),
-					'tooltip' => __('The offset is the number of entries or posts you would like to skip.  If the offset is 1, then the first post will be skipped.','padma'),
+					'tooltip' => __('Der Offset ist die Anzahl der Einträge oder Beiträge, die Sie überspringen möchten. Wenn der Offset 1 ist, wird der erste Beitrag übersprungen.','padma'),
 					'default' => 0
 				),
 
 				'posts-pages-sort-heading' => array(
 					'name' => 'posts-pages-sort-heading',
 					'type' => 'heading',
-					'label' => __('Sort Content','padma')
+					'label' => __('Inhalt sortieren','padma')
 				),
 
 				'order-by' => array(
 					'type' => 'select',
 					'name' => 'order-by',
-					'label' => __('Order By','padma'),
+					'label' => __('Sortieren nach','padma'),
 					'tooltip' => '',
 					'options' => array(
-						'date' => __('Date','padma'),
-						'title' => __('Title','padma'),
-						'rand' => __('Random','padma'),
-						'comment_count' => __('Comment Count','padma'),
+						'date' => __('Datum','padma'),
+						'title' => __('Titel','padma'),
+						'rand' => __('Zufällig','padma'),
+						'comment_count' => __('Anzahl der Kommentare','padma'),
 						'ID' => 'ID'
 					)
 				),
@@ -272,11 +272,11 @@ class PadmaListingsBlockOptions extends PadmaBlockOptionsAPI {
 				'order' => array(
 					'type' => 'select',
 					'name' => 'order',
-					'label' => __('Order','padma'),
+					'label' => __('Reihenfolge','padma'),
 					'tooltip' => '',
 					'options' => array(
-						'desc' => __('Descending','padma'),
-						'asc' => __('Ascending','padma'),
+						'desc' => __('Absteigend','padma'),
+						'asc' => __('Aufsteigend','padma'),
 					)
 				)
 			),
@@ -328,7 +328,7 @@ class PadmaListingsBlockOptions extends PadmaBlockOptionsAPI {
 		$output = 'objects';
 		$operator = 'and';
 
-		$taxonomy_options = array('&ndash; Do not filter &ndash;');
+		$taxonomy_options = array('&ndash; Nicht filtern &ndash;');
 
 		$taxonomy_select_query=get_taxonomies($args,$output,$operator);
 
@@ -348,7 +348,7 @@ class PadmaListingsBlockOptions extends PadmaBlockOptionsAPI {
 
 		$taxonomy_label = $this->get_taxonomy_label($taxonomy);
 
-		$terms_options = array('&ndash; Select '. $taxonomy_label .' &ndash;');
+		$terms_options = array('&ndash; Wähle '. $taxonomy_label .' &ndash;');
 
 		$terms = get_terms( $taxonomy, 'orderby=id&hide_empty=0' );
 
@@ -412,7 +412,7 @@ class PadmaListingsBlockOptions extends PadmaBlockOptionsAPI {
 
 	function get_post_types() {
 
-		$post_type_options = array('&ndash; All Post Types &ndash;');
+		$post_type_options = array('&ndash; Alle Beitragstypen &ndash;');
 
 		$post_types = get_post_types(false, 'objects'); 
 

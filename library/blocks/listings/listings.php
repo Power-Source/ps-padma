@@ -14,9 +14,9 @@ class PadmaListingsBlock extends PadmaBlockAPI {
 	function __construct(){
 
 		$this->id = 'listings';
-		$this->name = __('Listings','padma');
+		$this->name = __('Archive','padma');
 		$this->options_class = 'PadmaListingsBlockOptions';
-		$this->description = __('List out your posts, custom post types, categories, tags, custom taxonomies, authors, pages, and comments.','padma');		
+		$this->description = __('Liste Deine Beiträge, benutzerdefinierten Beitragstypen, Kategorien, Schlagwörter, benutzerdefinierten Taxonomien, Autoren, Seiten und Kommentare auf.','padma');		
 		$this->categories = array('core','content');
 	}
 
@@ -31,19 +31,19 @@ class PadmaListingsBlock extends PadmaBlockAPI {
 
 		$this->register_block_element(array(
 			'id' => 'list-items',
-			'name' => __('List Container','padma'),
+			'name' => __('Listen Container','padma'),
 			'selector' => 'ul.list-items'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'list-item',
-			'name' => __('List Item','padma'),
+			'name' => __('Listeneintrag','padma'),
 			'selector' => 'ul.list-items li'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'list-item-link',
-			'name' => __('List Item Link','padma'),
+			'name' => __('Listeneintrag Link','padma'),
 			'selector' => 'ul.list-items li a'
 		));
 
