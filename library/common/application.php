@@ -284,7 +284,8 @@ class Padma {
 
 
 		//Visual editor classes
-		if ( PadmaRoute::is_visual_editor() || (defined('DOING_AJAX') && DOING_AJAX && strpos($_REQUEST['action'], 'padma') !== false ) )
+		$request_action = isset($_REQUEST['action']) ? (string) $_REQUEST['action'] : '';
+		if ( PadmaRoute::is_visual_editor() || (defined('DOING_AJAX') && DOING_AJAX && strpos($request_action, 'padma') !== false ) )
 			$dependencies['visual-editor'] = true;
 
 		//Admin classes		

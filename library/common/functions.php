@@ -198,9 +198,12 @@ function padma_format_url_ssl($url) {
 function padma_get_current_url() {
 
 	$prefix = padma_get('HTTPS', $_SERVER) != 'on' ? 'http://' : 'https://';
-	$http_host = !isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['HTTP_X_FORWARDED_HOST'];
+	$http_host = isset($_SERVER['HTTP_X_FORWARDED_HOST'])
+		? $_SERVER['HTTP_X_FORWARDED_HOST']
+		: padma_get('HTTP_HOST', $_SERVER, '');
+	$request_uri = padma_get('REQUEST_URI', $_SERVER, '');
 
-	return $prefix . $http_host . $_SERVER['REQUEST_URI'];
+	return $prefix . $http_host . $request_uri;
 
 }
 
@@ -543,7 +546,7 @@ function padma_format_color($color, $pound_sign = true) {
  **/
 function padma_get_browser() {
 
-	$u_agent = $_SERVER['HTTP_USER_AGENT']; 
+	$u_agent = padma_get('HTTP_USER_AGENT', $_SERVER, '');
 	$bname = 'Unknown';
 	$platform = 'Unknown';
 	$version = '';

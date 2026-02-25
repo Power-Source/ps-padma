@@ -59,7 +59,7 @@ if ( apply_filters( 'replace_editor', false, $post ) === true ) {
 
     PHP Version:		<?php echo PHP_VERSION . "\n"; ?>
     MySQL Version:		<?php echo $wpdb->db_version() . "\n"; ?>
-    Web Server Info:	<?php echo $_SERVER['SERVER_SOFTWARE'] . "\n"; ?>
+	Web Server Info:	<?php echo isset($_SERVER['SERVER_SOFTWARE']) ? $_SERVER['SERVER_SOFTWARE'] . "\n" : "Unknown\n"; ?>
     GD Support:			<?php echo function_exists('gd_info') ? "Yes\n" : "***WARNING*** No\n"; ?>
 
     PHP Memory Limit:	<?php echo ini_get('memory_limit') . "\n"; ?>

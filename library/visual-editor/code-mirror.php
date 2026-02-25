@@ -6,7 +6,7 @@
 <?php
 
 	$baseURL 	= padma_url() . '/library/visual-editor/' . ((defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? 'scripts-src' : 'scripts-src');
-	$mode 		= $_GET['mode'];
+	$mode 		= isset($_GET['mode']) ? (string) $_GET['mode'] : 'html';
 
 	if($mode == 'html'){
 		$mode = 'htmlmixed';
@@ -35,10 +35,8 @@
 		'/deps/code-mirror/addon/search/matchesonscrollbar.css',
 	);
 
-	if(in_array('night', $_COOKIE)){
-		if($_COOKIE['night']=='true'){
-			$styles[] = '/deps/code-mirror/theme/night.css';
-		}		
+	if ( isset($_COOKIE['night']) && $_COOKIE['night'] === 'true' ) {
+		$styles[] = '/deps/code-mirror/theme/night.css';
 	}
 
 	?><link rel="stylesheet" href="<?php echo padma_url() . '/library/admin/css/admin-padma.css'; ?> "><?php
