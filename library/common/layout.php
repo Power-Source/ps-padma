@@ -237,12 +237,13 @@ class PadmaLayout {
 		} elseif ( is_singular() ) {
 
 			$post = $queried_object;
-			$post_type = get_post_type_object($post->post_type);
+			$post_type = $post ? get_post_type_object($post->post_type) : null;
+			$post_type_name = $post_type ? $post_type->name : null;
 
 			$current_layout[] = 'single';
 
-			if ( $post_type->name )
-				$current_layout[] = 'single' . self::$sep . $post_type->name;
+			if ( $post_type_name )
+				$current_layout[] = 'single' . self::$sep . $post_type_name;
 
 			$posts = array(
 				$post->ID
@@ -256,8 +257,8 @@ class PadmaLayout {
 			}
 
 			foreach ( array_reverse($posts) as $post_id )
-				if ( $post_type->name && $post_id )
-					$current_layout[] = 'single' . self::$sep . $post_type->name . self::$sep . $post_id;
+				if ( $post_type_name && $post_id )
+					$current_layout[] = 'single' . self::$sep . $post_type_name . self::$sep . $post_id;
 
 		} elseif ( is_archive() || is_search() ) {
 
