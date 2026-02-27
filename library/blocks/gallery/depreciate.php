@@ -12,8 +12,7 @@ function padma_gallery_depreciate_hooks() {
 		array(
 			'id' => 'header-all-view',
 			'name' => '<div class="element-header">All Views</div>',
-			'selector' => '',
-			'properties' => array('')
+			'selector' => ''
 		),
 		array(
 			'id' => 'block-container',
@@ -89,8 +88,7 @@ function padma_gallery_depreciate_hooks() {
 		array(
 			'id' => 'sub-header-grid',
 			'name' => '<div class="element-sub-header">Grid Layout</div>',
-			'selector' => '',
-			'properties' => array('')
+			'selector' => ''
 		),
 		array(
 			'id' => 'image-title',
@@ -114,8 +112,7 @@ function padma_gallery_depreciate_hooks() {
 		array(
 			'id' => 'sub-header-slider',
 			'name' => '<div class="element-sub-header">Slider Layout</div>',
-			'selector' => '',
-			'properties' => array('')
+			'selector' => ''
 		),
 		array(
 			'id' => 'pagination-container',
@@ -137,8 +134,7 @@ function padma_gallery_depreciate_hooks() {
 		array(
 			'id' => 'sub-header-overlay',
 			'name' => '<div class="element-sub-header">Overlay</div>',
-			'selector' => '',
-			'properties' => array('')
+			'selector' => ''
 		),
 		array(
 			'id' => 'overlay-container',
@@ -168,8 +164,7 @@ function padma_gallery_depreciate_hooks() {
 		array(
 			'id' => 'header-album-view',
 			'name' => '<div class="element-header">Album View</div>',
-			'selector' => '',
-			'properties' => array('')
+			'selector' => ''
 		),
 		array(
 			'id' => 'album-content-wrap',
@@ -193,8 +188,7 @@ function padma_gallery_depreciate_hooks() {
 		array(
 			'id' => 'header-media-view',
 			'name' => '<div class="element-header">Media View</div>',
-			'selector' => '',
-			'properties' => array('')
+			'selector' => ''
 		),
 		array(
 			'id' => 'media-image-title',

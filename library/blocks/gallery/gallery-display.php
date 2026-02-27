@@ -334,24 +334,27 @@ class PadmaGalleryBlockDisplay {
 		$featured_img_entries = array();
 
 		$featured_img_id = get_post_thumbnail_id( $post->ID );
-		$get_featured_img = get_post( $featured_img_id );
-		$featured_img_src = wp_get_attachment_image_src( $featured_img_id, 'full');
-		$featured_img_alt = get_post_meta( $featured_img_id, '_wp_attachment_image_alt', true );
-		$featured_img_title = $get_featured_img->post_title;
-		$featured_img_title = preg_replace('/[^a-zA-Z0-9]/', ' ', ucwords(strtolower($featured_img_title)));
-		$featured_img_caption = $get_featured_img->post_excerpt;
-		$featured_img_description =  $get_featured_img->post_content;
+		$get_featured_img = $featured_img_id ? get_post( $featured_img_id ) : false;
+		$featured_img_src = $featured_img_id ? wp_get_attachment_image_src( $featured_img_id, 'full') : false;
 
-		$featured_img_entries[] = array(
-			'id' => $featured_img_id,
-			'url' => $featured_img_src[0],
-			'width' => $featured_img_src[1],
-			'height' => $featured_img_src[2],
-			'alt' => $featured_img_alt,
-			'title' => $featured_img_alt,
-			'caption' => $featured_img_caption,
-			'description' => $featured_img_description
-		);
+		if ( $featured_img_src && is_object($get_featured_img) ) {
+			$featured_img_alt = get_post_meta( $featured_img_id, '_wp_attachment_image_alt', true );
+			$featured_img_title = $get_featured_img->post_title;
+			$featured_img_title = preg_replace('/[^a-zA-Z0-9]/', ' ', ucwords(strtolower($featured_img_title)));
+			$featured_img_caption = $get_featured_img->post_excerpt;
+			$featured_img_description =  $get_featured_img->post_content;
+
+			$featured_img_entries[] = array(
+				'id' => $featured_img_id,
+				'url' => $featured_img_src[0],
+				'width' => $featured_img_src[1],
+				'height' => $featured_img_src[2],
+				'alt' => $featured_img_alt,
+				'title' => $featured_img_alt,
+				'caption' => $featured_img_caption,
+				'description' => $featured_img_description
+			);
+		}
 
 		/* we get the gallery image */
 		$album_img = $attachment ? array(0 => $post_id) : get_post_meta( $post->ID, 'padma_gallery_image', true );
