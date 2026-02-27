@@ -55,6 +55,7 @@ class PadmaBlocks {
 		'heading' => 'Padma_Advanced\\PadmaVisualElementsBlockHeading',
 		'label' => 'Padma_Advanced\\PadmaVisualElementsBlockLabel',
 		'lightbox' => 'Padma_Advanced\\PadmaVisualElementsBlockLightbox',
+		'lottiefiles' => 'Padma_Advanced\\PadmaVisualElementsBlockLottieFiles',
 		'mdi' => 'Padma_Advanced\\PadmaMDIBlock',
 		'portfolio' => 'Padma_Advanced\\PadmaVisualElementsBlockPortfolio',
 		'portfolio-cards' => 'Padma_Advanced\\PadmaVisualElementsBlockPortfolioCards',
@@ -62,6 +63,7 @@ class PadmaBlocks {
 		'post-slider' => 'Padma_Advanced\\PadmaVisualElementsBlockPostSlider',
 		'quote' => 'Padma_Advanced\\PadmaVisualElementsBlockQuote',
 		'sociable' => 'Padma_Advanced\\PadmaVisualElementsBlockSociable',
+		'shortcode-block' => 'Padma_Advanced\\PadmaVisualElementsBlockShortcodeBlock',
 		'spacer' => 'Padma_Advanced\\PadmaVisualElementsBlockSpacer',
 		'spoiler' => 'Padma_Advanced\\PadmaVisualElementsBlockSpoiler',
 
