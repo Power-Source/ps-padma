@@ -287,8 +287,14 @@ class Padma {
 			$dependencies['visual-editor'] = true;
 
 		//Admin classes		
-		if ( is_admin() )
+		if ( is_admin() ) {
 			$dependencies['admin'] = true;
+			
+			/* Gallery Admin-Module laden */
+			$dependencies['admin/gallery-post-type'] = false;
+			$dependencies['admin/gallery-meta-boxes'] = false;
+			$dependencies['admin/gallery-admin-assets'] = false;
+		}
 
 
 		// Load stuff now

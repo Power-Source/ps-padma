@@ -47,8 +47,6 @@ class PadmaVisualEditorDisplay {
 		
 		// Extra: Block by dequeue
 		add_action('wp_enqueue_scripts', array(__CLASS__, 'dequeue_conflicting_scripts'), 0);
-		
-		error_log('[VE DEBUG] Activated script blocking - all 3 layers');
 
 		add_filter( 'script_loader_tag', array( __CLASS__, 'require_js_attr' ), 15, 3 );
 		add_action('padma_visual_editor_scripts', array(__CLASS__, 'require_js'));
@@ -165,7 +163,6 @@ class PadmaVisualEditorDisplay {
 		);
 		
 		if ( in_array($handle, $blocked_handles) ) {
-			error_log('[VE FILTER_PROBLEMATIC] Blocking by handle: ' . $handle);
 			return false;
 		}
 		
@@ -179,7 +176,6 @@ class PadmaVisualEditorDisplay {
 		
 		foreach ( $problematic_patterns as $pattern ) {
 			if ( stripos($src, $pattern) !== false ) {
-				error_log('[VE FILTER_PROBLEMATIC] Blocking by SRC pattern: ' . $pattern . ' in ' . $src);
 				return false;
 			}
 		}

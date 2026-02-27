@@ -19,6 +19,7 @@ class PadmaBlocks {
 		'divider',
 		'embed',
 		'footer',
+		'gallery',
 		'gravity-forms',
 		'header',
 		'image',
@@ -433,13 +434,8 @@ class PadmaBlocks {
 		//Do not run these if it's the admin page or the visual editor is open
 		$in_visual_editor = self::is_in_visual_editor();
 		
-		if ( is_admin() || $in_visual_editor ) {
-			error_log('[BLOCK ENQUEUE DEBUG] Skipped - is_admin=' . var_export(is_admin(), true) . ' in_visual_editor=' . var_export($in_visual_editor, true));
-			return false;
+		if ( is_admin() || $in_visual_editor ) {return false;
 		}
-
-		error_log('[BLOCK ENQUEUE DEBUG] Proceeding with block enqueue - is_admin=' . var_export(is_admin(), true) . ' in_visual_editor=' . var_export($in_visual_editor, true));
-
 		$layout_id = PadmaLayout::get_current_in_use();
 
 		$enqueue_action_blocks = padma_get($layout_id, self::$block_actions['enqueue'], array());
