@@ -433,16 +433,23 @@ class PadmaAdmin {
                 wp_register_style('tinymce_css', $css_src);
                 wp_enqueue_style('tinymce_css');
 
+	}
 
-		/* Auto Updater */
-		if ( $pagenow === 'update-core.php' ) {
+	/* Auto Updater */
+	if ( $pagenow === 'update-core.php' ) {
 
-			wp_enqueue_style('padma_admin', padma_url() . '/library/admin/css/admin-padma.css');
-			wp_enqueue_style('padma_alerts', padma_url() . '/library/media/css/alerts.css');
-
-		}
+		wp_enqueue_style('padma_admin', padma_url() . '/library/admin/css/admin-padma.css');
+		wp_enqueue_style('padma_alerts', padma_url() . '/library/media/css/alerts.css');
 
 	}
+
+}
+
+
+	public static function save_message() {
+
+		global $padma_admin_save_message;
+
 		if ( !isset($padma_admin_save_message) || $padma_admin_save_message == false )
 			return false;
 

@@ -83,10 +83,10 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 
 		// JS.
 		if ( file_exists($isotope_path) )
-			wp_enqueue_script( 'padma-ve-isotope', $isotope_url, array( 'jquery' ), PADMA_ADVANCED_VERSION, true );
+			wp_enqueue_script( 'padma-ve-isotope', $isotope_url, array( 'jquery' ), PADMA_VERSION, true );
 
 		if ( file_exists($portfolio_path) )
-			wp_enqueue_script( 'padma-ve-portfolio', $portfolio_url, array( 'jquery', 'padma-ve-isotope' ), PADMA_ADVANCED_VERSION, true );
+			wp_enqueue_script( 'padma-ve-portfolio', $portfolio_url, array( 'jquery', 'padma-ve-isotope' ), PADMA_VERSION, true );
 
 	}
 
@@ -534,22 +534,22 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 
 		/* JS */
 		if ( file_exists($isotope_path) )
-			wp_enqueue_script( 'padma-ve-isotope', $isotope_url, array( 'jquery' ), PADMA_ADVANCED_VERSION, true );
+			wp_enqueue_script( 'padma-ve-isotope', $isotope_url, array( 'jquery' ), PADMA_VERSION, true );
 
 		if ( file_exists($magnific_path) )
-			wp_enqueue_script( 'padma-ve-magnific', $magnific_url, array( 'jquery' ), PADMA_ADVANCED_VERSION, true );
+			wp_enqueue_script( 'padma-ve-magnific', $magnific_url, array( 'jquery' ), PADMA_VERSION, true );
 
 		if ( file_exists($portfolio_script_path) )
-			wp_enqueue_script( 'padma-ve-portfolio', $portfolio_script_url, array( 'jquery', 'padma-ve-isotope' ), PADMA_ADVANCED_VERSION, true );
+			wp_enqueue_script( 'padma-ve-portfolio', $portfolio_script_url, array( 'jquery', 'padma-ve-isotope' ), PADMA_VERSION, true );
 
 		/* CSS */
 		if ( file_exists($magnific_css_path) )
-			wp_enqueue_style( 'padma-ve-magnific', $magnific_css_url, array(), PADMA_ADVANCED_VERSION, 'all' );
+			wp_enqueue_style( 'padma-ve-magnific', $magnific_css_url, array(), PADMA_VERSION, 'all' );
 
 		if ( file_exists($portfolio_css_path) )
-			wp_enqueue_style( 'padma-ve-portfolio', $portfolio_css_url, array(), PADMA_ADVANCED_VERSION, 'all' );
+			wp_enqueue_style( 'padma-ve-portfolio', $portfolio_css_url, array(), PADMA_VERSION, 'all' );
 
 		if ( file_exists($fontawesome_css_path) )
-			wp_enqueue_style( 'padma-ve-fontawesome', $fontawesome_css_url, array(), PADMA_ADVANCED_VERSION, 'all' );
+			wp_enqueue_style( 'padma-ve-fontawesome', $fontawesome_css_url, array(), PADMA_VERSION, 'all' );
 	}
 }

@@ -68,10 +68,8 @@ class PadmaVisualElementsFontAwesomeBlock extends \PadmaBlockAPI {
 	 * Init
 	 */
 	public function init() {
-		/*
 		add_action( 'padma_visual_editor_styles', array( __CLASS__, 'fontawesome_admin_styles' ) );
 		add_action( 'padma_visual_editor_scripts', array( __CLASS__, 'fontawesome_admin_scripts' ), 10 );
-		*/
 	}
 
 	/**
@@ -340,7 +338,49 @@ class PadmaVisualElementsFontAwesomeBlock extends \PadmaBlockAPI {
 
 		/* CSS */
 		$path = padma_url() . '/library/blocks-advanced/fontawesome/';
-		wp_enqueue_style( 'padma-ve-fontawesome', $path . 'fontawesome.css', array(), PADMA_ADVANCED_VERSION, 'all' );
+		wp_enqueue_style( 'padma-ve-fontawesome', $path . 'fontawesome.css', array(), PADMA_VERSION, 'all' );
+
+		// Webfont-Pfade mit absoluten URLs korrigieren
+		$webfonts_path = $path . 'webfonts/';
+		$font_faces = "
+		@font-face {
+			font-family: 'Font Awesome 5 Brands';
+			font-style: normal;
+			font-weight: normal;
+			font-display: auto;
+			src: url('{$webfonts_path}fa-brands-400.eot');
+			src: url('{$webfonts_path}fa-brands-400.eot?#iefix') format('embedded-opentype'),
+				url('{$webfonts_path}fa-brands-400.woff2') format('woff2'),
+				url('{$webfonts_path}fa-brands-400.woff') format('woff'),
+				url('{$webfonts_path}fa-brands-400.ttf') format('truetype'),
+				url('{$webfonts_path}fa-brands-400.svg#fontawesome') format('svg');
+		}
+		@font-face {
+			font-family: 'Font Awesome 5 Free';
+			font-style: normal;
+			font-weight: 400;
+			font-display: auto;
+			src: url('{$webfonts_path}fa-regular-400.eot');
+			src: url('{$webfonts_path}fa-regular-400.eot?#iefix') format('embedded-opentype'),
+				url('{$webfonts_path}fa-regular-400.woff2') format('woff2'),
+				url('{$webfonts_path}fa-regular-400.woff') format('woff'),
+				url('{$webfonts_path}fa-regular-400.ttf') format('truetype'),
+				url('{$webfonts_path}fa-regular-400.svg#fontawesome') format('svg');
+		}
+		@font-face {
+			font-family: 'Font Awesome 5 Free';
+			font-style: normal;
+			font-weight: 900;
+			font-display: auto;
+			src: url('{$webfonts_path}fa-solid-900.eot');
+			src: url('{$webfonts_path}fa-solid-900.eot?#iefix') format('embedded-opentype'),
+				url('{$webfonts_path}fa-solid-900.woff2') format('woff2'),
+				url('{$webfonts_path}fa-solid-900.woff') format('woff'),
+				url('{$webfonts_path}fa-solid-900.ttf') format('truetype'),
+				url('{$webfonts_path}fa-solid-900.svg#fontawesome') format('svg');
+		}
+		";
+		wp_add_inline_style( 'padma-ve-fontawesome', $font_faces );
 
 	}
 
@@ -352,8 +392,50 @@ class PadmaVisualElementsFontAwesomeBlock extends \PadmaBlockAPI {
 	public static function fontawesome_admin_styles() {
 
 		$path = padma_url() . '/library/blocks-advanced/fontawesome/';
-		wp_register_style( 'padma-ve-fontawesome', $path . 'fontawesome.css', false, PADMA_ADVANCED_VERSION, 'all' );
+		wp_register_style( 'padma-ve-fontawesome', $path . 'fontawesome.css', false, PADMA_VERSION, 'all' );
 		wp_enqueue_style( 'padma-ve-fontawesome' );
+
+		// Webfont-Pfade mit absoluten URLs korrigieren
+		$webfonts_path = $path . 'webfonts/';
+		$font_faces = "
+		@font-face {
+			font-family: 'Font Awesome 5 Brands';
+			font-style: normal;
+			font-weight: normal;
+			font-display: auto;
+			src: url('{$webfonts_path}fa-brands-400.eot');
+			src: url('{$webfonts_path}fa-brands-400.eot?#iefix') format('embedded-opentype'),
+				url('{$webfonts_path}fa-brands-400.woff2') format('woff2'),
+				url('{$webfonts_path}fa-brands-400.woff') format('woff'),
+				url('{$webfonts_path}fa-brands-400.ttf') format('truetype'),
+				url('{$webfonts_path}fa-brands-400.svg#fontawesome') format('svg');
+		}
+		@font-face {
+			font-family: 'Font Awesome 5 Free';
+			font-style: normal;
+			font-weight: 400;
+			font-display: auto;
+			src: url('{$webfonts_path}fa-regular-400.eot');
+			src: url('{$webfonts_path}fa-regular-400.eot?#iefix') format('embedded-opentype'),
+				url('{$webfonts_path}fa-regular-400.woff2') format('woff2'),
+				url('{$webfonts_path}fa-regular-400.woff') format('woff'),
+				url('{$webfonts_path}fa-regular-400.ttf') format('truetype'),
+				url('{$webfonts_path}fa-regular-400.svg#fontawesome') format('svg');
+		}
+		@font-face {
+			font-family: 'Font Awesome 5 Free';
+			font-style: normal;
+			font-weight: 900;
+			font-display: auto;
+			src: url('{$webfonts_path}fa-solid-900.eot');
+			src: url('{$webfonts_path}fa-solid-900.eot?#iefix') format('embedded-opentype'),
+				url('{$webfonts_path}fa-solid-900.woff2') format('woff2'),
+				url('{$webfonts_path}fa-solid-900.woff') format('woff'),
+				url('{$webfonts_path}fa-solid-900.ttf') format('truetype'),
+				url('{$webfonts_path}fa-solid-900.svg#fontawesome') format('svg');
+		}
+		";
+		wp_add_inline_style( 'padma-ve-fontawesome', $font_faces );
 
 	}
 
@@ -365,7 +447,7 @@ class PadmaVisualElementsFontAwesomeBlock extends \PadmaBlockAPI {
 	public static function fontawesome_admin_scripts() {
 
 		$path = padma_url() . '/library/blocks-advanced/fontawesome/';
-		wp_register_script( 'padma_fontawesome_script', $path . 'visual-elements-fontawesome.js', array( 'jquery' ), PADMA_ADVANCED_VERSION, true );
+		wp_register_script( 'padma_fontawesome_script', $path . 'visual-elements-fontawesome.js', array( 'jquery' ), PADMA_VERSION, true );
 		wp_enqueue_script( 'padma_fontawesome_script' );
 
 	}

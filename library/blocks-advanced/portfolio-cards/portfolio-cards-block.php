@@ -82,7 +82,7 @@ class PadmaVisualElementsBlockPortfolioCards extends \PadmaBlockAPI {
 
 		/* JS */
 		if ( file_exists($script_path) )
-			wp_enqueue_script( 'padma-ve-portfolio-cards', $script_url, array( 'jquery' ), PADMA_ADVANCED_VERSION, true );
+			wp_enqueue_script( 'padma-ve-portfolio-cards', $script_url, array( 'jquery' ), PADMA_VERSION, true );
 
 	}
 
@@ -205,11 +205,11 @@ class PadmaVisualElementsBlockPortfolioCards extends \PadmaBlockAPI {
 
 		/* JS */
 		if ( file_exists($script_path) )
-			wp_enqueue_script( 'padma-ve-portfolio-cards', $script_url, array( 'jquery' ), PADMA_ADVANCED_VERSION, true );
+			wp_enqueue_script( 'padma-ve-portfolio-cards', $script_url, array( 'jquery' ), PADMA_VERSION, true );
 
 		/* CSS */
 		if ( file_exists($style_path) )
-			wp_enqueue_style( 'padma-ve-portfolio-cards', $style_url, array(), PADMA_ADVANCED_VERSION, 'all' );
+			wp_enqueue_style( 'padma-ve-portfolio-cards', $style_url, array(), PADMA_VERSION, 'all' );
 	}
 
 }

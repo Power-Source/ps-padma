@@ -171,7 +171,7 @@ class PadmaMDIBlock extends \PadmaBlockAPI {
 	public static function mdi_admin_scripts() {
 
 		$path = padma_url() . '/library/blocks-advanced/mdi/';
-		wp_register_script( 'padma_mdi_script', $path . 'mdi.js', array('jquery'), PADMA_ADVANCED_VERSION, true );
+		wp_register_script( 'padma_mdi_script', $path . 'mdi.js', array('jquery'), PADMA_VERSION, true );
 		wp_enqueue_script( 'padma_mdi_script' );
 
 	}

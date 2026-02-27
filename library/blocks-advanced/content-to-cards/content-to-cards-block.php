@@ -224,10 +224,10 @@ class PadmaVisualElementsBlockContentToCards extends \PadmaBlockAPI {
 		$path = padma_url() . '/library/blocks-advanced/content-to-cards/';
 
 		// CSS.
-		wp_enqueue_style( 'padma-ve-content-to-cards', $path . 'content-to-cards.css', array(), PADMA_ADVANCED_VERSION );
+		wp_enqueue_style( 'padma-ve-content-to-cards', $path . 'content-to-cards.css', array(), PADMA_VERSION );
 
 		/* JS */
-		wp_enqueue_script( 'padma-ve-content-to-cards', $path . 'content-to-cards.js', array( 'jquery' ), PADMA_ADVANCED_VERSION, true );
+		wp_enqueue_script( 'padma-ve-content-to-cards', $path . 'content-to-cards.js', array( 'jquery' ), PADMA_VERSION, true );
 	}
 
 }
