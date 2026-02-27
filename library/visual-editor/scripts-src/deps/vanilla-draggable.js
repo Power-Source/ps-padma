@@ -22,9 +22,22 @@
 
 	SimpleDraggable.prototype.init = function() {
 		const self = this;
-		const handle = this.options.handle ? this.element.querySelector(this.options.handle) : this.element;
 		
-		if (!handle) return;
+		// Handle can be: string selector, jQuery object, or DOM element
+		let handle = this.options.handle;
+		
+		if (typeof handle === 'string') {
+			// String selector
+			handle = this.element.querySelector(handle);
+		} else if (handle && handle.jquery) {
+			// jQuery object
+			handle = handle[0];
+		}
+		
+		// If no handle or invalid, use the element itself
+		if (!handle || !handle.nodeType) {
+			handle = this.element;
+		}
 
 		let isActive = false;
 		let startX, startY, offsetX = 0, offsetY = 0;

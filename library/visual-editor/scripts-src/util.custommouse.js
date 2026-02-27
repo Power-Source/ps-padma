@@ -1,4 +1,4 @@
-define(['jquery', 'jqueryUI'], function($) {
+define(['jquery'], function($) {
 
 	$.widget('ui.custommouse', $.ui.mouse, {
 		options: {

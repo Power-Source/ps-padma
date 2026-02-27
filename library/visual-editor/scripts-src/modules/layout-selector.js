@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'underscore', 'jqueryUI'], function($, ko, _) {
+define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 
 	showLayoutSelector = function() {
 

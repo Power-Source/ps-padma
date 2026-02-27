@@ -1,4 +1,4 @@
-define(['jquery', 'jqueryUI', 'deps/jquery.cookie', 'util.tooltips', 'modules/panel.inputs'], function($, jQueryUI, jQueryCookie, tooltips, panelInputs) {
+define(['jquery', 'deps/jquery.cookie', 'util.tooltips', 'modules/panel.inputs'], function($, jQueryCookie, tooltips, panelInputs) {
 
 	selectTab = function(tab, context) {
 
