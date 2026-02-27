@@ -46,6 +46,17 @@ class PadmaAdminPages {
 	}
 
 
+	public static function advanced_blocks() {
+
+		PadmaAdmin::show_header();
+
+			require_once PADMA_LIBRARY_DIR . '/admin/pages/advanced-blocks.php';
+
+		PadmaAdmin::show_footer();
+
+	}
+
+
 	public static function options() {
 
 		PadmaAdmin::show_header();

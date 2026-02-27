@@ -296,6 +296,7 @@ class PadmaAdmin {
 					self::add_admin_submenu( __('Erste Schritte','padma'), 'padma-getting-started', array('PadmaAdminPages', 'getting_started'));
 					self::add_admin_submenu( __('Visual Editor','padma'), 'padma-visual-editor', array('PadmaAdminPages', 'visual_editor'));
 					self::add_admin_submenu( __('Templates','padma'), 'padma-templates', array('PadmaAdminPages', 'templates'));
+					self::add_admin_submenu( __('Erweiterte Blöcke','padma'), 'padma-advanced-blocks', array('PadmaAdminPages', 'advanced_blocks'));
 					self::add_admin_submenu( __('Options','padma'), 'padma-options', array('PadmaAdminPages', 'options'));
 					self::add_admin_submenu( __('Tools','padma'), 'padma-tools', array('PadmaAdminPages', 'tools'));
 				break;
@@ -303,6 +304,7 @@ class PadmaAdmin {
 				case 'visual-editor':
 					self::add_admin_submenu( __('Visual Editor','padma'), 'padma-visual-editor', array('PadmaAdminPages', 'visual_editor'));
 					self::add_admin_submenu( __('Templates','padma'), 'padma-templates', array('PadmaAdminPages', 'templates'));
+					self::add_admin_submenu( __('Erweiterte Blöcke','padma'), 'padma-advanced-blocks', array('PadmaAdminPages', 'advanced_blocks'));
 					self::add_admin_submenu( __('Options','padma'), 'padma-options', array('PadmaAdminPages', 'options'));
 					self::add_admin_submenu( __('Tools','padma'), 'padma-tools', array('PadmaAdminPages', 'tools'));
 				break;
@@ -311,6 +313,7 @@ class PadmaAdmin {
 					self::add_admin_submenu( __('Options','padma'), 'padma-options', array('PadmaAdminPages', 'options'));
 					self::add_admin_submenu( __('Visual Editor','padma'), 'padma-visual-editor', array('PadmaAdminPages', 'visual_editor'));
 					self::add_admin_submenu( __('Templates','padma'), 'padma-templates', array('PadmaAdminPages', 'templates'));
+					self::add_admin_submenu( __('Erweiterte Blöcke','padma'), 'padma-advanced-blocks', array('PadmaAdminPages', 'advanced_blocks'));
 					self::add_admin_submenu( __('Tools','padma'), 'padma-tools', array('PadmaAdminPages', 'tools'));
 				break;
 
@@ -408,6 +411,14 @@ class PadmaAdmin {
 
 			// Thickbox entfernt, native Modal-Lösung wird verwendet
 			wp_enqueue_media();
+
+		}
+
+		/* Advanced Blocks */
+		if ( padma_get('page') == 'padma-advanced-blocks' ) {
+
+			wp_enqueue_style('padma_admin_advanced_blocks', padma_url() . '/library/admin/css/admin-advanced-blocks.css');
+			wp_enqueue_script('padma_admin_advanced_blocks', padma_url() . '/library/admin/js/admin-advanced-blocks.js', array('jquery'), PADMA_VERSION, true);
 
 		}
 

@@ -1,0 +1,79 @@
+.padma-advanced-filter-categories {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 12px 0 18px;
+}
+
+.padma-advanced-filter-categories li {
+	margin: 0;
+}
+
+.padma-advanced-filter-categories a {
+	display: inline-block;
+	padding: 6px 10px;
+	background: #f1f1f1;
+	border-radius: 4px;
+	cursor: pointer;
+	text-decoration: none;
+	color: #1d2327;
+}
+
+.padma-advanced-filter-categories a.active {
+	background: #2271b1;
+	color: #fff;
+}
+
+.padma-advanced-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+	gap: 12px;
+}
+
+.padma-advanced-list-item {
+	display: block;
+	padding: 14px;
+	border: 1px solid #dcdcde;
+	border-radius: 4px;
+	background: #fff;
+	text-decoration: none;
+	color: inherit;
+}
+
+.padma-advanced-list-item-image {
+	display: block;
+	height: 120px;
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+.padma-advanced-list-item-image img {
+	max-width: 120px;
+	max-height: 120px;
+}
+
+.padma-advanced-list-item-title {
+	display: block;
+	font-weight: 600;
+	margin-bottom: 6px;
+}
+
+.padma-advanced-list-item-description {
+	display: block;
+	color: #3c434a;
+	font-size: 13px;
+	line-height: 1.4;
+}
+
+.padma-advanced-list-item-noicon {
+	display: inline-flex;
+	width: 120px;
+	height: 120px;
+	align-items: center;
+	justify-content: center;
+	font-size: 42px;
+	font-weight: 700;
+	border-radius: 6px;
+	background: #f6f7f7;
+	color: #50575e;
+}

@@ -37,14 +37,52 @@ class PadmaBlocks {
 		'widget-area',
 	);
 
+	public static $advanced_blocks = array(
+		'accordion' => 'Padma_Advanced\\PadmaVisualElementsBlockAccordion',
+		'basic-heading' => 'Padma_Advanced\\PadmaVisualElementsBlockBasicHeading',
+		'box' => 'Padma_Advanced\\PadmaVisualElementsBlockBox',
+		'button' => 'Padma_Advanced\\PadmaVisualElementsBlockButton',
+		'columns' => 'Padma_Advanced\\PadmaVisualElementsBlockColumns',
+		'content-to-accordion' => 'Padma_Advanced\\PadmaVisualElementsBlockContentToAccordion',
+		'content-to-cards' => 'Padma_Advanced\\PadmaVisualElementsBlockContentToCards',
+		'content-to-tabs' => 'Padma_Advanced\\PadmaVisualElementsBlockContentToTabs',
+		'dailymotion' => 'Padma_Advanced\\PadmaVisualElementsBlockDailymotion',
+		'divider' => 'Padma_Advanced\\PadmaVisualElementsBlockDivider',
+		'dummy-image' => 'Padma_Advanced\\PadmaVisualElementsBlockDummyImage',
+		'dummy-text' => 'Padma_Advanced\\PadmaVisualElementsBlockDummyText',
+		'fontawesome' => 'Padma_Advanced\\PadmaVisualElementsFontAwesomeBlock',
+		'gmap' => 'Padma_Advanced\\PadmaVisualElementsBlockGoogleMaps',
+		'heading' => 'Padma_Advanced\\PadmaVisualElementsBlockHeading',
+		'label' => 'Padma_Advanced\\PadmaVisualElementsBlockLabel',
+		'lightbox' => 'Padma_Advanced\\PadmaVisualElementsBlockLightbox',
+		'mdi' => 'Padma_Advanced\\PadmaMDIBlock',
+		'portfolio' => 'Padma_Advanced\\PadmaVisualElementsBlockPortfolio',
+		'portfolio-cards' => 'Padma_Advanced\\PadmaVisualElementsBlockPortfolioCards',
+		'post-data' => 'Padma_Advanced\\PadmaVisualElementsBlockPostData',
+		'quote' => 'Padma_Advanced\\PadmaVisualElementsBlockQuote',
+		'spacer' => 'Padma_Advanced\\PadmaVisualElementsBlockSpacer',
+		'spoiler' => 'Padma_Advanced\\PadmaVisualElementsBlockSpoiler',
+		'store-account' => 'Padma_Advanced\\PadmaStoreBlockAccount',
+		'store-login-button' => 'Padma_Advanced\\PadmaStoreBlockLoginButton',
+		'store-products' => 'Padma_Advanced\\PadmaStoreBlockProducts',
+		'tabs' => 'Padma_Advanced\\PadmaVisualElementsBlockTabs',
+		'vimeo' => 'Padma_Advanced\\PadmaVisualElementsBlockVimeo',
+		'youtube' => 'Padma_Advanced\\PadmaVisualElementsBlockYoutube',
+	);
+
 	public static function init() {
 
 		Padma::load(array(
 			'abstract/api-block'
 		));
 
+		if ( !defined('PADMA_ADVANCED_VERSION') ) {
+			define('PADMA_ADVANCED_VERSION', PADMA_VERSION);
+		}
+
 		//self::load_core_blocks();
 		self::register_core_blocks();
+		self::register_advanced_blocks();
 
 
 		add_action('init', array(__CLASS__, 'register_block_types'), 8);
@@ -162,6 +200,33 @@ class PadmaBlocks {
 				require_once untrailingslashit( PADMA_CHILD_THEME_DIR ) . $register_file;
 			else
 				require_once PADMA_LIBRARY_DIR . $register_file;
+
+		}
+
+	}
+
+
+	public static function register_advanced_blocks() {
+
+		foreach ( apply_filters('padma_advanced_block_types', self::$advanced_blocks) as $block_name => $block_class ) {
+
+			$block_type_url = padma_url() . '/library/blocks-advanced/' . $block_name;
+			$block_base_dir = PADMA_LIBRARY_DIR . '/blocks-advanced/' . $block_name;
+			$class_file = $block_base_dir . '/' . $block_name . '-block.php';
+			$options_file = $block_base_dir . '/' . $block_name . '-options.php';
+
+			if ( !file_exists($class_file) )
+				continue;
+
+			if ( file_exists($options_file) )
+				require_once $options_file;
+
+			$icons = array(
+				'path' => $block_base_dir . '/',
+				'url' => $block_type_url . '/',
+			);
+
+			padma_register_block($block_class, $block_type_url, $class_file, $icons);
 
 		}
 

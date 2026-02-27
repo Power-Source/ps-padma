@@ -259,6 +259,7 @@ class Padma {
 			/*	
 				Compatiblity
 			*/
+			'compatibility/shortcodes/compatibility-shortcodes'	=> true,
 			'compatibility/woocommerce/compatibility-woocommerce' => 'CompatibilityWooCommerce',
 
 			/*		Headway Classes support	*/
