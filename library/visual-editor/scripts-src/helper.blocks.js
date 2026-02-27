@@ -1161,11 +1161,12 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 			blockTypeSelector.find('div.block-type:not(#get-more-blocks)').on('click', function(event) {	
 
 				var blockType = $(this).attr('id').replace('block-type-', '');
+				var targetBlock = block;
 
 				/* If new block then create it */
 					if ( block.hasClass('blank-block') ) {
-						
-						block.parents('.wrapper').padmaGrid('setupBlankBlock', blockType);
+						targetBlock = block.parents('.wrapper').data('ui-padmaGrid').setupBlankBlock(blockType);
+						blockID = getBlockID(targetBlock);
 					
 				/* Otherwise we're switching an existing block's type */
 					} else if ( confirm('Are you sure you wish to switch block types?  All settings for this block will be lost.') ) {
@@ -1173,6 +1174,7 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 						var switchedBlockTypeBlockID = switchBlockType(block, blockType);
 
 						blockID = switchedBlockTypeBlockID;
+						targetBlock = getBlockByID(blockID);
 						
 					}
 
@@ -1181,7 +1183,7 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 
 				/* Open options now */
 				removePanelTab('block-' + blockID);
-				openBlockOptions(getBlockByID(blockID));
+				openBlockOptions(targetBlock);
 
 			});
 			/*
