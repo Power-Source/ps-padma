@@ -78,6 +78,7 @@ define(['jquery'], function(jQuery) {
 
 	SimpleDraggable.prototype.init = function() {
 		const self = this;
+		const doc = this.element.ownerDocument || document;
 		
 		// Handle can be: string selector, jQuery object, or DOM element
 		let handle = this.options.handle;
@@ -129,18 +130,18 @@ define(['jquery'], function(jQuery) {
 
 			const onMouseUp = () => {
 				isActive = false;
-				document.removeEventListener('mousemove', onMouseMove);
-				document.removeEventListener('touchmove', onMouseMove);
-				document.removeEventListener('mouseup', onMouseUp);
-				document.removeEventListener('touchend', onMouseUp);
+				doc.removeEventListener('mousemove', onMouseMove);
+				doc.removeEventListener('touchmove', onMouseMove);
+				doc.removeEventListener('mouseup', onMouseUp);
+				doc.removeEventListener('touchend', onMouseUp);
 
 				if (self.options.stop) self.options.stop.call(self.element);
 			};
 
-			document.addEventListener('mousemove', onMouseMove);
-			document.addEventListener('touchmove', onMouseMove, { passive: false });
-			document.addEventListener('mouseup', onMouseUp);
-			document.addEventListener('touchend', onMouseUp, { passive: true });
+			doc.addEventListener('mousemove', onMouseMove);
+			doc.addEventListener('touchmove', onMouseMove, { passive: false });
+			doc.addEventListener('mouseup', onMouseUp);
+			doc.addEventListener('touchend', onMouseUp, { passive: true });
 
 			e.preventDefault();
 		};
@@ -173,6 +174,7 @@ define(['jquery'], function(jQuery) {
 		const self = this;
 		const element = this.element;
 		const opts = this.options;
+		const doc = element.ownerDocument || document;
 
 		// Ensure element is positioned
 		if (window.getComputedStyle(element).position === 'static') {
@@ -278,11 +280,34 @@ define(['jquery'], function(jQuery) {
 			startY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
 			startWidth = element.offsetWidth;
 			startHeight = element.offsetHeight;
+			const startLeft = element.offsetLeft;
+			const startTop = element.offsetTop;
 
-			const position = e.target.className.split('ui-resizable-')[1];
+			const makeUi = function() {
+				return {
+					element: jQuery(element),
+					helper: jQuery(element),
+					size: {
+						width: element.offsetWidth,
+						height: element.offsetHeight
+					},
+					position: {
+						left: element.offsetLeft,
+						top: element.offsetTop
+					}
+				};
+			};
+
+			const handleClass = Array.from(e.target.classList || []).find(cls => cls.indexOf('ui-resizable-') === 0 && cls !== 'ui-resizable-handle');
+			const position = handleClass ? handleClass.replace('ui-resizable-', '') : 'se';
+
+			const gridX = Array.isArray(opts.grid) ? parseInt(opts.grid[0], 10) || 1 : 1;
+			const gridY = Array.isArray(opts.grid) ? parseInt(opts.grid[1], 10) || 1 : 1;
+			const maxWidth = typeof opts.maxWidth === 'number' ? opts.maxWidth : Number.POSITIVE_INFINITY;
+			const maxHeight = typeof opts.maxHeight === 'number' ? opts.maxHeight : Number.POSITIVE_INFINITY;
 
 			if (opts.start) {
-				opts.start.call(element, e);
+				opts.start.call(element, e, makeUi());
 			}
 
 			const onMouseMove = (moveEvent) => {
@@ -294,43 +319,78 @@ define(['jquery'], function(jQuery) {
 
 				let newWidth = startWidth;
 				let newHeight = startHeight;
+				let newLeft = startLeft;
+				let newTop = startTop;
 
 				// Handle different resize positions
 				if (position.includes('e')) {
-					newWidth = Math.max(opts.minWidth, startWidth + deltaX);
+					newWidth = startWidth + deltaX;
 				} else if (position.includes('w')) {
-					newWidth = Math.max(opts.minWidth, startWidth - deltaX);
+					newWidth = startWidth - deltaX;
+					newLeft = startLeft + deltaX;
 				}
 
 				if (position.includes('s')) {
-					newHeight = Math.max(opts.minHeight, startHeight + deltaY);
+					newHeight = startHeight + deltaY;
 				} else if (position.includes('n')) {
-					newHeight = Math.max(opts.minHeight, startHeight - deltaY);
+					newHeight = startHeight - deltaY;
+					newTop = startTop + deltaY;
+				}
+
+				newWidth = Math.max(opts.minWidth, Math.min(maxWidth, newWidth));
+				newHeight = Math.max(opts.minHeight, Math.min(maxHeight, newHeight));
+
+				if (position.includes('w')) {
+					newLeft = startLeft + (startWidth - newWidth);
+				}
+
+				if (position.includes('n')) {
+					newTop = startTop + (startHeight - newHeight);
+				}
+
+				if (gridX > 1) {
+					newWidth = Math.round(newWidth / gridX) * gridX;
+					if (position.includes('w')) {
+						newLeft = startLeft + (startWidth - newWidth);
+					}
+				}
+
+				if (gridY > 1) {
+					newHeight = Math.round(newHeight / gridY) * gridY;
+					if (position.includes('n')) {
+						newTop = startTop + (startHeight - newHeight);
+					}
 				}
 
 				element.style.width = newWidth + 'px';
 				element.style.height = newHeight + 'px';
+				if (position.includes('w')) {
+					element.style.left = newLeft + 'px';
+				}
+				if (position.includes('n')) {
+					element.style.top = newTop + 'px';
+				}
 
 				if (opts.resize) {
-					opts.resize.call(element, moveEvent);
+					opts.resize.call(element, moveEvent, makeUi());
 				}
 			};
 
 			const onMouseUp = (upEvent) => {
-				document.removeEventListener('mousemove', onMouseMove);
-				document.removeEventListener('touchmove', onMouseMove);
-				document.removeEventListener('mouseup', onMouseUp);
-				document.removeEventListener('touchend', onMouseUp);
+				doc.removeEventListener('mousemove', onMouseMove);
+				doc.removeEventListener('touchmove', onMouseMove);
+				doc.removeEventListener('mouseup', onMouseUp);
+				doc.removeEventListener('touchend', onMouseUp);
 
 				if (opts.stop) {
-					opts.stop.call(element, upEvent);
+					opts.stop.call(element, upEvent, makeUi());
 				}
 			};
 
-			document.addEventListener('mousemove', onMouseMove);
-			document.addEventListener('touchmove', onMouseMove, { passive: false });
-			document.addEventListener('mouseup', onMouseUp);
-			document.addEventListener('touchend', onMouseUp, { passive: true });
+			doc.addEventListener('mousemove', onMouseMove);
+			doc.addEventListener('touchmove', onMouseMove, { passive: false });
+			doc.addEventListener('mouseup', onMouseUp);
+			doc.addEventListener('touchend', onMouseUp, { passive: true });
 
 			e.preventDefault();
 		};
@@ -421,7 +481,9 @@ define(['jquery'], function(jQuery) {
 		// Provide a $.widget-like factory
 		jQuery.widget = function(name, Base, proto) {
 			const parts = name.split('.');
+			const namespace = parts[0] || 'ui';
 			const widgetName = parts[1] || parts[0];
+			const dataKey = namespace + '-' + widgetName;
 
 			// Create constructor
 			const widget = function(element, options) {
@@ -468,16 +530,18 @@ define(['jquery'], function(jQuery) {
 			jQuery.fn[widgetName] = function(options) {
 				return this.each(function() {
 					const $this = jQuery(this);
-					let instance = $this.data(widgetName);
+					let instance = $this.data(widgetName) || $this.data(dataKey);
 
 					if (!instance) {
 						instance = new widget(this, options);
 						$this.data(widgetName, instance);
+						$this.data(dataKey, instance);
 					} else if (options === 'destroy') {
 						if (instance._destroy) {
 							instance._destroy();
 						}
 						$this.removeData(widgetName);
+						$this.removeData(dataKey);
 					} else if (typeof options === 'object') {
 						jQuery.extend(instance.options, options);
 					} else if (typeof options === 'string' && typeof instance[options] === 'function') {
