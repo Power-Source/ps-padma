@@ -120,11 +120,7 @@ class PadmaBlocks {
 		global $padma_unregistered_block_types;
 		global $padma_registry;
 
-		error_log('[BLOCK DEBUG] Starting register_block_types() with ' . count($padma_unregistered_block_types) . ' unregistered blocks');
-
 		foreach ( $padma_unregistered_block_types as $class => $block_type_data ) {
-
-			error_log('[BLOCK DEBUG] Processing block class: ' . $class);
 
 			if( is_array($block_type_data) ){
 
@@ -132,11 +128,9 @@ class PadmaBlocks {
 				$padma_registry = array_merge($padma_registry, array($class => $block_type_data['block_type_path']));
 
 				if ( !class_exists($class) ) {
-					error_log('[BLOCK DEBUG] ERROR: Class does not exist: ' . $class);
 					return new WP_Error('block_class_does_not_exist', __('The block class being registered does not exist.', 'padma'), $class);
 				}
 
-				error_log('[BLOCK DEBUG] Instantiating class: ' . $class);
 				$block = new $class();
 				
 				if ( $block_type_data['block_type_url'] )
@@ -148,7 +142,6 @@ class PadmaBlocks {
 				if ( $block_type_data['block_type_icons'] )
 					$block->block_type_icons = $block_type_data['block_type_icons'];
 
-				error_log('[BLOCK DEBUG] Calling register() on: ' . $class);
 				$block->register();
 
 				unset($block);
@@ -156,7 +149,6 @@ class PadmaBlocks {
 			}else{
 
 				if ( !class_exists($class) ) {
-					error_log('[BLOCK DEBUG] ERROR: Class does not exist (legacy): ' . $class);
 					return new WP_Error('block_class_does_not_exist', __('The block class being registered does not exist.', 'padma'), $class);
 				}
 
@@ -175,7 +167,6 @@ class PadmaBlocks {
 
 		}
 		unset($padma_unregistered_block_types);
-		error_log('[BLOCK DEBUG] Completed register_block_types()');
 		return true;
 
 	}
@@ -223,16 +214,10 @@ class PadmaBlocks {
 
 
 	public static function register_advanced_blocks() {
-
-		error_log('[BLOCK DEBUG] Starting register_advanced_blocks()');
 		
 		$advanced_filtered = apply_filters('padma_advanced_block_types', self::$advanced_blocks);
-		
-		error_log('[BLOCK DEBUG] Advanced blocks after filter: ' . json_encode(array_keys($advanced_filtered)));
 
 		foreach ( $advanced_filtered as $block_name => $block_class ) {
-
-			error_log('[BLOCK DEBUG] Registering block: ' . $block_name . ' -> ' . $block_class);
 
 			$block_type_url = padma_url() . '/library/blocks-advanced/' . $block_name;
 			$block_base_dir = PADMA_LIBRARY_DIR . '/blocks-advanced/' . $block_name;
@@ -240,7 +225,6 @@ class PadmaBlocks {
 			$options_file = $block_base_dir . '/' . $block_name . '-options.php';
 
 			if ( !file_exists($class_file) ) {
-				error_log('[BLOCK DEBUG] File not found: ' . $class_file);
 				continue;
 			}
 
@@ -252,12 +236,9 @@ class PadmaBlocks {
 				'url' => $block_type_url . '/',
 			);
 
-			error_log('[BLOCK DEBUG] Calling padma_register_block(' . $block_class . ')');
 			padma_register_block($block_class, $block_type_url, $class_file, $icons);
 
 		}
-		
-		error_log('[BLOCK DEBUG] Completed register_advanced_blocks()');
 
 	}
 

@@ -1,4 +1,4 @@
-define(['jquery', 'helper.codeMirror', 'deps/chosen.jquery', 'deps/colorpicker', 'util.image-uploader', 'util.video-uploader', 'util.audio-uploader', 'util.json-uploader'], function($, codeMirror, chosen) {
+define(['jquery', 'vanilla-draggable', 'helper.codeMirror', 'deps/chosen.jquery', 'deps/colorpicker', 'util.image-uploader', 'util.video-uploader', 'util.audio-uploader', 'util.json-uploader'], function($, vanillaDraggable, codeMirror, chosen) {
 
 	handleInputTogglesInContainer = function(container) {
 
@@ -989,77 +989,157 @@ define(['jquery', 'helper.codeMirror', 'deps/chosen.jquery', 'deps/colorpicker',
 			if ( typeof context === 'undefined' )
 				var context = 'div#panel';
 
-			/* Sliders */
+			/* Sliders - Vanilla implementation (replaces jQuery UI slider) */
 				$('div.input-slider div.input-slider-bar', context).each(function() {
 					
 					var self = this;
+					var sliderBar = $(this);
+					var sliderContainer = $(this).parents('.input-slider');
 
-					var value = parseInt($(this).parents('.input-slider').find('input.input-slider-bar-hidden').val());
+					var value = parseInt(sliderContainer.find('input.input-slider-bar-hidden').val());
+					var min = parseInt(sliderBar.attr('slider_min'));
+					var max = parseInt(sliderBar.attr('slider_max'));
+					var interval = parseInt(sliderBar.attr('slider_interval'));
 
-					var min = parseInt($(this).attr('slider_min'));
-					var max = parseInt($(this).attr('slider_max'));
-					var interval = parseInt($(this).attr('slider_interval'));
+					var sliderInput = sliderBar.siblings('div.input-slider-bar-text').find('.input-slider-bar-input');
+					var hiddenInput = sliderContainer.find('input.input-slider-bar-hidden');
 
-					var sliderInput = $(this).siblings('div.input-slider-bar-text').find('.input-slider-bar-input');
-
-					var handleSliderChange = function(sliderInput, value) {
-
+					var handleSliderChange = function(newValue) {
 						Padma.history.add({
 							up: function() {
-
-								$(sliderInput).val(value);
-								$(sliderInput).prev().text(value);
-								$(sliderInput).parents('.input-slider').find('.input-slider-bar').slider( 'value', value );
-								/* Handle hidden input */
-								dataHandleInput($(sliderInput).parents('.input-slider').find('input.input-slider-bar-hidden'), value);
-
+								sliderInput.val(newValue);
+								sliderInput.prev().text(newValue);
+								hiddenInput.val(newValue);
+								updateSliderPosition(newValue);
+								dataHandleInput(hiddenInput, newValue);
 							},
-
 							down: function() {
-
-								var value = $(sliderInput).parents('.input-slider').find('input.input-slider-bar-hidden').data('value-original');
-
-								$(sliderInput).val(value);
-								$(sliderInput).prev().text(value);
-								$(sliderInput).parents('.input-slider').find('.input-slider-bar').slider( 'value', value );
-								/* Handle hidden input */
-								dataHandleInput($(sliderInput).parents('.input-slider').find('input.input-slider-bar-hidden'), value);
-
+								var originalValue = hiddenInput.data('value-original');
+								sliderInput.val(originalValue);
+								sliderInput.prev().text(originalValue);
+								hiddenInput.val(originalValue);
+								updateSliderPosition(originalValue);
+								dataHandleInput(hiddenInput, originalValue);
 							}
 						});
+					};
 
-					}
+					var updateSliderPosition = function(val) {
+						var percent = ((val - min) / (max - min)) * 100;
+						sliderBar.css('background-size', percent + '% 100%');
+					};
 
-					$(this).slider({
-						range: 'min',
-						value: value,
-						min: min,
-						max: max,
-						step: interval,
-						start: function(event, ui) {
-							$(this).parents('.input-slider').find('input.input-slider-bar-hidden').data('value-original', ui.value);
-						},
-						slide: function( event, ui ) {
-							
-							/* Update visible output */
-							//$(this).siblings('div.input-slider-bar-text').find('span.slider-value').text(ui.value);
-							$(this).siblings('div.input-slider-bar-text').find('.input-slider-bar-input').val(ui.value);
+					// Initialize slider position
+					updateSliderPosition(value);
 
-							/* Update hidden input */
-							$(this).parents('.input-slider').find('input.input-slider-bar-hidden').val(ui.value);
-
-							/* Handle hidden input */
-							dataHandleInput($(this).parents('.input-slider').find('input.input-slider-bar-hidden'), ui.value);
-
-							handleInputToggle($(this).parents('.input-slider').find('input.input-slider-bar-hidden'), ui.value);
-							
-						},
-						stop: function(event, ui) {
-
-							handleSliderChange(sliderInput, ui.value);
-
-						}
+					// Create slider using HTML5 input range
+					var rangeInput = $('<input type="range" class="vanilla-slider-range" style="display:none;">');
+					rangeInput.attr({
+						'min': min,
+						'max': max,
+						'value': value,
+						'step': interval
 					});
+
+					sliderBar.attr('data-slider-value', value);
+
+					// Mouse events for clicking on the bar
+					sliderBar.on('click', function(e) {
+						if ($(e.target).hasClass('vanilla-slider-range')) return;
+						
+						var rect = this.getBoundingClientRect();
+						var percent = (e.clientX - rect.left) / rect.width;
+						var newValue = Math.round(min + percent * (max - min) / interval) * interval;
+						newValue = Math.max(min, Math.min(max, newValue));
+
+						hiddenInput.data('value-original', newValue);
+						sliderInput.val(newValue);
+						sliderInput.prev().text(newValue);
+						hiddenInput.val(newValue);
+						updateSliderPosition(newValue);
+						dataHandleInput(hiddenInput, newValue);
+						handleSliderChange(newValue);
+					});
+
+					// Mouse drag events
+					var isDragging = false;
+					sliderBar.on('mousedown', function(e) {
+						isDragging = true;
+						hiddenInput.data('value-original', value);
+
+						var moveHandler = function(moveEvent) {
+							if (!isDragging) return;
+
+							var rect = sliderBar[0].getBoundingClientRect();
+							var clientX = moveEvent.type.includes('touch') ? moveEvent.touches[0].clientX : moveEvent.clientX;
+							var percent = (clientX - rect.left) / rect.width;
+							var newValue = Math.round(min + percent * (max - min) / interval) * interval;
+							newValue = Math.max(min, Math.min(max, newValue));
+
+							sliderInput.val(newValue);
+							sliderInput.prev().text(newValue);
+							hiddenInput.val(newValue);
+							updateSliderPosition(newValue);
+							dataHandleInput(hiddenInput, newValue);
+							handleInputToggle(hiddenInput, newValue);
+						};
+
+						var endHandler = function() {
+							isDragging = false;
+							$(document).off('mousemove', moveHandler);
+							$(document).off('mouseup', endHandler);
+							document.removeEventListener('touchmove', moveHandler);
+							document.removeEventListener('touchend', endHandler);
+							
+							var finalValue = parseInt(hiddenInput.val());
+							handleSliderChange(finalValue);
+						};
+
+						$(document).on('mousemove', moveHandler);
+						$(document).on('mouseup', endHandler);
+						document.addEventListener('touchmove', moveHandler, { passive: false });
+						document.addEventListener('touchend', endHandler, { passive: true });
+					});
+
+					// Handle touchstart separately for passive: false
+					if (sliderBar[0] && sliderBar[0].addEventListener) {
+						sliderBar[0].addEventListener('touchstart', function(e) {
+							isDragging = true;
+							hiddenInput.data('value-original', value);
+
+							var moveHandler = function(moveEvent) {
+								if (!isDragging) return;
+
+								var rect = sliderBar[0].getBoundingClientRect();
+								var clientX = moveEvent.type.includes('touch') ? moveEvent.touches[0].clientX : moveEvent.clientX;
+								var percent = (clientX - rect.left) / rect.width;
+								var newValue = Math.round(min + percent * (max - min) / interval) * interval;
+								newValue = Math.max(min, Math.min(max, newValue));
+
+								sliderInput.val(newValue);
+								sliderInput.prev().text(newValue);
+								hiddenInput.val(newValue);
+								updateSliderPosition(newValue);
+								dataHandleInput(hiddenInput, newValue);
+								handleInputToggle(hiddenInput, newValue);
+							};
+
+							var endHandler = function() {
+								isDragging = false;
+								$(document).off('mousemove', moveHandler);
+								$(document).off('mouseup', endHandler);
+								document.removeEventListener('touchmove', moveHandler);
+								document.removeEventListener('touchend', endHandler);
+								
+								var finalValue = parseInt(hiddenInput.val());
+								handleSliderChange(finalValue);
+							};
+
+							document.addEventListener('touchmove', moveHandler, { passive: false });
+							document.addEventListener('touchend', endHandler, { passive: true });
+							e.preventDefault();
+						}, { passive: false });
+					}
 
 					sliderInput.on('keydown', function(event) {
 
@@ -1080,7 +1160,7 @@ define(['jquery', 'helper.codeMirror', 'deps/chosen.jquery', 'deps/colorpicker',
 					});
 
 					sliderInput.on('focus', function(event) {
-						$(this).parents('.input-slider').find('input.input-slider-bar-hidden').data('value-original', $(this).val());
+						hiddenInput.data('value-original', $(this).val());
 					});
 
 					sliderInput.on('keyup change', function(event) {
@@ -1089,11 +1169,14 @@ define(['jquery', 'helper.codeMirror', 'deps/chosen.jquery', 'deps/colorpicker',
 						if ( event.which === 13 )
 							return;
 						
-						if ( this.value <= max && this.value >= min) {
+						var newValue = parseInt(this.value);
+						if ( newValue <= max && newValue >= min) {
 
-							var sliderInput = this;
-
-							handleSliderChange(this, this.value);
+							sliderInput.prev().text(newValue);
+							hiddenInput.val(newValue);
+							updateSliderPosition(newValue);
+							dataHandleInput(hiddenInput, newValue);
+							handleSliderChange(newValue);
 
 						}
 

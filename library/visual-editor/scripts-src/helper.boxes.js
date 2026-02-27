@@ -1,4 +1,4 @@
-define(['modules/iframe', 'deps/jquery.pep'], function(iframe) {
+define(['modules/iframe', 'deps/jquery.pep', 'vanilla-draggable'], function(iframe) {
 
 	/* BOX FUNCTIONS */
 		createBox = function(args) {

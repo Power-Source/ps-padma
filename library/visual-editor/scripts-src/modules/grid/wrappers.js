@@ -1,4 +1,4 @@
-define(['util.custommouse', 'qtip', 'helper.data', 'modules/grid/wrapper-inputs'], function() {
+define(['util.custommouse', 'qtip', 'helper.data', 'modules/grid/wrapper-inputs', 'vanilla-draggable'], function() {
 
 	setupWrapperSortables = function() {
 

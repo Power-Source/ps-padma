@@ -1,4 +1,7 @@
 (function ($) {
+	if (!$) {
+		return;
+	}
 	
 	//Font Awesome icon search + filter
 	$(document).on('click', '.icon-filter-reset',function(){
@@ -45,4 +48,4 @@
 
 	});
 
-})(jQuery);
+})(window.jQuery || window.$);

@@ -35,8 +35,6 @@ abstract class PadmaBlockAPI {
 		if ( !is_array($padma_block_types) )
 			$padma_block_types = array();
 
-		error_log('[REGISTER DEBUG] Registering block - ID: ' . $this->id . ', Name: ' . $this->name . ', Class: ' . get_class($this));
-
 		// Inline editable fields
 		// PadmaAudioBlock::inline_editable
 		// example 1:
@@ -76,8 +74,6 @@ abstract class PadmaBlockAPI {
 			'inline-editable' => implode(',', $inline_editable_fields),
 			'inline-editable-equivalences' => $this->inline_editable_equivalences
 		);
-		
-		error_log('[REGISTER DEBUG] Block registered successfully with ID: ' . $this->id);
 
 		//Add the element for the block itself
 		add_action('padma_register_elements', array($this, 'setup_main_block_element'));

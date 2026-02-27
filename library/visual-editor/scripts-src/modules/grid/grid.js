@@ -1,4 +1,4 @@
-define(['jquery', 'helper.history', 'helper.data'], function($, history) {
+define(['jquery', 'helper.history', 'helper.data', 'vanilla-draggable'], function($, history) {
 
 	$.widget("ui.padmaGrid", $.ui.mouse, {
 

@@ -3,8 +3,64 @@
  * Uses modern touch events and CSS transforms for better performance
  */
 
-(function(window) {
+define(['jquery'], function(jQuery) {
+
+(function(window, jQuery) {
 	'use strict';
+
+	/**
+	 * Simple widget factory without jQuery UI dependency
+	 * Creates a constructor function that can be instantiated on jQuery elements
+	 */
+	function createWidget(name, baseClass, proto) {
+		const parts = name.split('.');
+		const namespace = parts[0];
+		const widgetName = parts[1];
+
+		if (typeof jQuery !== 'undefined') {
+			jQuery.fn[widgetName] = function(options) {
+				return this.each(function() {
+					const $this = jQuery(this);
+					let instance = $this.data(widgetName);
+
+					if (!instance) {
+						// Create new instance
+						const widget = Object.create(baseClass.prototype || {});
+						widget.element = this;
+						widget.$element = $this;
+						widget.options = jQuery.extend(true, {}, proto.options, options);
+
+						// Merge in prototype methods
+						for (const key in proto) {
+							if (key !== 'options') {
+								widget[key] = proto[key];
+							}
+						}
+
+						if (widget._create) {
+							widget._create();
+						}
+
+						$this.data(widgetName, widget);
+						instance = widget;
+					} else if (options === 'destroy') {
+						if (instance._destroy) {
+							instance._destroy();
+						}
+						$this.removeData(widgetName);
+						return;
+					} else if (typeof options === 'object') {
+						// Update options
+						jQuery.extend(instance.options, options);
+					}
+
+					return this;
+				});
+			};
+		}
+
+		return jQuery.fn[widgetName];
+	}
 
 	// Simple draggable without interact.js dependency
 	function SimpleDraggable(element, options) {
@@ -84,18 +140,215 @@
 			document.addEventListener('mousemove', onMouseMove);
 			document.addEventListener('touchmove', onMouseMove, { passive: false });
 			document.addEventListener('mouseup', onMouseUp);
-			document.addEventListener('touchend', onMouseUp);
+			document.addEventListener('touchend', onMouseUp, { passive: true });
 
 			e.preventDefault();
 		};
 
 		handle.addEventListener('mousedown', onMouseDown);
-		handle.addEventListener('touchstart', onMouseDown);
+		handle.addEventListener('touchstart', onMouseDown, { passive: false });
 	};
 
 	SimpleDraggable.prototype.destroy = function() {
 		// Reset transform
 		this.element.style.transform = '';
+	};
+
+	// Resizable implementation using vanilla JS
+	function SimpleResizable(element, options) {
+		this.element = element;
+		this.options = Object.assign({
+			handles: 'e, s, se', // Default handles: east, south, southeast
+			minWidth: 10,
+			minHeight: 10,
+			start: null,
+			resize: null,
+			stop: null
+		}, options || {});
+
+		this.init();
+	}
+
+	SimpleResizable.prototype.init = function() {
+		const self = this;
+		const element = this.element;
+		const opts = this.options;
+
+		// Ensure element is positioned
+		if (window.getComputedStyle(element).position === 'static') {
+			element.style.position = 'relative';
+		}
+
+		// Store original dimensions
+		let startWidth, startHeight, startX, startY;
+
+		const createHandle = (position) => {
+			const handle = document.createElement('div');
+			handle.className = `ui-resizable-handle ui-resizable-${position}`;
+			handle.style.cssText = `
+				position: absolute;
+				user-select: none;
+				-webkit-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+			`;
+
+			switch(position) {
+				case 'e': // East (right)
+					handle.style.cssText += `
+						right: 0;
+						top: 0;
+						bottom: 0;
+						width: 8px;
+						cursor: ew-resize;
+					`;
+					break;
+				case 's': // South (bottom)
+					handle.style.cssText += `
+						bottom: 0;
+						left: 0;
+						right: 0;
+						height: 8px;
+						cursor: ns-resize;
+					`;
+					break;
+				case 'se': // Southeast (corner)
+					handle.style.cssText += `
+						bottom: 0;
+						right: 0;
+						width: 12px;
+						height: 12px;
+						cursor: nwse-resize;
+					`;
+					break;
+				case 'w': // West (left)
+					handle.style.cssText += `
+						left: 0;
+						top: 0;
+						bottom: 0;
+						width: 8px;
+						cursor: ew-resize;
+					`;
+					break;
+				case 'n': // North (top)
+					handle.style.cssText += `
+						top: 0;
+						left: 0;
+						right: 0;
+						height: 8px;
+						cursor: ns-resize;
+					`;
+					break;
+				case 'ne': // Northeast (corner)
+					handle.style.cssText += `
+						top: 0;
+						right: 0;
+						width: 12px;
+						height: 12px;
+						cursor: nesw-resize;
+					`;
+					break;
+				case 'sw': // Southwest (corner)
+					handle.style.cssText += `
+						bottom: 0;
+						left: 0;
+						width: 12px;
+						height: 12px;
+						cursor: nesw-resize;
+					`;
+					break;
+				case 'nw': // Northwest (corner)
+					handle.style.cssText += `
+						top: 0;
+						left: 0;
+						width: 12px;
+						height: 12px;
+						cursor: nwse-resize;
+					`;
+					break;
+			}
+
+			handle.addEventListener('mousedown', startResize);
+			handle.addEventListener('touchstart', startResize, { passive: false });
+			return handle;
+		};
+
+		const startResize = (e) => {
+			startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+			startY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+			startWidth = element.offsetWidth;
+			startHeight = element.offsetHeight;
+
+			const position = e.target.className.split('ui-resizable-')[1];
+
+			if (opts.start) {
+				opts.start.call(element, e);
+			}
+
+			const onMouseMove = (moveEvent) => {
+				const currentX = moveEvent.type === 'touchmove' ? moveEvent.touches[0].clientX : moveEvent.clientX;
+				const currentY = moveEvent.type === 'touchmove' ? moveEvent.touches[0].clientY : moveEvent.clientY;
+
+				const deltaX = currentX - startX;
+				const deltaY = currentY - startY;
+
+				let newWidth = startWidth;
+				let newHeight = startHeight;
+
+				// Handle different resize positions
+				if (position.includes('e')) {
+					newWidth = Math.max(opts.minWidth, startWidth + deltaX);
+				} else if (position.includes('w')) {
+					newWidth = Math.max(opts.minWidth, startWidth - deltaX);
+				}
+
+				if (position.includes('s')) {
+					newHeight = Math.max(opts.minHeight, startHeight + deltaY);
+				} else if (position.includes('n')) {
+					newHeight = Math.max(opts.minHeight, startHeight - deltaY);
+				}
+
+				element.style.width = newWidth + 'px';
+				element.style.height = newHeight + 'px';
+
+				if (opts.resize) {
+					opts.resize.call(element, moveEvent);
+				}
+			};
+
+			const onMouseUp = (upEvent) => {
+				document.removeEventListener('mousemove', onMouseMove);
+				document.removeEventListener('touchmove', onMouseMove);
+				document.removeEventListener('mouseup', onMouseUp);
+				document.removeEventListener('touchend', onMouseUp);
+
+				if (opts.stop) {
+					opts.stop.call(element, upEvent);
+				}
+			};
+
+			document.addEventListener('mousemove', onMouseMove);
+			document.addEventListener('touchmove', onMouseMove, { passive: false });
+			document.addEventListener('mouseup', onMouseUp);
+			document.addEventListener('touchend', onMouseUp, { passive: true });
+
+			e.preventDefault();
+		};
+
+		const handles = opts.handles ? opts.handles.split(',').map(h => h.trim()) : ['se'];
+		handles.forEach(position => {
+			element.appendChild(createHandle(position));
+		});
+
+		// Mark as resizable
+		element.classList.add('ui-resizable');
+	};
+
+	SimpleResizable.prototype.destroy = function() {
+		// Remove handles
+		const handles = this.element.querySelectorAll('.ui-resizable-handle');
+		handles.forEach(handle => handle.remove());
+		this.element.classList.remove('ui-resizable');
 	};
 
 	// jQuery plugin interface
@@ -114,16 +367,163 @@
 			});
 		};
 
-		// Minimal resizable implementation
+		// Resizable implementation
 		jQuery.fn.resizable = function(options) {
 			return this.each(function() {
-				// For now, resizable is disabled since it's not critical
-				// and would require significant CSS/positioning setup
-				// Could implement with handle.corner dragging if needed
-				console.warn('Resizable not yet implemented - boxes will not be resizable');
+				const data = jQuery(this).data('resizable');
+				
+				if (!data) {
+					const instance = new SimpleResizable(this, options);
+					jQuery(this).data('resizable', instance);
+				} else if (options === 'destroy') {
+					data.destroy();
+					jQuery(this).removeData('resizable');
+				}
+			});
+		};
+
+		// Create a minimal $.ui namespace for compatibility
+		if (jQuery.ui === undefined) {
+			jQuery.ui = {};
+		}
+
+		// Make CustomMouseImpl available as $.ui.mouse
+		function VanillaMouseBase(element, options) {
+			this.element = element;
+			this.$element = jQuery(element);
+			this.options = jQuery.extend(true, {}, this.options, options);
+		}
+
+		VanillaMouseBase.prototype = {
+			options: {
+				delay: 0,
+				distance: 0,
+				cancel: ':input,option'
+			},
+			_mouseInit: function() {
+				// Initialize mouse tracking
+				const self = this;
+				this.$element.on('mousedown.ui-mouse touchstart.ui-mouse', function(e) {
+					return self._mouseDown(e);
+				});
+			},
+			_mouseDown: function(event) {
+				// Can be overridden by subclasses
+				return true;
+			},
+			_mouseDestroy: function() {
+				this.$element.off('.ui-mouse');
+			}
+		};
+
+		jQuery.ui.mouse = VanillaMouseBase;
+
+		// Provide a $.widget-like factory
+		jQuery.widget = function(name, Base, proto) {
+			const parts = name.split('.');
+			const widgetName = parts[1] || parts[0];
+
+			// Create constructor
+			const widget = function(element, options) {
+				this.element = jQuery(element);
+				this.$element = this.element;
+				this.el = element;
+				this.options = jQuery.extend(true, {}, this.options, options);
+				this._create();
+			};
+
+			// Set up prototype chain
+			if (Base) {
+				widget.prototype = Object.create(Base.prototype);
+			}
+
+			// Merge in proto methods
+			jQuery.extend(widget.prototype, proto);
+
+			if (typeof widget.prototype._on !== 'function') {
+				widget.prototype._on = function(element, handlers) {
+					const target = element ? jQuery(element) : this.element;
+					for (const eventName in handlers) {
+						if (typeof handlers[eventName] === 'string' && typeof this[handlers[eventName]] === 'function') {
+							target.on(eventName, this[handlers[eventName]].bind(this));
+						} else if (typeof handlers[eventName] === 'function') {
+							target.on(eventName, handlers[eventName].bind(this));
+						}
+					}
+				};
+			}
+
+			if (typeof widget.prototype._trigger !== 'function') {
+				widget.prototype._trigger = function(type, event, data) {
+					const callback = this.options && this.options[type];
+					if (typeof callback === 'function') {
+						callback.call(this.element[0], event, data);
+					}
+					this.element.trigger(type, data);
+					return true;
+				};
+			}
+
+			// Provide jQuery plugin
+			jQuery.fn[widgetName] = function(options) {
+				return this.each(function() {
+					const $this = jQuery(this);
+					let instance = $this.data(widgetName);
+
+					if (!instance) {
+						instance = new widget(this, options);
+						$this.data(widgetName, instance);
+					} else if (options === 'destroy') {
+						if (instance._destroy) {
+							instance._destroy();
+						}
+						$this.removeData(widgetName);
+					} else if (typeof options === 'object') {
+						jQuery.extend(instance.options, options);
+					} else if (typeof options === 'string' && typeof instance[options] === 'function') {
+						instance[options].apply(instance, Array.prototype.slice.call(arguments, 1));
+					}
+
+					return this;
+				});
+			};
+		};
+
+		// Simple helper for event binding in widgets
+		jQuery.prototype._on = function(element, handlers) {
+			const $el = jQuery(element || this.element);
+			for (const event in handlers) {
+				if (typeof handlers[event] === 'string') {
+					const method = this[handlers[event]];
+					if (typeof method === 'function') {
+						$el.on(event, method.bind(this));
+					}
+				} else if (typeof handlers[event] === 'function') {
+					$el.on(event, handlers[event].bind(this));
+				}
+			}
+			return this;
+		};
+
+		// disableSelection helper
+		jQuery.fn.disableSelection = function() {
+			return this.css({
+				'user-select': 'none',
+				'-webkit-user-select': 'none',
+				'-moz-user-select': 'none',
+				'-ms-user-select': 'none'
 			});
 		};
 	}
 
 	window.SimpleDraggable = SimpleDraggable;
-})(window);
+	window.SimpleResizable = SimpleResizable;
+	window.createWidget = createWidget;
+})(window, jQuery);
+
+return {
+	SimpleDraggable: window.SimpleDraggable,
+	SimpleResizable: window.SimpleResizable,
+	createWidget: window.createWidget
+};
+});

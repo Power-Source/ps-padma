@@ -1,4 +1,4 @@
-define(['jquery', 'deps/jquery.cookie', 'util.tooltips', 'modules/panel.inputs'], function($, jQueryCookie, tooltips, panelInputs) {
+define(['jquery', 'vanilla-draggable', 'deps/jquery.cookie', 'util.tooltips', 'modules/panel.inputs'], function($, vanillaDraggable, jQueryCookie, tooltips, panelInputs) {
 
 	selectTab = function(tab, context) {
 
