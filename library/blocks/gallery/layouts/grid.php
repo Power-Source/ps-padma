@@ -3,7 +3,7 @@
 global $post;
 
 $entries = $params['entries'];
-$featured_img = $entries['featured-image'][0];
+$featured_img = !empty($entries['featured-image'][0]) ? $entries['featured-image'][0] : array();
 
 /* we store all images height in an array */
 $image_height = array();

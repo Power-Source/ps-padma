@@ -101,6 +101,12 @@ function padma_gallery_register_post_type() {
 
     register_taxonomy( 'gallery_tags', 'padma_gallery', $args );
 
+    /* Rewrite-Regeln einmalig aktualisieren, damit Album-URLs nicht 404 laufen */
+    if ( get_option('padma_gallery_rewrite_flushed') !== '1' ) {
+        flush_rewrite_rules(false);
+        update_option('padma_gallery_rewrite_flushed', '1');
+    }
+
 }
 
 

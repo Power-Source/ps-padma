@@ -272,11 +272,18 @@ abstract class PadmaBlockAPI {
 		/* Add the selector prefix to the selector and even handle commas */
 		$selector_prefix = '.block-type-' . $this->id . ' ';
 
-		$selector_array = explode(',', $args['selector']);
+		$selector = isset($args['selector']) ? (string)$args['selector'] : '';
+		$selector_array = explode(',', $selector);
 
 		foreach ( $selector_array as $selector_index => $selector ) {
+			$selector = trim((string)$selector);
 
-			if ( strpos(trim($selector_array[$selector_index]), '.block-type-') === 0 )
+			if ( $selector === '' ) {
+				$selector_array[$selector_index] = '';
+				continue;
+			}
+
+			if ( strpos($selector, '.block-type-') === 0 )
 				continue;
 
 

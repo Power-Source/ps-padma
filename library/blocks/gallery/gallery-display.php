@@ -935,6 +935,16 @@ class PadmaGalleryBlockDisplay {
 		/* we initiate the query */
 		$this->wp_query();
 
+		/* some setups mark the request as 404 although gallery content is available */
+		if ( is_404() && isset($this->query) && $this->query->have_posts() ) {
+			global $wp_query;
+
+			if ( isset($wp_query) && is_object($wp_query) ) {
+				$wp_query->is_404 = false;
+				status_header(200);
+			}
+		}
+
 		echo '<div class="pur-grid pur-cols' . $this->columns . ' ' . $this->view() . '-view"><!-- grid open -->';
 
 			if ( $this->page_info['page-type'] == 'attachment' )
@@ -950,7 +960,7 @@ class PadmaGalleryBlockDisplay {
 
 		/* we display a notice of there isn't any albums puplish */
 		$count_posts = wp_count_posts( 'padma_gallery' );
-		$published_posts = $count_posts->publish;
+		$published_posts = isset($count_posts->publish) ? (int)$count_posts->publish : 0;
 
 		if ( $published_posts == 0 )
 			echo $this->notice['no-album'];
