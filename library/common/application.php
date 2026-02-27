@@ -259,23 +259,20 @@ class Padma {
 			/*	
 				Compatiblity
 			*/
-			'compatibility/shortcodes/compatibility-shortcodes'	=> true,
-			'compatibility/woocommerce/compatibility-woocommerce' => 'CompatibilityWooCommerce',
+		'compatibility/shortcodes/compatibility-shortcodes'	=> 'CompatibilityShortcodes',
+		'compatibility/woocommerce/compatibility-woocommerce' => 'CompatibilityWooCommerce',
 
-			/*		Headway Classes support	*/
-			'compatibility/headway/compatibility-headway'	=> true,
+		/*		Headway Classes support	*/
+		'compatibility/headway/compatibility-headway'	=> 'CompatibilityHeadway',
 
-			/*		Compatiblity with Elementor */
-			//'compatibility/elementor/compatibility-elementor'	=> true,									 
+		/*		Compatiblity with Elementor */
+		//'compatibility/elementor/compatibility-elementor'	=> true,									 
 
-			/*		Compatiblity with aMember Plugin */
-			'compatibility/amember/compatibility-amember'	=> true,
+		/*		Compatiblity with aMember Plugin */
+		'compatibility/amember/compatibility-amember'	=> 'CompatibilityAMember',
 
-			/*		Compatiblity with  WPML Multilingual CMS Plugin */
-			'compatibility/wpml/compatibility-wpml'	=> true,
-
-			/*	Gutenberg Compatibility	*/
-			'common/gutenberg-blocks'	=> true,
+		/*		Compatiblity with  WPML Multilingual CMS Plugin */
+		'compatibility/wpml/compatibility-wpml'	=> 'CompatibilityWPML',
 
 		);
 
@@ -586,39 +583,47 @@ class Padma {
 
 				$classes_to_init[] = $class;
 
-			} else if ( is_string($init) ) {
+			//Load the file
+			if ( strpos($file, '/') !== false )
+				require_once PADMA_LIBRARY_DIR . '/' . $file . '.php';
 
-				$classes_to_init[] = $init;
+		} else if ( is_string($init) ) {
 
-			}else {
+			$classes_to_init[] = $init;
 
-				//Handle anything and automatically insert .php if need be
-				if ( strpos($file, '/') !== false )
-					require_once PADMA_LIBRARY_DIR . '/' . $file . '.php';
+			//Load the file
+			if ( strpos($file, '/') !== false )
+				require_once PADMA_LIBRARY_DIR . '/' . $file . '.php';
 
-			}
+		} else {
 
-		}
-
-		//Init everything after dependencies have been loaded
-		foreach($classes_to_init as $class){
-
-			if ( method_exists('Padma' . $class, 'init') ) {
-
-				call_user_func(array('Padma' . $class, 'init'));
-
-			} else {
-
-				trigger_error('Padma' . $class . '::init is not a valid method', E_USER_WARNING);
-
-			}
+			//Handle anything and automatically insert .php if need be
+			if ( strpos($file, '/') !== false )
+				require_once PADMA_LIBRARY_DIR . '/' . $file . '.php';
 
 		}
 
 	}
 
+	//Init everything after dependencies have been loaded
+	foreach($classes_to_init as $class){
 
-	public static function get() {
+		if ( method_exists('Padma' . $class, 'init') ) {
+
+			call_user_func(array('Padma' . $class, 'init'));
+
+		} else {
+
+			trigger_error('Padma' . $class . '::init is not a valid method', E_USER_WARNING);
+
+		}
+
+	}
+
+}
+
+
+public static function get() {
 		_deprecated_function(__FUNCTION__, '3.1.3', 'padma_get()');
 		$args = func_get_args();
 		return call_user_func_array('padma_get', $args);

@@ -40,12 +40,7 @@ class PadmaAdmin {
 
         add_action('wp_ajax_padma_dismiss_admin_notice', array(__CLASS__, 'ajax_dismiss_admin_notice'));
         add_action('wp_ajax_padma_enable_responsive_grid', array(__CLASS__, 'ajax_enable_responsive_grid'));
-
-		add_filter('page_row_actions', array(__CLASS__, 'row_action_visual_editor'), 10, 2);
-		add_filter('post_row_actions', array(__CLASS__, 'row_action_visual_editor'), 10, 2);
-		add_filter('tag_row_actions', array(__CLASS__, 'row_action_visual_editor'), 10, 2);
-
-		add_filter('mce_buttons_2', array(__CLASS__, 'tiny_mce_buttons'));
+	add_action('wp_ajax_padma_activate_plugin', array(__CLASS__, 'ajax_activate_plugin'));
 		add_filter('tiny_mce_before_init', array(__CLASS__, 'tiny_mce_formats'));
 
 	}
@@ -419,11 +414,18 @@ class PadmaAdmin {
 
 			wp_enqueue_style('padma_admin_advanced_blocks', padma_url() . '/library/admin/css/admin-advanced-blocks.css');
 			wp_enqueue_script('padma_admin_advanced_blocks', padma_url() . '/library/admin/js/admin-advanced-blocks.js', array('jquery'), PADMA_VERSION, true);
+			wp_localize_script('padma_admin_advanced_blocks', 'padmaAdvancedBlocks', array(
+			'ajaxurl' => admin_url('admin-ajax.php'),
+			'activating' => __('Aktiviere...', 'padma'),
+			'activated' => __('Aktiviert! Seite wird neu geladen...', 'padma'),
+			'error' => __('Fehler bei der Aktivierung', 'padma')
+		));
 
-		}
+	}
 
+	/* Main Admin Pages - Write */
+	if ( padma_get('page') == 'getting-started' ) {
 
-		/* Meta Boxes */
 		wp_enqueue_style('padma_admin_write', padma_url() . '/library/admin/css/admin-write.css');
 		wp_enqueue_style('padma_alerts', padma_url() . '/library/media/css/alerts.css');
 		wp_enqueue_script('padma_admin_write', padma_url() . '/library/admin/js/admin-write.js', array('jquery'));
@@ -441,12 +443,6 @@ class PadmaAdmin {
 		}
 
 	}
-
-
-	public static function save_message() {
-
-		global $padma_admin_save_message;
-
 		if ( !isset($padma_admin_save_message) || $padma_admin_save_message == false )
 			return false;
 
@@ -714,5 +710,31 @@ class PadmaAdmin {
 
     }
 
+
+	public static function ajax_activate_plugin() {
+		
+		// Sicherheitsprüfungen
+		if ( !current_user_can('activate_plugins') ) {
+			wp_send_json_error(array('message' => __('Sie haben keine Berechtigung, Plugins zu aktivieren.', 'padma')));
+		}
+		
+		check_ajax_referer('padma_activate_plugin', 'nonce');
+		
+		$plugin = padma_post('plugin');
+		
+		if ( empty($plugin) ) {
+			wp_send_json_error(array('message' => __('Kein Plugin angegeben.', 'padma')));
+		}
+		
+		// Plugin aktivieren
+		$result = activate_plugin($plugin);
+		
+		if ( is_wp_error($result) ) {
+			wp_send_json_error(array('message' => $result->get_error_message()));
+		} else {
+			wp_send_json_success(array('message' => __('Plugin erfolgreich aktiviert.', 'padma')));
+		}
+		
+	}
 
 }

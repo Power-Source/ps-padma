@@ -62,9 +62,7 @@ class PadmaBlocks {
 		'quote' => 'Padma_Advanced\\PadmaVisualElementsBlockQuote',
 		'spacer' => 'Padma_Advanced\\PadmaVisualElementsBlockSpacer',
 		'spoiler' => 'Padma_Advanced\\PadmaVisualElementsBlockSpoiler',
-		'store-account' => 'Padma_Advanced\\PadmaStoreBlockAccount',
-		'store-login-button' => 'Padma_Advanced\\PadmaStoreBlockLoginButton',
-		'store-products' => 'Padma_Advanced\\PadmaStoreBlockProducts',
+
 		'tabs' => 'Padma_Advanced\\PadmaVisualElementsBlockTabs',
 		'vimeo' => 'Padma_Advanced\\PadmaVisualElementsBlockVimeo',
 		'youtube' => 'Padma_Advanced\\PadmaVisualElementsBlockYoutube',
