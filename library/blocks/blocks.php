@@ -59,7 +59,9 @@ class PadmaBlocks {
 		'portfolio' => 'Padma_Advanced\\PadmaVisualElementsBlockPortfolio',
 		'portfolio-cards' => 'Padma_Advanced\\PadmaVisualElementsBlockPortfolioCards',
 		'post-data' => 'Padma_Advanced\\PadmaVisualElementsBlockPostData',
+		'post-slider' => 'Padma_Advanced\\PadmaVisualElementsBlockPostSlider',
 		'quote' => 'Padma_Advanced\\PadmaVisualElementsBlockQuote',
+		'sociable' => 'Padma_Advanced\\PadmaVisualElementsBlockSociable',
 		'spacer' => 'Padma_Advanced\\PadmaVisualElementsBlockSpacer',
 		'spoiler' => 'Padma_Advanced\\PadmaVisualElementsBlockSpoiler',
 
