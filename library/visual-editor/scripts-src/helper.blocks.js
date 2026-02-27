@@ -58,7 +58,22 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 			return false;
 		}
 
-		return block.data('type');
+		var type = block.data('type');
+		if ( typeof type == 'string' && type.length ) {
+			return type;
+		}
+
+		var className = block.attr('class') || '';
+		var classMatch = className.match(/(?:^|\s)block-type-([a-z0-9\-_]+)(?:\s|$)/i);
+
+		if ( classMatch && classMatch[1] ) {
+			type = classMatch[1];
+			block.data('type', type);
+			block.attr('data-type', type);
+			return type;
+		}
+
+		return false;
 	}
 
 	getBlockInlineEditableFields = function(element) {
@@ -1240,6 +1255,7 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 			block.removeClass('block-type-' + oldType);
 			block.addClass('block-type-' + blockType);
 			block.data('type', blockType);
+			block.attr('data-type', blockType);
 
 			if ( typeof loadContent == 'undefined' || loadContent ) {
 

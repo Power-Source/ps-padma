@@ -1252,6 +1252,7 @@ define(['jquery', 'helper.history', 'helper.data', 'vanilla-draggable', 'deps/jq
 			Padma.blankBlock.removeClass('blank-block');
 			Padma.blankBlock.addClass('block-type-' + blockType);
 			Padma.blankBlock.data('type', blockType);
+			Padma.blankBlock.attr('data-type', blockType);
 
 			if ( loadContent ) {
 
