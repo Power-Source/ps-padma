@@ -38,6 +38,17 @@ class PadmaVisualEditorDisplay {
 
 		//Enqueue Scripts
 		remove_all_actions('wp_print_scripts'); //Removes bad plugin JS
+		// CRITICAL: Block block enqueue in VE iframe to prevent AMD/RequireJS conflicts
+		remove_action('wp_enqueue_scripts', array('PadmaBlocks', 'run_block_enqueue_actions'), 11);
+		remove_action('wp_enqueue_scripts', array('PadmaBlocks', 'enqueue_block_dynamic_js_file'), 11);
+		
+		// Extra: Block scripts by SRC pattern (catches any library)
+		add_filter('script_loader_src', array(__CLASS__, 'filter_problematic_scripts'), 1, 2);
+		
+		// Extra: Block by dequeue
+		add_action('wp_enqueue_scripts', array(__CLASS__, 'dequeue_conflicting_scripts'), 0);
+		
+		error_log('[VE DEBUG] Activated script blocking - all 3 layers');
 
 		add_filter( 'script_loader_tag', array( __CLASS__, 'require_js_attr' ), 15, 3 );
 		add_action('padma_visual_editor_scripts', array(__CLASS__, 'require_js'));
@@ -109,6 +120,99 @@ class PadmaVisualEditorDisplay {
 
 		return str_replace( "></script>", " async='true'></script>", $tag );
 
+	}
+
+	/**
+	 * Filter out problematic scripts that cause AMD/RequireJS conflicts in VE
+	 */
+	public static function filter_ve_scripts( $src, $handle ) {
+		
+		$blocked_handles = array(
+			'padma-lottiefiles',           // Lottie player - has anonymous define()
+			'padma-post-slider-slider-js', // Owl Carousel - has anonymous define()
+			'jquery-migrate',               // jQuery migrate can cause conflicts
+			'jquery-ui-core',               // jQuery UI - replaced with vanilla alternatives
+			'jquery-ui-widget',
+			'jquery-ui-mouse',
+			'jquery-ui-draggable',
+			'jquery-ui-droppable',
+			'jquery-ui-sortable',
+			'jquery-ui-tabs',
+			'jquery-ui-resizable',
+		);
+		
+		if ( in_array($handle, $blocked_handles) ) {
+			error_log('[VE SCRIPT FILTER] Blocking script: ' . $handle . ' from ' . $src);
+			return false; // Return false to skip this script
+		}
+		
+		return $src;
+		
+	}
+
+	/**
+	 * Filter scripts by SRC pattern (more aggressive)
+	 */
+	public static function filter_problematic_scripts( $src, $handle ) {
+		
+		// Block by handle
+		$blocked_handles = array(
+			'padma-lottiefiles',
+			'padma-post-slider-slider-js',
+			'jquery-migrate',
+			'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-mouse', 'jquery-ui-draggable',
+			'jquery-ui-droppable', 'jquery-ui-sortable', 'jquery-ui-tabs', 'jquery-ui-resizable',
+		);
+		
+		if ( in_array($handle, $blocked_handles) ) {
+			error_log('[VE FILTER_PROBLEMATIC] Blocking by handle: ' . $handle);
+			return false;
+		}
+		
+		// Block by SRC pattern (catches lottie.min.js and owl.carousel.js)
+		$problematic_patterns = array(
+			'lottie.min.js',
+			'owl.carousel.js',
+			'jquery-ui',
+			'jquery.ui',
+		);
+		
+		foreach ( $problematic_patterns as $pattern ) {
+			if ( stripos($src, $pattern) !== false ) {
+				error_log('[VE FILTER_PROBLEMATIC] Blocking by SRC pattern: ' . $pattern . ' in ' . $src);
+				return false;
+			}
+		}
+		
+		return $src;
+	}
+
+	/**
+	 * Dequeue at Priority 0 (EARLIEST possible)
+	 */
+	public static function dequeue_conflicting_scripts() {
+		
+		global $wp_scripts;
+		
+		if ( ! isset($wp_scripts) ) {
+			return;
+		}
+		
+		$blocked_handles = array(
+			'padma-lottiefiles',
+			'padma-post-slider-slider-js',
+			'jquery-migrate',
+			'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-mouse', 'jquery-ui-draggable',
+			'jquery-ui-droppable', 'jquery-ui-sortable', 'jquery-ui-tabs', 'jquery-ui-resizable',
+		);
+		
+		foreach ( $blocked_handles as $handle ) {
+			if ( $wp_scripts->query($handle) ) {
+				wp_dequeue_script($handle);
+				wp_deregister_script($handle);
+				error_log('[VE DEQUEUE PRIORITY 0] Removed and deregistered: ' . $handle);
+			}
+		}
 	}
 
 

@@ -3,8 +3,13 @@ require.config({
 		knockout: 'deps/knockout',
 		underscore: 'deps/underscore',
 
+		/* Modern Replacements for jQuery UI */
+		'Sortable': 'deps/Sortable',
+		'sortable-adapter': 'deps/sortable-adapter',
+		'vanilla-tabs': 'deps/vanilla-tabs',
+		'vanilla-draggable': 'deps/vanilla-draggable',
+
 		/* jQuery Plugins */
-		jqueryUI: 'deps/jquery.ui',
 		qtip: 'deps/jquery.qtip'
 	},
 	shim: {
@@ -14,7 +19,7 @@ require.config({
 	}
 });
 
-require(['jquery', 'util.loader'], function($) {
+require(['jquery', 'util.loader', 'Sortable', 'sortable-adapter', 'vanilla-tabs', 'vanilla-draggable'], function($) {
 
 	/* Start loading indidcator */
 	startTitleActivityIndicator();

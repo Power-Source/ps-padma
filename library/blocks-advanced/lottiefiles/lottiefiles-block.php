@@ -4,19 +4,13 @@ namespace Padma_Advanced;
 
 class PadmaVisualElementsBlockLottieFiles extends \PadmaBlockAPI {
 	
-	public $id;
-	public $name;
-	public $options_class;
-	public $description;
-	public $categories;
+	public $id 				= 'lottiefiles';
+	public $name 			= 'Lottie Files';
+	public $options_class 	= 'Padma_Advanced\\PadmaVisualElementsBlockLottieFilesOptions';
+	public $description 		= 'Display Lottie animations from https://lottiefiles.com/featured';
+	public $categories 		= array('animations','media');
 	
 	function __construct(){
-
-		$this->id 				= 'lottiefiles';	
-		$this->name 			= 'Lottie Files';		
-		$this->options_class 	= 'Padma_Advanced\\PadmaVisualElementsBlockLottieFilesOptions';		
-		$this->description 		= 'Display Lottie animations from https://lottiefiles.com/featured';
-		$this->categories 		= array('animations','media');
 
 	}
 
@@ -24,6 +18,42 @@ class PadmaVisualElementsBlockLottieFiles extends \PadmaBlockAPI {
 	public function init() {
 		add_filter('upload_mimes', array(__CLASS__, 'add_json_upload_mime'));
 		add_filter('wp_check_filetype_and_ext', array(__CLASS__, 'allow_json_filetype'), 10, 4);
+		
+		// Filter out lottie.min.js enqueue in VE context
+		if ( self::is_in_ve_context() ) {
+			// Completely block enqueue of lottie script in VE
+			add_filter('script_loader_src', array(__CLASS__, 'filter_lottie_script'), 10, 2);
+		}
+	}
+	
+	/**
+	 * Robust check if we're in VE context
+	 */
+	public static function is_in_ve_context() {
+		// Check if we're in iframe
+		if ( padma_get('ve-iframe') && class_exists('\\PadmaCapabilities') && \PadmaCapabilities::can_user_visually_edit() ) {
+			return true;
+		}
+		// Check global flag
+		if ( defined('PADMA_VISUAL_EDITOR_CONTEXT') && PADMA_VISUAL_EDITOR_CONTEXT ) {
+			return true;
+		}
+		// Check if this is admin page (VE is admin-based)
+		if ( is_admin() && class_exists('\\PadmaRoute') && \PadmaRoute::is_visual_editor() ) {
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Filter to remove lottie.min.js from being enqueued in VE
+	 */
+	public static function filter_lottie_script( $src, $handle ) {
+		if ( $handle === 'padma-lottiefiles' ) {
+			error_log('[ DEBUG LOTTIE FILTER] Blocking lottie.min.js enqueue in VE context');
+			return false;
+		}
+		return $src;
 	}
 	
 	public function setup_elements() {
@@ -120,11 +150,23 @@ class PadmaVisualElementsBlockLottieFiles extends \PadmaBlockAPI {
 	}
 	
 	public static function enqueue_action($block_id, $block = false) {
+
+		$in_visual_editor = ( function_exists('padma_get') && ( padma_get('ve-iframe') || padma_get('visual-editor-open') ) )
+			|| ( class_exists('\\PadmaRoute') && ( \PadmaRoute::is_visual_editor() || \PadmaRoute::is_visual_editor_iframe() ) );
+
+		error_log('[LOTTIE DEBUG] enqueue_action called. in_visual_editor=' . var_export($in_visual_editor, true) . ' | ve-iframe=' . var_export(padma_get('ve-iframe'), true) . ' | visual-editor=' . var_export(padma_get('visual-editor-open'), true));
+
+		if ( $in_visual_editor ) {
+			error_log('[LOTTIE DEBUG] Skipping enqueue - detected VE context');
+			return;
+		}
 		
 		if ( !$block )
 			$block = \PadmaBlocksData::get_block($block_id);
 				
 		$path = padma_url() . '/library/blocks-advanced/lottiefiles/';
+
+		error_log('[LOTTIE DEBUG] Enqueueing lottie.min.js from: ' . $path . 'js/lottie.min.js');
 
 		/* JS */		
 		wp_enqueue_script( 'padma-lottiefiles', $path . 'js/lottie.min.js', array(), PADMA_VERSION, true );

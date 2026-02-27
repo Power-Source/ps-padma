@@ -149,10 +149,9 @@ define(['jquery', 'deps/mousetrap'], function($, mousetrap) {
 	/* END KEY SHORTCUTS */
 
 
-	if ( Padma.touch ) {
-
-		require(['deps/jquery.ui.touchpunch', 'deps/jquery.taphold'], function() {});
-
-	}
+	// Touch events no longer require jQuery UI touchpunch - using modern touch events instead
+	// if ( Padma.touch ) {
+	//		require(['deps/jquery.taphold'], function() {});
+	// }
 
 });

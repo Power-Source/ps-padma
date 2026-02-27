@@ -4,7 +4,7 @@ namespace Padma_Advanced;
 
 class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 
-    public $id 				= 'post-slider-block';    
+    public $id 				= 'post-slider';    
     public $name 			= 'Post Slider';
 	public $options_class 	= 'Padma_Advanced\\PadmaVisualElementsBlockPostSliderOptions';
     public $categories 		= array('content','gallery');
@@ -12,6 +12,40 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 
     function __construct(){
 	    $this->authors = \PadmaQuery::get_authors();
+    }
+    
+    function init() {
+        // Filter scripts in VE context
+        if ( self::is_in_ve_context() ) {
+            add_filter('script_loader_src', array(__CLASS__, 'filter_scripts'), 10, 2);
+        }
+    }
+    
+    /**
+     * Check if we're in VE context
+     */
+    public static function is_in_ve_context() {
+        if ( padma_get('ve-iframe') && class_exists('\\PadmaCapabilities') && \PadmaCapabilities::can_user_visually_edit() ) {
+            return true;
+        }
+        if ( defined('PADMA_VISUAL_EDITOR_CONTEXT') && PADMA_VISUAL_EDITOR_CONTEXT ) {
+            return true;
+        }
+        if ( is_admin() && class_exists('\\PadmaRoute') && \PadmaRoute::is_visual_editor() ) {
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Filter owl.carousel.js and other conflicting scripts in VE
+     */
+    public static function filter_scripts( $src, $handle ) {
+        if ( $handle === 'padma-post-slider-slider-js' ) {
+            error_log('[DEBUG POST-SLIDER] Blocking owl.carousel.js in VE context');
+            return false;
+        }
+        return $src;
     }
         			
 	function setup_elements() {
@@ -425,12 +459,17 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 	public static function enqueue_action($block_id, $block) {
 
 		$path = padma_url() . '/library/blocks-advanced/post-slider/';
+		$in_visual_editor = ( function_exists('padma_get') && ( padma_get('ve-iframe') || padma_get('visual-editor-open') ) )
+			|| ( class_exists('\\PadmaRoute') && ( \PadmaRoute::is_visual_editor() || \PadmaRoute::is_visual_editor_iframe() ) );
 
 		wp_enqueue_style('padma-post-slider-transitions-css', $path . 'css/owl.transitions.css', array(), PADMA_VERSION);
 		wp_enqueue_style('padma-post-slider-slider-css', $path . 'css/owl.carousel.css', array(), PADMA_VERSION);
 		wp_enqueue_style('padma-post-slider-awesome-css', $path . 'css/font-awesome.css', array(), PADMA_VERSION);
 		wp_enqueue_style('padma-post-slider-theme-css', $path . 'css/owl.theme.css', array(), PADMA_VERSION);
-		wp_enqueue_script('padma-post-slider-slider-js', $path . 'js/owl.carousel.js', array('jquery'), PADMA_VERSION, false);
+
+		if ( !$in_visual_editor ) {
+			wp_enqueue_script('padma-post-slider-slider-js', $path . 'js/owl.carousel.js', array('jquery'), PADMA_VERSION, false);
+		}
 	}
 
 	function content($block) {

@@ -51,7 +51,7 @@ class PadmaBlocks {
 		'dummy-image' => 'Padma_Advanced\\PadmaVisualElementsBlockDummyImage',
 		'dummy-text' => 'Padma_Advanced\\PadmaVisualElementsBlockDummyText',
 		'fontawesome' => 'Padma_Advanced\\PadmaVisualElementsFontAwesomeBlock',
-		'gmap' => 'Padma_Advanced\\PadmaVisualElementsBlockGoogleMaps',
+		// 'gmap' => 'Padma_Advanced\\PadmaVisualElementsBlockGoogleMaps', // Class doesn't exist
 		'heading' => 'Padma_Advanced\\PadmaVisualElementsBlockHeading',
 		'label' => 'Padma_Advanced\\PadmaVisualElementsBlockLabel',
 		'lightbox' => 'Padma_Advanced\\PadmaVisualElementsBlockLightbox',
@@ -66,7 +66,6 @@ class PadmaBlocks {
 		'shortcode-block' => 'Padma_Advanced\\PadmaVisualElementsBlockShortcodeBlock',
 		'spacer' => 'Padma_Advanced\\PadmaVisualElementsBlockSpacer',
 		'spoiler' => 'Padma_Advanced\\PadmaVisualElementsBlockSpoiler',
-
 		'tabs' => 'Padma_Advanced\\PadmaVisualElementsBlockTabs',
 		'vimeo' => 'Padma_Advanced\\PadmaVisualElementsBlockVimeo',
 		'youtube' => 'Padma_Advanced\\PadmaVisualElementsBlockYoutube',
@@ -95,8 +94,14 @@ class PadmaBlocks {
 		add_action('init', array(__CLASS__, 'setup_block_actions'), 10);
 
 		add_action('init', array(__CLASS__, 'run_block_init_actions'), 11);
-		add_action('wp_head', array(__CLASS__, 'run_block_enqueue_actions'), 5);
-		add_action('wp_head', array(__CLASS__, 'enqueue_block_dynamic_js_file'), 5);
+		add_action('wp_enqueue_scripts', array(__CLASS__, 'run_block_enqueue_actions'), 11);
+		add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueue_block_dynamic_js_file'), 11);
+		
+		// CRITICAL: Block scripts VERY early in VE iframe
+		add_action('wp_enqueue_scripts', array(__CLASS__, 'dequeue_scripts_in_ve'), 1);
+		
+		// Filter to block problematic scripts in VE iframe
+		add_filter('wp_print_scripts', array(__CLASS__, 'block_scripts_in_ve'), 5);
 		/* End block-specific actions */
 
 		add_action('padma_register_elements_instances', array(__CLASS__, 'register_block_element_instances'), 11);
@@ -115,16 +120,23 @@ class PadmaBlocks {
 		global $padma_unregistered_block_types;
 		global $padma_registry;
 
+		error_log('[BLOCK DEBUG] Starting register_block_types() with ' . count($padma_unregistered_block_types) . ' unregistered blocks');
+
 		foreach ( $padma_unregistered_block_types as $class => $block_type_data ) {
+
+			error_log('[BLOCK DEBUG] Processing block class: ' . $class);
 
 			if( is_array($block_type_data) ){
 
 				// Add this class and path to global class padma_registry to be loaded in loader.php
 				$padma_registry = array_merge($padma_registry, array($class => $block_type_data['block_type_path']));
 
-				if ( !class_exists($class) )
+				if ( !class_exists($class) ) {
+					error_log('[BLOCK DEBUG] ERROR: Class does not exist: ' . $class);
 					return new WP_Error('block_class_does_not_exist', __('The block class being registered does not exist.', 'padma'), $class);
+				}
 
+				error_log('[BLOCK DEBUG] Instantiating class: ' . $class);
 				$block = new $class();
 				
 				if ( $block_type_data['block_type_url'] )
@@ -136,16 +148,17 @@ class PadmaBlocks {
 				if ( $block_type_data['block_type_icons'] )
 					$block->block_type_icons = $block_type_data['block_type_icons'];
 
-
+				error_log('[BLOCK DEBUG] Calling register() on: ' . $class);
 				$block->register();
 
 				unset($block);
 
 			}else{
 
-
-				if ( !class_exists($class) )
+				if ( !class_exists($class) ) {
+					error_log('[BLOCK DEBUG] ERROR: Class does not exist (legacy): ' . $class);
 					return new WP_Error('block_class_does_not_exist', __('The block class being registered does not exist.', 'padma'), $class);
+				}
 
 				$block = new $class();
 
@@ -162,6 +175,7 @@ class PadmaBlocks {
 
 		}
 		unset($padma_unregistered_block_types);
+		error_log('[BLOCK DEBUG] Completed register_block_types()');
 		return true;
 
 	}
@@ -210,15 +224,25 @@ class PadmaBlocks {
 
 	public static function register_advanced_blocks() {
 
-		foreach ( apply_filters('padma_advanced_block_types', self::$advanced_blocks) as $block_name => $block_class ) {
+		error_log('[BLOCK DEBUG] Starting register_advanced_blocks()');
+		
+		$advanced_filtered = apply_filters('padma_advanced_block_types', self::$advanced_blocks);
+		
+		error_log('[BLOCK DEBUG] Advanced blocks after filter: ' . json_encode(array_keys($advanced_filtered)));
+
+		foreach ( $advanced_filtered as $block_name => $block_class ) {
+
+			error_log('[BLOCK DEBUG] Registering block: ' . $block_name . ' -> ' . $block_class);
 
 			$block_type_url = padma_url() . '/library/blocks-advanced/' . $block_name;
 			$block_base_dir = PADMA_LIBRARY_DIR . '/blocks-advanced/' . $block_name;
 			$class_file = $block_base_dir . '/' . $block_name . '-block.php';
 			$options_file = $block_base_dir . '/' . $block_name . '-options.php';
 
-			if ( !file_exists($class_file) )
+			if ( !file_exists($class_file) ) {
+				error_log('[BLOCK DEBUG] File not found: ' . $class_file);
 				continue;
+			}
 
 			if ( file_exists($options_file) )
 				require_once $options_file;
@@ -228,9 +252,12 @@ class PadmaBlocks {
 				'url' => $block_type_url . '/',
 			);
 
+			error_log('[BLOCK DEBUG] Calling padma_register_block(' . $block_class . ')');
 			padma_register_block($block_class, $block_type_url, $class_file, $icons);
 
 		}
+		
+		error_log('[BLOCK DEBUG] Completed register_advanced_blocks()');
 
 	}
 
@@ -423,8 +450,14 @@ class PadmaBlocks {
 	public static function run_block_enqueue_actions() {
 
 		//Do not run these if it's the admin page or the visual editor is open
-		if ( is_admin() || PadmaRoute::is_visual_editor() )
+		$in_visual_editor = self::is_in_visual_editor();
+		
+		if ( is_admin() || $in_visual_editor ) {
+			error_log('[BLOCK ENQUEUE DEBUG] Skipped - is_admin=' . var_export(is_admin(), true) . ' in_visual_editor=' . var_export($in_visual_editor, true));
 			return false;
+		}
+
+		error_log('[BLOCK ENQUEUE DEBUG] Proceeding with block enqueue - is_admin=' . var_export(is_admin(), true) . ' in_visual_editor=' . var_export($in_visual_editor, true));
 
 		$layout_id = PadmaLayout::get_current_in_use();
 
@@ -460,6 +493,37 @@ class PadmaBlocks {
 
 		}
 
+	}
+
+
+	/**
+	 * Robust VE Detection - checks multiple indicators
+	 */
+	public static function is_in_visual_editor() {
+		
+		// Check iFrame context - most reliable
+		if ( padma_get('ve-iframe') && class_exists('\\PadmaCapabilities') && \PadmaCapabilities::can_user_visually_edit() ) {
+			return true;
+		}
+		
+		// Check query parameter
+		if ( padma_get('visual-editor') ) {
+			return true;
+		}
+		
+		// Check custom flag
+		if ( defined('PADMA_VISUAL_EDITOR_CONTEXT') && PADMA_VISUAL_EDITOR_CONTEXT ) {
+			return true;
+		}
+		
+		// Check PadmaRoute methods
+		if ( class_exists('\\PadmaRoute') ) {
+			if ( \PadmaRoute::is_visual_editor() || \PadmaRoute::is_visual_editor_iframe() ) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 
 
@@ -939,6 +1003,75 @@ class PadmaBlocks {
 
 		echo '<div class="alert alert-red block-type-unknown-notice"><p>' . sprintf( __('The requested block type of \'%s\' does not exist. Please re-activate the block plugin or child theme if you wish to use this block again.','padma'), $block['requested-type']) . '</p></div>';
 
+	}
+
+	/**
+	 * CRITICAL: Dequeue problematic scripts VERY early in VE (Priority 1 on wp_enqueue_scripts)
+	 */
+	public static function dequeue_scripts_in_ve() {
+		
+		if ( ! padma_get('ve-iframe') ) {
+			return;
+		}
+		
+		global $wp_scripts;
+		
+		if ( ! isset($wp_scripts) ) {
+			return;
+		}
+		
+		$blocked_handles = array(
+			'padma-lottiefiles',           // lottie.min.js - contains anonymous define()
+			'padma-post-slider-slider-js', // owl.carousel.js - contains anonymous define()
+			'jquery-migrate',               // jQuery migrate can cause conflicts
+			'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-mouse', 'jquery-ui-draggable',
+			'jquery-ui-droppable', 'jquery-ui-sortable', 'jquery-ui-tabs', 'jquery-ui-resizable',
+		);
+		
+		foreach ( $blocked_handles as $handle ) {
+			if ( $wp_scripts->query($handle) ) {
+				wp_dequeue_script($handle);
+				error_log('[VE DEQUEUE Priority 1] Removed: ' . $handle);
+			}
+		}
+		
+	}
+
+	/**
+	 * Block all problematic scripts in VE iframe to prevent RequireJS conflicts
+	 */
+	public static function block_scripts_in_ve() {
+		
+		// Check if we're in VE iframe
+		if ( padma_get('ve-iframe') ) {
+			
+			// Hook into wp_enqueue_scripts at very high priority (before others)
+			add_action('wp_enqueue_scripts', function() {
+				global $wp_scripts;
+				
+				if ( ! isset($wp_scripts) ) {
+					return;
+				}
+				
+				// List of problematic scripts
+				$blocked_handles = array(
+					'padma-lottiefiles',           // lottie.min.js - anonymous define()
+					'padma-post-slider-slider-js', // owl.carousel.js - anonymous define()
+					'jquery-migrate',               // jQuery migrate conflicts
+					'jquery-ui-core', 'jquery-ui-widget', 'jquery-ui-mouse', 'jquery-ui-draggable',
+					'jquery-ui-droppable', 'jquery-ui-sortable', 'jquery-ui-tabs', 'jquery-ui-resizable',
+				);
+				
+				foreach ( $blocked_handles as $handle ) {
+					if ( $wp_scripts->query($handle) ) {
+						wp_dequeue_script($handle);
+						error_log('[VE BLOCKER] Dequeued script: ' . $handle);
+					}
+				}
+			}, 1); // Priority 1 = VERY EARLY
+			
+		}
+		
 	}
 
 
