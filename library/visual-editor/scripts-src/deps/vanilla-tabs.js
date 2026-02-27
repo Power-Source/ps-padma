@@ -1,6 +1,5 @@
 /**
- * Vanilla JS Tabs Implementation (replaces jQuery UI tabs)
- * Modern, lightweight alternative without jQuery UI dependency
+ * Vanilla JS Tabs Implementation (jQuery UI compatible subset)
  */
 
 define(['jquery'], function(jQuery) {
@@ -10,9 +9,13 @@ define(['jquery'], function(jQuery) {
 
 	function VanillaTabs(element, options) {
 		if (!element) return;
-		
+
 		this.element = element;
 		this.$element = $(element);
+		this.tabList = null;
+		this.tabItems = [];
+		this.tabLinks = [];
+		this.tabPanels = [];
 		this.options = Object.assign({
 			active: 0,
 			collapsible: false,
@@ -24,111 +27,147 @@ define(['jquery'], function(jQuery) {
 		this.init();
 	}
 
-	VanillaTabs.prototype.init = function() {
-		const tabs = this.element;
-		const tabNames = tabs.querySelector('ul, [role="tablist"]');
-		
-		if (!tabNames) return;
+	VanillaTabs.prototype.getTabListElement = function() {
+		return this.element.querySelector('#panel-top')
+			|| this.element.querySelector('[role="tablist"]')
+			|| this.element.querySelector('ul');
+	};
 
-		const tabItems = Array.from(tabNames.querySelectorAll('li'));
-		const tabLinks = Array.from(tabNames.querySelectorAll('li > a, [role="tab"]'));
+	VanillaTabs.prototype.bindEvents = function() {
+		if (!this.tabList) return;
 
-		// Setup roles and IDs
-		tabs.classList.add('ui-tabs', 'ui-widget', 'ui-widget-content', 'ui-corner-all');
-		tabNames.setAttribute('role', 'tablist');
-		
-		tabLinks.forEach((link, index) => {
-			let panel = null;
-			const href = link.getAttribute('href');
-			const hrefId = href && href.indexOf('#') === 0 ? href.substring(1) : null;
-			if (hrefId) {
-				panel = tabs.querySelector('#' + hrefId);
+		if (this._boundTabList && this._boundTabList !== this.tabList) {
+			$(this._boundTabList).off('.vanillaTabs');
+		}
+
+		this._boundTabList = this.tabList;
+		const self = this;
+
+		$(this.tabList).off('.vanillaTabs');
+
+		$(this.tabList).on('click.vanillaTabs', 'a[href^="#"]', function(e) {
+			e.preventDefault();
+			const index = self.tabLinks.indexOf(this);
+			if (index >= 0) {
+				self.activate(index);
 			}
-			if (!panel) {
-				const panels = Array.from(tabs.querySelectorAll('[role="tabpanel"], .ui-tabs-panel'));
-				panel = panels[index] || null;
+		});
+
+		$(this.tabList).on('keydown.vanillaTabs', 'a[href^="#"]', function(e) {
+			const currentIndex = self.tabLinks.indexOf(this);
+			if (currentIndex < 0 || !self.tabLinks.length) return;
+
+			let targetIndex = -1;
+			if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+				targetIndex = (currentIndex + 1) % self.tabLinks.length;
+			} else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+				targetIndex = (currentIndex - 1 + self.tabLinks.length) % self.tabLinks.length;
+			} else if (e.key === 'Home') {
+				targetIndex = 0;
+			} else if (e.key === 'End') {
+				targetIndex = self.tabLinks.length - 1;
 			}
 
-			const id = (panel && panel.id) || link.getAttribute('aria-controls') || `ui-tabs-${index}-${Math.random().toString(36).substr(2, 9)}`;
-			
-			link.setAttribute('role', 'tab');
-			link.setAttribute('tabindex', '0');
-			link.setAttribute('aria-controls', id);
-			link.setAttribute('aria-selected', index === this.options.active ? 'true' : 'false');
-			
-			if (panel) {
-				panel.setAttribute('role', 'tabpanel');
-				panel.setAttribute('aria-labelledby', link.id || id);
-				panel.id = id;
-				panel.style.display = index === this.options.active ? 'block' : 'none';
-			}
-
-			// Click handler
-			link.addEventListener(this.options.event, (e) => {
+			if (targetIndex >= 0) {
 				e.preventDefault();
-				this.activate(index);
-			});
-
-			// Keyboard navigation
-			link.addEventListener('keydown', (e) => {
-				let targetIndex = -1;
-				if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-					targetIndex = (index + 1) % tabLinks.length;
-				} else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-					targetIndex = (index - 1 + tabLinks.length) % tabLinks.length;
-				} else if (e.key === 'Home') {
-					targetIndex = 0;
-				} else if (e.key === 'End') {
-					targetIndex = tabLinks.length - 1;
-				}
-				
-				if (targetIndex >= 0) {
-					e.preventDefault();
-					tabLinks[targetIndex].focus();
-					this.activate(targetIndex);
-				}
-			});
+				self.tabLinks[targetIndex].focus();
+				self.activate(targetIndex);
+			}
 		});
+	};
 
-		this.tabItems = tabItems;
-		this.tabLinks = tabLinks;
-		this.tabPanels = tabLinks.map((link, idx) => {
-			const controls = link.getAttribute('aria-controls');
-			const panel = controls ? tabs.querySelector('#' + controls) : null;
-			if (panel) return panel;
-			const panels = Array.from(tabs.querySelectorAll('[role="tabpanel"], .ui-tabs-panel'));
-			return panels[idx] || null;
-		});
+	VanillaTabs.prototype.rebuild = function() {
+		this.tabItems = [];
+		this.tabLinks = [];
+		this.tabPanels = [];
+
+		this.tabList = this.getTabListElement();
+		if (!this.tabList) return;
+
+		const tabs = this.element;
+		tabs.classList.add('ui-tabs', 'ui-widget', 'ui-widget-content', 'ui-corner-all');
+		this.tabList.classList.add('ui-tabs-nav', 'ui-helper-reset', 'ui-helper-clearfix', 'ui-widget-header', 'ui-corner-all');
+		this.tabList.setAttribute('role', 'tablist');
+
+		const items = Array.from(this.tabList.children).filter((child) => child && child.tagName && child.tagName.toLowerCase() === 'li');
+		const links = items
+			.map((item) => item.querySelector('a[href^="#"]'))
+			.filter(Boolean);
+
+		for (let i = 0; i < links.length; i++) {
+			const item = items[i];
+			const link = links[i];
+			const href = link.getAttribute('href') || '';
+			const panelId = href.charAt(0) === '#' ? href.substring(1) : '';
+			const panel = panelId ? this.element.querySelector('#' + panelId) : null;
+
+			item.classList.add('ui-state-default', 'ui-corner-top');
+			item.setAttribute('role', 'tab');
+			item.setAttribute('aria-controls', panelId);
+			item.setAttribute('aria-selected', 'false');
+			item.setAttribute('tabindex', '-1');
+
+			link.classList.add('ui-tabs-anchor');
+			link.setAttribute('role', 'tab');
+			link.setAttribute('aria-controls', panelId);
+			link.setAttribute('aria-selected', 'false');
+			link.setAttribute('tabindex', '0');
+
+			if (panel) {
+				panel.classList.add('ui-tabs-panel');
+				panel.setAttribute('role', 'tabpanel');
+				panel.id = panelId;
+			}
+
+			this.tabItems.push(item);
+			this.tabLinks.push(link);
+			this.tabPanels.push(panel || null);
+		}
+
+		this.bindEvents();
+	};
+
+	VanillaTabs.prototype.init = function() {
+		this.rebuild();
 		this.activate(this.options.active, true);
 	};
 
 	VanillaTabs.prototype.activate = function(index, suppressCallback) {
+		if (!Array.isArray(this.tabLinks) || this.tabLinks.length === 0) return;
+
+		const disabled = Array.isArray(this.options.disabled) ? this.options.disabled : [];
 		if (index < 0 || index >= this.tabLinks.length) return;
-		if (this.options.disabled.includes(index)) return;
+		if (disabled.includes(index)) return;
 
-		const previousIndex = this.tabLinks.findIndex(link => link.getAttribute('aria-selected') === 'true');
+		const previousIndex = this.tabLinks.findIndex((link) => link.getAttribute('aria-selected') === 'true');
 
-		// Deactivate all
-		this.tabLinks.forEach((link, i) => {
-			link.setAttribute('aria-selected', 'false');
+		for (let i = 0; i < this.tabLinks.length; i++) {
+			this.tabLinks[i].setAttribute('aria-selected', 'false');
 			if (this.tabItems[i]) {
+				this.tabItems[i].setAttribute('aria-selected', 'false');
+				this.tabItems[i].setAttribute('tabindex', '-1');
 				this.tabItems[i].classList.remove('ui-tabs-active', 'ui-state-active');
 			}
 			if (this.tabPanels[i]) {
 				this.tabPanels[i].style.display = 'none';
+				this.tabPanels[i].classList.add('ui-tabs-hide');
 				this.tabPanels[i].classList.remove('ui-tabs-active');
 			}
-		});
+		}
 
-		// Activate selected
 		this.tabLinks[index].setAttribute('aria-selected', 'true');
 		if (this.tabItems[index]) {
+			this.tabItems[index].setAttribute('aria-selected', 'true');
+			this.tabItems[index].setAttribute('tabindex', '0');
 			this.tabItems[index].classList.add('ui-tabs-active', 'ui-state-active');
 		}
 		if (this.tabPanels[index]) {
 			this.tabPanels[index].style.display = 'block';
+			this.tabPanels[index].classList.remove('ui-tabs-hide');
 			this.tabPanels[index].classList.add('ui-tabs-active');
 		}
+
+		this.options.active = index;
 
 		if (!suppressCallback && typeof this.options.activate === 'function') {
 			this.options.activate.call(this.element, null, {
@@ -141,21 +180,29 @@ define(['jquery'], function(jQuery) {
 	};
 
 	VanillaTabs.prototype.refresh = function() {
-		// Refresh tab layout (useful after DOM changes)
-		const activeIndex = this.tabLinks.findIndex(link => 
-			link.getAttribute('aria-selected') === 'true'
-		);
-		this.activate(activeIndex >= 0 ? activeIndex : this.options.active);
+		const currentActive = typeof this.options.active === 'number' ? this.options.active : 0;
+		this.rebuild();
+		this.activate(currentActive, true);
 	};
 
 	VanillaTabs.prototype.option = function(name, value) {
 		if (value === undefined) {
 			return this.options[name];
 		}
+
 		if (name === 'active') {
 			this.activate(value);
+			return;
 		}
+
 		this.options[name] = value;
+	};
+
+	VanillaTabs.prototype.destroy = function() {
+		if (this._boundTabList) {
+			$(this._boundTabList).off('.vanillaTabs');
+		}
+		this.$element.removeData('tabs');
 	};
 
 	$.fn.tabs = function(options) {
@@ -184,7 +231,7 @@ define(['jquery'], function(jQuery) {
 						instance.option(args[0], args[1]);
 					}
 				} else if (options === 'destroy') {
-					$(this).removeData('tabs');
+					instance.destroy();
 				}
 			} else if (typeof options === 'object') {
 				Object.assign(instance.options, options);

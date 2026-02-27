@@ -11,6 +11,65 @@ define(['jquery', 'vanilla-draggable', 'deps/jquery.cookie', 'util.tooltips', 'm
 
 	addPanelTab = function(name, title, content, closable, closeOnLayoutSwitch, panelClass) {
 		
+		var sanitizeLoadData = function(value, seen) {
+			if (value === null || typeof value === 'undefined') {
+				return value;
+			}
+
+			if (typeof value === 'function') {
+				return undefined;
+			}
+
+			if (value && value.jquery) {
+				return undefined;
+			}
+
+			if (Object.prototype.toString.call(value) === '[object Date]') {
+				return value.toISOString();
+			}
+
+			if (typeof value !== 'object') {
+				return value;
+			}
+
+			if (!seen) {
+				seen = [];
+			}
+
+			if (seen.indexOf(value) !== -1) {
+				return undefined;
+			}
+
+			seen.push(value);
+
+			var result;
+
+			if (Array.isArray(value)) {
+				result = [];
+				for (var i = 0; i < value.length; i++) {
+					var arrayItem = sanitizeLoadData(value[i], seen);
+					if (typeof arrayItem !== 'undefined') {
+						result.push(arrayItem);
+					}
+				}
+			} else {
+				result = {};
+				for (var key in value) {
+					if (!Object.prototype.hasOwnProperty.call(value, key)) {
+						continue;
+					}
+
+					var objectValue = sanitizeLoadData(value[key], seen);
+					if (typeof objectValue !== 'undefined') {
+						result[key] = objectValue;
+					}
+				}
+			}
+
+			seen.pop();
+			return result;
+		};
+		
 		/* If the tab name already exists, don't try making it */
 		if ( $('ul#panel-top li a[href="#' + name + '-tab"]').length !== 0 )
 			return false;
@@ -53,7 +112,7 @@ define(['jquery', 'vanilla-draggable', 'deps/jquery.cookie', 'util.tooltips', 'm
 		} else {
 			
 			var loadURL = content.url; 
-			var loadData = content.data || false;
+			var loadData = sanitizeLoadData(content.data || {});
 			
 			var loadCallback = function() {
 				
