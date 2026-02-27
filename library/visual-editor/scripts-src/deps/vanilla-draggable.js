@@ -449,9 +449,16 @@ define(['jquery'], function(jQuery) {
 
 		// Make CustomMouseImpl available as $.ui.mouse
 		function VanillaMouseBase(element, options) {
-			this.element = element;
-			this.$element = jQuery(element);
+			// Don't override if element is already a jQuery object from widget factory
+			if (element && element.jquery) {
+				this.element = element;
+				this.$element = element;
+			} else {
+				this.element = jQuery(element);
+				this.$element = this.element;
+			}
 			this.options = jQuery.extend(true, {}, this.options, options);
+			this._mouseInit();
 		}
 
 		VanillaMouseBase.prototype = {
@@ -460,19 +467,112 @@ define(['jquery'], function(jQuery) {
 				distance: 0,
 				cancel: ':input,option'
 			},
+			_getOwnerDocument: function() {
+				if (this.el && this.el.ownerDocument) {
+					return this.el.ownerDocument;
+				}
+
+				if (this.element && this.element.jquery && this.element[0] && this.element[0].ownerDocument) {
+					return this.element[0].ownerDocument;
+				}
+
+				if (this.element && this.element.ownerDocument) {
+					return this.element.ownerDocument;
+				}
+
+				return document;
+			},
+			_getPointerCoords: function(event) {
+				const original = event && event.originalEvent ? event.originalEvent : event;
+				const touch = original && original.touches && original.touches.length ? original.touches[0] : (original && original.changedTouches && original.changedTouches.length ? original.changedTouches[0] : null);
+
+				if (touch) {
+					return { x: touch.pageX, y: touch.pageY };
+				}
+
+				return {
+					x: event.pageX,
+					y: event.pageY
+				};
+			},
 			_mouseInit: function() {
 				// Initialize mouse tracking
 				const self = this;
+				
 				this.$element.on('mousedown.ui-mouse touchstart.ui-mouse', function(e) {
 					return self._mouseDown(e);
 				});
 			},
 			_mouseDown: function(event) {
+				// Bail if we're already tracking a mouse
+				if (this._mouseStarted) {
+					return true;
+				}
+
+				// Set up tracking state
+				this._mouseDownEvent = event;
+				this._mouseDownPosition = this._getPointerCoords(event);
+
+				const self = this;
+				const doc = this._getOwnerDocument();
+				const $doc = jQuery(doc);
+
+				// Check distance threshold
+				const checkDistance = (moveEvent) => {
+					const point = self._getPointerCoords(moveEvent);
+					const distance = Math.sqrt(
+						Math.pow(point.x - self._mouseDownPosition.x, 2) +
+						Math.pow(point.y - self._mouseDownPosition.y, 2)
+					);
+					return distance >= (self.options.distance || 0);
+				};
+
+				// Start drag tracking on mousemove
+				const onMouseMove = (moveEvent) => {
+					if (!self._mouseStarted && checkDistance(moveEvent)) {
+						self._mouseStarted = (self._mouseStart(self._mouseDownEvent, moveEvent) !== false);
+						if (self._mouseStarted) {
+							self._mouseDrag(moveEvent);
+						}
+					} else if (self._mouseStarted) {
+						self._mouseDrag(moveEvent);
+					}
+				};
+
+				const onMouseUp = (upEvent) => {
+					$doc.off('mousemove.ui-mouse', onMouseMove);
+					$doc.off('touchmove.ui-mouse', onMouseMove);
+					$doc.off('mouseup.ui-mouse', onMouseUp);
+					$doc.off('touchend.ui-mouse', onMouseUp);
+
+					if (self._mouseStarted) {
+						self._mouseStarted = false;
+						self._mouseStop(upEvent);
+					}
+
+					self._mouseDownEvent = null;
+				};
+
+				// Register only on the element's document (iFrame or main)
+				$doc.on('mousemove.ui-mouse touchmove.ui-mouse', onMouseMove);
+				$doc.on('mouseup.ui-mouse touchend.ui-mouse', onMouseUp);
+
+				return false;
+			},
+			_mouseStart: function(event) {
 				// Can be overridden by subclasses
 				return true;
 			},
+			_mouseDrag: function(event) {
+				// Can be overridden by subclasses
+			},
+			_mouseStop: function(event) {
+				// Can be overridden by subclasses
+			},
 			_mouseDestroy: function() {
 				this.$element.off('.ui-mouse');
+				const doc = this._getOwnerDocument();
+				jQuery(doc).off('.ui-mouse');
 			}
 		};
 
@@ -491,6 +591,12 @@ define(['jquery'], function(jQuery) {
 				this.$element = this.element;
 				this.el = element;
 				this.options = jQuery.extend(true, {}, this.options, options);
+				
+				// Call base class constructor if needed, passing jQuery object
+				if (Base && Base !== Object) {
+					Base.call(this, this.element, options);
+				}
+				
 				this._create();
 			};
 

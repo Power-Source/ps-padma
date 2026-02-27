@@ -47,7 +47,6 @@ define(['jquery', 'underscore'], function($, _) {
 				description: 'Upload or select an audio',
 				src: Padma.homeURL + '/?padma-trigger=media-uploader',
 				load: function() {
-					console.log('Audio uploader iframe loaded');
 				},
 				width: $(window).width() - 200,
 				height: $(window).height() - 200,

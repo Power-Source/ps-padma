@@ -1,4 +1,4 @@
-define(['jquery', 'vanilla-draggable', 'helper.codeMirror', 'deps/chosen.jquery', 'deps/colorpicker', 'util.image-uploader', 'util.video-uploader', 'util.audio-uploader', 'util.json-uploader'], function($, vanillaDraggable, codeMirror, chosen) {
+define(['jquery', 'vanilla-draggable', 'helper.codeMirror', 'deps/chosen.jquery', 'deps/colorpicker', 'util.image-uploader', 'util.video-uploader', 'util.audio-uploader', 'util.json-uploader'], function($, vanillaDraggable, codeMirror, chosen, colorpicker, imageUploader, videoUploader, audioUploader, jsonUploader) {
 
 	handleInputTogglesInContainer = function(container) {
 

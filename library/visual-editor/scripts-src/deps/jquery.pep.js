@@ -16,8 +16,9 @@
  *        http://patorjk.com/software/taag/#p=display&f=Speed&t=jquery.pep.js
  */
 
-;(function ( $, window, undefined ) {
+define(['jquery'], function ( jQuery ) {
 
+  var $ = jQuery;
   "use strict";
 
   //  create the defaults once
@@ -1154,4 +1155,6 @@
     $obj.removeData('plugin_' + pluginName);
   };
 
-}(jQuery, window));
+  return jQuery;
+
+});

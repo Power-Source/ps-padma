@@ -7,6 +7,9 @@
  * http://www.gnu.org/licenses/gpl.html
  *
  */
+
+define(['jquery'], function(jQuery) {
+
 jQuery.cookie = function (key, value, options) {
     
     // key and at least value given, set cookie...
@@ -39,3 +42,7 @@ jQuery.cookie = function (key, value, options) {
     var result, decode = options.raw ? function (s) { return s; } : decodeURIComponent;
     return (result = new RegExp('(?:^|; )' + encodeURIComponent(key) + '=([^;]*)').exec(document.cookie)) ? decode(result[1]) : null;
 };
+
+return jQuery;
+
+});

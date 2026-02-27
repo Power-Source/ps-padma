@@ -653,7 +653,6 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 		bindBlockInlineEditor = function() {
 
 			if( browser.is_safari() || browser.is_midori() ){
-				console.log( 'bindBlockInlineEditor: Your browser does not support this feature' );
 				return false;
 			}
 

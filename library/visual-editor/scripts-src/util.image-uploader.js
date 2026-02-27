@@ -17,7 +17,6 @@ define(['jquery', 'underscore'], function($, _) {
 				src: Padma.homeURL + '/?padma-trigger=media-uploader',
 				load: function() {
 					// No need to initiate complex uploader, just wait for iframe to load
-					console.log('Media uploader iframe loaded');
 				},
 				width: $(window).width() - 200,
 				height: $(window).height() - 200,

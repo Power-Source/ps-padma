@@ -1,4 +1,4 @@
-define(['jquery', 'helper.history', 'helper.data', 'vanilla-draggable'], function($, history) {
+define(['jquery', 'helper.history', 'helper.data', 'vanilla-draggable', 'deps/jquery.pep'], function($, history) {
 
 	$.widget("ui.padmaGrid", $.ui.mouse, {
 
@@ -33,6 +33,9 @@ define(['jquery', 'helper.history', 'helper.data', 'vanilla-draggable'], functio
 
 			/* Initialize CSS for this Grid */
 			this.updateGridCSS();
+
+			/* Reset Grid Calculations - MUST be called before anything else uses this.grid */
+			this.resetGridCalculations();
 
 			this.helperTemplate = $('<div class="ui-grid-helper block"></div>');
 			this.offset = this.container.offset();
