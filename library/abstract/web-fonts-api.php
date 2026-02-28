@@ -122,7 +122,7 @@ abstract class PadmaWebFontProvider {
 
      		/* Only set the transient if the fonts are returned properly and there's no error */
      		if ( !empty($fonts) && empty($fonts[$sortby]['error']) ){				
-				set_transient($this->transient_id, $fonts, 60 * 60 * 24);
+				set_transient($this->transient_id, $fonts, 60 * 60 * 24 * 7); // Cache for 7 days
      		}
 
 		}

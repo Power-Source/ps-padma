@@ -126,6 +126,17 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 				return;
 
 			var self = this;
+			var cacheKey = 'padma_fonts_cache_' + context.data('font-webfont-provider') + '_' + (sortBy || 'popularity');
+			var cachedFonts = localStorage.getItem(cacheKey);
+
+			// Check for cached fonts (valid for 1 hour)
+			if (cachedFonts && !resetTransient) {
+				var cacheData = JSON.parse(cachedFonts);
+				if (cacheData.timestamp && (Date.now() - cacheData.timestamp) < 3600000) { // 1 hour
+					self.renderFontsList(context, cacheData.html, firstLoad);
+					return;
+				}
+			}
 
 			createCog(context.find('.fonts-loading'), true);
 
@@ -143,44 +154,62 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 				provider: context.data('font-webfont-provider')
 			}, function(response) {
 
-				context.find('.fonts-loading').fadeOut(300);
-				context.find('ul').hide().html(response).fadeIn(300, function() {
-
-					/* Force fonts to load before user scrolls */
-					self.scrollWebFontLoader(context.find('ul'));
-
-				});
-
-				/* Refresh quick search cache */
-				context.find('.fonts-filter').val('');
-				context.data('quicksearch').cache();
-
-				/* Allow quick search again */
-				context.find('.fonts-filter').removeAttr('disabled');
-
-				/* Scroll to selected item if first time loading tab otherwise scroll to top */
-				if ( typeof firstLoad != 'undefined' && firstLoad && self.hiddenInput.val().match(/\|/g) ) {
-
-					var selectedFont = context.find('li[data-value="' + self.hiddenInput.val().split('|')[1] + '"]');
-
-					if ( selectedFont.length ) {
-
-						selectedFont.addClass('selected-font');
-						context.find('.fonts-list ul').scrollTop(selectedFont.position().top);
-
-					}
-
-				} else {
-
-					context.find('.fonts-list ul').scrollTop(0);
-
+				// Cache the response in localStorage
+				try {
+					localStorage.setItem(cacheKey, JSON.stringify({
+						html: response,
+						timestamp: Date.now()
+					}));
+				} catch (e) {
+					// localStorage might be full or disabled, continue anyway
 				}
 
-				context.data('fonts-loaded', true);
+				self.renderFontsList(context, response, firstLoad);
 
 			});
 
-		}
+		};
+
+		this.renderFontsList = function(context, response, firstLoad) {
+
+			var self = this;
+
+			context.find('.fonts-loading').fadeOut(300);
+			context.find('ul').hide().html(response).fadeIn(300, function() {
+
+				/* Force fonts to load before user scrolls */
+				self.scrollWebFontLoader(context.find('ul'));
+
+			});
+
+			/* Refresh quick search cache */
+			context.find('.fonts-filter').val('');
+			context.data('quicksearch').cache();
+
+			/* Allow quick search again */
+			context.find('.fonts-filter').removeAttr('disabled');
+
+			/* Scroll to selected item if first time loading tab otherwise scroll to top */
+			if ( typeof firstLoad != 'undefined' && firstLoad && self.hiddenInput.val().match(/\|/g) ) {
+
+				var selectedFont = context.find('li[data-value="' + self.hiddenInput.val().split('|')[1] + '"]');
+
+				if ( selectedFont.length ) {
+
+					selectedFont.addClass('selected-font');
+					context.find('.fonts-list ul').scrollTop(selectedFont.position().top);
+
+				}
+
+			} else {
+
+				context.find('.fonts-list ul').scrollTop(0);
+
+			}
+
+			context.data('fonts-loaded', true);
+
+		};
 
 		this.scrollWebFontLoader = function(fontList) {
 
@@ -239,28 +268,28 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 				return variantName;
 			};
 
-			/* Find Visible Fonts that need to be loaded */
+			/* Load visible fonts + 20 fonts buffer for smooth scrolling */
 				var viewportTop = fontList.scrollTop();
 				var viewportBottom = viewportTop + fontList.outerHeight();
+				var buffer = 1000; // Load fonts 1000px above and below viewport
 
-				fontList.find('li').each(function() {
+				var allFonts = fontList.find('li');
+				var loadCount = 0;
+				var maxInitialLoad = Math.min(50, allFonts.length); // Load first 50 fonts or all if less
+
+				allFonts.each(function() {
 
 					var fontTop = $(this).position().top + fontList.scrollTop();
 					var fontBottom = fontTop + $(this).outerHeight();
 
-					if ( !$(this).is(':visible') || $(this).data('loadedFont') )
+					if ( $(this).data('loadedFont') )
 						return;
 
-					if ( !(fontTop <= viewportBottom) )
-						return;
-
-					if ( !(fontBottom >= viewportTop) )
-						return;
-
-					if ( fontBottom > viewportBottom )
-						return false;
-
-					fontsToLoad.push($(this));
+					// For initial load, load first N fonts; for scroll, load visible + buffer
+					if ( loadCount < maxInitialLoad || (fontTop <= (viewportBottom + buffer) && fontBottom >= (viewportTop - buffer)) ) {
+						fontsToLoad.push($(this));
+						loadCount++;
+					}
 
 				});
 

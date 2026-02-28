@@ -2571,9 +2571,9 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 						var tooltipText = '<span class="inspector-tooltip-element-path">';
 						var tooltipElementPath = [];
 
-						elementSelectorNode.parents('li').reverse().each(function() {
+						elementSelectorNode.parents('li').get().reverse().forEach(function(element) {
 
-							tooltipElementPath.push($(this).children('.element-group-name, .element-name').first().text());
+							tooltipElementPath.push($(element).children('.element-group-name, .element-name').first().text());
 
 						});
 						
