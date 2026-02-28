@@ -1,6 +1,8 @@
 <?php
 class PadmaSchema {
 
+	protected static $rendered_article_schema = array();
+
 	function __construct(){
 
 	}
@@ -23,12 +25,20 @@ class PadmaSchema {
 		if(is_null($post))
 			return;
 
+		if ( ! is_object($post) || empty($post->ID) )
+			return;
+
+		if ( isset(self::$rendered_article_schema[$post->ID]) )
+			return '';
+
+		self::$rendered_article_schema[$post->ID] = true;
+
 		/**
 		 *
 		 * Author
 		 *
 		 */		
-		$author = get_the_author_meta('first_name', $post->post_author) . ' ' . get_the_author_meta('last_name', $post->post_author);
+		$author = trim(get_the_author_meta('first_name', $post->post_author) . ' ' . get_the_author_meta('last_name', $post->post_author));
 
 		if(trim($author) == '')
 			$author = get_the_author_meta('display_name', $post->post_author);
@@ -63,38 +73,36 @@ class PadmaSchema {
 			$image = $image[0];
 		}
 
-
-
-
-		/**
-		 *
-		 * Schema
-		 *
-		 */		
-		$article = Spatie\SchemaOrg\Schema::Article()
-					->mainEntityOfPage(get_permalink($post->ID))					
-					->headLine($post->post_title)					
-					->author(
-						Spatie\SchemaOrg\Schema::Person()
-							->name($author)
-							->url(get_author_posts_url($post->post_author))
-					)
-					->publisher(
-						Spatie\SchemaOrg\Schema::Organization()
-							->name(get_bloginfo('name'))
-							->url(site_url())
-							->logo(
-								Spatie\SchemaOrg\Schema::ImageObject()
-								->url($site_image)
-							)
-					);
-
 		if($site_image && !$image){
 			$image = $site_image;	
 		}
 
+		$article = array(
+			'@context' => 'https://schema.org',
+			'@type' => 'Article',
+			'mainEntityOfPage' => get_permalink($post->ID),
+			'headline' => $post->post_title,
+			'author' => array(
+				'@type' => 'Person',
+				'name' => $author,
+				'url' => get_author_posts_url($post->post_author),
+			),
+			'publisher' => array(
+				'@type' => 'Organization',
+				'name' => get_bloginfo('name'),
+				'url' => site_url(),
+			),
+		);
+
+		if($site_image){
+			$article['publisher']['logo'] = array(
+				'@type' => 'ImageObject',
+				'url' => $site_image,
+			);
+		}
+
 		if($image)
-			$article->image($image);
+			$article['image'] = $image;
 
 
 		/**
@@ -104,16 +112,16 @@ class PadmaSchema {
 		 */
 
 		if( padma_validateDate($post->post_date) )
-			$article->dateCreated( new Datetime($post->post_date) );
+			$article['dateCreated'] = get_date_from_gmt(get_gmt_from_date($post->post_date), 'c');
 
 		if( padma_validateDate($post->post_date) )
-			$article->datePublished( new Datetime($post->post_date) );
+			$article['datePublished'] = get_date_from_gmt(get_gmt_from_date($post->post_date), 'c');
 
-		if( padma_validateDate($post->post_date) )
-			$article->dateModified( new Datetime($post->post_modified) );
+		if( padma_validateDate($post->post_modified) )
+			$article['dateModified'] = get_date_from_gmt(get_gmt_from_date($post->post_modified), 'c');
 
 
-		return $article->toScript();
+		return '<script type="application/ld+json">' . wp_json_encode($article, JSON_UNESCAPED_SLASHES) . '</script>' . "\n";
 
 	}
 }

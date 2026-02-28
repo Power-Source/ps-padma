@@ -24,7 +24,10 @@ if ( ! defined( 'WP_CONTENT_DIR' ) ) {
 require_once get_template_directory() . '/library/common/compatibility-checks.php';
 
 /* Load required packages */
-require_once get_template_directory() . '/vendor/autoload.php';
+$padma_vendor_autoload = get_template_directory() . '/vendor/autoload.php';
+if ( file_exists( $padma_vendor_autoload ) ) {
+    require_once $padma_vendor_autoload;
+}
 
 /* Load Padma! */
 require_once get_template_directory() . '/library/common/functions.php';
