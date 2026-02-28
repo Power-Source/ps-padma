@@ -830,9 +830,15 @@ class PadmaVisualEditorAJAX {
 
 				Padma::load('data/data-portability');
 
-				parse_str(padma_get('skin-info'), $skin_info);
+				// SAFE PARSING - No parse_str() vulnerability
+				$skin_info = array();
+				$raw_skin_data = padma_get('skin-info', '');
+				
+				if (!empty($raw_skin_data)) {
+					$skin_info = wp_parse_args($raw_skin_data);
+				}
 
-				return PadmaDataPortability::export_skin($skin_info['skin-export-info']);
+				return PadmaDataPortability::export_skin($skin_info['skin-export-info'] ?? array());
 
 			}
 
@@ -843,9 +849,16 @@ class PadmaVisualEditorAJAX {
 				if(class_exists('padmaServices')){
 
 					Padma::load('data/data-portability');
-					parse_str(padma_post('skin-info'), $skin_info);
+					
+					// SAFE PARSING - No parse_str() vulnerability
+					$skin_info = array();
+					$raw_skin_data = padma_post('skin-info', '');
+					
+					if (!empty($raw_skin_data)) {
+						$skin_info = wp_parse_args($raw_skin_data);
+					}
 
-					$skin 	= PadmaDataPortability::export_skin($skin_info['skin-save-on-cloud-info'],true);
+					$skin 	= PadmaDataPortability::export_skin($skin_info['skin-save-on-cloud-info'] ?? array(),true);
 
 					$templateData = array(
 						'name' 			=> $skin_info['skin-save-on-cloud-info']['name'],

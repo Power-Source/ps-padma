@@ -2654,89 +2654,100 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 					onShow: inspectorContextMenuOnShow,
 					onHide: function() {
 
-						/* Reactivate inspector tooltip */
-						inspectorTooltip.show();
-						Padma.inspectorDisabled = false;
-
-					},
-					onItemClick: inspectorContextMenuItemClick,
-					contentsCallback: inspectorContextMenuContents
-				});
-
-			}
-
-			inspectorContextMenuOnShow = function(event) {
-
-				/* Add element options object to the context menu */
-					$(this).data('element-options', inspectorElement.data('inspectorElementOptions'));
-
-				/* Disable inspector tooltip */
-					$(inspectorTooltip.elements.tooltip).hide();
-					Padma.inspectorDisabled = true;
-
-			}
-
-			inspectorContextMenuItemClick = function(contextMenu, originalRightClickEvent) {
-
-				if ( $(this).hasClass('group-title') && !$(this).hasClass('group-title-clickable') )
-					return;
-
-				/* Block Options Click */
-				if ( $(this).parents('li').first().hasClass('inspector-context-menu-block-options') ) {
-
-					openBlockOptions(getBlock($(inspectorElement)));
-
-				/* Edit content */
-				} else if ( $(this).parents('li').first().hasClass('inspector-context-menu-edit-content') ){
-
-					var blockID 	= getBlock($(inspectorElement))[0].dataset.id;
-					var blockType 	= getBlock($(inspectorElement))[0].dataset.type;
-
-					if( blockType == 'content' ){
-						
-						var elementId = $(inspectorElement).closest('article').attr('id');
-						if(elementId !== undefined){
-							postId = elementId.split('-')[1];
-							localStorage['visual-editor-block-post-data-' + blockID + '-0'] = postId;							
-						}
-
-						// Update block content
-						contentEditor.showEditor('content-editor', blockID, function(editor) {
-							refreshBlockContent(blockID);
-						});
-
-					}else if(  blockType == 'pin-board'  ){
-
-						var postId = $(inspectorElement).closest('div.pin-board-pin').data('post-id');
-						localStorage['visual-editor-block-post-data-' + blockID + '-0'] = postId;							
-
-						// Update block content
-						contentEditor.showEditor('content-editor', blockID, function(editor) {
-							refreshBlockContent(blockID);
-						});
-
-
-					}else{
-
-						showNotification({
-							id: 'no-supported',
-							message: 'Content editor currently supports content and pinBoard block only.',
-							closeTimer: 3000
-						});
-						
-					}
-
-				} else {
-
-					var inspectorElementOptions = contextMenu.data('element-options');
-					var instanceID 				= $(this).parents('li').first().data('instance-id');
-					var stateID 				= $(this).parents('li').first().data('state-id');
-
-
 					/* Reactivate inspector tooltip */
-					inspectorTooltip.show();
+					if (inspectorTooltip && inspectorTooltip.length && inspectorTooltip.closest('body').length) {
+						inspectorTooltip.show();
+					}
 					Padma.inspectorDisabled = false;
 
+				},
+				onItemClick: inspectorContextMenuItemClick,
+				contentsCallback: inspectorContextMenuContents
+			});
+
+		}
+
+		inspectorContextMenuOnShow = function(event) {
+
+			/* Add element options object to the context menu */
+				$(this).data('element-options', inspectorElement.data('inspectorElementOptions'));
+
+			/* Disable inspector tooltip */
+				if (inspectorTooltip && inspectorTooltip.length && inspectorTooltip.data('qtip')) {
+					inspectorTooltip.data('qtip').hide();
+				}
+				Padma.inspectorDisabled = true;
+
+		}
+
+		inspectorContextMenuItemClick = function(contextMenu, originalRightClickEvent) {
+
+			if ( $(this).hasClass('group-title') && !$(this).hasClass('group-title-clickable') )
+				return;
+
+			/* Block Options Click */
+			if ( $(this).parents('li').first().hasClass('inspector-context-menu-block-options') ) {
+
+				openBlockOptions(getBlock($(inspectorElement)));
+
+			/* Edit content */
+			} else if ( $(this).parents('li').first().hasClass('inspector-context-menu-edit-content') ){
+
+				var blockID 	= getBlock($(inspectorElement))[0].dataset.id;
+				var blockType 	= getBlock($(inspectorElement))[0].dataset.type;
+
+				if( blockType == 'content' ){
+
+					var postId = $(inspectorElement).closest('div.content-block-content').data('post-id');
+					localStorage['visual-editor-block-post-data-' + blockID + '-0'] = postId;							
+				}
+
+				if( blockType == 'post_block' ){
+
+					var postId = $(inspectorElement).closest('div.post-block-item').data('post-id');
+					localStorage['visual-editor-block-post-data-' + blockID + '-0'] = postId;							
+				}
+
+				if( blockType == 'portfolio' ){
+
+					var postId = $(inspectorElement).closest('div.portfolio-item').data('post-id');
+					localStorage['visual-editor-block-post-data-' + blockID + '-0'] = postId;							
+				}
+
+				if( blockType == 'clients' ){
+
+					var postId = $(inspectorElement).closest('div.client-block-content').data('post-id');
+					localStorage['visual-editor-block-post-data-' + blockID + '-0'] = postId;							
+				}
+
+				if( blockType == 'testimonials' ){
+
+					var postId = $(inspectorElement).closest('div.testimonials-block-content').data('post-id');
+					localStorage['visual-editor-block-post-data-' + blockID + '-0'] = postId;							
+				}
+
+				if( blockType == 'team-members' ){
+
+					var postId = $(inspectorElement).closest('div.team-members-item').data('post-id');
+					localStorage['visual-editor-block-post-data-' + blockID + '-0'] = postId;							
+				}
+
+				if( blockType == 'post_type_grid' ){
+
+					var postId = $(inspectorElement).closest('div.post-type-grid-item').data('post-id');
+					localStorage['visual-editor-block-post-data-' + blockID + '-0'] = postId;							
+				}
+
+				// Update block content
+				contentEditor.showEditor('content-editor', blockID, function(editor) {
+					refreshBlockContent(blockID);
+				});
+
+			} else {
+
+				var inspectorElementOptions = contextMenu.data('element-options');
+				var instanceID 				= $(this).parents('li').first().data('instance-id');
+				var stateID 				= $(this).parents('li').first().data('state-id');
 					/* Remove the highlight on the previously selected elements */
 					$('#design-editor-element-selector-container .ui-state-active').removeClass('ui-state-active');
 

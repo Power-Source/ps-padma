@@ -23,7 +23,18 @@ function padma_parse_php($content) {
 
 	ob_start();
 
-	$eval = eval("?>$content<?php ;");
+	// Improved error handling for eval() - SECURITY HARDENING
+	try {
+		$eval = eval("?>$content<?php ;");
+	} catch (\ParseError $e) {
+		$error = $e;
+		$eval = false;
+	} catch (\Throwable $e) {
+		// Catch all exceptions from eval
+		error_log('Parse error in theme: ' . $e->getMessage());
+		$eval = false;
+		$error = $e;
+	}
 
 	if ( $eval === null ) {
 

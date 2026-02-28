@@ -339,8 +339,9 @@ class PadmaLayoutSelector {
 
 		$results = array();
 
-		/* Posts */
-		$posts_query = $wpdb->prepare("SELECT ID, post_title, post_status, post_type FROM $wpdb->posts WHERE $wpdb->posts.post_title LIKE '%s' AND $wpdb->posts.post_type != 'revision' ORDER BY $wpdb->posts.post_title", '%' . $query . '%');
+		/* Posts - SAFE LIKE ESCAPING FIX */
+		$safe_query = '%' . $wpdb->esc_like($query) . '%';
+		$posts_query = $wpdb->prepare("SELECT ID, post_title, post_status, post_type FROM $wpdb->posts WHERE $wpdb->posts.post_title LIKE %s AND $wpdb->posts.post_type != 'revision' ORDER BY $wpdb->posts.post_title", $safe_query);
 
 		foreach ( $wpdb->get_results( $posts_query ) as $post ) {
 

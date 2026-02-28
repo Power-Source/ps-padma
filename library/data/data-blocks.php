@@ -330,11 +330,19 @@ class PadmaBlocksData {
 
 		if ( $layout_blocks === false ) {
 
-			/* Retrieve all blocks from layout */
-				$query_string = $wpdb->prepare("SELECT * FROM $wpdb->pu_blocks WHERE layout = '%s' AND template = '%s'", $layout_id, PadmaOption::$current_skin);
-
-				if ( $wrapper_id )
-					$query_string .= " AND wrapper_id = '$wrapper_id'";
+/* Retrieve all blocks from layout - SAFE SQL INJECTION FIX */
+			$where_sql = "layout = %s AND template = %s";
+			$where_values = array($layout_id, PadmaOption::$current_skin);
+			
+			if ( $wrapper_id ) {
+				$where_sql .= " AND wrapper_id = %d";
+				$where_values[] = intval($wrapper_id);
+			}
+			
+			$query_string = $wpdb->prepare(
+				"SELECT * FROM $wpdb->pu_blocks WHERE " . $where_sql,
+				...$where_values
+			);
 
 				$layout_blocks_query = $wpdb->get_results($query_string, ARRAY_A);
 
