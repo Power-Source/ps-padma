@@ -1779,11 +1779,36 @@ class PadmaElementProperties {
 		if ( count($font_fragments) >= 2 ){
 
 			if (\strpos($font_fragments[1], ':') !== false) {
-				$stack = explode(':', $font_fragments[1])[0];
+				$font_name = explode(':', $font_fragments[1])[0];
 			}else{
-				$stack = $font_fragments[1];
+				$font_name = $font_fragments[1];
 			}
 
+			// Add quotes around font names with spaces and add appropriate fallback
+			$font_name_quoted = (strpos($font_name, ' ') !== false) ? "'" . $font_name . "'" : $font_name;
+			
+			// Determine fallback based on font name or provider
+			$fallback = ', sans-serif'; // Default fallback
+			
+			// Add serif fallback for known serif fonts
+			$serif_fonts = array('playfair', 'merriweather', 'lora', 'pt serif', 'noto serif', 'droid serif', 'crimson', 'libre baskerville');
+			foreach ($serif_fonts as $serif) {
+				if (stripos($font_name, $serif) !== false) {
+					$fallback = ', serif';
+					break;
+				}
+			}
+			
+			// Add monospace fallback for known monospace fonts
+			$monospace_fonts = array('courier', 'mono', 'source code', 'fira code', 'ibm plex mono', 'roboto mono', 'inconsolata', 'consolas');
+			foreach ($monospace_fonts as $mono) {
+				if (stripos($font_name, $mono) !== false) {
+					$fallback = ', monospace';
+					break;
+				}
+			}
+			
+			$stack = $font_name_quoted . $fallback;
 
 		}else{
 			/* Traditional Font */
