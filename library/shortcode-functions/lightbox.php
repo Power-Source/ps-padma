@@ -35,6 +35,16 @@ function padma_render_lightbox( $args = array(), $content = '' ) {
 		return '';
 	}
 	
+	// Enqueue assets
+	if ( function_exists( 'su_query_asset' ) ) {
+		su_query_asset( 'css', 'magnific-popup' );
+		su_query_asset( 'js', 'magnific-popup' );
+		su_query_asset( 'js', 'jquery' );
+	} else {
+		wp_enqueue_style( 'padma-magnific-popup-css', get_template_directory_uri() . '/assets/psource-css/magnific-popup.css' );
+		wp_enqueue_script( 'padma-magnific-popup-js', get_template_directory_uri() . '/assets/psource-js/magnific-popup.js', array( 'jquery' ) );
+	}
+	
 	// Build HTML
 	$html = '<span class="su-lightbox' . padma_ecssc( $args ) . '" data-mfp-src="' . esc_attr( $args['src'] ) . '" data-mfp-type="' . esc_attr( $args['type'] ) . '">' . do_shortcode( $content ) . '</span>';
 	

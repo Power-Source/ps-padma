@@ -167,6 +167,17 @@ function padma_render_audio( $args = array(), $content = '' ) {
 		return '<p class="su-error">' . esc_html__( 'Audio: please specify correct url', 'ps-padma' ) . '</p>';
 	}
 	
+	// Enqueue assets
+	if ( function_exists( 'su_query_asset' ) ) {
+		su_query_asset( 'css', 'su-players-shortcodes' );
+		su_query_asset( 'js', 'jplayer' );
+		su_query_asset( 'js', 'su-players-shortcodes' );
+	} else {
+		wp_enqueue_style( 'padma-players-css', get_template_directory_uri() . '/assets/psource-css/players-shortcodes.css' );
+		wp_enqueue_script( 'padma-jplayer-js', get_template_directory_uri() . '/assets/psource-js/jplayer.js', array( 'jquery' ) );
+		wp_enqueue_script( 'padma-players-js', get_template_directory_uri() . '/assets/psource-js/players-shortcodes.js', array( 'jquery', 'padma-jplayer-js' ) );
+	}
+	
 	$args['url'] = esc_url( $args['url'] );
 	$id = uniqid( 'su_audio_player_' );
 	$width = ( $args['width'] !== 'auto' ) ? 'max-width:' . esc_attr( $args['width'] ) : '';

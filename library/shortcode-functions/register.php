@@ -160,6 +160,12 @@ function padma_register_all_shortcodes() {
 	padma_register_shortcode( 'lightbox' );
 	padma_register_shortcode( 'lightbox-content' );
 	
+	// ========================================================================
+	// UTILITY SHORTCODES (2)
+	// ========================================================================
+	padma_register_shortcode( 'tooltip' );
+	padma_register_shortcode( 'feed' );
+	
 	/**
 	 * Hook for custom shortcode registration
 	 */

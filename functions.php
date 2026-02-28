@@ -34,6 +34,7 @@ require_once get_template_directory() . '/library/loader.php';
 
 /* Load Shortcode Functions (extracted from psource-shortcodes) */
 require_once get_template_directory() . '/library/shortcode-functions/helpers.php';
+require_once get_template_directory() . '/library/shortcode-functions/assets.php';
 
 // Advanced Blocks (VE2 Integration)
 require_once get_template_directory() . '/library/shortcode-functions/button.php';
@@ -50,6 +51,7 @@ require_once get_template_directory() . '/library/shortcode-functions/layout.php
 require_once get_template_directory() . '/library/shortcode-functions/interactive.php';
 require_once get_template_directory() . '/library/shortcode-functions/galleries.php';
 require_once get_template_directory() . '/library/shortcode-functions/posts.php';
+require_once get_template_directory() . '/library/shortcode-functions/utility.php';
 
 // Shortcode Registration (with fallback system)
 require_once get_template_directory() . '/library/shortcode-functions/register.php';
