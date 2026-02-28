@@ -1788,23 +1788,33 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 					families: [fontFragments[1] + variants]
 				};
 
-				var cssValue = fontFragments[1];
-
-				stylesheet.update_rule(selector, {"font-family": cssValue});
-
-				if ( typeof $('iframe#content').get(0).contentWindow.WebFont == 'object' )
-					$('iframe#content').get(0).contentWindow.WebFont.load(args);
-			/* End Web Font handling */
-			
+		/* Generate proper CSS value with quotes and fallback */
+		var fontName = fontFragments[1].replace(/\+/g, ' ').replace(/:/g, '');
+		var fontNameQuoted = fontName.indexOf(' ') !== -1 ? "'" + fontName + "'" : fontName;
+		
+		/* Determine appropriate fallback */
+		var fallback = ', sans-serif'; // Default
+		var serifFonts = ['playfair', 'merriweather', 'lora', 'pt serif', 'noto serif', 'droid serif', 'crimson', 'libre baskerville'];
+		var monospaceFonts = ['courier', 'mono', 'source code', 'fira code', 'ibm plex mono', 'roboto mono', 'inconsolata', 'consolas'];
+		
+		var fontNameLower = fontName.toLowerCase();
+		for (var i = 0; i < serifFonts.length; i++) {
+			if (fontNameLower.indexOf(serifFonts[i]) !== -1) {
+				fallback = ', serif';
+				break;
+			}
 		}
+		for (var i = 0; i < monospaceFonts.length; i++) {
+			if (fontNameLower.indexOf(monospaceFonts[i]) !== -1) {
+				fallback = ', monospace';
+				break;
+			}
+		}
+		
+		/* Use stack if provided, otherwise generate it */
+		var finalCssValue = params.stack ? params.stack : (fontNameQuoted + fallback);
 
-		propertyInputCallbackFilter = function(params,block){
-
-			var blockID = getBlockID(block);
-			var key_filter_value = 'visual-editor-design-filter-value-' + blockID;
-			var key_filter_type = 'visual-editor-design-filter-type-' + blockID;
-			var selector = params.selector;
-			var filter = params.value;
+		stylesheet.update_rule(selector, {"font-family": finalCssValue});
 			var unit = '%';
 			var value = 50;
 			var min = 0;
