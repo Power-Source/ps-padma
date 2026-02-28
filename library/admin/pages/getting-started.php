@@ -59,11 +59,7 @@ defined('ABSPATH') or die("No script kiddies please!");
 
 				<a href="<?php echo home_url() . '/?visual-editor=true'; ?>" class="access-to-unlimited-editor"><span class="text"><?php _e('Access <b>Padma</b> | Unlimited Editor','padma'); ?></span><span class="line -right"></span><span class="line -top"></span><span class="line -left"></span><span class="line -bottom"></span></a>
 			</div>
-			<div class="box">
-				<h3><?php _e('Additional Blocks available!','padma'); ?></h3>
-				<p><?php _e('Mit dem PS Padma Advanced Plugin erweiterst Du Die Möglichkeiten von PS Padma beinahe ins Endlose.','padma'); ?></p>
-				<a href="https://cp-psource.github.io/padma-advanced/"><?php _e('Hole Dir mit PS Padma Advanced noch viel mehr Blöcke','padma'); ?></a>				
-			</div>
+
 		</div>
 	</div>
 
@@ -96,7 +92,7 @@ defined('ABSPATH') or die("No script kiddies please!");
 			<div class="separator"></div>
 			<div class="box">
 				<h3><?php _e('Padma | Documentation','padma'); ?></h3>
-				<p><?php _e('Register with us and get free access to our in- depth documentation. <a target="_blank" href="https://cp-psource.github.io/padma-advanced/" rel="noopener">docs.padmaunlimited.com</a>','padma'); ?></p>
+			<p><?php _e('Register with us and get free access to our in- depth documentation. <a target="_blank" href="https://docs.padmaunlimited.com/" rel="noopener">docs.padmaunlimited.com</a>','padma'); ?></p>
 			</div>
 		</div>
 	</div>
@@ -116,7 +112,7 @@ defined('ABSPATH') or die("No script kiddies please!");
 				<h3><?php _e('Padma | Unlimited Blocks','padma'); ?></h3>
 				<p><?php _e('Extend the functionality of your Padma | Unlimited WordPress Theme Builder installation by adding useful custom blocks to your Projects.','padma'); ?></p>
 				<p><?php _e('Services: Documentation, Lifesaver (Migrate from HTW/Blox), Child Theme, Templates on cloud, site monitor.','padma'); ?></p>								
-				<a href="https://cp-psource.github.io/padma-advanced/"><?php _e('Discover available Plugins and Blocks.','padma'); ?></a>	
+
 				<p><?php _e('Get into Padma Services to unlock the PS Padma potential.','padma'); ?></p>
 			</div>
 		</div>

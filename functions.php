@@ -11,16 +11,6 @@
  */
 
 /**
- * Automatic Updates
- * Must go before Padma::init();
- */
-if ( get_option( 'padma-disable-automatic-core-updates' ) !== '1' ) {
-
-	add_filter( 'auto_update_theme', '__return_true' );
-
-}
-
-/**
  *
  * Load Padma
  */

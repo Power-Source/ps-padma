@@ -156,16 +156,13 @@ class Padma {
 
 	public static function activate(){
 
-		// Allow automatic Theme Updates
-		add_option('padma-disable-automatic-core-updates','0','','no');
-		add_option('padma-disable-automatic-plugin-updates','0','','no');
+		// Theme activation hook
 
 	}
 
 	public static function deactivate(){
 
-		delete_option('padma-disable-automatic-core-updates');
-		delete_option('padma-disable-automatic-plugin-updates');
+		// Theme deactivation hook
 
 	}
 
@@ -232,7 +229,6 @@ class Padma {
 			'common/social-optimization' 	=> true,
 			'common/feed' 					=> true,
 			'common/compiler' 				=> true,
-			'common/plugins' 				=> true,
 			'common/templates',
 			'common/http2-server-push'		=> true,
 			'common/blocks-anywhere'		=> true,

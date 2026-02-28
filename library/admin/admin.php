@@ -40,7 +40,6 @@ class PadmaAdmin {
 
         add_action('wp_ajax_padma_dismiss_admin_notice', array(__CLASS__, 'ajax_dismiss_admin_notice'));
         add_action('wp_ajax_padma_enable_responsive_grid', array(__CLASS__, 'ajax_enable_responsive_grid'));
-	add_action('wp_ajax_padma_activate_plugin', array(__CLASS__, 'ajax_activate_plugin'));
 		add_filter('tiny_mce_before_init', array(__CLASS__, 'tiny_mce_formats'));
 
 	}
@@ -64,14 +63,6 @@ class PadmaAdmin {
 		foreach ( padma_post('padma-admin-input', array()) as $option => $value ) {
 
 			PadmaOption::set($option, $value);
-
-			// Automatic Updates
-			if($option == 'disable-automatic-core-updates'){				
-				update_option('padma-disable-automatic-core-updates',$value);
-			}
-			if($option == 'disable-automatic-plugin-updates'){				
-				update_option('padma-disable-automatic-plugin-updates',$value);
-			}
 
 			// Developer version			
 			if($option == 'use-developer-version'){				
@@ -708,31 +699,5 @@ class PadmaAdmin {
 
     }
 
-
-	public static function ajax_activate_plugin() {
-		
-		// Sicherheitsprüfungen
-		if ( !current_user_can('activate_plugins') ) {
-			wp_send_json_error(array('message' => __('Sie haben keine Berechtigung, Plugins zu aktivieren.', 'padma')));
-		}
-		
-		check_ajax_referer('padma_activate_plugin', 'nonce');
-		
-		$plugin = padma_post('plugin');
-		
-		if ( empty($plugin) ) {
-			wp_send_json_error(array('message' => __('Kein Plugin angegeben.', 'padma')));
-		}
-		
-		// Plugin aktivieren
-		$result = activate_plugin($plugin);
-		
-		if ( is_wp_error($result) ) {
-			wp_send_json_error(array('message' => $result->get_error_message()));
-		} else {
-			wp_send_json_success(array('message' => __('Plugin erfolgreich aktiviert.', 'padma')));
-		}
-		
-	}
 
 }
