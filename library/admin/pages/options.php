@@ -1,3 +1,9 @@
+<?php
+/**
+ * Padma Options Page Content
+ */
+?>
+
 <div class="notice notice-info" style="margin: 20px 0; padding: 15px; border-left: 4px solid #2271b1;">
 	<h3 style="margin-top: 0;"><?php _e('SEO Settings haben jetzt eine eigene Seite!', 'padma'); ?></h3>
 	<p><?php echo sprintf(__('Alle SEO-Einstellungen findest du jetzt unter <a href="%s"><strong>Padma > SEO</strong></a>.', 'padma'), admin_url('admin.php?page=padma-seo')); ?></p>

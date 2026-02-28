@@ -70,7 +70,7 @@ class PadmaAdminPages {
 
 	public static function seo() {
 
-		require_once PADMA_LIBRARY_DIR . '/admin/pages/seo.php';
+		require_once PADMA_LIBRARY_DIR . '/admin/pages/seo-settings.php';
 
 	}
 
