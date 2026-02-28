@@ -191,7 +191,7 @@ $org_email = get_theme_mod('padma_contact_email', '');
 				<div class="padma-seo-info-box">
 					<strong><?php _e('Padma SEO Suite Status:', 'padma'); ?></strong>
 					<span class="padma-seo-status <?php echo $disable_theme_seo ? 'disabled' : 'enabled'; ?>">
-						<?php echo $disable_theme_seo ? __('Disabled', 'padma') : __('Enabled', 'padma'); ?>
+						<?php echo $disable_theme_seo ? __('Deaktiviert', 'padma') : __('Aktiviert', 'padma'); ?>
 					</span>
 				</div>
 

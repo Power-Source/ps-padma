@@ -485,7 +485,7 @@ msgid "Padma starter users"
 msgstr ""
 
 #: library/admin/pages/getting-started.php:49
-msgid "Please read Padma | Unlimited Theme Builder <a href=\"https://docs.padmaunlimited.com/\">Documentation</a>."
+msgid "Please read Padma | Unlimited Theme Builder <a href=\"https://https://power-source.github.io/ps-padma//\">Documentation</a>."
 msgstr ""
 
 #: library/admin/pages/getting-started.php:54
@@ -497,7 +497,7 @@ msgid "Padma | Unlimited Visual Editor is a powerful tool to design WordPress we
 msgstr ""
 
 #: library/admin/pages/getting-started.php:58
-msgid "Learn more about the platform in the document <a rel=\"noopener\" href=\"https://docs.padmaunlimited.com/blog/basics/before-using-the-visual-editor/\">\"Introduction to Padma | Unlimited Visual Editor\". </a>"
+msgid "Learn more about the platform in the document <a rel=\"noopener\" href=\"https://https://power-source.github.io/ps-padma//blog/basics/before-using-the-visual-editor/\">\"Introduction to Padma | Unlimited Visual Editor\". </a>"
 msgstr ""
 
 #: library/admin/pages/getting-started.php:60
@@ -583,7 +583,7 @@ msgid "Padma | Documentation"
 msgstr ""
 
 #: library/admin/pages/getting-started.php:108
-msgid "Register with us and get free access to our in- depth documentation. <a target=\"_blank\" href=\"https://docs.padmaunlimited.com/\" rel=\"noopener\">docs.padmaunlimited.com</a>"
+msgid "Register with us and get free access to our in- depth documentation. <a target=\"_blank\" href=\"https://https://power-source.github.io/ps-padma//\" rel=\"noopener\">https://power-source.github.io/ps-padma/</a>"
 msgstr ""
 
 #: library/admin/pages/getting-started.php:115

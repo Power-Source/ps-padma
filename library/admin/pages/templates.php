@@ -29,7 +29,7 @@
 				<td>
 					<button id="template-export-image-button" class="button-secondary">
 						<span class="wp-media-buttons-icon"></span>
-						<?php _e('Select Image','padma'); ?>
+					<?php _e('Bild auswählen','padma'); ?>
 					</button>
 					<input id="template-export-image" type="hidden" name="skin-export-info[image-url]" class="medium-text" />
 					<img src="" id="template-export-image-preview" style="display: none;" />
@@ -79,7 +79,7 @@
 				<td>
 					<button id="template-save-on-cloud-image-button" class="button-secondary">
 						<span class="wp-media-buttons-icon"></span>
-						<?php _e('Select Image','padma'); ?>
+					<?php _e('Bild auswählen','padma'); ?>
 					</button>
 					<input id="template-save-on-cloud-image" type="hidden" name="skin-save-on-cloud-info[image-url]" class="medium-text" />
 					<img src="" id="template-save-on-cloud-image-preview" style="display: none;" />

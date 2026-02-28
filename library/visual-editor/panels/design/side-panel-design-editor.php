@@ -66,7 +66,7 @@ class PadmaSidePanelDesignEditor {
 				echo '<p>' . __('Verwende den Inspektor, um ein Element auszuwählen, das du bearbeiten möchtest.','padma') . '</p>';
 
 				// Pending update docs
-				//echo '<a href="http://docs.padmaunlimited.com/article/49-the-inspector" target="_blank">Learn more about the inspector</a>";
+				//echo '<a href="http://https://power-source.github.io/ps-padma//article/49-the-inspector" target="_blank">Learn more about the inspector</a>";
 			echo '</div><!-- #design-editor-styles-nothing-selected -->';
 
 

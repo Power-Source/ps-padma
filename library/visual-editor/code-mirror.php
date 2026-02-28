@@ -156,7 +156,7 @@
 </style>
 </head>
 <body>
-	<a target="_blank" href="https://docs.padmaunlimited.com/blog/basics/live-css-hotkeys/" class="how-to">How to?</a>
+	<a target="_blank" href="https://https://power-source.github.io/ps-padma//blog/basics/live-css-hotkeys/" class="how-to">How to?</a>
 	<textarea id="code" name="code" class="code" placeholder="Your awesome <?php echo $mode_text; ?> goes here"></textarea>
 <?php
 foreach ($scripts as $key => $file) {

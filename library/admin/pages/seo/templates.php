@@ -154,7 +154,7 @@
 						'checkboxes' => array(
 							array(
 								'id' => 'noarchive',
-								'label' => __('Enable <code>noarchive</code>', 'padma'),
+								'label' => __('<code>noarchive</code> aktivieren', 'padma'),
 								'no-submit' => true
 							)
 						),
@@ -167,7 +167,7 @@
 						'checkboxes' => array(
 							array(
 								'id' => 'nosnippet',
-								'label' => __('Enable <code>nosnippet</code>', 'padma'),
+								'label' => __('<code>nosnippet</code> aktivieren', 'padma'),
 								'no-submit' => true
 							)
 						),
@@ -180,7 +180,7 @@
 						'checkboxes' => array(
 							array(
 								'id' => 'noodp',
-								'label' => __('Enable <code>NoODP</code>', 'padma'),
+								'label' => __('<code>NoODP</code> aktivieren', 'padma'),
 								'no-submit' => true
 							)
 						),
@@ -193,7 +193,7 @@
 						'checkboxes' => array(
 							array(
 								'id' => 'noydir',
-								'label' => __('Enable <code>NoYDir</code>', 'padma'),
+								'label' => __('<code>NoYDir</code> aktivieren', 'padma'),
 								'no-submit' => true
 							)
 						),

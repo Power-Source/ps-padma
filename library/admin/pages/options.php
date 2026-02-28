@@ -58,12 +58,12 @@
 							'size' => 'large',
 							'type' => 'text',
 							'label' => 'Feed URL',
-							'description' => __('If you use any service like <a href="http://feedburner.google.com/" target="_blank">FeedBurner</a>, type the feed URL here.', 'padma'),
-							'value' => PadmaOption::get('feed-url')
-						)
-					);
+						'description' => __('Wenn du einen Service wie <a href="http://feedburner.google.com/" target="_blank">FeedBurner</a> verwendest, gib die Feed-URL hier ein.', 'padma'),
+						'value' => PadmaOption::get('feed-url')
+					)
+				);
 
-					PadmaAdminInputs::admin_field_generate($form);
+				PadmaAdminInputs::admin_field_generate($form);
 
 					?>
 				</div>
@@ -86,37 +86,37 @@
 						array(
 							'id' 		=> 'menu-setup',
 							'type' 		=> 'radio',
-							'label' 	=> __('Default Admin Page', 'padma'),
+							'label' 	=> __('Standard Admin-Seite', 'padma'),
 							'value' 	=> PadmaOption::get('menu-setup', false, 'getting-started'),
 							'radios' 	=> array(
 								array(
 									'value' => 'getting-started',
-									'label' => __('Getting Started', 'padma')
+									'label' => __('Erste Schritte', 'padma')
 								),
 
 								array(
 									'value' => 'visual-editor',
-									'label' => __('Visual Editor', 'padma')
+									'label' => __('Visueller Editor', 'padma')
 								),
 
 								array(
 									'value' => 'options',
-									'label' => __('Options', 'padma')
+									'label' => __('Optionen', 'padma')
 								)
 							),
-							'description' => __('Select which admin page you would like to be directed to when you click on "Padma" in the WordPress Admin.', 'padma')
+							'description' => __('Wähle die Admin-Seite aus, zu der du weitergeleitet werden möchtest, wenn du im WordPress-Admin auf "Padma" klickst.', 'padma')
 						),
 						array(
 							'type' => 'checkbox',
-							'label' => __('Version Number', 'padma'),
+							'label' => __('Versionsnummer', 'padma'),
 							'checkboxes' => array(
 								array(
 									'id' => 'hide-menu-version-number',
-									'label' => __('Hide Padma Version Number From Menu', 'padma'),
+									'label' => __('Padma Versionsnummer im Menü verstecken', 'padma'),
 									'checked' => PadmaOption::get('hide-menu-version-number', false, true)
 								)
 							),
-							'description' => sprintf(__('Check this if you wish to have the Menu say "Padma" instead of "Padma %s"', 'padma'), PADMA_VERSION)
+							'description' => sprintf(__('Aktiviere diese Option, wenn das Menü "Padma" statt "Padma %s" anzeigen soll', 'padma'), PADMA_VERSION)
 						),
 					);
 
@@ -151,8 +151,8 @@
 							'type' => 'paragraph',
 							'cols' => 90,
 							'rows' => 8,
-							'label' => __('Header Scripts', 'padma'),
-							'description' => 'Anything here will go in the <code>&lt;head&gt;</code> of the website. If you are using <a href="http://google.com/analytics" target="_blank">Google Analytics</a>, paste the code provided here. <strong>Do not place plain text in this!</strong>',
+							'label' => __('Header-Scripte', 'padma'),
+							'description' => 'Alles, was du hier eingibst, wird im <code>&lt;head&gt;</code> der Website platziert. Wenn du <a href="http://google.com/analytics" target="_blank">Google Analytics</a> verwendest, füge den Code hier ein. <strong>Verwende hierfür keinen reinen Text!</strong>',
 							'allow-tabbing' => true,
 							'value' => PadmaOption::get('header-scripts')
 						),
@@ -162,8 +162,8 @@
 							'type' => 'paragraph',
 							'cols' => 90,
 							'rows' => 8,
-							'label' => __('Footer Scripts', 'padma'),
-							'description' => __('Anything here will be inserted before the <code>&lt;/body&gt;</code> tag of the website. <strong>Do not place plain text in this!</strong>', 'padma'),
+							'label' => __('Footer-Scripte', 'padma'),
+							'description' => __('Alles, was du hier eingibst, wird vor dem <code>&lt;/body&gt;</code>-Tag der Website eingefügt. <strong>Verwende hierfür keinen reinen Text!</strong>', 'padma'),
 							'allow-tabbing' => true,
 							'value' => PadmaOption::get('footer-scripts')
 						)
@@ -183,12 +183,12 @@
 				<div id="" class="postbox padma-admin-options-group">
 
 					<button type="button" class="handlediv" aria-expanded="false">
-						<span class="screen-reader-text"><?php _e('Visual Editor', 'padma'); ?></span>
+						<span class="screen-reader-text"><?php _e('Visueller Editor', 'padma'); ?></span>
 						<span class="toggle-indicator" aria-hidden="true"></span>
 					</button>
 
 
-					<h2 class="hndle"><span><?php _e('Visual Editor', 'padma'); ?></span></h2>
+					<h2 class="hndle"><span><?php _e('Visueller Editor', 'padma'); ?></span></h2>
 
 					<?php
 					$form = array(
@@ -198,35 +198,35 @@
 							'checkboxes' => array(
 								array(
 									'id'      => 'disable-visual-editor-tooltips',
-									'label'   => __('Disable Tooltips in the Visual Editor', 'padma'),
+									'label'   => __('Tooltips im Visuellen Editor deaktivieren', 'padma'),
 									'checked' => PadmaOption::get( 'disable-visual-editor-tooltips', false, false ),
 								)
 							),
-							'description' => __('If you ever feel that the tooltips are too invasive in the visual editor, you can disable them here.  Tooltips are the black speech bubbles that appear to assist you when you are not sure what an option is or how it works.', 'padma')
+							'description' => __('Wenn dir die Tooltips im Visuellen Editor zu aufdringlich sind, kannst du sie hier deaktivieren. Tooltips sind die schwarzen Sprechblasen, die erscheinen, um dir zu helfen, wenn du dir bei einer Option unsicher bist.', 'padma')
 						),
 						array(
 							'type' => 'checkbox',
-							'label' => __('Editor Style', 'padma'),
+							'label' => __('Editor-Style', 'padma'),
 							'checkboxes' => array(
 								array(
 									'id' => 'disable-editor-style',
-									'label' => __('Disable Editor Style', 'padma'),
+									'label' => __('Editor-Style deaktivieren', 'padma'),
 									'checked' => PadmaOption::get('disable-editor-style', false, false)
 								)
 							),
-							'description' => __('By default, Padma will take any settings in the Design Editor and add them to <a href="http://codex.wordpress.org/TinyMCE" target="_blank">WordPress\' TinyMCE editor</a> style.  Use this option to prevent that.', 'padma')
+							'description' => __('Standardmäßig übernimmt Padma alle Einstellungen aus dem Design-Editor und fügt sie dem <a href="http://codex.wordpress.org/TinyMCE" target="_blank">WordPress TinyMCE-Editor</a> hinzu. Mit dieser Option kannst du das verhindern.', 'padma')
 						),
 						array(
 							'type' => 'checkbox',
-							'label' => __('Show hidden wrappers on design mode', 'padma'),
+							'label' => __('Versteckte Wrapper im Design-Modus anzeigen', 'padma'),
 							'checkboxes' => array(
 								array(
 									'id' => 'show-hidden-wrappers-on-design-mode',
-									'label' => __('Show hidden wrappers on design mode', 'padma'),
+									'label' => __('Versteckte Wrapper im Design-Modus anzeigen', 'padma'),
 									'checked' => PadmaOption::get('show-hidden-wrappers-on-design-mode', false, false)
 								)
 							),
-							'description' => __('Show hidden wrappers on design mode. When configuring a breakpoint to hide the wrapper, this option will urge to Visual Editor to remain the wrapper visible to be styled.', 'padma')
+							'description' => __('Versteckte Wrapper im Design-Modus anzeigen. Wenn du einen Breakpoint konfiguriert hast, der den Wrapper versteckt, sorgt diese Option dafür, dass der Wrapper im Visuellen Editor sichtbar bleibt und gestylt werden kann.', 'padma')
 						)
 					);
 
@@ -244,52 +244,52 @@
 				<div id="" class="postbox padma-admin-options-group">
 
 					<button type="button" class="handlediv" aria-expanded="false">
-						<span class="screen-reader-text"><?php _e('Caching &amp; Compression', 'padma'); ?></span>
+						<span class="screen-reader-text"><?php _e('Caching &amp; Komprimierung', 'padma'); ?></span>
 						<span class="toggle-indicator" aria-hidden="true"></span>
 					</button>
 
 
-					<h2 class="hndle"><span><?php _e('Caching &amp; Compression', 'padma'); ?></span></h2>
+					<h2 class="hndle"><span><?php _e('Caching &amp; Komprimierung', 'padma'); ?></span></h2>
 
 					<?php
 					$form = array(
 						array(
 							'type' => 'checkbox',
-							'label' => __('Asset Caching', 'padma'),
+							'label' => __('Asset-Caching', 'padma'),
 							'checkboxes' => array(
 								array(
 									'id' => 'disable-caching',
-									'label' => __('Disable Padma Caching', 'padma'),
+									'label' => __('Padma-Caching deaktivieren', 'padma'),
 									'checked' => PadmaOption::get('disable-caching', false, false)
 								)
 							),
-							'description' => __('By default, Padma will attempt to cache all CSS and JavaScript that it generates.  However, there may be rare circumstances where disabling the cache will help with certain issues.<br /><br /><em><strong>Important:</strong> Disabling the Padma cache will cause an <strong>increase in page load times</strong> and <strong>increase the strain your web server</strong> will undergo on every page load.', 'padma')
+							'description' => __('Standardmäßig versucht Padma, alle CSS- und JavaScript-Dateien zu cachen. Es kann jedoch seltene Fälle geben, in denen das Deaktivieren des Caches bei bestimmten Problemen hilft.<br /><br /><em><strong>Wichtig:</strong> Das Deaktivieren des Padma-Caches führt zu <strong>längeren Ladezeiten</strong> und <strong>erhöhter Belastung deines Webservers</strong> bei jedem Seitenaufruf.', 'padma')
 						),
 
 						array(
 							'type' => 'checkbox',
-							'label' => __('Dependency Query Variables', 'padma'),
+							'label' => __('Dependency Query-Variablen', 'padma'),
 							'checkboxes' => array(
 								array(
 									'id' => 'remove-dependency-query-vars',
-									'label' => __('Remove Query Variables from Dependency URLs', 'padma'),
+									'label' => __('Query-Variablen aus Dependency-URLs entfernen', 'padma'),
 									'checked' => PadmaOption::get('remove-dependency-query-vars', false, false)
 								)
 							),
-							'description' => __('To leverage browser caching, Padma can tell WordPress to not put query variables on static assets such as CSS and JavaScript files.', 'padma')
+							'description' => __('Um Browser-Caching zu optimieren, kann Padma WordPress anweisen, keine Query-Variablen bei statischen Assets wie CSS- und JavaScript-Dateien anzuhängen.', 'padma')
 						),
 
 						array(
 							'type' => 'checkbox',
-							'label' => __('Compatibility with mod_pagespeed', 'padma'),
+							'label' => __('Kompatibilität mit mod_pagespeed', 'padma'),
 							'checkboxes' => array(
 								array(
 									'id' => 'compatibility-mod_pagespeed',
-									'label' => __('Compatibility with mod_pagespeed', 'padma'),
+									'label' => __('Kompatibilität mit mod_pagespeed', 'padma'),
 									'checked' => PadmaOption::get('compatibility-mod_pagespeed', false, false)
 								)
 							),
-							'description' => __('Strips id and media attributes from stylesheet tags, allowing pagespeed to combine them properly. If you are not using mod_pagespeed on your server, this feature will not do anything for you.', 'padma')
+							'description' => __('Entfernt id- und media-Attribute aus Stylesheet-Tags, damit pagespeed sie korrekt kombinieren kann. Wenn du mod_pagespeed nicht auf deinem Server verwendest, hat diese Funktion keine Auswirkung.', 'padma')
 						),
 
 						array(
@@ -302,7 +302,7 @@
 									'checked' => PadmaOption::get('http2-server-push', false, false)
 								)
 							),
-							'description' => __('Enables WordPress to send a Link:<...> rel="prefetch" header for every enqueued script and style as WordPress outputs them into the page source. Requires a web server that supports HTTP/2. <strong>Important:</strong> This feature is Experimental.', 'padma')
+							'description' => __('Ermöglicht es WordPress, einen Link:<...> rel="prefetch" Header für jedes eingebundene Script und Stylesheet zu senden, während WordPress diese in den Seitenquellcode ausgibt. Benötigt einen Webserver mit HTTP/2-Unterstützung. <strong>Wichtig:</strong> Diese Funktion ist experimentell.', 'padma')
 						)
 					);
 
@@ -317,26 +317,26 @@
 				<div id="" class="postbox padma-admin-options-group">
 
 					<button type="button" class="handlediv" aria-expanded="false">
-						<span class="screen-reader-text"><?php _e('Developer', 'padma'); ?></span>
+						<span class="screen-reader-text"><?php _e('Entwickler', 'padma'); ?></span>
 						<span class="toggle-indicator" aria-hidden="true"></span>
 					</button>
 
 
-					<h2 class="hndle"><span><?php _e('Developer', 'padma'); ?></span></h2>
+					<h2 class="hndle"><span><?php _e('Entwickler', 'padma'); ?></span></h2>
 
 					<?php
 					$form = array(
 						array(
 							'type' => 'checkbox',
-							'label' => __('Use Padma Developer version', 'padma'),
+							'label' => __('Padma Entwickler-Version verwenden', 'padma'),
 							'checkboxes' => array(
 								array(
 									'id' => 'use-developer-version',
-									'label' => __('Allow install Edge version', 'padma'),
+									'label' => __('Installation der Edge-Version erlauben', 'padma'),
 									'checked' => PadmaOption::get('use-developer-version', false, false)
 								)
 							),
-							'description' => __('This option is for developers, use this option only if you know what are you doing. Padma Theme and plugins will upgrade to testing version. <strong>Do NOT use on production sites.</strong> Once active this option will allow you to upgrade your website to the latest version.', 'padma')
+							'description' => __('Diese Option ist für Entwickler gedacht, verwende sie nur, wenn du weißt, was du tust. Padma-Theme und Plugins werden auf die Test-Version aktualisiert. <strong>NICHT auf Produktiv-Seiten verwenden.</strong> Sobald diese Option aktiv ist, kannst du deine Website auf die neueste Version aktualisieren.', 'padma')
 						)
 					);
 
@@ -362,15 +362,15 @@
 					$form = array(
 						array(
 							'type' => 'checkbox',
-							'label' => __('Debug Mode', 'padma'),
+							'label' => __('Debug-Modus', 'padma'),
 							'checkboxes' => array(
 								array(
 									'id' => 'debug-mode',
-									'label' => __('Enable Debug Mode', 'padma'),
+									'label' => __('Debug-Modus aktivieren', 'padma'),
 									'checked' => PadmaOption::get('debug-mode', false, false)
 								)
 							),
-							'description' => __('Having Debug Mode enabled will allow the Padma Themes team to access the Visual Editor for support purposes, but <strong>will not allow changes to be saved</strong>.', 'padma')
+							'description' => __('Wenn der Debug-Modus aktiviert ist, kann das Padma-Team für Support-Zwecke auf den Visuellen Editor zugreifen, <strong>Änderungen können jedoch nicht gespeichert werden</strong>.', 'padma')
 						)
 					);
 
@@ -388,26 +388,26 @@
 				<div id="" class="postbox padma-admin-options-group">
 
 					<button type="button" class="handlediv" aria-expanded="false">
-						<span class="screen-reader-text"><?php _e('Plugin templates', 'padma'); ?></span>
+						<span class="screen-reader-text"><?php _e('Plugin-Templates', 'padma'); ?></span>
 						<span class="toggle-indicator" aria-hidden="true"></span>
 					</button>
 
 
-					<h2 class="hndle"><span><?php _e('Plugin templates', 'padma'); ?></span></h2>
+					<h2 class="hndle"><span><?php _e('Plugin-Templates', 'padma'); ?></span></h2>
 
 					<?php
 					$form = array(
 						array(
 							'type' 	=> 'checkbox',
-							'label' => __('Plugin templates', 'padma'),
+							'label' => __('Plugin-Templates', 'padma'),
 							'checkboxes' => array(
 								array(
 									'id' 		=> 'allow-plugin-templates',
-									'label' 	=> __('Allow plugin templates', 'padma'),
+									'label' 	=> __('Plugin-Templates erlauben', 'padma'),
 									'checked' 	=> PadmaOption::get('allow-plugin-templates', false, false)
 								)
 							),
-							'description' => __('Allow load plugin templates related to Custom Post Types instead Padma Layout', 'padma')
+							'description' => __('Erlaubt das Laden von Plugin-Templates für Custom Post Types anstelle des Padma Layouts', 'padma')
 						)
 					);
 
@@ -434,15 +434,15 @@
 					$form = array(
 						array(
 							'type' 	=> 'checkbox',
-							'label' => __('Headway support', 'padma'),
+							'label' => __('Headway-Unterstützung', 'padma'),
 							'checkboxes' => array(
 								array(
 									'id' 		=> 'headway-support',
-									'label' 	=> __('Enable Headway classes support', 'padma'),
+									'label' 	=> __('Headway-Klassen-Unterstützung aktivieren', 'padma'),
 									'checked' 	=> PadmaOption::get('headway-support', false, false)
 								)
 							),
-							'description' => __('If on, Padma will attempt support all PHP classes related to Headway. This allows to you use blocks like Headway Rocket and similar. <strong>Important:</strong> This feature is Experimental.', 'padma')
+							'description' => __('Wenn aktiviert, versucht Padma alle PHP-Klassen zu unterstützen, die mit Headway zusammenhängen. Dies ermöglicht dir die Verwendung von Blöcken wie Headway Rocket und ähnlichen. <strong>Wichtig:</strong> Diese Funktion ist experimentell.', 'padma')
 						)
 					);
 
@@ -469,15 +469,15 @@
 					$form = array(
 						array(
 							'type' 	=> 'checkbox',
-							'label' => __('Bloxtheme support', 'padma'),
+							'label' => __('Bloxtheme-Unterstützung', 'padma'),
 							'checkboxes' => array(
 								array(
 									'id' 		=> 'bloxtheme-support',
-									'label' 	=> __('Enable Bloxtheme classes support', 'padma'),
+									'label' 	=> __('Bloxtheme-Klassen-Unterstützung aktivieren', 'padma'),
 									'checked' 	=> PadmaOption::get('bloxtheme-support', false, false)
 								)
 							),
-							'description' => __('If on, Padma will attempt support all PHP classes related to Bloxtheme. This allows to you use blocks like Blox Rocket and similar. <strong>Important:</strong> This feature is Experimental.', 'padma')
+							'description' => __('Wenn aktiviert, versucht Padma alle PHP-Klassen zu unterstützen, die mit Bloxtheme zusammenhängen. Dies ermöglicht dir die Verwendung von Blöcken wie Blox Rocket und ähnlichen. <strong>Wichtig:</strong> Diese Funktion ist experimentell.', 'padma')
 						)
 					);
 
@@ -504,15 +504,15 @@
 					$form = array(
 						array(
 							'type' 	=> 'checkbox',
-							'label' => __('Display Padma Blocks in Gutenberg', 'padma'),
+							'label' => __('Padma-Blöcke in Gutenberg anzeigen', 'padma'),
 							'checkboxes' => array(
 								array(
 									'id' 		=> 'padma-blocks-as-gutenberg-blocks',
-									'label' 	=> __('Show Padma Blocks as Gutenberg Blocks', 'padma'),
+									'label' 	=> __('Padma-Blöcke als Gutenberg-Blöcke anzeigen', 'padma'),
 									'checked' 	=> PadmaOption::get('padma-blocks-as-gutenberg-blocks', false, false)
 								)
 							),
-							'description' => __('If on, Padma will allow to use Padma Blocks as Gutenberg Blocks. Go to "Block Options > Anywhere" to enable it. <strong>Important:</strong> This feature is Experimental.', 'padma')
+							'description' => __('Wenn aktiviert, ermöglicht Padma die Verwendung von Padma-Blöcken als Gutenberg-Blöcke. Gehe zu "Block-Optionen > Überall" um dies zu aktivieren. <strong>Wichtig:</strong> Diese Funktion ist experimentell.', 'padma')
 						)
 					);
 
@@ -530,26 +530,26 @@
 				<div id="" class="postbox padma-admin-options-group">
 
 					<button type="button" class="handlediv" aria-expanded="false">
-						<span class="screen-reader-text"><?php _e('Responsive options', 'padma'); ?></span>
+						<span class="screen-reader-text"><?php _e('Responsive-Optionen', 'padma'); ?></span>
 						<span class="toggle-indicator" aria-hidden="true"></span>
 					</button>
 
 
-					<h2 class="hndle"><span><?php _e('Responsive options', 'padma'); ?></span></h2>
+					<h2 class="hndle"><span><?php _e('Responsive-Optionen', 'padma'); ?></span></h2>
 
 					<?php
 					$form = array(
 						array(
 							'type' 	=> 'checkbox',
-							'label' => __('Allow mobile zooming', 'padma'),
+							'label' => __('Mobiles Zoomen erlauben', 'padma'),
 							'checkboxes' => array(
 								array(
 									'id' 		=> 'allow-mobile-zooming',
-									'label' 	=> __('Allow mobile zooming', 'padma'),
+									'label' 	=> __('Mobiles Zoomen erlauben', 'padma'),
 									'checked' 	=> PadmaOption::get('allow-mobile-zooming', false, false)
 								)
 							),
-							'description' => __('Adds the viewport meta tag with zooming permission to give your users the ability to zoom in your website with mobile browsers.', 'padma')
+							'description' => __('Fügt das Viewport-Meta-Tag mit Zoom-Berechtigung hinzu, um deinen Besuchern die Möglichkeit zu geben, deine Website mit mobilen Browsern zu zoomen.', 'padma')
 						)
 					);
 
@@ -583,11 +583,11 @@
 							'checkboxes' => array(
 								array(
 									'id' 		=> 'do-not-use-google-fonts',
-									'label' 	=> __('Do not use Google Fonts', 'padma'),
+									'label' 	=> __('Google Fonts nicht verwenden', 'padma'),
 									'checked' 	=> PadmaOption::get('do-not-use-google-fonts', false, false)
 								)
 							),
-							'description' => __('If checked, Padma will not use Google Fonts.', 'padma')
+							'description' => __('Wenn aktiviert, verwendet Padma keine Google Fonts mehr.', 'padma')
 						)
 					);
 
@@ -597,15 +597,15 @@
 					$form = array(
 						array(
 							'type' 	=> 'checkbox',
-							'label' => __('Load Google Fonts asynchronously', 'padma'),
+							'label' => __('Google Fonts asynchron laden', 'padma'),
 							'checkboxes' => array(
 								array(
 									'id' 		=> 'load-google-fonts-asynchronously',
-									'label' 	=> __('Load Google Fonts asynchronously', 'padma'),
+									'label' 	=> __('Google Fonts asynchron laden', 'padma'),
 									'checked' 	=> PadmaOption::get('load-google-fonts-asynchronously', false, false)
 								)
 							),
-							'description' => __('If checked, Padma will load fonts asynchronously to avoid render blocking font when you use google fonts.', 'padma')
+							'description' => __('Wenn aktiviert, lädt Padma die Schriftarten asynchron, um Render-Blocking zu vermeiden, wenn du Google Fonts verwendest.', 'padma')
 						)
 					);
 
@@ -616,7 +616,7 @@
 						array(
 							'id' 		=> 'google-fonts-display',
 							'type' 	=> 'select',
-							'label' => __('Google Fonts Display Timeline', 'padma'),
+							'label' => __('Google Fonts Display-Zeitleiste', 'padma'),
 							'options' => array(
 								'auto' 		=> 'Auto',
 								'block' 	=> 'Block',
@@ -625,7 +625,7 @@
 								'optional' 	=> 'Optional',
 							),
 							'value' => PadmaOption::get('google-fonts-display', false, 'swap'),
-							'description' => __('Determines how a font face is displayed based on whether and when it is downloaded and ready to u', 'padma')
+							'description' => __('Bestimmt, wie eine Schriftart angezeigt wird, basierend darauf, ob und wann sie heruntergeladen und einsatzbereit ist.', 'padma')
 						)
 					);
 
@@ -636,15 +636,15 @@
 						array(
 							'id' 		=> 'google-fonts-preload',
 							'type' 	=> 'checkbox',
-							'label' => __('Preload Google Fonts', 'padma'),
+							'label' => __('Google Fonts vorladen', 'padma'),
 							'checkboxes' => array(
 								array(
 									'id' 		=> 'google-fonts-preload',
-									'label' 	=> __('Preload Google Fonts', 'padma'),
+									'label' 	=> __('Google Fonts vorladen', 'padma'),
 									'checked' 	=> PadmaOption::get('google-fonts-preload', false, false)
 								)
 							),
-							'description' => __('If on, this option will tell the web browser to fetch Google Fonts early', 'padma')
+							'description' => __('Wenn aktiviert, weist diese Option den Webbrowser an, Google Fonts frühzeitig zu laden', 'padma')
 						)
 					);
 
