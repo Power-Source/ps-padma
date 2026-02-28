@@ -424,8 +424,15 @@ define(['underscore'], function(_) {
 			value: value,
 			specialElementType: specialElementType,
 			specialElementMeta: specialElementMeta,
-		unit: args.unit,
-		stack: args.stack
+			unit: args.unit,
+			stack: args.stack
+		});
+
+	}
+
+	dataDesignEditorPropertyFeedback = function(args) {
+
+		/* Set up variables */
 		var element 			= args.element.toLowerCase();
 		var property 			= args.property.toLowerCase();
 		var value 				= args.value;

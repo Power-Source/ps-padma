@@ -7,7 +7,7 @@ class PadmaVisualElementsBlockShortcodeBlock extends \PadmaBlockAPI {
     public $id 				= 'shortcode-block';    
     public $name 			= 'Shortcode Generator';
 	public $options_class 	= 'Padma_Advanced\\PadmaVisualElementsBlockShortcodeBlockOptions';
-    public $categories 		= array('content','woocommerce','form');
+	public $categories 		= array('content','forms');
     
 			
 	function setup_elements() {
@@ -652,65 +652,96 @@ class PadmaVisualElementsBlockShortcodeBlock extends \PadmaBlockAPI {
 	}
 
 	function content($block) {
-	
-		$shortcodeproduct 	= parent::get_setting($block, 'shortcode-product-type', ' ');
-		$wcshortcode 		= parent::get_setting($block, 'wc-shortcode-type', ' ');
-		$wcproduct 			= parent::get_setting($block, 'wc-product-count', '12');
-		$wccolumn 			= parent::get_setting($block, 'wc-column-count', '4');
-		$wccategory 		= parent::get_setting($block, 'wc-category', ' ');
-		$wcorderby 			= parent::get_setting($block, 'wc-order-by', 'menu_order');
-		$wcorder 			= parent::get_setting($block, 'wc-order', 'asc');
-		$gfshortcode 		= parent::get_setting($block, 'gravityform-shortcode', 'none');
-		$gftitle 			= parent::get_setting($block, 'gravityform-title', true);
-		$gfdescription 		= parent::get_setting($block, 'gravityform-description', true);
-		$gfdescription 		= parent::get_setting($block, 'gravityform-description', true);
-		$gfajax 			= parent::get_setting($block, 'gravityform-ajax', false);
-		$priceshortcode 	= parent::get_setting($block, 'price-shortcode', 'none');
-		        		
-		$block_width 		= \PadmaBlocksData::get_block_width($block);
-		$block_height 		= \PadmaBlocksData::get_block_height($block);
-		
-		$converted_title 	= ($gftitle) ? 'true' : 'false';
-		$converted_desc 	= ($gfdescription) ? 'true' : 'false';
-		$converted_ajax 	= ($gfajax) ? 'true' : 'false';
-		
-				
-		if($shortcodeproduct == 'woo'){
-			if($wcshortcode == 'none'){
-				echo '<p>Please check your settings</p>';
-			}else{
-				echo do_shortcode( '['. $wcshortcode .' per_page="'. $wcproduct .'" columns="'. $wccolumn .'" category="'. $wccategory .'" orderby="'. $wcorderby .'" order="'. $wcorder .'"]' );
+
+		$shortcodeproduct = parent::get_setting($block, 'shortcode-product-type', 'none');
+
+		if ($shortcodeproduct === 'marketpress') {
+			$mp_shortcode  = parent::get_setting($block, 'mp-shortcode-type', 'none');
+			$mp_number     = (int) parent::get_setting($block, 'mp-number', 5);
+			$mp_product_id = (int) parent::get_setting($block, 'mp-product-id', 0);
+
+			if ( !function_exists('mp_get_setting') ) {
+				echo '<p>MarketPress ist nicht installiert oder nicht aktiv.</p>';
+				return;
 			}
-		}elseif($shortcodeproduct == 'cf7'){
-			
-			$cf7shortcode = parent::get_setting($block, 'contactform7-shortcode', '');
-			
-			if( defined('WPCF7_REQUIRED_WP_VERSION') ){
-				
-				if( $cf7shortcode == null ) {
-					echo '<h2 style="color:red;font-weight:700;text-transform:uppercase;border:solid 1px red;padding:5px 10px;background-color:pink;">You need to enter your forms name into the block</h2>';
-				}else{
-					echo do_shortcode( '[contact-form-7 title="'. $cf7shortcode .' "]' );
+
+			if ( $mp_shortcode === 'none' || empty($mp_shortcode) ) {
+				echo '<p>Bitte MarketPress Shortcode auswählen.</p>';
+				return;
+			}
+
+			if ( $mp_shortcode === 'mp_featured_products' || $mp_shortcode === 'mp_popular_products' ) {
+				echo do_shortcode( '[' . $mp_shortcode . ' number="' . max(1, $mp_number) . '"]' );
+				return;
+			}
+
+			if ( $mp_shortcode === 'mp_product' ) {
+				if ( $mp_product_id <= 0 ) {
+					echo '<p>Bitte eine gültige Produkt-ID für MarketPress eingeben.</p>';
+					return;
 				}
 
-			}else{
-				
-				echo '<h2 style="color:red;font-weight:700;text-transform:uppercase;border:solid 1px red;padding:5px 10px;background-color:pink;">You need to have the Contact Form 7 Plugin installed and activated</h2>'; 
+				echo do_shortcode( '[mp_product product_id="' . $mp_product_id . '"]' );
+				return;
 			}
-		
-		}elseif($shortcodeproduct == 'gravity'){
-			
-			echo do_shortcode( '[gravityform id='.$gfshortcode.' title='.$converted_title.' description='.$converted_desc.' ajax='.$converted_ajax.']');
-			
-		}elseif($shortcodeproduct == 'price') {
 
-			echo do_shortcode( '[rpt name="'.$priceshortcode.'"]');
-			
-		}else{
-			
-			echo '<p>Please check your settings</p>';
-		
+			echo do_shortcode( '[' . $mp_shortcode . ']' );
+			return;
 		}
+
+		if ($shortcodeproduct === 'powerform') {
+			$powerform_id = (int) parent::get_setting($block, 'powerform-shortcode', 0);
+
+			if ( !post_type_exists('powerform_forms') ) {
+				echo '<p>PowerForm ist nicht installiert oder nicht aktiv.</p>';
+				return;
+			}
+
+			if ( $powerform_id <= 0 ) {
+				echo '<p>Bitte ein PowerForm-Formular auswählen.</p>';
+				return;
+			}
+
+			echo do_shortcode( '[powerform_form id="' . $powerform_id . '"]' );
+			return;
+		}
+
+		if ($shortcodeproduct === 'community') {
+			$community_shortcode = parent::get_setting($block, 'community-shortcode-type', 'none');
+			$community_group_id  = (int) parent::get_setting($block, 'community-group-id', 0);
+
+			if ( !post_type_exists('cpc_group') ) {
+				echo '<p>PS Community ist nicht installiert oder nicht aktiv.</p>';
+				return;
+			}
+
+			if ( $community_shortcode === 'none' || empty($community_shortcode) ) {
+				echo '<p>Bitte einen PS Community Shortcode auswählen.</p>';
+				return;
+			}
+
+			$requires_group = in_array($community_shortcode, array(
+				'cpc-group-single',
+				'cpc-group-members',
+				'cpc-group-join-button',
+				'cpc-group-leave-button',
+			), true);
+
+			if ( $requires_group ) {
+				if ( $community_group_id <= 0 ) {
+					echo '<p>Bitte eine Gruppe auswählen.</p>';
+					return;
+				}
+
+				echo do_shortcode( '[' . $community_shortcode . ' group_id="' . $community_group_id . '"]' );
+				return;
+			}
+
+			echo do_shortcode( '[' . $community_shortcode . ']' );
+			return;
+		}
+
+		echo '<p>Bitte Plugin und Shortcode auswählen.</p>';
 	}
 	
 }

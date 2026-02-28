@@ -5,13 +5,11 @@ namespace Padma_Advanced;
 class PadmaVisualElementsBlockShortcodeBlockOptions extends \PadmaBlockOptionsAPI {
 
 	public $tabs = array(
-		'content-tab' 	=> 'Content',
-		'woo-tab' 		=> 'WooCommerce',
-		'cf7-tab' 		=> 'Contact Form 7',
-		'gravity-tab' 	=> 'Gravity Forms',
-		'price-tab' 	=> 'Pricing Table',
+		'content-tab' 		=> 'Content',
+		'marketpress-tab' 	=> 'MarketPress',
+		'powerform-tab' 	=> 'PowerForm',
+		'community-tab' 	=> 'PS Community',
 	);
-
 
 	public $inputs = array(
 
@@ -19,272 +17,216 @@ class PadmaVisualElementsBlockShortcodeBlockOptions extends \PadmaBlockOptionsAP
 			'shortcode-product-type' => array(
 				'type' => 'select',
 				'name' => 'shortcode-product-type',
-				'label' => 'Which Product',
+				'label' => 'Welches Plugin',
 				'options' => array(
-					'none' 		=> 'Choose your product',
-					'woo' 		=> 'WooCommerce',
-					'cf7' 		=> 'Contact Form 7',
-					'gravity' 	=> 'Gravity Forms',
-					'price' 	=> 'Price Tables'
-				),
-			'toggle' => array(
-				'none' => array(
-					'show' => array (),
-					'hide' => array(
-						'#sub-tab-woo-tab',
-						'#sub-tab-cf7-tab',
-						'#sub-tab-gravity-tab',
-						'#sub-tab-price-tab',
-					),
-
-				),
-				'price' => array(
-					'hide' => array (
-						'#sub-tab-cf7-tab',
-						'#sub-tab-gravity-tab',
-						'#sub-tab-woo-tab',
-					),
-					'show' => array(
-						'#sub-tab-price-tab',
-					),
-				),
-				'woo' => array(
-					'hide' => array (
-						'#sub-tab-price-tab',
-						'#sub-tab-cf7-tab',
-						'#sub-tab-gravity-tab',
-					),
-					'show' => array(
-						'#sub-tab-woo-tab',
-					),
-				),
-				'cf7' => array(
-					'show' => array (
-						'#sub-tab-cf7-tab',
-					),
-					'hide' => array(
-						'#sub-tab-woo-tab',
-						'#sub-tab-gravity-tab',
-						'#sub-tab-price-tab',
-					),
-				),
-				'gravity' => array(
-					'show' => array (
-						'#sub-tab-gravity-tab',
-					),
-					'hide' => array(
-						'#sub-tab-woo-tab',
-						'#sub-tab-cf7-tab',
-						'#sub-tab-price-tab',
-					),
-				),
-			),
-			'default' => '',
-			'tooltip' => '',
-		),
-		),
-		'woo-tab' => array(
-			'wc-shortcode-type' => array(
-				'type' => 'select',
-				'name' => 'wc-shortcode-type',
-				'label' => 'WooCommerce Content',
-				'options' => array(
-					'' => 'Choose your content',
-					'recent_products' => 'Recent Products',
-					'featured_products' => 'Featured Products',
-					'product_category' => 'Product Category',
-					'sale_products' => 'Sale Products',
-					'best_selling_products' => 'Best Selling Products',
-					'top_rated_products' => 'Top Rated Products'
+					'none' 		=> 'Bitte Plugin auswählen',
+					'marketpress' 	=> 'MarketPress',
+					'powerform' 	=> 'PowerForm',
+					'community' 	=> 'PS Community',
 				),
 				'toggle' => array(
 					'none' => array(
-						'hide' => '#sub-tab-woo-tab-content #input-wc-category',
 						'show' => array(),
+						'hide' => array(
+							'#sub-tab-marketpress-tab',
+							'#sub-tab-powerform-tab',
+							'#sub-tab-community-tab',
+						),
 					),
-					'product_category' => array(
-						'show' => '#sub-tab-woo-tab-content #input-wc-category',
+					'marketpress' => array(
+						'show' => array('#sub-tab-marketpress-tab'),
+						'hide' => array('#sub-tab-powerform-tab', '#sub-tab-community-tab'),
+					),
+					'powerform' => array(
+						'show' => array('#sub-tab-powerform-tab'),
+						'hide' => array('#sub-tab-marketpress-tab', '#sub-tab-community-tab'),
+					),
+					'community' => array(
+						'show' => array('#sub-tab-community-tab'),
+						'hide' => array('#sub-tab-marketpress-tab', '#sub-tab-powerform-tab'),
+					),
+				),
+				'default' => 'none',
+				'tooltip' => 'Wähle das Plugin für die Shortcode-Ausgabe',
+			),
+		),
+
+		'marketpress-tab' => array(
+			'mp-shortcode-type' => array(
+				'type' => 'select',
+				'name' => 'mp-shortcode-type',
+				'label' => 'MarketPress Shortcode',
+				'options' => array(
+					'none' => 'Shortcode auswählen',
+					'mp_list_products' => 'Produkte (Liste)',
+					'mp_featured_products' => 'Empfohlene Produkte',
+					'mp_popular_products' => 'Beliebte Produkte',
+					'mp_product' => 'Einzelnes Produkt',
+					'mp_cart' => 'Warenkorb',
+					'mp_checkout' => 'Checkout',
+				),
+				'toggle' => array(
+					'none' => array(
+						'show' => array(),
+						'hide' => array(
+							'#sub-tab-marketpress-tab-content #input-mp-number',
+							'#sub-tab-marketpress-tab-content #input-mp-product-id',
+						),
+					),
+					'mp_featured_products' => array(
+						'show' => array('#sub-tab-marketpress-tab-content #input-mp-number'),
+						'hide' => array('#sub-tab-marketpress-tab-content #input-mp-product-id'),
+					),
+					'mp_popular_products' => array(
+						'show' => array('#sub-tab-marketpress-tab-content #input-mp-number'),
+						'hide' => array('#sub-tab-marketpress-tab-content #input-mp-product-id'),
+					),
+					'mp_product' => array(
+						'show' => array('#sub-tab-marketpress-tab-content #input-mp-product-id'),
+						'hide' => array('#sub-tab-marketpress-tab-content #input-mp-number'),
+					),
+					'mp_list_products' => array(
+						'show' => array(),
+						'hide' => array('#sub-tab-marketpress-tab-content #input-mp-number', '#sub-tab-marketpress-tab-content #input-mp-product-id'),
+					),
+					'mp_cart' => array(
+						'show' => array(),
+						'hide' => array('#sub-tab-marketpress-tab-content #input-mp-number', '#sub-tab-marketpress-tab-content #input-mp-product-id'),
+					),
+					'mp_checkout' => array(
+						'show' => array(),
+						'hide' => array('#sub-tab-marketpress-tab-content #input-mp-number', '#sub-tab-marketpress-tab-content #input-mp-product-id'),
+					),
+				),
+				'default' => 'none',
+				'tooltip' => 'Wähle den MarketPress Shortcode',
+			),
+			'mp-number' => array(
+				'type' => 'integer',
+				'name' => 'mp-number',
+				'label' => 'Anzahl',
+				'default' => '5',
+				'tooltip' => 'Anzahl der auszugebenden Produkte',
+			),
+			'mp-product-id' => array(
+				'type' => 'integer',
+				'name' => 'mp-product-id',
+				'label' => 'Produkt-ID',
+				'default' => '',
+				'tooltip' => 'ID eines einzelnen MarketPress Produkts',
+			),
+		),
+
+		'powerform-tab' => array(
+			'powerform-shortcode' => array(
+				'type' => 'select',
+				'name' => 'powerform-shortcode',
+				'label' => 'Formular',
+				'default' => 'none',
+				'tooltip' => 'Wähle ein PowerForm-Formular',
+			),
+		),
+
+		'community-tab' => array(
+			'community-shortcode-type' => array(
+				'type' => 'select',
+				'name' => 'community-shortcode-type',
+				'label' => 'PS Community Shortcode',
+				'options' => array(
+					'none' => 'Shortcode auswählen',
+					'cpc-groups' => 'Gruppenliste',
+					'cpc-my-groups' => 'Meine Gruppen',
+					'cpc-group-single' => 'Einzelne Gruppe',
+					'cpc-group-members' => 'Gruppenmitglieder',
+					'cpc-group-create' => 'Gruppe erstellen',
+					'cpc-group-join-button' => 'Join-Button',
+					'cpc-group-leave-button' => 'Leave-Button',
+				),
+				'toggle' => array(
+					'none' => array(
+						'show' => array(),
+						'hide' => array('#sub-tab-community-tab-content #input-community-group-id'),
+					),
+					'cpc-group-single' => array(
+						'show' => array('#sub-tab-community-tab-content #input-community-group-id'),
 						'hide' => array(),
 					),
-					'recent_products' => array(
-						'hide' => '#sub-tab-woo-tab-content #input-wc-category',
-						'show' => array(),
+					'cpc-group-members' => array(
+						'show' => array('#sub-tab-community-tab-content #input-community-group-id'),
+						'hide' => array(),
 					),
-					'featured_products' => array(
-						'hide' => '#sub-tab-woo-tab-content #input-wc-category',
-						'show' => array(),
+					'cpc-group-join-button' => array(
+						'show' => array('#sub-tab-community-tab-content #input-community-group-id'),
+						'hide' => array(),
 					),
-					'sale_products' => array(
-						'hide' => '#sub-tab-woo-tab-content #input-wc-category',
-						'show' => array(),
+					'cpc-group-leave-button' => array(
+						'show' => array('#sub-tab-community-tab-content #input-community-group-id'),
+						'hide' => array(),
 					),
-					'best_selling_products' => array(
-						'hide' => '#sub-tab-woo-tab-content #input-wc-category',
+					'cpc-groups' => array(
 						'show' => array(),
+						'hide' => array('#sub-tab-community-tab-content #input-community-group-id'),
 					),
-					'top_rated_products' => array(
-						'hide' => '#sub-tab-woo-tab-content #input-wc-category',
+					'cpc-my-groups' => array(
 						'show' => array(),
+						'hide' => array('#sub-tab-community-tab-content #input-community-group-id'),
+					),
+					'cpc-group-create' => array(
+						'show' => array(),
+						'hide' => array('#sub-tab-community-tab-content #input-community-group-id'),
 					),
 				),
-				'default' => '',
-				'tooltip' => 'Choose your WooCommerce content to display',
+				'default' => 'none',
+				'tooltip' => 'Wähle den PS Community Shortcode',
 			),
-			'wc-category' => array(
+			'community-group-id' => array(
 				'type' => 'select',
-				'name' => 'wc-category',
-				'label' => 'Category Slug',
-				'default' => '',
-				'tooltip' => 'Choose your category to display.<br />Tip: You can find the category slug in the WooCommerce Category Admin panel'
-			),
-			'wc-product-count' => array(
-				'type' => 'integer',
-				'name' => 'wc-product-count',
-				'label' => 'Product Qty',
-				'default' => '12',
-				'tooltip' => 'Choose how many products to display per page.'
-			),
-			'wc-column-count' => array(
-				'type' => 'integer',
-				'name' => 'wc-column-count',
-				'label' => 'Columns',
-				'default' => '4',
-				'tooltip' => 'Choose how many columns.'
-			),
-			'wc-order-by' => array (
-				'type' => 'select',
-				'name' => 'wc-order-by',
-				'label' => 'Order by',
-				'default' => 'menu_order',
-				'options' => array (
-					'menu-order' => 'Menu Order',
-					'title' => 'Title',
-					'date' => 'Date',
-					'rand' => 'Random',
-					'id' => 'ID'
-				),
-			),
-			'wc-order' => array (
-				'type' => 'select',
-				'name' => 'wc-order',
-				'label' => 'Order',
-				'default' => 'asc',
-				'options' => array (
-					'asc' => 'Ascending',
-					'desc' => 'Descending'
-				),
-			),
-		),
-		'cf7-tab' => array(
-			'contactform7-shortcode' => array(
-				'type' => 'select',
-				'name' => 'contactform7-shortcode',
-				'label' => 'Form Name',
-				'default' => ' ',
-				'tooltip' => 'Choose the name of your form',
-			),
-		),
-		'gravity-tab' => array(
-			'gravityform-shortcode' => array(
-				'type' => 'select',
-				'name' => 'gravityform-shortcode',
-				'label' => 'Form Name',
-				'default' => ' ',
-				'tooltip' => 'Choose the name of your form',
-			),
-			'gravityform-title' => array(
-				'type' => 'checkbox',
-				'name' => 'gravityform-title',
-				'label' => 'Display Form Title',
-				'default' => True,
-				'tooltip' => 'Choose to have your forms title display.'
-			),
-			'gravityform-description' => array(
-				'type' => 'checkbox',
-				'name' => 'gravityform-description',
-				'label' => 'Display Form Description',
-				'default' => True,
-				'tooltip' => 'Choose to have your forms description display.'
-			),
-			'gravityform-ajax' => array(
-				'type' => 'checkbox',
-				'name' => 'gravityform-ajax',
-				'label' => 'Use Ajax for Form Submissions?',
-				'default' => false,
-				'tooltip' => 'Choose to have your forms submitted by Ajax.'
-			),
-		),
-		'price-tab' => array(
-			'price-heading' => array(
-				'type' => 'heading',
-				'name' => 'price-heading',
-				'label' => 'You can download Responsive Price Table from the <a href="https://wordpress.org/plugins/dk-pricr-responsive-pricing-table/" target="_blank">WordPress repository</a>',
-			),
-			'price-shortcode' => array(
-				'type' => 'select',
-				'name' => 'price-shortcode',
-				'label' => 'Pricing Tables',
-				'default' => ' ',
-				'tooltip' => 'Choose the name of your tables',
+				'name' => 'community-group-id',
+				'label' => 'Gruppe',
+				'default' => 'none',
+				'tooltip' => 'Gruppe für Single/Members/Join/Leave auswählen',
 			),
 		),
 	);
-	
+
 	public function modify_arguments($args = false){
-		
-		$wcatTerms 	= get_terms('product_cat',array('hide_empty'=>false));
-		$options 	= array( 'none' => 'Choose Your Category');
-		
-		foreach($wcatTerms as $wcatTerm) {
-			$options[$wcatTerm->slug] = $wcatTerm->name;
-		}
-		
-		$this->inputs['woo-tab']['wc-category']['options'] = $options;
 
-		if (class_exists('WPCF7_ContactForm')) {
-			
-			$forms 	= WPCF7_ContactForm::find();
-			$options = array( 'none' => 'Choose Your Form');
-
-			foreach ( $forms as $form ) {
-				$options[$form->title] = $form->title;
-			}
-			
-			$this->inputs['cf7-tab']['contactform7-shortcode']['options'] = $options;
-		
-		}else{
-			$this->inputs['cf7-tab']['contactform7-shortcode']['options'] = array('none'=>'Contact Form 7 is not installed');
-		}
-
-		if (class_exists('GFAPI')) {
-
-			$forms 	= RGFormsModel::get_forms();
-			$options = array('none' => 'Choose Your Form');
-		
-			foreach ( $forms as $form ) {
-				$options[$form->id] = $form->title;
-			}
-
-			$this->inputs['gravity-tab']['gravityform-shortcode']['options'] = $options;
-		
+		if ( function_exists('mp_get_setting') ) {
+			$this->inputs['marketpress-tab']['mp-shortcode-type']['options'] = $this->inputs['marketpress-tab']['mp-shortcode-type']['options'];
 		} else {
-			$this->inputs['gravity-tab']['gravityform-shortcode']['options'] = array('none'=>'Gravity Forms is not installed');
+			$this->inputs['marketpress-tab']['mp-shortcode-type']['options'] = array('none' => 'MarketPress ist nicht installiert');
 		}
 
-		if (function_exists('create_rpt_pricing_table_type')) {
-			
-			$args 		= array( 'post_type' => 'rpt_pricing_table', 'posts_per_page' => -1 );
-			$myposts 	= get_posts( $args );
-			$options 	= array('none' => 'Choose Your Price Table');
+		if ( post_type_exists('powerform_forms') ) {
+			$forms = get_posts(array(
+				'post_type' => 'powerform_forms',
+				'post_status' => array('publish', 'draft'),
+				'numberposts' => -1,
+			));
 
-			foreach ( $myposts as $post ) { 
-				$options[$post->post_name] = $post->post_title;
+			$options = array('none' => 'Formular auswählen');
+			foreach ( $forms as $form ) {
+				$options[$form->ID] = $form->post_title;
 			}
-			
-			$this->inputs['price-tab']['price-shortcode']['options'] = $options;
+			$this->inputs['powerform-tab']['powerform-shortcode']['options'] = $options;
+		} else {
+			$this->inputs['powerform-tab']['powerform-shortcode']['options'] = array('none' => 'PowerForm ist nicht installiert');
+		}
 
-		}else{
-			$this->inputs['price-tab']['price-shortcode']['options'] = array('none'=>'Responsive Price Table is not installed');
+		if ( post_type_exists('cpc_group') ) {
+			$groups = get_posts(array(
+				'post_type' => 'cpc_group',
+				'post_status' => array('publish', 'draft'),
+				'posts_per_page' => -1,
+			));
+
+			$options = array('none' => 'Gruppe auswählen');
+			foreach ( $groups as $group ) {
+				$options[$group->ID] = $group->post_title;
+			}
+			$this->inputs['community-tab']['community-group-id']['options'] = $options;
+		} else {
+			$this->inputs['community-tab']['community-group-id']['options'] = array('none' => 'PS Community ist nicht installiert');
 		}
 	}
 }
