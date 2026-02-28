@@ -71,19 +71,22 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 
 			this.setupTabs = function() {
 
-				$('#side-panel-top').tabs();
-
+			var sidePanel = $('#side-panel-top');
+			if (sidePanel.length && typeof sidePanel.tabs === 'function') {
+				sidePanel.tabs();
 			}
 
-			this.setupBoxes = function() {
-									
-				designEditorBindPropertyBoxToggle();
-			
-			}
+		}
+
+		this.setupBoxes = function() {
+								
+			designEditorBindPropertyBoxToggle();
 		
-			this.setupElementSelector = function() {
+		}
 
-				//createCog($('#side-panel'), true, true, false, 1);
+		this.setupElementSelector = function() {
+
+			//createCog($('#side-panel'), true, true, false, 1);
 
                 /* Show tabs */
                 $('#side-panel').addClass('side-panel-loaded');

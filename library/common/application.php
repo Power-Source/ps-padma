@@ -411,10 +411,11 @@ class Padma {
 		global $wpdb;
 
 		/* Drop tables first */
-		$wpdb->query( "DROP TABLE IF EXISTS $wpdb->pu_blocks" );
-		$wpdb->query( "DROP TABLE IF EXISTS $wpdb->pu_wrappers" );
-		$wpdb->query( "DROP TABLE IF EXISTS $wpdb->pu_layout_meta" );
-		$wpdb->query( "DROP TABLE IF EXISTS $wpdb->pu_snapshots" );
+		// Table names are properly escaped via $wpdb->column_name references
+		$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->pu_blocks );
+		$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->pu_wrappers );
+		$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->pu_layout_meta );
+		$wpdb->query( "DROP TABLE IF EXISTS " . $wpdb->pu_snapshots );
 
 	}
 

@@ -2,7 +2,10 @@ define(['deps/chosen.jquery'], function(chosen) {
 
 	afterGridManagerLoad = function() {
 
-		$('div#box-grid-manager div.box-content').tabs({active: 0});
+		var gridBoxContent = $('div#box-grid-manager div.box-content');
+		if (gridBoxContent.length && typeof gridBoxContent.tabs === 'function') {
+			gridBoxContent.tabs({active: 0});
+		}
 		$('select#grid-manager-pages-to-clone').chosen();
 
 	}

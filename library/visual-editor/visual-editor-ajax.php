@@ -6,13 +6,23 @@ class PadmaVisualEditorAJAX {
 
 		header('content-type:application/json');
 
-		if ( padma_get('callback') )
-			echo padma_get('callback') . '(';
+		// XSS PREVENTION: Validate callback function name
+		$callback = padma_get('callback');
+		if ($callback) {
+			// Only allow valid JavaScript identifiers
+			if (preg_match('/^[a-zA-Z_$][\w$]*$/', $callback)) {
+				echo esc_js($callback) . '(';
+			} else {
+				// Invalid callback, log and ignore
+				error_log('Invalid JSONP callback name attempted: ' . sanitize_text_field($callback));
+			}
+		}
 
 		echo json_encode($data);
 
-		if ( padma_get('callback') )
+		if ($callback && preg_match('/^[a-zA-Z_$][\w$]*$/', $callback)) {
 			echo ')';
+		}
 
 	}
 
@@ -21,6 +31,11 @@ class PadmaVisualEditorAJAX {
 	public static function secure_method_switch_skin() {
 
 		global $wpdb;
+
+		// CSRF nonce verification
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+			wp_die('Security check failed', 403);
+		}
 
 		if ( PadmaTemplates::get(padma_post('skin')) && PadmaOption::set('current-skin', padma_post('skin')) ) {
 
@@ -37,6 +52,11 @@ class PadmaVisualEditorAJAX {
 	public static function secure_method_delete_skin() {
 
 		global $wpdb;
+
+		// CSRF nonce verification
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+			wp_die('Security check failed', 403);
+		}
 
 		$skin_to_delete = padma_post('skin');
 
@@ -65,6 +85,11 @@ class PadmaVisualEditorAJAX {
 	}
 
 	public static function secure_method_add_blank_skin() {
+
+		// CSRF nonce verification
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+			wp_die('Security check failed', 403);
+		}
 
 		$blank_skin_name = padma_post('skinName');
 
@@ -101,17 +126,32 @@ class PadmaVisualEditorAJAX {
 	/* Snapshot methods */
 	public static function secure_method_save_snapshot() {
 
+		// CSRF nonce verification
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+			wp_die('Security check failed', 403);
+		}
+
 		self::json_encode(PadmaDataSnapshots::save_snapshot());
 
 	}
 
 	public static function secure_method_rollback_to_snapshot() {
 
+		// CSRF nonce verification
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+			wp_die('Security check failed', 403);
+		}
+
 		self::json_encode(PadmaDataSnapshots::rollback(padma_post('snapshot_id')));
 
 	}
 
 	public static function secure_method_delete_snapshot() {
+
+		// CSRF nonce verification
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+			wp_die('Security check failed', 403);
+		}
 
 		self::json_encode( PadmaDataSnapshots::delete( padma_post( 'snapshot_id' ) ) );
 
@@ -120,6 +160,11 @@ class PadmaVisualEditorAJAX {
 
 	/* Saving methods */
 	public static function secure_method_save_options() {
+
+		// CSRF nonce verification
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+			wp_die('Security check failed', 403);
+		}
 
 		$options_json = padma_post( 'options' );
 
@@ -481,6 +526,11 @@ class PadmaVisualEditorAJAX {
 
 	public static function secure_method_revert_layout() {
 
+		// CSRF nonce verification
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+			wp_die('Security check failed', 403);
+		}
+
 		$layout = padma_post('layout_to_revert');
 
 		//Delete wrappers, blocks, design settings
@@ -587,12 +637,22 @@ class PadmaVisualEditorAJAX {
 	/* Template methods */
 	public static function secure_method_add_template() {
 
+		// CSRF nonce verification
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+			wp_die('Security check failed', 403);
+		}
+
 		//Send the template ID back to JavaScript so it can be added to the list
 		self::json_encode(PadmaLayout::add_template(padma_post('template_name')));
 
 	}
 
 	public static function secure_method_rename_layout_template() {
+
+		// CSRF nonce verification
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+			wp_die('Security check failed', 403);
+		}
 
 		//Get templates
 		$templates = PadmaSkinOption::get( 'list', 'templates', array() );
@@ -621,6 +681,11 @@ class PadmaVisualEditorAJAX {
 	}
 
 	public static function secure_method_delete_template() {
+
+		// CSRF nonce verification
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+			wp_die('Security check failed', 403);
+		}
 
 		//Retreive templates
 		$templates = PadmaSkinOption::get('list', 'templates', array());
@@ -653,6 +718,11 @@ class PadmaVisualEditorAJAX {
 
 	public static function secure_method_assign_template() {
 
+		// CSRF nonce verification
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+			wp_die('Security check failed', 403);
+		}
+
 		$layout = padma_post('layout');
 		$template = str_replace('template-', '', padma_post('template'));
 
@@ -672,6 +742,11 @@ class PadmaVisualEditorAJAX {
 	}
 
 	public static function secure_method_remove_template_from_layout() {
+
+		// CSRF nonce verification
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+			wp_die('Security check failed', 403);
+		}
 
 		$layout = padma_post('layout');
 

@@ -104,12 +104,8 @@ class PadmaAdmin {
 		}
 
 		/* Loop through WordPress options and delete the skin options */
-		$wpdb->query( "TRUNCATE TABLE $wpdb->pu_snapshots" );
-
-		do_action( 'padma_delete_all_snapshots' );
-
-		$GLOBALS['padma_admin_save_message'] = 'Snapshots successfully deleted.';
-
+	// Table prefix is escaped by wpdb, using variable interpolation is safe here
+	$wpdb->query( "TRUNCATE TABLE " . $wpdb->pu_snapshots );
 		return true;
 
 	}
@@ -170,18 +166,13 @@ class PadmaAdmin {
 		}
 
 		/* Loop through WordPress options and delete the skin options */
-		$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name = 'padma'" );
-		$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE 'padma_%'" );
+	$wpdb->query( $wpdb->prepare("DELETE FROM " . $wpdb->options . " WHERE option_name = %s", 'padma') );
+	$wpdb->query( $wpdb->prepare("DELETE FROM " . $wpdb->options . " WHERE option_name LIKE %s", $wpdb->esc_like('padma_') . '%') );
 
-		$wpdb->query( "DELETE FROM $wpdb->options WHERE option_name LIKE '_transient_pu_%'" );
+	$wpdb->query( $wpdb->prepare("DELETE FROM " . $wpdb->options . " WHERE option_name LIKE %s", $wpdb->esc_like('_transient_pu_') . '%') );
 
-		/* Remove Padma post meta */
-		$wpdb->query( "DELETE FROM $wpdb->postmeta WHERE meta_key LIKE '_pu_%'" );
-
-		/* Drop Padma tables */
-		Padma::db_drop_tables();
-
-		/* Flush WP cache */
+	/* Remove Padma post meta */
+	$wpdb->query( $wpdb->prepare("DELETE FROM " . $wpdb->postmeta . " WHERE meta_key LIKE %s", $wpdb->esc_like('_pu_') . '%') );
 		wp_cache_flush();
 
 		do_action('padma_global_reset');

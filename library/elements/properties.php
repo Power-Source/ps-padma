@@ -1770,7 +1770,8 @@ class PadmaElementProperties {
 
 	public static function complex_property_font_family($args) {
 
-		extract($args);
+		// SECURITY FIX: Replace dangerous extract() with safe variable assignment
+		$value = $args['value'] ?? '';
 
 		$font_fragments = explode('|', $value);
 

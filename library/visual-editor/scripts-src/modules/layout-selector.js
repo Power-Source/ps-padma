@@ -481,7 +481,9 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 			layoutSelectorSearchForm.on('submit', layoutSelectorSearchFormSubmit);
 			
 			/* Tabs */
-            layoutSelectorEl.tabs();
+			if (layoutSelectorEl.length && typeof layoutSelectorEl.tabs === 'function') {
+				layoutSelectorEl.tabs();
+			}
 
 			/* Make buttons work */
             layoutSelectorEl.delegate('span.edit', 'click', function(event){

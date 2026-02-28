@@ -120,7 +120,10 @@ class PadmaFonts {
 
 	public static function register_font(array $args) {
 
-		extract($args);
+		// SECURITY FIX: Replace dangerous extract() with safe variable assignment
+		$id = $args['id'] ?? null;
+		$stack = $args['stack'] ?? null;
+		$name = $args['name'] ?? null;
 
 		/* Check args */
 		if ( !isset($id) || !isset($stack) || !isset($name) )

@@ -425,7 +425,8 @@ class PadmaVisualEditorDisplay {
 		echo '<li><a class="active" data-filter="all">All</a></li>';
 
 		foreach (PadmaBlocks::get_registered_blocks_categories() as $categorie => $blocks) {
-			echo '<li><a class="" data-filter="'.$categorie.'">' . ucfirst(str_replace('-', ' ', $categorie)) . '</a></li>';
+			// XSS PREVENTION: Escape attributes and text content
+			echo '<li><a class="" data-filter="' . esc_attr($categorie) . '">' . esc_html(ucfirst(str_replace('-', ' ', $categorie))) . '</a></li>';
 		}
 		echo '</ul>';
 		echo '</div>';

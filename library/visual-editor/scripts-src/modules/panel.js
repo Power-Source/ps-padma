@@ -92,7 +92,10 @@ define(['jquery', 'vanilla-draggable', 'deps/jquery.cookie', 'util.tooltips', 'm
 		var panel = $('<div id="' + name + '-tab"></div>').appendTo('div#panel');
 		var tabLink = tab.find('a');
 		
-		$('div#panel').tabs('refresh');
+		var panelEl = $('div#panel');
+		if (panelEl.length && typeof panelEl.tabs === 'function') {
+			panelEl.tabs('refresh');
+		}
 		$(tabLink).on('click', showPanel);
 		
 		showPanel();
@@ -164,7 +167,11 @@ define(['jquery', 'vanilla-draggable', 'deps/jquery.cookie', 'util.tooltips', 'm
 		if ( !$('#panel-top').find('li').length )
 			$('body').addClass('panel-empty');
 		
-		return $('div#panel').tabs('refresh');
+		var panelEl = $('div#panel');
+		if (panelEl.length && typeof panelEl.tabs === 'function') {
+			return panelEl.tabs('refresh');
+		}
+		return null;
 		
 	},
 
@@ -309,29 +316,35 @@ define(['jquery', 'vanilla-draggable', 'deps/jquery.cookie', 'util.tooltips', 'm
 			
 		});
 
-		$('div#panel').tabs({
-			tabTemplate: "<li><a href='#{href}'>#{label}</a></li>",
-			add: function(event, ui, content) {
+		var panelEl = $('div#panel');
+		if (panelEl.length && typeof panelEl.tabs === 'function') {
+			panelEl.tabs({
+				tabTemplate: "<li><a href='#{href}'>#{label}</a></li>",
+				add: function(event, ui, content) {
 
-				$(ui.panel).append(content);
+					$(ui.panel).append(content);
 
-			},
-			activate: function(event, ui) {
+				},
+				activate: function(event, ui) {
 
-				var tabID = $(ui.newTab).children('a').attr('href').replace('#', '').replace('-tab', '');
+					var tabID = $(ui.newTab).children('a').attr('href').replace('#', '').replace('-tab', '');
 
-				$i('.block-selected').removeClass('block-selected block-hover');
+					$i('.block-selected').removeClass('block-selected block-hover');
 
-				if ( tabID.indexOf('block-') === 0 ){
-					$i('#' + tabID).addClass('block-selected block-hover');
+					if ( tabID.indexOf('block-') === 0 ){
+						$i('#' + tabID).addClass('block-selected block-hover');
+					}
+
 				}
-
-			}
-		});
+			});
+		}
 
 		$('ul#panel-top li a').on('click', showPanel);
 
-		$('div.sub-tab').tabs();
+		var subTabEl = $('div.sub-tab');
+		if (subTabEl.length && typeof subTabEl.tabs === 'function') {
+			subTabEl.tabs();
+		}
 
 		/* PANEL RESIZING */
 			var panelMinHeight = 120;

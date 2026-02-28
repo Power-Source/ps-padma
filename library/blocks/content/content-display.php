@@ -121,9 +121,10 @@ class PadmaContentBlockDisplay {
 	function loop($args = array()) {
 
 
+		// SECURITY FIX: Replace dangerous extract() with safe variable assignment
 		$defaults = array('archive' => false);
-		extract($defaults);
-		extract($args, EXTR_OVERWRITE);
+		$params = array_merge($defaults, $args);
+		$archive = $params['archive'] ?? false;
 
 
 		if ( !dynamic_loop() ) {

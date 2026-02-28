@@ -20,7 +20,9 @@ define(['modules/panel.inputs'], function(panelInputs) {
 			var tab = $('div#' + wrapperID + '-tab');
 
 			/* Ready tab, sliders, and inputs */
-			tab.tabs();
+			if (tab.length && typeof tab.tabs === 'function') {
+				tab.tabs();
+			}
 			panelInputs.bind('div#' + wrapperID + '-tab');
 
 			/* Show and hide elements based on toggle options */
@@ -61,7 +63,11 @@ define(['modules/panel.inputs'], function(panelInputs) {
 			},
 			callback: readyTabs}, true, true, 'wrapper-options');
 
-		$('div#panel').tabs('option', 'active', $('#panel-top').children('li[role="tab"]').index($('[aria-controls="' + wrapperID + '-tab"]')));
+		var panelEl = $('div#panel');
+		if (panelEl.length && typeof panelEl.tabs === 'function') {
+			var tabIndex = $('#panel-top').children('li[role="tab"]').index($('[aria-controls="' + wrapperID + '-tab"]'));
+			panelEl.tabs('option', 'active', tabIndex);
+		}
 
 
 	}

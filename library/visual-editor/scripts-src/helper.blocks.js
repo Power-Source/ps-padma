@@ -1013,7 +1013,9 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 			var tab = $('div#block-' + blockID + '-tab');
 			
 			/* Ready tab, sliders, and inputs */
-			tab.tabs();
+			if (tab.length && typeof tab.tabs === 'function') {
+				tab.tabs();
+			}
 			panelInputs.bind('div#block-' + blockID + '-tab');
 			
 			/* Refresh tooltips */
@@ -1094,7 +1096,11 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 			}
 		}, true, true, 'block-type-' + blockType);
 
-		$('div#panel').tabs('option', 'active', $('#panel-top').children('li[role="tab"]').index($('[aria-controls="block-' + blockID + '-tab"]')));
+		var panelEl = $('div#panel');
+		if (panelEl.length && typeof panelEl.tabs === 'function') {
+			var tabIndex = $('#panel-top').children('li[role="tab"]').index($('[aria-controls="block-' + blockID + '-tab"]'));
+			panelEl.tabs('option', 'active', tabIndex);
+		}
 
 	}
 
@@ -1207,7 +1213,11 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 			}		
 
 		/* Select the tab */
-			$('div#panel').tabs('option', 'active', $('#panel-top').children('li[role="tab"]').index($('[aria-controls="block-' + blockID + '-tab"]')));
+			var panelEl = $('div#panel');
+			if (panelEl.length && typeof panelEl.tabs === 'function') {
+				var tabIndex = $('#panel-top').children('li[role="tab"]').index($('[aria-controls="block-' + blockID + '-tab"]'));
+				panelEl.tabs('option', 'active', tabIndex);
+			}
 
 
 		/*	Filter reset	*/

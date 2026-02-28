@@ -282,7 +282,9 @@ class PadmaCompiler {
 	 **/
 	public static function combine_fragments($file) {
 
-		extract($file);		
+		// SECURITY FIX: Replace dangerous extract() with safe variable assignment
+		$fragments = $file['fragments'] ?? array();
+		$dependencies = $file['dependencies'] ?? array();
 
 		$num_fragments = (int)count($fragments);
 

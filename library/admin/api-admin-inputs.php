@@ -95,10 +95,11 @@ class PadmaAdminInputs {
 
 		$input = array_merge($defaults, $input);
 
-		$name_attr = $input['no-submit'] ? null : ' name="padma-admin-input[' . $input['id'] . ']"';
+		$name_attr = $input['no-submit'] ? null : ' name="padma-admin-input[' . esc_attr($input['id']) . ']"';
 		$type_attr = $input['masked'] ? 'password' : 'text';
 
-		echo '<input type="' . $type_attr . '" class="' . $input['size'] . '-text" value="' . $input['value'] . '" id="' . $input['id'] . '"' . $name_attr . '> ' . $input['unit'];
+		// XSS PREVENTION: Escape all output values
+		echo '<input type="' . esc_attr($type_attr) . '" class="' . esc_attr($input['size']) . '-text" value="' . esc_attr($input['value']) . '" id="' . esc_attr($input['id']) . '"' . $name_attr . '> ' . esc_html($input['unit']);
 
 	}
 
@@ -157,9 +158,10 @@ class PadmaAdminInputs {
 
 		$allow_tabbing_class = $input['allow-tabbing'] ? 'class="allow-tabbing" ' : null;
 
-		$name_attr = $input['no-submit'] ? null : ' name="padma-admin-input[' . $input['id'] . ']"';
+		$name_attr = $input['no-submit'] ? null : ' name="padma-admin-input[' . esc_attr($input['id']) . ']"';
 
-		echo '<textarea ' . $allow_tabbing_class . 'cols="' . $input['cols'] . '" rows="' . $input['rows'] . '" id="' . $input['id'] . '"' . $name_attr . '>' . $input['value'] . '</textarea>';
+		// XSS PREVENTION: Use esc_textarea for textarea content
+		echo '<textarea ' . $allow_tabbing_class . 'cols="' . esc_attr($input['cols']) . '" rows="' . esc_attr($input['rows']) . '" id="' . esc_attr($input['id']) . '"' . $name_attr . '>' . esc_textarea($input['value']) . '</textarea>';
 
 	}
 

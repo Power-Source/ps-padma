@@ -204,7 +204,16 @@ class PadmaGalleryBlockDisplay {
 
 	function render($template, $params, $once = false) {
 
-		extract($params);
+		// SECURITY FIX: Replace dangerous extract() with safe scoping
+		// Make params available without using extract()
+		foreach ((array)$params as $_key => $_value) {
+			// Only allow safe variable names (alphanumeric + underscore)
+			if (preg_match('/^[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*$/', $_key)) {
+				$$_key = $_value;
+			}
+		}
+		unset($_key, $_value);
+		
 		ob_start();
 
 			if ( $once )

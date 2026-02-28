@@ -102,19 +102,22 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 
 			});
 
-			this.browser.tabs({
-				selected: 0,
-				activate: function(event, ui) {
+			// Check if jQuery UI tabs widget is available before calling
+			if (typeof this.browser.tabs === 'function') {
+				this.browser.tabs({
+					selected: 0,
+					activate: function(event, ui) {
 
-					var $newPanel = $(ui.newPanel);
+						var $newPanel = $(ui.newPanel);
 
-					if ( $newPanel.data('fonts-loaded') )
-						return;
+						if ( $newPanel.data('fonts-loaded') )
+							return;
 
-					self.retrieveRemoteFonts($newPanel, 'popularity', true, true);
+						self.retrieveRemoteFonts($newPanel, 'popularity', true, true);
 
-				}
-			});
+					}
+				});
+			}
 
 			this.changeToSelectedFontProviderTab();
 
@@ -318,20 +321,63 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 					});
 
 					if (familyParts.length) {
-						$('<link>')
-							.attr('type', 'text/css')
-							.attr('rel', 'stylesheet')
-							.attr('href', 'https://eimen.net/fonts/css.php?display=swap&family=' + encodeURIComponent(familyParts.join('|')))
-							.appendTo('head')
-							.on('load', function() {
+						// Batch fonts to avoid oversized URLs (max ~2000 chars per request)
+						var basePath = 'https://eimen.net/fonts/css.php?display=swap&family=';
+						var maxUrlLength = 2048;
+						var fontBatches = [];
+						var currentBatch = [];
+						var currentLength = basePath.length;
 
-								_.each(fontsToLoad, function(fontNode) {
-									fontNode = $(fontNode);
-									fontNode.find('span.font-family, span.font-preview-text').show().css('opacity', 1);
+						_.each(familyParts, function(fontPart) {
+							var encodedPart = encodeURIComponent(fontPart);
+							var separator = currentBatch.length > 0 ? '%7C' : ''; // %7C = |
+							var addedLength = separator.length + encodedPart.length;
 
+							if (currentLength + addedLength > maxUrlLength && currentBatch.length > 0) {
+								// Start a new batch
+								fontBatches.push(currentBatch);
+								currentBatch = [fontPart];
+								currentLength = basePath.length + encodedPart.length;
+							} else {
+								currentBatch.push(fontPart);
+								currentLength += addedLength;
+							}
+						});
+
+						if (currentBatch.length > 0) {
+							fontBatches.push(currentBatch);
+						}
+
+						// Load each batch
+						_.each(fontBatches, function(batch, batchIndex) {
+							var batchFamilyString = batch.join('|');
+							$('<link>')
+								.attr('type', 'text/css')
+								.attr('rel', 'stylesheet')
+								.attr('href', basePath + encodeURIComponent(batchFamilyString))
+								.appendTo('head')
+								.on('load', function() {
+
+									// On last batch, show all fonts
+									if (batchIndex === fontBatches.length - 1) {
+										_.each(fontsToLoad, function(fontNode) {
+											fontNode = $(fontNode);
+											fontNode.find('span.font-family, span.font-preview-text').show().css('opacity', 1);
+										});
+									}
+
+								})
+								.on('error', function() {
+									console.error('Font batch ' + (batchIndex + 1) + ' failed to load');
+									// Still try to show fonts even if CSS load fails
+									if (batchIndex === fontBatches.length - 1) {
+										_.each(fontsToLoad, function(fontNode) {
+											fontNode = $(fontNode);
+											fontNode.find('span.font-family, span.font-preview-text').show().css('opacity', 1);
+										});
+									}
 								});
-
-							});
+						});
 					}
 
 				}

@@ -80,7 +80,11 @@ class PadmaElementsData {
 			'se_meta' => null
 		);
 
-		extract(array_merge($defaults, $args));
+		// SECURITY FIX: Replace dangerous extract() with safe variable assignment
+		$params = array_merge($defaults, $args);
+		$element = $params['element'];
+		$se_type = $params['se_type'];
+		$se_meta = $params['se_meta'];
 
 		//Get element ID
 		$element_id = is_array($element) ? $element['id'] : $element;
