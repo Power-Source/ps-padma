@@ -33,7 +33,7 @@ class PadmaVisualEditorAJAX {
 		global $wpdb;
 
 		// CSRF nonce verification
-		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma-visual-editor-ajax') ) {
 			wp_die('Security check failed', 403);
 		}
 
@@ -54,7 +54,7 @@ class PadmaVisualEditorAJAX {
 		global $wpdb;
 
 		// CSRF nonce verification
-		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma-visual-editor-ajax') ) {
 			wp_die('Security check failed', 403);
 		}
 
@@ -87,7 +87,7 @@ class PadmaVisualEditorAJAX {
 	public static function secure_method_add_blank_skin() {
 
 		// CSRF nonce verification
-		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma-visual-editor-ajax') ) {
 			wp_die('Security check failed', 403);
 		}
 
@@ -127,7 +127,7 @@ class PadmaVisualEditorAJAX {
 	public static function secure_method_save_snapshot() {
 
 		// CSRF nonce verification
-		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma-visual-editor-ajax') ) {
 			wp_die('Security check failed', 403);
 		}
 
@@ -138,7 +138,7 @@ class PadmaVisualEditorAJAX {
 	public static function secure_method_rollback_to_snapshot() {
 
 		// CSRF nonce verification
-		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma-visual-editor-ajax') ) {
 			wp_die('Security check failed', 403);
 		}
 
@@ -149,7 +149,7 @@ class PadmaVisualEditorAJAX {
 	public static function secure_method_delete_snapshot() {
 
 		// CSRF nonce verification
-		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma-visual-editor-ajax') ) {
 			wp_die('Security check failed', 403);
 		}
 
@@ -162,7 +162,7 @@ class PadmaVisualEditorAJAX {
 	public static function secure_method_save_options() {
 
 		// CSRF nonce verification
-		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma-visual-editor-ajax') ) {
 			wp_die('Security check failed', 403);
 		}
 
@@ -527,7 +527,7 @@ class PadmaVisualEditorAJAX {
 	public static function secure_method_revert_layout() {
 
 		// CSRF nonce verification
-		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma-visual-editor-ajax') ) {
 			wp_die('Security check failed', 403);
 		}
 
@@ -638,7 +638,7 @@ class PadmaVisualEditorAJAX {
 	public static function secure_method_add_template() {
 
 		// CSRF nonce verification
-		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma-visual-editor-ajax') ) {
 			wp_die('Security check failed', 403);
 		}
 
@@ -650,7 +650,7 @@ class PadmaVisualEditorAJAX {
 	public static function secure_method_rename_layout_template() {
 
 		// CSRF nonce verification
-		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma-visual-editor-ajax') ) {
 			wp_die('Security check failed', 403);
 		}
 
@@ -683,7 +683,7 @@ class PadmaVisualEditorAJAX {
 	public static function secure_method_delete_template() {
 
 		// CSRF nonce verification
-		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma-visual-editor-ajax') ) {
 			wp_die('Security check failed', 403);
 		}
 
@@ -719,7 +719,7 @@ class PadmaVisualEditorAJAX {
 	public static function secure_method_assign_template() {
 
 		// CSRF nonce verification
-		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma-visual-editor-ajax') ) {
 			wp_die('Security check failed', 403);
 		}
 
@@ -744,7 +744,7 @@ class PadmaVisualEditorAJAX {
 	public static function secure_method_remove_template_from_layout() {
 
 		// CSRF nonce verification
-		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma_visual_editor_action') ) {
+		if ( !isset($_POST['nonce']) || !wp_verify_nonce($_POST['nonce'], 'padma-visual-editor-ajax') ) {
 			wp_die('Security check failed', 403);
 		}
 

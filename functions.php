@@ -34,12 +34,25 @@ require_once get_template_directory() . '/library/loader.php';
 
 /* Load Shortcode Functions (extracted from psource-shortcodes) */
 require_once get_template_directory() . '/library/shortcode-functions/helpers.php';
+
+// Advanced Blocks (VE2 Integration)
 require_once get_template_directory() . '/library/shortcode-functions/button.php';
 require_once get_template_directory() . '/library/shortcode-functions/accordion.php';
 require_once get_template_directory() . '/library/shortcode-functions/box.php';
 require_once get_template_directory() . '/library/shortcode-functions/quote.php';
 require_once get_template_directory() . '/library/shortcode-functions/tabs.php';
 require_once get_template_directory() . '/library/shortcode-functions/lightbox.php';
+
+// Standard Shortcodes (Modular)
+require_once get_template_directory() . '/library/shortcode-functions/typography.php';
+require_once get_template_directory() . '/library/shortcode-functions/media.php';
+require_once get_template_directory() . '/library/shortcode-functions/layout.php';
+require_once get_template_directory() . '/library/shortcode-functions/interactive.php';
+require_once get_template_directory() . '/library/shortcode-functions/galleries.php';
+require_once get_template_directory() . '/library/shortcode-functions/posts.php';
+
+// Shortcode Registration (with fallback system)
+require_once get_template_directory() . '/library/shortcode-functions/register.php';
 
 Padma::init();
 
