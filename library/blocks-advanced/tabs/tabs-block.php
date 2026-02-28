@@ -1,6 +1,6 @@
 <?php
 /**
- * Tabs Blocks
+ * Tabs Block
  *
  * @link       https://padmaunlimited.com
  * @since      1.0.0
@@ -16,7 +16,7 @@ namespace Padma_Advanced;
  * Tabs Block
  */
 class PadmaVisualElementsBlockTabs extends \PadmaBlockAPI {
-	
+
 	/**
 	 * Block id
 	 *
@@ -59,7 +59,7 @@ class PadmaVisualElementsBlockTabs extends \PadmaBlockAPI {
 		$this->id            = 'visual-elements-tabs';
 		$this->name          = __( 'Tabs', 'padma-advanced' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockTabsOptions';
-		$this->description   = __( 'Allows you to divide your content with horizontal or vertical tabs. You can specify which tab will be selected by default and turn any tab into link. You can use any HTML code or even other shortcodes as a content . ', 'padma-advanced' );
+		$this->description   = __( 'Allows you to create tabbed content with multiple tabs', 'padma-advanced' );
 		$this->categories    = array( 'box' );
 	}
 
@@ -67,121 +67,50 @@ class PadmaVisualElementsBlockTabs extends \PadmaBlockAPI {
 	 * Init
 	 */
 	public function init() {
-
-		if ( ! class_exists( 'PSOURCE_Shortcodes' ) ) {
-			return false;
-		}
-
+		// Check if native render function is available
+		// Fallback to PSOURCE_Shortcodes plugin if available
+		return function_exists( 'padma_render_tabs' ) || class_exists( 'PSOURCE_Shortcodes' );
 	}
 
 	/**
 	 * Setup Visual Editor elements.
 	 */
 	public function setup_elements() {
-
 		$this->register_block_element(
 			array(
 				'id'       => 'tabs',
-				'name'     => __( 'tabs', 'padma-advanced' ),
-				'selector' => 'div.su-tabs',
+				'name'     => __( 'Tabs', 'padma-advanced' ),
+				'selector' => '.su-tabs',
 			)
 		);
-
 		$this->register_block_element(
 			array(
-				'id'       => 'navs',
-				'name'     => __( 'navs', 'padma-advanced' ),
-				'selector' => 'div.su-tabs .su-tabs-nav',
+				'id'       => 'tabs-nav',
+				'name'     => __( 'Tabs Navigation', 'padma-advanced' ),
+				'selector' => '.su-tabs-nav',
 			)
 		);
-
 		$this->register_block_element(
 			array(
-				'id'       => 'title',
-				'name'     => __( 'Title', 'padma-advanced' ),
-				'selector' => 'div.su-tabs .su-tabs-nav span',
+				'id'       => 'tabs-panes',
+				'name'     => __( 'Tabs Panes', 'padma-advanced' ),
+				'selector' => '.su-tabs-panes',
 			)
 		);
+	}
 
-		$this->register_block_element(
-			array(
-				'id'       => 'panes',
-				'name'     => __( 'Panes', 'padma-advanced' ),
-				'selector' => 'div.su-tabs .su-tabs-panes',
-			)
-		);
-
-		$this->register_block_element(
-			array(
-				'id'       => 'pane',
-				'name'     => __( 'Pane', 'padma-advanced' ),
-				'selector' => 'div.su-tabs .su-tabs-panes .su-tabs-pane',
-			)
-		);
-
-		$this->register_block_element(
-			array(
-				'id'       => 'p',
-				'name'     => __( 'Text', 'padma-advanced' ),
-				'selector' => 'div.su-tabs .su-tabs-panes .su-tabs-pane p',
-			)
-		);
-
-		$this->register_block_element(
-			array(
-				'id'       => 'a',
-				'name'     => __( 'Link', 'padma-advanced' ),
-				'selector' => 'div.su-tabs .su-tabs-panes .su-tabs-pane a',
-			)
-		);
-
-		$this->register_block_element(
-			array(
-				'id'       => 'h1',
-				'name'     => __( 'Header 1', 'padma-advanced' ),
-				'selector' => 'div.su-tabs .su-tabs-panes .su-tabs-pane 1',
-			)
-		);
-
-		$this->register_block_element(
-			array(
-				'id'       => 'h2',
-				'name'     => __( 'Header 2', 'padma-advanced' ),
-				'selector' => 'div.su-tabs .su-tabs-panes .su-tabs-pane 2',
-			)
-		);
-
-		$this->register_block_element(
-			array(
-				'id'       => 'h3',
-				'name'     => __( 'Header 3', 'padma-advanced' ),
-				'selector' => 'div.su-tabs .su-tabs-panes .su-tabs-pane 3',
-			)
-		);
-
-		$this->register_block_element(
-			array(
-				'id'       => 'h4',
-				'name'     => __( 'Header 4', 'padma-advanced' ),
-				'selector' => 'div.su-tabs .su-tabs-panes .su-tabs-pane 4',
-			)
-		);
-
-		$this->register_block_element(
-			array(
-				'id'       => 'h5',
-				'name'     => __( 'Header 5', 'padma-advanced' ),
-				'selector' => 'div.su-tabs .su-tabs-panes .su-tabs-pane 5',
-			)
-		);
-
-		$this->register_block_element(
-			array(
-				'id'       => 'h6',
-				'name'     => __( 'Header 6', 'padma-advanced' ),
-				'selector' => 'div.su-tabs .su-tabs-panes .su-tabs-pane 6',
-			)
-		);
+	/**
+	 * Dynamic_css function
+	 *
+	 * @param string  $block_id Block ID.
+	 * @param boolean $block Block Object.
+	 * @return string
+	 */
+	public static function dynamic_css( $block_id, $block = false ) {
+		if ( ! $block ) {
+			$block = \PadmaBlocksData::get_block( $block_id );
+		}
+		return '';
 	}
 
 	/**
@@ -191,43 +120,63 @@ class PadmaVisualElementsBlockTabs extends \PadmaBlockAPI {
 	 * @return void
 	 */
 	public function content( $block ) {
+		$tabs_list = parent::get_setting( $block, 'tabs', array() );
+		$vertical  = parent::get_setting( $block, 'vertical', 'no' );
+		$style     = parent::get_setting( $block, 'style', 'default' );
 
-		$style    = ( parent::get_setting( $block, 'style' ) ) ? parent::get_setting( $block, 'style' ) : 'default';
-		$active   = ( parent::get_setting( $block, 'active' ) ) ? parent::get_setting( $block, 'active' ) : 1;
-		$vertical = parent::get_setting( $block, 'vertical' );
-		$tabs     = parent::get_setting( $block, 'tabs', array() );
+		// Prepare tabs arguments
+		$tabs_args = array(
+			'vertical' => $vertical,
+			'style'    => $style,
+		);
 
-		if ( 'yes' === $vertical ) {
-			$shortcode = '[su_tabs vertical="' . $vertical . '"]';
-		} else {
-			$shortcode = '[su_tabs]';
+		// Prepare tab items
+		$tab_items = array();
+		foreach ( $tabs_list as $tab => $params ) {
+			$tab_items[] = array(
+				'title'    => isset( $params['title'] ) ? $params['title'] : __( 'Tab', 'padma-advanced' ),
+				'disabled' => isset( $params['disabled'] ) ? $params['disabled'] : 'no',
+				'anchor'   => isset( $params['anchor'] ) ? $params['anchor'] : '',
+				'url'      => isset( $params['url'] ) ? $params['url'] : '',
+				'target'   => isset( $params['target'] ) ? $params['target'] : 'blank',
+				'content'  => isset( $params['content'] ) ? $params['content'] : '',
+				'class'    => isset( $params['class'] ) ? $params['class'] : '',
+			);
 		}
 
-		foreach ( $tabs as $tab => $params ) {
+		// Render tabs
+		$html = padma_render_tabs( $tabs_args, $tab_items );
 
-			$title    = isset( $params['title'] ) ? $params['title'] : '';
-			$disabled = isset( $params['disabled'] ) ? $params['disabled'] : '';
-			$anchor   = isset( $params['anchor'] ) ? $params['anchor'] : '';
-			$url      = isset( $params['url'] ) ? $params['url'] : '';
-			$target   = isset( $params['target'] ) ? $params['target'] : '';
-			$content  = isset( $params['content'] ) ? $params['content'] : '';
+		// remove inline CSS.
+		$html = preg_replace( '(style=("|\Z)(.*?)("|\Z))', '', $html );
 
-			$shortcode .= '[su_tab ';
-			$shortcode .= 'title="' . $title . '" ';
-			$shortcode .= 'disabled="' . $disabled . '" ';
-			$shortcode .= 'anchor="' . $anchor . '" ';
-			$shortcode .= 'url="' . $url . '" ';
-			$shortcode .= 'target="' . $target . '" ';
-			$shortcode .= ']';
-			$shortcode .= $content;
-			$shortcode .= '[/su_tab]';
-
-		}
-
-		$shortcode .= '[/su_tabs]';
-
-		echo do_shortcode( $shortcode );
-
+		echo $html;
 	}
 
+	/**
+	 * Register styles and scripts
+	 *
+	 * @param string  $block_id Block ID.
+	 * @param boolean $block Is Block?.
+	 * @return void
+	 */
+	public static function enqueue_action( $block_id, $block = false ) {
+		if ( ! $block ) {
+			$block = \PadmaBlocksData::get_block( $block_id );
+		}
+		$style = parent::get_setting( $block, 'style' );
+		if ( 'none' !== $style ) {
+			\PadmaCompiler::register_file(
+				array(
+					'name'         => 've-tabs-css',
+					'format'       => 'css',
+					'fragments'    => array(
+						__DIR__ . '/tabs.css',
+					),
+					'dependencies' => array(),
+					'enqueue'      => true,
+				)
+			);
+		}
+	}
 }

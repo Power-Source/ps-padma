@@ -23,9 +23,21 @@ class PadmaCompatibilityShortcodes {
 		if ( !$page || strpos($page, 'padma') !== 0 )
 			return;
 
+		// Check if native render functions exist for the previously-dependent blocks
+		$has_native_support = function_exists('padma_render_button') 
+			&& function_exists('padma_render_accordion')
+			&& function_exists('padma_render_tabs')
+			&& function_exists('padma_render_quote')
+			&& function_exists('padma_render_box');
+
+		// If native functions are available, no need to warn about those blocks
+		// Only warn if using media blocks (Vimeo, YouTube, etc.) that still need the plugin
+		if ( $has_native_support )
+			return;
+
 		echo '<div class="notice notice-warning"><p>';
 		echo '<strong>' . esc_html__('Padma Hinweis:', 'padma') . '</strong> ';
-		echo esc_html__('Für mehrere Erweiterte Blöcke wird PSOURCE Shortcodes benötigt (z. B. Tabs, Accordion, Spoiler, Quote, Vimeo, YouTube).', 'padma');
+		echo esc_html__('Für einige Erweiterte Blöcke wird das PSOURCE Shortcodes Plugin empfohlen.', 'padma');
 		echo '</p></div>';
 
 	}

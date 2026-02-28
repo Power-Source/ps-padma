@@ -86,11 +86,9 @@ class PadmaVisualElementsBlockLightbox extends \PadmaBlockAPI {
 	 * Init
 	 */
 	public function init() {
-
-		if ( ! class_exists( 'PSOURCE_Shortcodes' ) ) {
-			return false;
-		}
-
+		// Check if native render function is available
+		// Fallback to PSOURCE_Shortcodes plugin if available
+		return function_exists( 'padma_render_lightbox' ) || class_exists( 'PSOURCE_Shortcodes' );
 	}
 
 	/**
@@ -210,31 +208,35 @@ class PadmaVisualElementsBlockLightbox extends \PadmaBlockAPI {
 		$iframe = parent::get_setting( $block, 'iframe' );
 		$inline = parent::get_setting( $block, 'inline' );
 
-		$shortcode = '[su_lightbox ';
+		$lightbox_args = array(
+			'type' => $type,
+		);
 
+		// Set source based on type
 		switch ( $type ) {
 			case 'image':
-				$shortcode .= 'type="image" src="' . $image . '" class="title"]' . $title . '[/su_lightbox]';
+				$lightbox_args['src'] = $image;
 				break;
-
 			case 'iframe':
-				$shortcode .= 'type="iframe" src="' . $iframe . '" class="title"]' . $title . '[/su_lightbox]';
+				$lightbox_args['src'] = $iframe;
 				break;
-
 			case 'inline':
-				$shortcode .= 'type="inline" src="#' . $block['id'] . '" class="title"] ' . $title . ' [/su_lightbox]';
-				$shortcode .= '[su_lightbox_content id="#' . $block['id'] . '"]' . $inline . '[/su_lightbox_content]';
+				$lightbox_args['src'] = '#' . $block['id'];
 				break;
-
 			default:
-				$content = 'none';
-				break;
+				$lightbox_args['src'] = $image;
 		}
 
-		$html = do_shortcode( $shortcode );
+		// Render lightbox trigger
+		$html = padma_render_lightbox( $lightbox_args, esc_html( $title ) );
 
-		// remove inline CSS.
-		$html = preg_replace( '(style=("|\Z)(.*?)("|\Z))', '', $html );
+		// If type is inline, also render the content container
+		if ( 'inline' === $type ) {
+			$content_args = array(
+				'id' => $block['id'],
+			);
+			$html .= padma_render_lightbox_content( $content_args, $inline );
+		}
 
 		echo $html;
 

@@ -32,6 +32,15 @@ require_once get_template_directory() . '/library/common/parse-php.php';
 require_once get_template_directory() . '/library/common/settings.php';
 require_once get_template_directory() . '/library/loader.php';
 
+/* Load Shortcode Functions (extracted from psource-shortcodes) */
+require_once get_template_directory() . '/library/shortcode-functions/helpers.php';
+require_once get_template_directory() . '/library/shortcode-functions/button.php';
+require_once get_template_directory() . '/library/shortcode-functions/accordion.php';
+require_once get_template_directory() . '/library/shortcode-functions/box.php';
+require_once get_template_directory() . '/library/shortcode-functions/quote.php';
+require_once get_template_directory() . '/library/shortcode-functions/tabs.php';
+require_once get_template_directory() . '/library/shortcode-functions/lightbox.php';
+
 Padma::init();
 
 
