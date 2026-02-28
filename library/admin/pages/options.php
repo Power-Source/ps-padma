@@ -1,6 +1,10 @@
+<div class="notice notice-info" style="margin: 20px 0; padding: 15px; border-left: 4px solid #2271b1;">
+	<h3 style="margin-top: 0;"><?php _e('SEO Settings haben jetzt eine eigene Seite!', 'padma'); ?></h3>
+	<p><?php echo sprintf(__('Alle SEO-Einstellungen findest du jetzt unter <a href="%s"><strong>Padma > SEO</strong></a>.', 'padma'), admin_url('admin.php?page=padma-seo')); ?></p>
+</div>
+
 <h2 class="nav-tab-wrapper big-tabs-tabs">
 	<a class="nav-tab" href="#tab-general"><?php _e('General', 'padma'); ?></a>
-	<a class="nav-tab" href="#tab-seo"><?php _e('Search Engine Optimization', 'padma'); ?></a>
 	<a class="nav-tab" href="#tab-scripts"><?php _e('Scripts/Analytics', 'padma'); ?></a>
 	<a class="nav-tab" href="#tab-visual-editor"><?php _e('Visual Editor', 'padma'); ?></a>
 	<a class="nav-tab" href="#tab-advanced"><?php _e('Advanced', 'padma'); ?></a>
@@ -117,10 +121,11 @@
 			</div>
 		</div>
 
-		<div class="big-tab" id="tab-seo-content">
+		<!-- SEO Tab removed - now has its own admin page -->
 
-			<?php
-			if (PadmaSEO::is_disabled()) {
+		<div class="big-tab" id="tab-scripts-content">
+
+			<!-- Scripts/Analytics -->
 
 				switch (PadmaSEO::plugin_active()) {
 
