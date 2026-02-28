@@ -135,8 +135,8 @@ return $css;
 public function content( $block ) {
 
 $url     = parent::get_setting( $block, 'url' );
-$target  = parent::get_setting( $block, 'target' );
-$style   = parent::get_setting( $block, 'style' );
+$target  = parent::get_setting( $block, 'target', 'self' );
+$style   = parent::get_setting( $block, 'style', 'default' );
 $icon    = parent::get_setting( $block, 'icon' );
 $desc    = parent::get_setting( $block, 'desc' );
 $onclick = parent::get_setting( $block, 'onclick' );
@@ -145,19 +145,19 @@ $title   = parent::get_setting( $block, 'title' );
 
 // Prepare icon for rendering
 if ( $icon && ! filter_var( $icon, FILTER_VALIDATE_URL ) ) {
-$icon = 'icon:' . $icon;
+	$icon = 'icon:' . $icon;
 }
 
 // Render button using native function
 $button_args = array(
-'url'     => $url,
-'target'  => $target,
-'style'   => $style,
-'icon'    => $icon,
-'desc'    => $desc,
-'onclick' => $onclick,
-'rel'     => $rel,
-'title'   => $title,
+	'url'     => $url,
+	'target'  => $target,
+	'style'   => $style,
+	'icon'    => $icon,
+	'desc'    => $desc,
+	'onclick' => $onclick,
+	'rel'     => $rel,
+	'title'   => $title,
 );
 
 $html = padma_render_button( $button_args, '' );

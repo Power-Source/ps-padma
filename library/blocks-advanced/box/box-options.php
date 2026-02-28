@@ -44,6 +44,13 @@ class PadmaVisualElementsBlockBoxOptions extends \PadmaBlockOptionsAPI {
 
 		$this->inputs = array(
 			'general' => array(
+				'title'   => array(
+					'name'    => 'title',
+					'type'    => 'text',
+					'label'   => __( 'Title', 'padma-advanced' ),
+					'tooltip' => __( 'Text for the box title', 'padma-advanced' ),
+				),
+
 				'style'   => array(
 					'name'    => 'style',
 					'type'    => 'select',
@@ -57,21 +64,6 @@ class PadmaVisualElementsBlockBoxOptions extends \PadmaBlockOptionsAPI {
 						'noise'   => 'Noise',
 					),
 					'tooltip' => __( 'Box style preset', 'padma-advanced' ),
-				),
-
-				'radius'  => array(
-					'name'    => 'radius',
-					'type'    => 'text',
-					'label'   => __( 'Radius', 'padma-advanced' ),
-					'tooltip' => __( 'Box corners radius', 'padma-advanced' ),
-					'default' => 3,
-				),
-
-				'title'   => array(
-					'name'    => 'title',
-					'type'    => 'text',
-					'label'   => __( 'Title', 'padma-advanced' ),
-					'tooltip' => __( 'Text for the box title', 'padma-advanced' ),
 				),
 
 				'content' => array(

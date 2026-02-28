@@ -4,7 +4,8 @@ define(['jquery', 'vanilla-draggable', 'helper.codeMirror', 'deps/chosen.jquery'
 
 		container.each(function() {
 
-			$(this).find('[id*="input-"]').reverse().each(function() {
+			var inputs = $(this).find('[id*="input-"]').get();
+			$(inputs.reverse()).each(function() {
 
 				handleInputToggle($(this));
 

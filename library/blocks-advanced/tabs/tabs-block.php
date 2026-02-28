@@ -147,9 +147,6 @@ class PadmaVisualElementsBlockTabs extends \PadmaBlockAPI {
 		// Render tabs
 		$html = padma_render_tabs( $tabs_args, $tab_items );
 
-		// remove inline CSS.
-		$html = preg_replace( '(style=("|\Z)(.*?)("|\Z))', '', $html );
-
 		echo $html;
 	}
 

@@ -85,30 +85,35 @@ class PadmaVisualElementsBlockButtonOptions extends \PadmaBlockOptionsAPI {
 					),
 					'tooltip' => __( 'Button background style preset', 'padma-advanced' ),
 				),
+
 				'icon'    => array(
 					'name'    => 'icon',
 					'label'   => __( 'Icon', 'padma-advanced' ),
 					'type'    => 'text',
 					'tooltip' => __( 'You can upload custom icon for this button or pick a built-in icon. FontAwesome icon name or icon image URL. Examples: "star", http://example.com/icon.png', 'padma-advanced' ),
 				),
+
 				'desc'    => array(
 					'name'    => 'desc',
 					'label'   => __( 'Desc', 'padma-advanced' ),
 					'type'    => 'text',
 					'tooltip' => __( 'Small description under button text. This option is incompatible with icon . ', 'padma-advanced' ),
 				),
+
 				'onclick' => array(
 					'name'    => 'onclick',
 					'label'   => __( 'onClick', 'padma-advanced' ),
 					'type'    => 'text',
 					'tooltip' => __( 'Advanced JavaScript code for onClick action . ', 'padma-advanced' ),
 				),
+
 				'rel'     => array(
 					'name'    => 'rel',
 					'label'   => __( 'Rel', 'padma-advanced' ),
 					'type'    => 'text',
 					'tooltip' => __( 'Here you can add value for the rel attribute. Example values: nofollow, lightbox', 'padma-advanced' ),
 				),
+
 				'title'   => array(
 					'name'    => 'title',
 					'label'   => __( 'Title', 'padma-advanced' ),

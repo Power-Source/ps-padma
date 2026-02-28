@@ -167,9 +167,6 @@ $spoiler_items[] = array(
 // Render accordion
 $html = padma_render_accordion( $accordion_args, $spoiler_items );
 
-// remove inline CSS for color.
-$html = preg_replace( '(style=("|\Z)(.*?)("|\Z))', '', $html );
-
 echo $html;
 
 }

@@ -117,24 +117,15 @@ return '';
  * @return void
  */
 public function content( $block ) {
-$quote = parent::get_setting( $block, 'quote' );
-$cite  = parent::get_setting( $block, 'cite' );
-$url   = parent::get_setting( $block, 'url' );
-$style = parent::get_setting( $block, 'style' );
+$quote   = parent::get_setting( $block, 'quote' );
+$cite    = parent::get_setting( $block, 'cite' );
+$url     = parent::get_setting( $block, 'url' );
 
 // Render quote using native function
 $quote_args = array(
-'style' => $style,
-'cite'  => $cite,
-'url'   => $url,
-);
-
-$html = padma_render_quote( $quote_args, $quote );
-
-// remove inline CSS.
-$html = preg_replace( '(style=("|\Z)(.*?)("|\Z))', '', $html );
-
-echo $html;
+	'cite' => $cite,
+	'url'  => $url,
+	);
 }
 
 /**

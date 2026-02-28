@@ -117,24 +117,15 @@ return '';
  * @return void
  */
 public function content( $block ) {
-$title  = parent::get_setting( $block, 'title' );
-$style  = parent::get_setting( $block, 'style' );
-$radius = parent::get_setting( $block, 'radius' );
+$title   = parent::get_setting( $block, 'title' );
+$style   = parent::get_setting( $block, 'style', 'default' );
 $content = parent::get_setting( $block, 'content' );
 
 // Render box using native function
 $box_args = array(
-'title'  => $title,
-'style'  => $style,
-'radius' => $radius,
-);
-
-$html = padma_render_box( $box_args, $content );
-
-// remove inline CSS.
-$html = preg_replace( '(style=("|\Z)(.*?)("|\Z))', '', $html );
-
-echo $html;
+	'title' => $title,
+	'style' => $style,
+	);
 }
 
 /**

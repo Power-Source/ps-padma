@@ -47,6 +47,13 @@ class PadmaVisualElementsBlockQuoteOptions extends \PadmaBlockOptionsAPI {
 		$this->inputs = array(
 			'general' => array(
 
+				'quote' => array(
+					'name'    => 'quote',
+					'type'    => 'wysiwyg',
+					'label'   => __( 'Quote', 'padma-advanced' ),
+					'tooltip' => __( 'Quote text', 'padma-advanced' ),
+				),
+
 				'cite'  => array(
 					'name'    => 'cite',
 					'type'    => 'text',
@@ -54,17 +61,10 @@ class PadmaVisualElementsBlockQuoteOptions extends \PadmaBlockOptionsAPI {
 					'tooltip' => __( 'Quote author name', 'padma-advanced' ),
 				),
 
-				'quote' => array(
-					'name'    => 'quote',
-					'type'    => 'text',
-					'label'   => __( 'Quote', 'padma-advanced' ),
-					'tooltip' => __( 'Quote text', 'padma-advanced' ),
-				),
-
 				'url'   => array(
 					'name'    => 'url',
 					'type'    => 'text',
-					'label'   => __( 'Url', 'padma-advanced' ),
+					'label'   => __( 'Author URL', 'padma-advanced' ),
 					'tooltip' => __( 'Url of the quote author. Leave empty to disable link', 'padma-advanced' ),
 				),
 			),
