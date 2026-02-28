@@ -285,6 +285,7 @@ class PadmaCompiler {
 		// SECURITY FIX: Replace dangerous extract() with safe variable assignment
 		$fragments = $file['fragments'] ?? array();
 		$dependencies = $file['dependencies'] ?? array();
+		$format = $file['format'] ?? null;
 
 		$num_fragments = (int)count($fragments);
 

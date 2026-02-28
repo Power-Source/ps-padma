@@ -78,11 +78,12 @@ require(['jquery', 'util.loader', 'Sortable', 'sortable-adapter', 'vanilla-tabs'
 	/**
 	 *
 	 * Offline check
+	 * DISABLED: Causing 403 nonce issues with admin-ajax.php
 	 *
 	 */
-	require(['util.offline'], function(offline) {
-		offline.init();
-	});
+	// require(['util.offline'], function(offline) {
+	// 	offline.init();
+	// });
 	
 	
 

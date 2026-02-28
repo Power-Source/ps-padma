@@ -8,27 +8,10 @@ define(['jquery', 'deps/offline'], function($,offline) {
 	return {
 		init: function(){
 
-			Offline.options = {
-				checks: {
-					xhr: {
-						url: 'admin-ajax.php'
-					}
-				}
-			};
+			// DISABLED: Offline detection disabled to prevent 403 nonce issues
+			// Offline.options = { ... };
+			// Just return early without initializing Offline checks
 
-
-			Offline.on('confirmed-down', function(){
-				showErrorNotification({
-					id: 'offline-confirmed-down',
-					message: 'Internet connection lost. Please check out your connection before continue editing.',
-					closeTimer: false
-				});
-			});
-
-			Offline.on('confirmed-up', function(){
-				hideNotification('offline-confirmed-down');
-			})
-			
 		},
 
 	}
