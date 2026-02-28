@@ -126,6 +126,10 @@ $quote_args = array(
 	'cite' => $cite,
 	'url'  => $url,
 	);
+
+$html = padma_render_quote( $quote_args, $quote );
+
+echo $html;
 }
 
 /**

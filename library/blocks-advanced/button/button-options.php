@@ -47,6 +47,13 @@ class PadmaVisualElementsBlockButtonOptions extends \PadmaBlockOptionsAPI {
 		$this->inputs = array(
 			'general' => array(
 
+				'text'    => array(
+					'name'    => 'text',
+					'type'    => 'text',
+					'label'   => __( 'Text', 'padma-advanced' ),
+					'tooltip' => __( 'Button text content', 'padma-advanced' ),
+				),
+
 				'url'     => array(
 					'name'    => 'url',
 					'type'    => 'text',

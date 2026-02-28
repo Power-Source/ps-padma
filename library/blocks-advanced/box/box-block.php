@@ -126,6 +126,10 @@ $box_args = array(
 	'title' => $title,
 	'style' => $style,
 	);
+
+$html = padma_render_box( $box_args, $content );
+
+echo $html;
 }
 
 /**

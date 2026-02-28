@@ -134,6 +134,7 @@ return $css;
  */
 public function content( $block ) {
 
+$text    = parent::get_setting( $block, 'text' );
 $url     = parent::get_setting( $block, 'url' );
 $target  = parent::get_setting( $block, 'target', 'self' );
 $style   = parent::get_setting( $block, 'style', 'default' );
@@ -160,7 +161,7 @@ $button_args = array(
 	'title'   => $title,
 );
 
-$html = padma_render_button( $button_args, '' );
+$html = padma_render_button( $button_args, $text );
 
 echo $html;
 }
