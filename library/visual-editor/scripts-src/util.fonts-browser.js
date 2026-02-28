@@ -54,24 +54,28 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 
 					var fontName 			= $(this).siblings('.font-family').text();
 					var fontFamily 			= fontID;
-					var fontVariants 		= li.data('variants')
+				var fontVariants 		= li.data('variants');
+				
+				// Normalize variants - handle both array and string formats
+				var normalizedVariants = [];
+				if (_.isArray(fontVariants)) {
+					normalizedVariants = fontVariants;
+				} else if (_.isString(fontVariants)) {
+					var variantStr = $.trim(fontVariants);
+					if (variantStr.charAt(0) === '[' && variantStr.charAt(variantStr.length - 1) === ']') {
+						variantStr = variantStr.substring(1, variantStr.length - 1);
+					}
+					normalizedVariants = _.chain(variantStr.split(','))
+						.map(function(item) { return $.trim(item.replace(/^['\"]|['\"]$/g, '')); })
+						.filter(function(item) { return item.length > 0; })
+						.value();
+				}
+				
+				var variantsStr = '';
+				if ( normalizedVariants && normalizedVariants.length > 0 && _.indexOf(normalizedVariants, 'regular') === -1 )
+					variantsStr = '|' + normalizedVariants.join(',');
 
-					if(fontVariants.length > 0){
-						fontVariants = fontVariants.replace('[','').replace(']','');
-						
-					}					
-					var variantsStr = '';
-
-					if ( fontVariants && fontVariants.indexOf('regular') === -1 )
-						variantsStr = '|' + fontVariants.join(',');
-
-					var value = webfontProvider != false ? webfontProvider + '|' + fontID + ':' + fontVariants : fontID;					
-
-					/* Change readout */
-					var fontNameReadout = self.propertyInput.find('.font-name');
-
-					fontNameReadout.css('font-family', fontFamily);
-					fontNameReadout.text(fontName);
+				var value = webfontProvider != false ? webfontProvider + '|' + fontID + ':' + normalizedVariants.join(',') : fontID;
 
 					/*	Change iframe	*/
 					var selector = $(self.propertyInput.find('input.property-hidden-input')[0]).attr('element_selector');
@@ -188,6 +192,53 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 
 			var fontsToLoad = [];
 
+			var normalizeVariants = function(variants) {
+				var normalized = [];
+				
+				// Handle various input formats
+				if (_.isArray(variants)) {
+					normalized = variants;
+				} else if (_.isString(variants)) {
+					var trimmed = $.trim(variants);
+
+					if (!trimmed.length) {
+						return [];
+					}
+
+					// Remove brackets if present (from JSON encoding)
+					if (trimmed.charAt(0) === '[' && trimmed.charAt(trimmed.length - 1) === ']') {
+						trimmed = trimmed.substring(1, trimmed.length - 1);
+					}
+
+					// Split by comma and clean up each item
+					normalized = _.chain(trimmed.split(','))
+						.map(function(item) { 
+							return $.trim(item.replace(/^['\"]|['\"]$/g, ''));
+						})
+						.filter(function(item) { return item.length > 0; })
+						.value();
+				}
+				
+				// Normalize all variants to standard format
+				return _.map(normalized, mapVariant);
+			};
+
+			var mapVariant = function(variantName) {
+				variantName = String(variantName).toLowerCase().trim();
+				
+				// Normalize italic variants to short format
+				variantName = variantName.replace(/(\d+)italic/g, '$1i');
+				variantName = variantName.replace(/^italic$/, '400i');
+				
+				// Normalize "regular" to "400"
+				variantName = variantName.replace(/^regular$/, '400');
+				
+				// Normalize "normal" to "400" as well
+				variantName = variantName.replace(/^normal$/, '400');
+
+				return variantName;
+			};
+
 			/* Find Visible Fonts that need to be loaded */
 				var viewportTop = fontList.scrollTop();
 				var viewportBottom = viewportTop + fontList.outerHeight();
@@ -209,86 +260,50 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 					if ( fontBottom > viewportBottom )
 						return false;
 
-					var variants = '';
-
-					if ( $(this).data('variants').indexOf('regular') === -1 ){
-						if($(this).data('variants').length > 0){
-							variants = ':' + $(this).data('variants').join('');							
-						}
-					}
-
-					fontsToLoad.push($(this).data('value') + variants);
+					fontsToLoad.push($(this));
 
 				});
 
 			/* Load fonts via WebFont API */
 				if ( fontsToLoad.length ) {
 
-					var args = {};
-					var googleFontsQueryString = '';
+					var familyParts = [];
 
-					_.each(fontsToLoad, function(fontToLoad) {
-
-						
-						// Font name
-						var fontNode = fontList.find('li[data-value="' + fontToLoad + '"]');
+					_.each(fontsToLoad, function(fontNode) {
+						fontNode = $(fontNode);
 						fontNode.data('loadedFont', true);
-						
 
-						googleFontsQueryString += fontToLoad.replace(' ', '+');
-						
-						var variants = fontNode.data('variants');
-						if(variants != undefined){
-							if(variants.length > 0){
-							
-								googleFontsQueryString += ':';
-								
-								// Font variants
-								variantsQueryString = '';
-								for (var i = 0; i < variants.length; i++) {
-									
-									var variantName = variants[i];									
-										variantName = variantName.replace('100italic','100i');
-										variantName = variantName.replace('200italic','200i');
-										variantName = variantName.replace('300italic','300i');
-										variantName = variantName.replace('400italic','400i');
-										variantName = variantName.replace('500italic','500i');
-										variantName = variantName.replace('600italic','600i');
-										variantName = variantName.replace('700italic','700i');
-										variantName = variantName.replace('800italic','800i');
-										variantName = variantName.replace('900italic','900i');
-										variantName = variantName.replace('italic','400i');
-										variantName = variantName.replace('regular','400');
-
-									variantsQueryString +=  variantName + ',';
-								}
-								variantsQueryString = variantsQueryString.substr(0, variantsQueryString.length-1);
-							}
-							googleFontsQueryString += variantsQueryString + '|';
-						}else{
-							googleFontsQueryString += '|';
+						var fontName = String(fontNode.data('value') || '').replace(/\s+/g, '+');
+						if (!fontName.length) {
+							return;
 						}
+
+						var variants = normalizeVariants(fontNode.data('variants'));
+						var variantsQueryString = _.chain(variants)
+							.map(mapVariant)
+							.filter(function(item) { return item.length > 0; })
+							.value()
+							.join(',');
+
+						familyParts.push(fontName + (variantsQueryString ? ':' + variantsQueryString : ''));
 					});
 
-
-					if(googleFontsQueryString.substr(0, googleFontsQueryString.length-1) !== 'undefined'){
-
+					if (familyParts.length) {
 						$('<link>')
 							.attr('type', 'text/css')
 							.attr('rel', 'stylesheet')
-							.attr('href', 'https://eimen.net/fonts/css.php?display=' + googleFontsQueryString.substr(0, googleFontsQueryString.length-1))
+							.attr('href', 'https://eimen.net/fonts/css.php?display=swap&family=' + encodeURIComponent(familyParts.join('|')))
 							.appendTo('head')
-							.bind('load', function() {
+							.on('load', function() {
 
-								_.each(fontsToLoad, function(fontToLoad) {
-									var fontNode = fontList.find('li[data-value="' + fontToLoad.split(':')[0] + '"]');
+								_.each(fontsToLoad, function(fontNode) {
+									fontNode = $(fontNode);
 									fontNode.find('span.font-family, span.font-preview-text').show().css('opacity', 1);
 
 								});
 
 							});
 					}
-
 
 				}
 

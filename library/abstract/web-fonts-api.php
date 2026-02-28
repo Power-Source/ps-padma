@@ -174,18 +174,9 @@ abstract class PadmaWebFontProvider {
 		/* Output the fonts */
 		foreach ( $fonts as $font ) {
 
-			$variants = '';
-			if(isset($font['variants'])){
-				foreach ($font['variants'] as $key => $value) {
-					$variants .= $value . ',';
-				}
-				$variants = rtrim($variants,',');
+			$variants = isset($font['variants']) && is_array($font['variants']) ? $font['variants'] : array();
 
-			}
-
-			$html = '<li data-value="' . $font['id'] . '" style="font-family:' . $font['stack'] . ';" data-variants="[';			
-			$html .= $variants;
-			$html .= ']">
+			$html = '<li data-value="' . esc_attr($font['id']) . '" style="font-family:' . esc_attr($font['stack']) . ';" data-variants=\'' . esc_attr(wp_json_encode($variants)) . '\'>
 					<span class="font-family">' . $font['name'] . '</span> 
 					<span class="font-preview-text">' . __('The quick brown fox jumps over the lazy dog.','padma') . '</span> 
 
