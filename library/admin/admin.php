@@ -420,6 +420,13 @@ class PadmaAdmin {
 
 	}
 
+	/* Post/Page Edit Screens (for Metaboxes) */
+	if ( in_array( $pagenow, array( 'post.php', 'post-new.php' ) ) ) {
+
+		wp_enqueue_style('padma_admin_write', padma_url() . '/library/admin/css/admin-write.css');
+
+	}
+
 	/* SEO Suite */
 	if ( padma_get('page') == 'padma-seo' ) {
 

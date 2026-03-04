@@ -13,9 +13,11 @@ div.postbox table.padma-admin-meta-box tr.label th {
 	padding: 20px 10px 3px 10px;
 }
 div.postbox table.padma-admin-meta-box tr.label th label {
+	display: block;
 	font-weight: bold;
 	font-size: 14px;
 	color: #444444;
+	margin-bottom: 8px;
 }
 div.postbox table.padma-admin-meta-box tr.description td {
 	padding: 0 10px 10px;
@@ -26,22 +28,32 @@ div.postbox table.padma-admin-meta-box tr.description p {
 	margin: -3px 0 0 5px !important;
 }
 div.postbox table.padma-admin-meta-box label.selectit {
+	display: block;
 	font-size: 12px;
 	color: #333333;
+	margin-bottom: 5px;
 }
 div.postbox table.padma-admin-meta-box label.selectit input {
 	margin: -4px 3px 0 0;
 }
 div.postbox table.padma-admin-meta-box input[type="text"],
 div.postbox table.padma-admin-meta-box textarea {
+	display: block !important;
 	width: 100% !important;
+	max-width: 100% !important;
+	box-sizing: border-box !important;
 }
 
 div.postbox table.padma-admin-meta-box select {
-	width: 90%;
+	display: block !important;
+	width: 100% !important;
+	max-width: 100% !important;
+	box-sizing: border-box !important;
 }
 
 div.postbox table.padma-admin-meta-box {
+	width: 100% !important;
+	display: block !important;
 	margin-top: 10px;
 }
 
@@ -122,34 +134,42 @@ small#padma-seo-preview-disclaimer {
 }
 
 div.postbox table.padma-admin-meta-box {
-    max-width: 100%;
-    width: 100%;
-    table-layout: fixed;
-    overflow-wrap: anywhere;
+    width: 100% !important;
+    display: block !important;
+    overflow: auto !important;
+    table-layout: auto !important;
+    border-collapse: collapse !important;
 }
 
 div.postbox table.padma-admin-meta-box th,
 div.postbox table.padma-admin-meta-box td {
-    max-width: 1px;
-    width: 1%;
+    max-width: none;
+    width: auto;
     word-break: break-word;
+    overflow-wrap: break-word;
     vertical-align: top;
     padding: 8px 10px;
+    box-sizing: border-box;
 }
 
 div.postbox table.padma-admin-meta-box input[type="text"],
 div.postbox table.padma-admin-meta-box textarea,
 div.postbox table.padma-admin-meta-box select {
+    display: block;
     max-width: 100%;
     width: 100%;
     min-width: 0;
     box-sizing: border-box;
-    overflow-wrap: anywhere;
 }
 
 div.postbox.padma-admin-options-group,
 div.postbox.padma-admin-meta-box {
     width: 100%;
+}
+
+table.form-table.padma-admin-meta-box {
+    display: block;
+    overflow: auto;
 }
 
 table.form-table.padma-admin-meta-box select,
