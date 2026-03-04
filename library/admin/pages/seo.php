@@ -6,7 +6,7 @@
  * @since 2.0.0
  */
 
-PadmaAdmin::show_header(__('Padma SEO Suite', 'padma'));
+PadmaAdmin::show_header(__('PS Padma SEO Suite', 'padma'));
 
 // Save settings
 if (isset($_POST['padma-seo-save'])) {
@@ -48,7 +48,7 @@ if (isset($_POST['padma-seo-save'])) {
 		set_theme_mod('padma_contact_email', sanitize_email($_POST['org-contact-email']));
 	}
 	
-	echo '<div class="updated"><p>' . __('SEO settings saved successfully!', 'padma') . '</p></div>';
+	echo '<div class="updated"><p>' . __('SEO Einstellungen erfolgreich gespeichert!', 'padma') . '</p></div>';
 }
 
 $sitemap_enabled = PadmaOption::get('enable-sitemaps', 'general', true);
@@ -61,122 +61,15 @@ $org_email = get_theme_mod('padma_contact_email', '');
 
 ?>
 
-<style>
-.padma-seo-page {
-	max-width: 1200px;
-	margin: 20px 0;
-}
-.padma-seo-tabs {
-	display: flex;
-	border-bottom: 2px solid #ddd;
-	margin-bottom: 30px;
-	gap: 10px;
-}
-.padma-seo-tab {
-	padding: 12px 24px;
-	background: #f1f1f1;
-	border: none;
-	cursor: pointer;
-	font-size: 14px;
-	font-weight: 600;
-	border-radius: 4px 4px 0 0;
-	transition: all 0.3s;
-}
-.padma-seo-tab.active {
-	background: #2271b1;
-	color: white;
-}
-.padma-seo-tab-content {
-	display: none;
-}
-.padma-seo-tab-content.active {
-	display: block;
-}
-.padma-seo-box {
-	background: white;
-	border: 1px solid #ddd;
-	border-radius: 4px;
-	padding: 20px;
-	margin-bottom: 20px;
-}
-.padma-seo-box h2 {
-	margin-top: 0;
-	padding-bottom: 10px;
-	border-bottom: 1px solid #eee;
-}
-.padma-seo-field {
-	margin-bottom: 20px;
-}
-.padma-seo-field label {
-	display: block;
-	font-weight: 600;
-	margin-bottom: 8px;
-}
-.padma-seo-field input[type="text"],
-.padma-seo-field input[type="email"],
-.padma-seo-field textarea {
-	width: 100%;
-	max-width: 500px;
-	padding: 8px 12px;
-	border: 1px solid #ddd;
-	border-radius: 4px;
-}
-.padma-seo-field small {
-	display: block;
-	margin-top: 5px;
-	color: #666;
-}
-.padma-seo-status {
-	display: inline-block;
-	padding: 6px 12px;
-	border-radius: 4px;
-	font-size: 13px;
-	font-weight: 600;
-}
-.padma-seo-status.enabled {
-	background: #edfaed;
-	color: #1e4620;
-}
-.padma-seo-status.disabled {
-	background: #fbeaea;
-	color: #5a1515;
-}
-.padma-seo-info-box {
-	background: #f0f6fc;
-	border-left: 4px solid #2271b1;
-	padding: 15px;
-	margin: 20px 0;
-}
-.padma-seo-warning-box {
-	background: #fcf3e8;
-	border-left: 4px solid #f0b849;
-	padding: 15px;
-	margin: 20px 0;
-}
-.padma-button-primary {
-	background: #2271b1;
-	color: white;
-	border: none;
-	padding: 10px 20px;
-	border-radius: 4px;
-	cursor: pointer;
-	font-size: 14px;
-	font-weight: 600;
-}
-.padma-button-primary:hover {
-	background: #135e96;
-}
-</style>
-
 <div class="padma-seo-page">
 	
 	<!-- Tabs -->
 	<div class="padma-seo-tabs">
-		<button class="padma-seo-tab active" data-tab="general"><?php _e('General', 'padma'); ?></button>
+		<button class="padma-seo-tab active" data-tab="general"><?php _e('Allgemein', 'padma'); ?></button>
 		<button class="padma-seo-tab" data-tab="sitemaps"><?php _e('XML Sitemaps', 'padma'); ?></button>
 		<button class="padma-seo-tab" data-tab="schema"><?php _e('Schema.org', 'padma'); ?></button>
 		<button class="padma-seo-tab" data-tab="social"><?php _e('Social Media', 'padma'); ?></button>
-		<button class="padma-seo-tab" data-tab="advanced"><?php _e('Advanced', 'padma'); ?></button>
+		<button class="padma-seo-tab" data-tab="advanced"><?php _e('Erweitert', 'padma'); ?></button>
 	</div>
 
 	<form method="post" action="">
@@ -189,7 +82,7 @@ $org_email = get_theme_mod('padma_contact_email', '');
 				<h2><?php _e('SEO Features', 'padma'); ?></h2>
 				
 				<div class="padma-seo-info-box">
-					<strong><?php _e('Padma SEO Suite Status:', 'padma'); ?></strong>
+					<strong><?php _e('PS Padma SEO Suite Status:', 'padma'); ?></strong>
 					<span class="padma-seo-status <?php echo $disable_theme_seo ? 'disabled' : 'enabled'; ?>">
 						<?php echo $disable_theme_seo ? __('Deaktiviert', 'padma') : __('Aktiviert', 'padma'); ?>
 					</span>
@@ -198,19 +91,19 @@ $org_email = get_theme_mod('padma_contact_email', '');
 				<div class="padma-seo-field">
 					<label>
 						<input type="checkbox" name="disable-theme-seo" value="1" <?php checked($disable_theme_seo); ?> />
-						<?php _e('Disable Padma SEO Suite', 'padma'); ?>
+						<?php _e('Deaktiviere PS Padma SEO Suite', 'padma'); ?>
 					</label>
-					<small><?php _e('Check this if you are using a third-party SEO plugin like Yoast or RankMath', 'padma'); ?></small>
+					<small><?php _e('Aktiviere diese Option, wenn Du ein Drittanbieter-SEO-Plugin wie Yoast oder RankMath verwenden möchtest', 'padma'); ?></small>
 				</div>
 			</div>
 
 			<div class="padma-seo-box">
-				<h2><?php _e('Active Features', 'padma'); ?></h2>
+				<h2><?php _e('Aktive Funktionen', 'padma'); ?></h2>
 				
 				<ul style="list-style: disc; margin-left: 25px; line-height: 2;">
-					<li><?php _e('Focus Keyword Analysis per Post', 'padma'); ?></li>
-					<li><?php _e('Meta Title & Description Editor', 'padma'); ?></li>
-					<li><?php _e('Real-time SEO Score Calculation', 'padma'); ?></li>
+					<li><?php _e('Focus Keyword Analyse pro Beitrag', 'padma'); ?></li>
+					<li><?php _e('Meta-Titel & Beschreibung Editor', 'padma'); ?></li>
+					<li><?php _e('Echtzeit SEO Score Berechnung', 'padma'); ?></li>
 					<li><?php _e('Canonical URL Management', 'padma'); ?></li>
 					<li><?php _e('Robots Meta Control (noindex/nofollow)', 'padma'); ?></li>
 					<li><?php _e('Open Graph Tags (Facebook, LinkedIn)', 'padma'); ?></li>
@@ -232,38 +125,38 @@ $org_email = get_theme_mod('padma_contact_email', '');
 				<div class="padma-seo-field">
 					<label>
 						<input type="checkbox" name="enable-sitemaps" value="1" <?php checked($sitemap_enabled); ?> />
-						<?php _e('Enable XML Sitemaps', 'padma'); ?>
+						<?php _e('Aktiviere XML Sitemaps', 'padma'); ?>
 					</label>
-					<small><?php _e('Automatically generates XML sitemaps for search engines', 'padma'); ?></small>
+					<small><?php _e('Generiert automatisch XML-Sitemaps für Suchmaschinen', 'padma'); ?></small>
 				</div>
 
 				<?php if ($sitemap_enabled) : ?>
 					<div class="padma-seo-info-box">
-						<strong><?php _e('Your Sitemap URL:', 'padma'); ?></strong><br>
+						<strong><?php _e('Deine Sitemap URL:', 'padma'); ?></strong><br>
 						<a href="<?php echo esc_url(home_url('/sitemap.xml')); ?>" target="_blank">
 							<?php echo esc_url(home_url('/sitemap.xml')); ?>
 						</a>
 						<br><br>
-						<small><?php _e('Submit this URL to Google Search Console and Bing Webmaster Tools', 'padma'); ?></small>
+						<small><?php _e('Reiche diese URL bei der Google Search Console und den Bing Webmaster Tools ein', 'padma'); ?></small>
 					</div>
 				<?php endif; ?>
 			</div>
 
 			<?php if ($sitemap_enabled) : ?>
 				<div class="padma-seo-box">
-					<h2><?php _e('Sitemap Content', 'padma'); ?></h2>
+					<h2><?php _e('Sitemap Inhalt', 'padma'); ?></h2>
 					
-					<p><?php _e('The following content types are automatically included in your sitemap:', 'padma'); ?></p>
+					<p><?php _e('Die folgenden Inhaltstypen werden automatisch in Deine Sitemap aufgenommen:', 'padma'); ?></p>
 					
 					<ul style="list-style: disc; margin-left: 25px; line-height: 2;">
-						<li><?php _e('Posts', 'padma'); ?></li>
-						<li><?php _e('Pages', 'padma'); ?></li>
-						<li><?php _e('Custom Post Types (if public)', 'padma'); ?></li>
-						<li><?php _e('Categories', 'padma'); ?></li>
-						<li><?php _e('Tags', 'padma'); ?></li>
+						<li><?php _e('Beiträge', 'padma'); ?></li>
+						<li><?php _e('Seiten', 'padma'); ?></li>
+						<li><?php _e('Benutzerdefinierte Beitragstypen (wenn öffentlich)', 'padma'); ?></li>
+						<li><?php _e('Kategorien', 'padma'); ?></li>
+						<li><?php _e('Schlagwörter', 'padma'); ?></li>
 					</ul>
 					
-					<p><small><?php _e('Posts with "noindex" enabled will be automatically excluded', 'padma'); ?></small></p>
+					<p><small><?php _e('Beiträge mit aktivierter "noindex"-Option werden automatisch ausgeschlossen', 'padma'); ?></small></p>
 				</div>
 			<?php endif; ?>
 
@@ -273,45 +166,45 @@ $org_email = get_theme_mod('padma_contact_email', '');
 		<div class="padma-seo-tab-content" data-tab-content="schema">
 			
 			<div class="padma-seo-box">
-				<h2><?php _e('Structured Data (Schema.org)', 'padma'); ?></h2>
+				<h2><?php _e('Strukturierte Daten (Schema.org)', 'padma'); ?></h2>
 				
 				<div class="padma-seo-field">
 					<label>
 						<input type="checkbox" name="disable-schema-support" value="1" <?php checked(!$schema_enabled); ?> />
-						<?php _e('Disable Schema.org Markup', 'padma'); ?>
+						<?php _e('Schema.org Markup deaktivieren', 'padma'); ?>
 					</label>
-					<small><?php _e('Schema.org helps search engines understand your content better', 'padma'); ?></small>
+					<small><?php _e('Schema.org hilft Suchmaschinen, Deine Inhalte besser zu verstehen', 'padma'); ?></small>
 				</div>
 			</div>
 
 			<?php if ($schema_enabled) : ?>
 				<div class="padma-seo-box">
-					<h2><?php _e('Available Schema Types', 'padma'); ?></h2>
+					<h2><?php _e('Verfügbare Schema-Typen', 'padma'); ?></h2>
 					
 					<ul style="list-style: disc; margin-left: 25px; line-height: 2;">
-						<li><strong><?php _e('Article Schema', 'padma'); ?></strong> - <?php _e('Automatically added to posts', 'padma'); ?></li>
-						<li><strong><?php _e('Breadcrumb Schema', 'padma'); ?></strong> - <?php _e('Automatically added to all pages', 'padma'); ?></li>
-						<li><strong><?php _e('Organization Schema', 'padma'); ?></strong> - <?php _e('Added to homepage', 'padma'); ?></li>
-						<li><strong><?php _e('FAQ Schema', 'padma'); ?></strong> - <?php _e('Available via custom post meta', 'padma'); ?></li>
-						<li><strong><?php _e('HowTo Schema', 'padma'); ?></strong> - <?php _e('Available via custom post meta', 'padma'); ?></li>
-						<li><strong><?php _e('Product Schema', 'padma'); ?></strong> - <?php _e('For e-commerce content', 'padma'); ?></li>
-						<li><strong><?php _e('Event Schema', 'padma'); ?></strong> - <?php _e('For event pages', 'padma'); ?></li>
+						<li><strong><?php _e('Article Schema', 'padma'); ?></strong> - <?php _e('Automatisch zu Beiträgen hinzugefügt', 'padma'); ?></li>
+						<li><strong><?php _e('Breadcrumb Schema', 'padma'); ?></strong> - <?php _e('Automatisch zu allen Seiten hinzugefügt', 'padma'); ?></li>
+						<li><strong><?php _e('Organization Schema', 'padma'); ?></strong> - <?php _e('Zur Startseite hinzugefügt', 'padma'); ?></li>
+						<li><strong><?php _e('FAQ Schema', 'padma'); ?></strong> - <?php _e('Über benutzerdefinierte Beitragstypen verfügbar', 'padma'); ?></li>
+						<li><strong><?php _e('HowTo Schema', 'padma'); ?></strong> - <?php _e('Über benutzerdefinierte Beitragstypen verfügbar', 'padma'); ?></li>
+						<li><strong><?php _e('Product Schema', 'padma'); ?></strong> - <?php _e('Für E-Commerce-Inhalte', 'padma'); ?></li>
+						<li><strong><?php _e('Event Schema', 'padma'); ?></strong> - <?php _e('Für Veranstaltungsseiten', 'padma'); ?></li>
 					</ul>
 				</div>
 
 				<div class="padma-seo-box">
-					<h2><?php _e('Organization Information', 'padma'); ?></h2>
+					<h2><?php _e('Organisationsinformationen', 'padma'); ?></h2>
 					
 					<div class="padma-seo-field">
-						<label><?php _e('Contact Phone', 'padma'); ?></label>
+						<label><?php _e('Kontakttelefon', 'padma'); ?></label>
 						<input type="text" name="org-contact-phone" value="<?php echo esc_attr($org_phone); ?>" placeholder="+49 123 456789" />
-						<small><?php _e('Used in Organization Schema on the homepage', 'padma'); ?></small>
+						<small><?php _e('Wird im Organization Schema auf der Startseite verwendet', 'padma'); ?></small>
 					</div>
 
 					<div class="padma-seo-field">
-						<label><?php _e('Contact Email', 'padma'); ?></label>
+						<label><?php _e('Kontakt-E-Mail', 'padma'); ?></label>
 						<input type="email" name="org-contact-email" value="<?php echo esc_attr($org_email); ?>" placeholder="info@example.com" />
-						<small><?php _e('Used in Organization Schema on the homepage', 'padma'); ?></small>
+						<small><?php _e('Wird im Organization Schema auf der Startseite verwendet', 'padma'); ?></small>
 					</div>
 				</div>
 			<?php endif; ?>
@@ -322,35 +215,35 @@ $org_email = get_theme_mod('padma_contact_email', '');
 		<div class="padma-seo-tab-content" data-tab-content="social">
 			
 			<div class="padma-seo-box">
-				<h2><?php _e('Social Media Settings', 'padma'); ?></h2>
+				<h2><?php _e('Social Media Einstellungen', 'padma'); ?></h2>
 				
 				<div class="padma-seo-field">
 					<label><?php _e('Facebook App ID', 'padma'); ?></label>
 					<input type="text" name="facebook-app-id" value="<?php echo esc_attr($facebook_app_id); ?>" placeholder="123456789012345" />
-					<small><?php _e('Optional. Required for Facebook Insights.', 'padma'); ?> <a href="https://developers.facebook.com/apps/" target="_blank"><?php _e('Get your App ID', 'padma'); ?></a></small>
+					<small><?php _e('Optional. Benötigt für Facebook Insights.', 'padma'); ?> <a href="https://developers.facebook.com/apps/" target="_blank"><?php _e('Get your App ID', 'padma'); ?></a></small>
 				</div>
 
 				<div class="padma-seo-field">
 					<label><?php _e('Twitter Username', 'padma'); ?></label>
 					<input type="text" name="twitter-username" value="<?php echo esc_attr($twitter_username); ?>" placeholder="@yourusername" />
-					<small><?php _e('Your Twitter/X username (with or without @)', 'padma'); ?></small>
+					<small><?php _e('Dein Twitter/X-Benutzername (mit oder ohne @)', 'padma'); ?></small>
 				</div>
 			</div>
 
 			<div class="padma-seo-box">
-				<h2><?php _e('Automatic Open Graph Tags', 'padma'); ?></h2>
+				<h2><?php _e('Automatische Open Graph Tags', 'padma'); ?></h2>
 				
-				<p><?php _e('The following Open Graph tags are automatically added to all posts and pages:', 'padma'); ?></p>
+				<p><?php _e('Die folgenden Open Graph Tags werden automatisch zu allen Beiträgen und Seiten hinzugefügt:', 'padma'); ?></p>
 				
 				<ul style="list-style: disc; margin-left: 25px; line-height: 2;">
-					<li><code>og:title</code> - <?php _e('Post/Page title', 'padma'); ?></li>
-					<li><code>og:description</code> - <?php _e('Meta description or excerpt', 'padma'); ?></li>
-					<li><code>og:type</code> - <?php _e('article or website', 'padma'); ?></li>
-					<li><code>og:url</code> - <?php _e('Canonical URL', 'padma'); ?></li>
-					<li><code>og:image</code> - <?php _e('Featured image', 'padma'); ?></li>
+					<li><code>og:title</code> - <?php _e('Beitrags-/Seitentitel', 'padma'); ?></li>
+					<li><code>og:description</code> - <?php _e('Meta-Beschreibung oder Auszug', 'padma'); ?></li>
+					<li><code>og:type</code> - <?php _e('Artikel oder Webseite', 'padma'); ?></li>
+					<li><code>og:url</code> - <?php _e('Kanonciale URL', 'padma'); ?></li>
+					<li><code>og:image</code> - <?php _e('Beitragsbild', 'padma'); ?></li>
 				</ul>
 				
-				<p><small><?php _e('You can override these on each post via the Padma SEO metabox', 'padma'); ?></small></p>
+				<p><small><?php _e('Du kannst diese auf jedem Beitrag über das Padma SEO-Metabox überschreiben', 'padma'); ?></small></p>
 			</div>
 
 		</div>
@@ -359,20 +252,20 @@ $org_email = get_theme_mod('padma_contact_email', '');
 		<div class="padma-seo-tab-content" data-tab-content="advanced">
 			
 			<div class="padma-seo-box">
-				<h2><?php _e('SEO Suite Documentation', 'padma'); ?></h2>
+				<h2><?php _e('SEO Suite Dokumentation', 'padma'); ?></h2>
 				
-				<h3><?php _e('Per-Post SEO Settings', 'padma'); ?></h3>
-				<p><?php _e('When editing any post or page, scroll down to the "Padma SEO Suite" metabox to configure:', 'padma'); ?></p>
+				<h3><?php _e('Pro-Beitrag SEO Einstellungen', 'padma'); ?></h3>
+				<p><?php _e('Beim Bearbeiten eines Beitrags oder einer Seite, scrolle nach unten zum "Padma SEO Suite" Metabox, um Folgendes zu konfigurieren:', 'padma'); ?></p>
 				<ul style="list-style: disc; margin-left: 25px; line-height: 2;">
-					<li><?php _e('Focus Keyword', 'padma'); ?></li>
-					<li><?php _e('Meta Description', 'padma'); ?></li>
-					<li><?php _e('Social Media Title & Description', 'padma'); ?></li>
-					<li><?php _e('Canonical URL', 'padma'); ?></li>
-					<li><?php _e('Robots Settings', 'padma'); ?></li>
+					<li><?php _e('Fokus-Keyword', 'padma'); ?></li>
+					<li><?php _e('Meta-Beschreibung', 'padma'); ?></li>
+					<li><?php _e('Social Media Titel & Beschreibung', 'padma'); ?></li>
+					<li><?php _e('Kanonciale URL', 'padma'); ?></li>
+					<li><?php _e('Robots Einstellungen', 'padma'); ?></li>
 				</ul>
 
-				<h3><?php _e('Testing Your Setup', 'padma'); ?></h3>
-				<p><?php _e('Use these tools to validate your SEO implementation:', 'padma'); ?></p>
+				<h3><?php _e('Testen Deiner Einrichtung', 'padma'); ?></h3>
+				<p><?php _e('Verwende diese Tools, um Deine SEO-Implementierung zu überprüfen:', 'padma'); ?></p>
 				<ul style="list-style: disc; margin-left: 25px; line-height: 2;">
 					<li><a href="https://search.google.com/test/rich-results" target="_blank"><?php _e('Google Rich Results Test', 'padma'); ?></a></li>
 					<li><a href="https://developers.facebook.com/tools/debug/" target="_blank"><?php _e('Facebook Sharing Debugger', 'padma'); ?></a></li>
@@ -382,11 +275,11 @@ $org_email = get_theme_mod('padma_contact_email', '');
 			</div>
 
 			<div class="padma-seo-warning-box">
-				<strong><?php _e('Important Notes:', 'padma'); ?></strong>
+				<strong><?php _e('Wichtige Hinweise:', 'padma'); ?></strong>
 				<ul style="list-style: disc; margin-left: 25px; margin-top: 10px; line-height: 1.8;">
-					<li><?php _e('If you install a third-party SEO plugin, be sure to disable Padma SEO Suite to avoid conflicts', 'padma'); ?></li>
-					<li><?php _e('After enabling/disabling sitemaps, you may need to flush permalinks (Settings > Permalinks > Save)', 'padma'); ?></li>
-					<li><?php _e('Schema.org markup requires the Spatie library (vendor folder must exist)', 'padma'); ?></li>
+					<li><?php _e('Wenn Du ein Drittanbieter-SEO-Plugin installierst, stelle sicher, dass Du die Padma SEO Suite deaktivierst, um Konflikte zu vermeiden', 'padma'); ?></li>
+					<li><?php _e('Nach dem Aktivieren/Deaktivieren von Sitemaps musst Du möglicherweise die Permalinks aktualisieren (Einstellungen > Permalinks > Speichern)', 'padma'); ?></li>
+					<li><?php _e('Schema.org-Markup erfordert die Spatie-Bibliothek (der Vendor-Ordner muss vorhanden sein)', 'padma'); ?></li>
 				</ul>
 			</div>
 
@@ -394,7 +287,7 @@ $org_email = get_theme_mod('padma_contact_email', '');
 
 		<p>
 			<button type="submit" name="padma-seo-save" class="padma-button-primary">
-				<?php _e('Save SEO Settings', 'padma'); ?>
+				<?php _e('SEO Einstellungen speichern', 'padma'); ?>
 			</button>
 		</p>
 

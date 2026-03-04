@@ -45,7 +45,7 @@ class PadmaSEOSuite {
 		foreach ($post_types as $post_type) {
 			add_meta_box(
 				'padma-seo-suite',
-				__('Padma SEO Suite', 'padma'),
+				__('PS Padma SEO Suite', 'padma'),
 				array(__CLASS__, 'render_seo_metabox'),
 				$post_type,
 				'normal',
@@ -90,51 +90,51 @@ class PadmaSEOSuite {
 					id="padma_focus_keyword" 
 					name="padma_focus_keyword" 
 					value="<?php echo esc_attr($focus_keyword); ?>" 
-					placeholder="<?php _e('Enter main keyword for this content', 'padma'); ?>"
+					placeholder="<?php _e('Gib das Hauptkeyword für diesen Inhalt ein', 'padma'); ?>"
 				/>
-				<small><?php _e('The primary keyword this content should rank for', 'padma'); ?></small>
+				<small><?php _e('Das Hauptkeyword, für das dieser Inhalt ranken soll', 'padma'); ?></small>
 			</div>
 
 			<!-- Meta Description -->
 			<div class="padma-seo-field">
-				<label for="padma_meta_description"><?php _e('Meta Description', 'padma'); ?></label>
+				<label for="padma_meta_description"><?php _e('Meta Beschreibung', 'padma'); ?></label>
 				<textarea 
 					id="padma_meta_description" 
 					name="padma_meta_description" 
 					rows="3" 
 					maxlength="160" 
-					placeholder="<?php _e('Optimal: 150-160 characters', 'padma'); ?>"
+					placeholder="<?php _e('Optimal: 150-160 Zeichen', 'padma'); ?>"
 				><?php echo esc_textarea($meta_description); ?></textarea>
 				<small>
-					<?php _e('Length:', 'padma'); ?> <span id="meta_desc_count"><?php echo strlen($meta_description); ?></span>/160
+					<?php _e('Länge:', 'padma'); ?> <span id="meta_desc_count"><?php echo strlen($meta_description); ?></span>/160
 				</small>
 			</div>
 
 			<!-- OG Title (Social Share) -->
 			<div class="padma-seo-field">
-				<label for="padma_og_title"><?php _e('Social Media Title', 'padma'); ?></label>
+				<label for="padma_og_title"><?php _e('Social Media Titel', 'padma'); ?></label>
 				<input 
 					type="text" 
 					id="padma_og_title" 
 					name="padma_og_title" 
 					value="<?php echo esc_attr($og_title); ?>" 
-					placeholder="<?php _e('Leave empty to use post title', 'padma'); ?>"
+					placeholder="<?php _e('Leer lassen, um den Beitragstitel zu verwenden', 'padma'); ?>"
 					maxlength="70"
 				/>
-				<small><?php _e('Used when sharing on Facebook, Twitter, LinkedIn', 'padma'); ?></small>
+				<small><?php _e('Wird beim Teilen auf Facebook, Twitter, LinkedIn verwendet', 'padma'); ?></small>
 			</div>
 
 			<!-- OG Description -->
 			<div class="padma-seo-field">
-				<label for="padma_og_description"><?php _e('Social Media Description', 'padma'); ?></label>
+				<label for="padma_og_description"><?php _e('Social Media Beschreibung', 'padma'); ?></label>
 				<textarea 
 					id="padma_og_description" 
 					name="padma_og_description" 
 					rows="3" 
 					maxlength="200" 
-					placeholder="<?php _e('Optimal: 180-200 characters', 'padma'); ?>"
+					placeholder="<?php _e('Optimal: 180-200 Zeichen', 'padma'); ?>"
 				><?php echo esc_textarea($og_description); ?></textarea>
-				<small><?php _e('Length:', 'padma'); ?> <span id="og_desc_count"><?php echo strlen($og_description); ?></span>/200</small>
+				<small><?php _e('Länge:', 'padma'); ?> <span id="og_desc_count"><?php echo strlen($og_description); ?></span>/200</small>
 			</div>
 
 			<!-- Canonical URL -->
@@ -147,14 +147,14 @@ class PadmaSEOSuite {
 					value="<?php echo esc_attr($canonical_url); ?>" 
 					placeholder="<?php echo get_permalink($post->ID); ?>"
 				/>
-				<small><?php _e('Leave empty for automatic. Specify if this is duplicate content.', 'padma'); ?></small>
+				<small><?php _e('Leer lassen für automatische Generierung. Gib an, wenn dies doppelte Inhalte sind.', 'padma'); ?></small>
 			</div>
 
 			<!-- Robots Settings -->
 			<div class="padma-seo-field">
 				<label>
 					<input type="checkbox" name="padma_robots_noindex" value="1" <?php checked($robots_noindex); ?> />
-					<?php _e('Prevent search engines from indexing this page', 'padma'); ?>
+					<?php _e('Verhindere, dass Suchmaschinen diese Seite indexieren', 'padma'); ?>
 				</label>
 			</div>
 
@@ -195,14 +195,14 @@ class PadmaSEOSuite {
 					function updateSEOScore() {
 						const score = calculateSEOScore();
 						let status = 'bad';
-						let statusText = '<?php _e('Needs improvement', 'padma'); ?>';
+						let statusText = '<?php _e('Verbesserungswürdig', 'padma'); ?>';
 
 						if (score >= 70) {
 							status = 'good';
-							statusText = '<?php _e('Good SEO', 'padma'); ?>';
+							statusText = '<?php _e('Gutes SEO', 'padma'); ?>';
 						} else if (score >= 40) {
 							status = 'ok';
-							statusText = '<?php _e('Fair SEO', 'padma'); ?>';
+							statusText = '<?php _e('Durchschnittliches SEO', 'padma'); ?>';
 						}
 
 						$('#padma_seo_score_preview').html(

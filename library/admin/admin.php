@@ -420,6 +420,13 @@ class PadmaAdmin {
 
 	}
 
+	/* SEO Suite */
+	if ( padma_get('page') == 'padma-seo' ) {
+
+		wp_enqueue_style('padma_admin_seo', padma_url() . '/library/admin/css/admin-seo.css');
+
+	}
+
 	/* Auto Updater */
 	if ( $pagenow === 'update-core.php' ) {
 

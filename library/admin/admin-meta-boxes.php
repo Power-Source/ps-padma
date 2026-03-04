@@ -18,8 +18,8 @@ class PadmaMetaBoxTemplate extends PadmaAdminMetaBoxAPI {
 				'id' => 'template',
 				'type' => 'select',
 				'options' => array(),
-				'description' => __('Assign a shared layout to this entry.  Shared layouts can be added and modified in the Padma Visual Editor.','padma'),
-				'blank-option' => __('&ndash; Do Not Use Shared Layout &ndash;','padma')
+				'description' => __('Weise diesem Eintrag ein gemeinsames Layout zu. Gemeinsame Layouts können im Padma Visual Editor hinzugefügt und bearbeitet werden.','padma'),
+				'blank-option' => __('&ndash; Kein gemeinsames Layout verwenden &ndash;','padma')
 			)
 		);
 
@@ -54,22 +54,22 @@ class PadmaMetaBoxTitleControl extends PadmaAdminMetaBoxAPI {
 		$this->inputs = array(
 			'hide-title' => array(
 				'id' => 'hide-title',
-				'name' => __('Hide Title','padma'),
+				'name' => __('Titel ausblenden','padma'),
 				'type' => 'select',
-				'blank-option' => __('&ndash; Do Not Hide Title &ndash;','padma'),
+				'blank-option' => __('&ndash; Titel nicht ausblenden &ndash;','padma'),
 				'options' => array(
-					'singular' => __('Hide on Single View','padma'),
-					'list' => __('Hide in Index and Archives','padma'),
-					'both' => __('Hide on Single View, Index, and Archives','padma')
+					'singular' => __('Auf Einzelansicht ausblenden','padma'),
+					'list' => __('In Index und Archiven ausblenden','padma'),
+					'both' => __('Auf Einzelansicht, Index und Archiven ausblenden','padma')
 				),
-				'description' => __('Choose whether or not you would like to hide the title for this entry.  This can be useful if you have advanced formatting in this entry.','padma'),
+				'description' => __('Wähle, ob der Titel für diesen Eintrag ausgeblendet werden soll. Dies kann nützlich sein, wenn du erweiterte Formatierungen in diesem Eintrag hast.','padma'),
 			),
 
 			'alternate-title' => array(
 				'id' => 'alternate-title',
-				'name' => __('Alternate Title','padma'),
+				'name' => __('Alternativer Titel','padma'),
 				'type' => 'text',
-				'description' => __('Using the alternate page title, you can override the title that\'s displayed in the Content Block of the page.  Doing this, you can have a shorter page title in the navigation menu and <code>&lt;title&gt;</code>, but have a longer and more descriptive title in the actual page content.','padma')
+				'description' => __('Mit dem alternativen Seitentitel kannst du den Titel überschreiben, der im Inhaltsblock der Seite angezeigt wird. Auf diese Weise kannst du einen kürzeren Seitentitel im Navigationsmenü und <code>&lt;title&gt;</code> haben, aber einen längeren und beschreibenderen Titel im eigentlichen Seiteninhalt.','padma')
 			)
 		);
 	}
@@ -88,13 +88,13 @@ class PadmaMetaBoxDisplay extends PadmaAdminMetaBoxAPI {
 	public function __construct(){
 
 		$this->id = 'display';
-		$this->name = __('Display','padma');
+		$this->name = __('Anzeige','padma');
 		$this->inputs = array(
 			'css-class' => array(
 				'id' => 'css-class',
-				'name' => __('Custom CSS Class(es)','padma'),
+				'name' => __('Benutzerdefinierte CSS-Klasse(n)','padma'),
 				'type' => 'text',
-				'description' => __('If you are familiar with <a href="http://www.w3schools.com/css/" target="_blank">CSS</a> and would like to style this entry by targeting a certain CSS class (or classes), then you may enter them in here.  The class will be added to the <strong>entry container\'s class</strong> along with the <strong>body class</strong> if only this entry is being viewed (e.g. single post or page view). Classes can be separated with spaces and/or commas.','padma')
+				'description' => __('Wenn du mit <a href="http://www.w3schools.com/css/" target="_blank">CSS</a> vertraut bist und diesen Eintrag durch das Ansprechen einer bestimmten CSS-Klasse (oder Klassen) gestalten möchtest, kannst du sie hier eingeben. Die Klasse wird dem <strong>Container des Eintrags</strong> zusammen mit der <strong>Body-Klasse</strong> hinzugefügt, wenn nur dieser Eintrag angezeigt wird (z. B. Einzelansicht eines Beitrags oder einer Seite). Klassen können durch Leerzeichen und/oder Kommas getrennt werden.','padma')
 			)
 		);
 	}
@@ -114,25 +114,25 @@ class PadmaMetaBoxPostThumbnail extends PadmaAdminMetaBoxAPI {
 	public function __construct(){
 
 		$this->id = 'post-thumbnail';		
-		$this->name = __('Featured Image Position','padma');				
+		$this->name = __('Beitragsbild Position','padma');				
 		$this->context = 'side';
 		$this->priority = 'low';				
 		$this->inputs = array(
 			'position' => array(
 				'id' => 'position',
-				'name' => __('Featured Image Position','padma'),
+				'name' => __('Beitragsbild Position','padma'),
 				'type' => 'radio',
 				'options' => array(
-					'' => __('Use Block Default','padma'),
-					'left' => __('Left of Title','padma'),
-					'right' => __('Right of Title','padma'),
-					'left-content' => __('Left of Content','padma'),
-					'right-content' => __('Right of Content','padma'),
-					'above-title' => __('Above Title','padma'),
-					'above-content' => __('Above Content','padma'),
-					'below-content' => __('Below Content','padma')
+					'' => __('Standardblock verwenden','padma'),
+					'left' => __('Links vom Titel','padma'),
+					'right' => __('Rechts vom Titel','padma'),
+					'left-content' => __('Links vom Inhalt','padma'),
+					'right-content' => __('Rechts vom Inhalt','padma'),
+					'above-title' => __('Über dem Titel','padma'),
+					'above-content' => __('Über dem Inhalt','padma'),
+					'below-content' => __('Unter dem Inhalt','padma')
 				),
-				'description' => __('Set the position of the featured image for this entry.','padma'),
+				'description' => __('Lege die Position des Beitragsbildes für diesen Eintrag fest.','padma'),
 				'default' => '',
 				'group' => 'post-thumbnail'
 			),
@@ -157,7 +157,7 @@ class PadmaMetaBoxSEO extends PadmaAdminMetaBoxAPI {
 	public function __construct(){
 
 		$this->id = 'seo';		
-		$this->name = 'Search Engine Optimization (SEO)';			
+		$this->name = __('Suchmaschinenoptimierung (SEO)','padma');			
 		$this->post_type_supports_id = 'padma-seo';		
 		$this->priority = 'high';				
 
@@ -172,65 +172,58 @@ class PadmaMetaBoxSEO extends PadmaAdminMetaBoxAPI {
 			'title' => array(
 				'id' => 'title',
 				'group' => 'seo',
-				'name' => __('Title','padma'),
+				'name' => __('Titel','padma'),
 				'type' => 'text',
-				'description' => __('Custom <code>&lt;title&gt;</code> tag','padma')
+				'description' => __('Benutzerdefiniertes <code>&lt;title&gt;</code> Tag','padma')
 			),
 
 			'description' => array(
 				'id' => 'description',
 				'group' => 'seo',
-				'name' => __('Description','padma'),
+				'name' => __('Beschreibung','padma'),
 				'type' => 'textarea',
-				'description' => __('Custom <code>&lt;meta&gt;</code> description','padma')
+				'description' => __('Benutzerdefinierte <code>&lt;meta&gt;</code> Beschreibung','padma')
 			),
 			
 			'noindex' => array(
 				'id' => 'noindex',
 				'group' => 'seo',
-				'name' => __('<code>noindex</code> this entry.','padma'),
+				'name' => __('<code>noindex</code> diesen Eintrag.','padma'),
 				'type' => 'checkbox',
-				'description' => __('Index/NoIndex tells the engines whether the entry should be crawled and kept in the engines\' index for retrieval. If you check this box to opt for <code>noindex</code>, the entry will be excluded from the engines.  <strong>Note:</strong> if you\'re not sure what this does, do not check this box.','padma')
-			),
+				'description' => __('Index/NoIndex teilt den Suchmaschinen mit, ob der Eintrag gecrawlt und im Index der Suchmaschinen für die Abrufbarkeit gespeichert werden soll. Wenn du dieses Kästchen aktivierst, um <code>noindex</code> zu wählen, wird der Eintrag von den Suchmaschinen ausgeschlossen.  <strong>Hinweis:</strong> Wenn du nicht sicher bist, was dies bewirkt, aktiviere dieses Kästchen nicht.','padma')
+		),
 
-			'nofollow' => array(
-				'id' => 'nofollow',
-				'group' => 'seo',
-				'name' => __('<code>nofollow</code> links in this entry.','padma'),
+		'nofollow' => array(
+			'id' => 'nofollow',
+			'group' => 'seo',
+			'name' => __('<code>nofollow</code> Links in diesem Eintrag.','padma'),
+			'type' => 'checkbox',
 				'type' => 'checkbox',
-				'description' => __('Follow/NoFollow tells the engines whether links on the entry should be crawled. If you check this box to employ "nofollow," the engines will disregard the links on the entry both for discovery and ranking purposes.  <strong>Note:</strong> if you\'re not sure what this does, do not check this box.','padma')
-			),
-
-			'noarchive' => array(
-				'id' => 'noarchive',
-				'group' => 'seo',
-				'name' => __('<code>noarchive</code> links in this entry.','padma'),
-				'type' => 'checkbox',
-				'description' => __('Noarchive is used to restrict search engines from saving a cached copy of the entry. By default, the engines will maintain visible copies of all pages they indexed, accessible to searchers through the "cached" link in the search results.  Check this box to restrict search engines from storing cached copies of this entry.','padma')
+				'description' => __('Noarchive wird verwendet, um Suchmaschinen daran zu hindern, eine zwischengespeicherte Kopie des Eintrags zu speichern. Standardmäßig behalten die Suchmaschinen sichtbare Kopien aller indexierten Seiten bei, die über den Link "Zwischengespeichert" in den Suchergebnissen für Suchende zugänglich sind. Aktivieren Sie dieses Kästchen, um Suchmaschinen daran zu hindern, zwischengespeicherte Kopien dieses Eintrags zu speichern.','padma')
 			),
 
 			'nosnippet' => array(
 				'id' => 'nosnippet',
 				'group' => 'seo',
-				'name' => __('<code>nosnippet</code> links in this entry.','padma'),
+				'name' => __('<code>nosnippet</code> Links in diesem Eintrag.','padma'),
 				'type' => 'checkbox',
-				'description' => __('Nosnippet informs the engines that they should refrain from displaying a descriptive block of text next to the entry\'s title and URL in the search results.','padma')
+				'description' => __('Nosnippet teilt den Suchmaschinen mit, dass sie keinen beschreibenden Textblock neben dem Titel und der URL des Eintrags in den Suchergebnissen anzeigen sollen.','padma')
 			),
 
 			'noodp' => array(
 				'id' => 'noodp',
 				'group' => 'seo',
-				'name' => __('<code>noodp</code> links in this entry.','padma'),
+				'name' => __('<code>noodp</code> Links in diesem Eintrag.','padma'),
 				'type' => 'checkbox',
-				'description' => __('NoODP is a specialized tag telling the engines not to grab a descriptive snippet about a page from the Open Directory Project (DMOZ) for display in the search results.','padma')
+				'description' => __('NoODP ist ein spezielles Tag, das den Suchmaschinen mitteilt, dass sie keinen beschreibenden Ausschnitt über eine Seite aus dem Open Directory Project (DMOZ) für die Anzeige in den Suchergebnissen verwenden sollen.','padma')
 			),
 
 			'noydir' => array(
 				'id' => 'noydir',
 				'group' => 'seo',
-				'name' => __('<code>noydir</code> links in this entry.','padma'),
+				'name' => __('<code>noydir</code> Links in diesem Eintrag.','padma'),
 				'type' => 'checkbox',
-				'description' => __('NoYDir, like NoODP, is specific to Yahoo!, informing that engine not to use the Yahoo! Directory description of a page/site in the search results.','padma')
+				'description' => __('NoYDir, ähnlich wie NoODP, ist spezifisch für Yahoo! und teilt dieser Suchmaschine mit, dass sie die Yahoo! Directory-Beschreibung einer Seite/eines Standorts nicht in den Suchergebnissen verwenden sollen.','padma')
 			),
 
 			'redirect-301' => array(
@@ -238,7 +231,7 @@ class PadmaMetaBoxSEO extends PadmaAdminMetaBoxAPI {
 				'group' => 'seo',
 				'name' => __('301 Permanent Redirect','padma'),
 				'type' => 'text',
-				'description' => __('The 301 Permanent Redirect can be used to forward an old post or page to a new or different location.  If you ever move a page or change a page\'s permalink, use this to forward your visitors to the new location.<br /><br /><em>Want more information?  Read more about <a href="http://support.google.com/webmasters/bin/answer.py?hl=en&answer=93633" target="_blank">301 Redirects</a>.</em>','padma')
+				'description' => __('Der 301 Permanent Redirect kann verwendet werden, um einen alten Beitrag oder eine alte Seite an einen neuen oder anderen Ort weiterzuleiten. Wenn du jemals eine Seite verschiebst oder den Permalink einer Seite änderst, verwende dies, um deine Besucher an den neuen Ort weiterzuleiten.<br /><br /><em>Mehr Informationen? Lies mehr über <a href="http://support.google.com/webmasters/bin/answer.py?hl=en&answer=93633" target="_blank">301 Redirects</a>.</em>','padma')
 			),
 
 		);
@@ -257,14 +250,14 @@ class PadmaMetaBoxSEO extends PadmaAdminMetaBoxAPI {
 
 			echo '<div id="padma-seo-preview">';
 
-				echo '<h4 title="Click To Edit">' . get_bloginfo('name') . '</h4>';
-				echo '<p id="seo-preview-description" title="Click To Edit">' . $date_text . '<span id="text"></span></p>';
+				echo '<h4 title="Klicken zum Bearbeiten">' . get_bloginfo('name') . '</h4>';
+				echo '<p id="seo-preview-description" title="Klicken zum Bearbeiten">' . $date_text . '<span id="text"></span></p>';
 
-				echo '<p id="seo-preview-bottom"><span id="seo-preview-url">' . str_replace('http://', '', home_url()) . '</span> - <span>Cached</span> - <span>Similar</span></p>';
+				echo '<p id="seo-preview-bottom"><span id="seo-preview-url">' . str_replace('http://', '', home_url()) . '</span> - <span>Zwischengespeichert</span> - <span>Ähnlich</span></p>';
 		
 			echo '</div>';
 
-		echo '<small id="seo-preview-disclaimer">' . __('Remember, this is only a predicted search engine result preview.  There is no guarantee that it will look exactly this way.  However, it will look similar.','padma') . '</small>';
+		echo '<small id="seo-preview-disclaimer">' . __('Denke daran, dies ist nur eine vorhergesagte Vorschau des Suchmaschinenergebnisses. Es gibt keine Garantie, dass es genau so aussehen wird. Es wird jedoch ähnlich aussehen.','padma') . '</small>';
 
 	}
 
@@ -299,7 +292,7 @@ class PadmaMetaBoxSEO extends PadmaAdminMetaBoxAPI {
 		//Do not use this box if the page being edited is the front page since they can edit the setting in the configuration.
 		if ( get_option('page_on_front') == padma_get('post') && get_option('show_on_front') == 'page' ) {
 
-			$this->info = sprintf( __('<strong>Configure the SEO settings for this page (Front Page) in the Padma Search Engine Optimization settings tab in <a href="%s" target="_blank">Padma &raquo; Configuration</a>.</strong>','padma'), admin_url('admin.php?page=padma-options#tab-seo') );
+			$this->info = sprintf( __('<strong>Konfiguriere die SEO-Einstellungen für diese Seite (Startseite) im PS Padma Search Engine Optimization-Einstellungsbereich unter <a href="%s" target="_blank">Padma &raquo; Konfiguration</a>.</strong>','padma'), admin_url('admin.php?page=padma-options#tab-seo') );
 
 			$this->inputs = array();
 

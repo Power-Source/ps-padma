@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Render accordion component
  * 
  * @param array $args Accordion configuration
- * @param array $spoilers Array of spoiler items
+ * @param array|string $spoilers Array of spoiler items or shortcode content string
  * @return string HTML accordion markup
  */
 function padma_render_accordion( $args = array(), $spoilers = array() ) {
@@ -23,7 +23,17 @@ function padma_render_accordion( $args = array(), $spoilers = array() ) {
 		'class' => ''
 	) );
 	
+	// If $spoilers is a string (from shortcode handler), parse it
+	if ( is_string( $spoilers ) ) {
+		$spoilers = padma_parse_spoilers_from_content( $spoilers );
+	}
+	
 	if ( empty( $spoilers ) ) {
+		return '';
+	}
+	
+	// Ensure $spoilers is an array
+	if ( ! is_array( $spoilers ) ) {
 		return '';
 	}
 	
@@ -93,4 +103,41 @@ function padma_render_spoiler( $args = array() ) {
 	$html .= '</div>';
 	
 	return $html;
+}
+
+/**
+ * Parse spoiler items from shortcode content
+ * 
+ * @param string $content Shortcode content containing [su_spoiler] items
+ * @return array Array of parsed spoiler items
+ */
+function padma_parse_spoilers_from_content( $content ) {
+	$spoilers = array();
+	
+	if ( empty( $content ) || ! is_string( $content ) ) {
+		return $spoilers;
+	}
+	
+	// Use a preg_match_all to extract [su_spoiler] tags with their attributes and content
+	$pattern = '/\[su_spoiler\s+([^\]]*)\](.*?)\[\/su_spoiler\]/is';
+	
+	if ( preg_match_all( $pattern, $content, $matches ) ) {
+		for ( $i = 0; $i < count( $matches[0] ); $i++ ) {
+			$attrs = shortcode_parse_atts( $matches[1][ $i ] );
+			
+			$spoiler = array(
+				'title'   => isset( $attrs['title'] ) ? $attrs['title'] : __( 'Spoiler title', 'padma-advanced' ),
+				'content' => isset( $matches[2][ $i ] ) ? $matches[2][ $i ] : '',
+				'open'    => isset( $attrs['open'] ) ? $attrs['open'] : 'no',
+				'style'   => isset( $attrs['style'] ) ? $attrs['style'] : 'default',
+				'icon'    => isset( $attrs['icon'] ) ? $attrs['icon'] : 'plus',
+				'anchor'  => isset( $attrs['anchor'] ) ? $attrs['anchor'] : '',
+				'class'   => isset( $attrs['class'] ) ? $attrs['class'] : ''
+			);
+			
+			$spoilers[] = $spoiler;
+		}
+	}
+	
+	return $spoilers;
 }

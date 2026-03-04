@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Render tabs component
  * 
  * @param array $args Tabs configuration
- * @param array $tabs Array of tab items
+ * @param array|string $tabs Array of tab items or shortcode content string
  * @return string HTML tabs markup
  */
 function padma_render_tabs( $args = array(), $tabs = array() ) {
@@ -26,7 +26,17 @@ function padma_render_tabs( $args = array(), $tabs = array() ) {
 		'class'    => ''
 	) );
 	
+	// If $tabs is a string (from shortcode handler), parse it
+	if ( is_string( $tabs ) ) {
+		$tabs = padma_parse_tabs_from_content( $tabs );
+	}
+	
 	if ( empty( $tabs ) ) {
+		return '';
+	}
+	
+	// Ensure $tabs is an array
+	if ( ! is_array( $tabs ) ) {
 		return '';
 	}
 	
@@ -76,4 +86,41 @@ function padma_render_tabs( $args = array(), $tabs = array() ) {
 	$html .= '</div>';
 	
 	return $html;
+}
+
+/**
+ * Parse tab items from shortcode content
+ * 
+ * @param string $content Shortcode content containing [su_tab] items
+ * @return array Array of parsed tab items
+ */
+function padma_parse_tabs_from_content( $content ) {
+	$tabs = array();
+	
+	if ( empty( $content ) || ! is_string( $content ) ) {
+		return $tabs;
+	}
+	
+	// Use a preg_match_all to extract [su_tab] tags with their attributes and content
+	$pattern = '/\[su_tab\s+([^\]]*)\](.*?)\[\/su_tab\]/is';
+	
+	if ( preg_match_all( $pattern, $content, $matches ) ) {
+		for ( $i = 0; $i < count( $matches[0] ); $i++ ) {
+			$attrs = shortcode_parse_atts( $matches[1][ $i ] );
+			
+			$tab = array(
+				'title'    => isset( $attrs['title'] ) ? $attrs['title'] : '',
+				'content'  => isset( $matches[2][ $i ] ) ? $matches[2][ $i ] : '',
+				'anchor'   => isset( $attrs['anchor'] ) ? $attrs['anchor'] : '',
+				'url'      => isset( $attrs['url'] ) ? $attrs['url'] : '',
+				'target'   => isset( $attrs['target'] ) ? $attrs['target'] : 'blank',
+				'class'    => isset( $attrs['class'] ) ? $attrs['class'] : '',
+				'disabled' => isset( $attrs['disabled'] ) ? $attrs['disabled'] : 'no'
+			);
+			
+			$tabs[] = $tab;
+		}
+	}
+	
+	return $tabs;
 }
