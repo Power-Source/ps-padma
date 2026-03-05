@@ -28,11 +28,11 @@ function padma_gallery_register_meta_boxes() {
 				'desc' => '',
 				'id' => 'padma_gallery_count',
 				'type' => 'thumbnail-count',
-				'std' => 'no image'
+				'std' => 'kein Bild'
 			),
 			array(
 				'name' => '',
-				'desc' => __('Add images which will be used for your album.', 'padma'),
+				'desc' => __('Füge Bilder hinzu, die für dein Album verwendet werden.', 'padma'),
 				'id' => 'padma_gallery_image',
 				'type' => 'gallery',
 				'std' => ''
@@ -42,28 +42,28 @@ function padma_gallery_register_meta_boxes() {
 
 	$gallery_meta_boxes[] = array(
 		'id' => 'display_padma_gallery_options',
-		'title' => __('Album Block Options', 'padma'),
+		'title' => __('Album Block-Optionen', 'padma'),
 		'pages' => array('padma_gallery'),
 		'context' => 'normal',
 		'priority' => 'high',
 		'fields' => array(
 			array(
-				'name' => __('Album Description', 'padma'),
-				'desc' => __('Enter your album description.', 'padma'),
+				'name' => __('Album-Beschreibung', 'padma'),
+				'desc' => __('Gib hier deine Album-Beschreibung ein.', 'padma'),
 				'id' => 'padma_gallery_description',
 				'type' => 'wysiwyg',
 				'std' => ''
 			),
 			array(
-				'name' => __('Album Caption', 'padma'),
-				'desc' => __('Enter your album caption which will be used if you choose to display the albums as thumbnails.', 'padma'),
+				'name' => __('Album-Beschriftung', 'padma'),
+				'desc' => __('Gib hier deine Album-Beschriftung ein, die verwendet wird, wenn du die Alben als Vorschaubilder anzeigen möchtest.', 'padma'),
 				'id' => 'padma_gallery_caption',
 				'type' => 'text',
 				'std' => ''
 			),
 			array(
-				'name' => __('Custom Readon Link', 'padma'),
-				'desc' => __('Enter your custom Readon Link here. Leave it empty if you want to keep the WordPress Readon Link default behaviour.', 'padma'),
+				'name' => __('Eigener Readon-Link', 'padma'),
+				'desc' => __('Gib hier deinen eigenen Readon-Link ein. Lass das Feld leer, wenn du das Standard-Verhalten von WordPress beibehalten möchtest.', 'padma'),
 				'id' => 'padma_gallery_readon_link',
 				'type' => 'text',
 				'std' => ''
@@ -133,7 +133,7 @@ class PadmaGalleryMetaBox {
 				case 'thumbnail-count':
 					$value = $meta != 0 ? $meta : $field['std'];
 					$output .= '<input type="hidden" name="' . $field['id'] . '" id="' . $field['id'] . '" value="' . esc_attr($meta) . '" size="30" />';
-					$output .= '<span class="pur-thumbnail-count"><strong>' . __('Images:', 'padma') . ' </strong><span>' . esc_html($value) . '</span></span>';
+					$output .= '<span class="pur-thumbnail-count"><strong>' . __('Bilder:', 'padma') . ' </strong><span>' . esc_html($value) . '</span></span>';
 				break;
 
 				case 'wysiwyg':
@@ -158,7 +158,7 @@ class PadmaGalleryMetaBox {
 					    'crop' => get_option('thumbnail_crop'),
 					);
 
-					$output .= '<input class="pur-upload-image button button-primary" type="button" value="' . esc_attr__('Add image', 'padma') . '" /><span class="drag-notice">' . __('Drag and drop to re-order', 'padma') . '</span>';
+					$output .= '<input class="pur-upload-image button button-primary" type="button" value="' . esc_attr__('Bild hinzufügen', 'padma') . '" /><span class="drag-notice">' . __('Per Drag & Drop neu anordnen', 'padma') . '</span>';
 					$output .= '<div data-thumb-w="' . $thumbnail_option['width'] . '" data-thumb-h="' . $thumbnail_option['height'] . '" class="pur-thumbnails ui-sortable">';
 					$output .= '<input type="hidden" name="' . $field['id'] . '" value="" />';
 
@@ -179,9 +179,9 @@ class PadmaGalleryMetaBox {
 										$output .= '<div class="pur-image-wrap"><img src="' . esc_url($img_src) . '" /></div>';
 										$output .= '<div class="pur-thumbnail-toolbar">';
 											$output .= '<ul>
-													<li><a href="#" class="pur-drag pur-btn">' . __('Drag', 'padma') . '</a></li>
-													<li><a href="#" class="pur-edit pur-btn">' . __('Edit', 'padma') . '</a></li>
-													<li><a href="#" class="pur-remove pur-btn">' . __('Remove', 'padma') . '</a></li>
+												<li><a href="#" class="pur-drag pur-btn">' . __('Ziehen', 'padma') . '</a></li>
+												<li><a href="#" class="pur-edit pur-btn">' . __('Bearbeiten', 'padma') . '</a></li>
+												<li><a href="#" class="pur-remove pur-btn">' . __('Entfernen', 'padma') . '</a></li>
 												</ul>';
 										$output .= '</div>';
 									$output .= '</div>';
@@ -191,8 +191,8 @@ class PadmaGalleryMetaBox {
 					}
 
 					$output .= '<div class="pur-no-thumbnail">
-									<p>' . __('You do not have any image selected!', 'padma') . '</p>
-									<p><a href="#" class="pur-upload-image browser button button-hero">' . __('Add image', 'padma') . '</a></p>
+								<p>' . __('Du hast noch kein Bild ausgewählt!', 'padma') . '</p>
+								<p><a href="#" class="pur-upload-image browser button button-hero">' . __('Bild hinzufügen', 'padma') . '</a></p>
 								</div>';
 					$output .= '</div>';
 					$output .= '<span class="pur-field-description">' . $field['desc'] . '</span>';
@@ -241,9 +241,9 @@ class PadmaGalleryMetaBox {
 	}
 
 	function attachment_fields_edit($form_fields, $post) {
-	    $form_fields['pur-custom-link']['label'] = __( 'Custom Link', 'padma' );
+	    $form_fields['pur-custom-link']['label'] = __( 'Eigener Link', 'padma' );
 	    $form_fields['pur-custom-link']['value'] = get_post_meta($post->ID, '_padma_custom_link', true);
-	    $form_fields['pur-custom-link']['helps'] = __( 'Added by Padma Gallery Block', 'padma' );
+	    $form_fields['pur-custom-link']['helps'] = __( 'Hinzugefügt durch Padma Galerie-Block', 'padma' );
 	    return $form_fields;
 	}
 

@@ -14,7 +14,7 @@ class PadmaGalleryBlockStyling {
 			/* all views */
 			array(
 				'id' => 'all-views',
-				'name' => 'All Views',
+				'name' => 'Alle Ansichten',
 				'selector' => '.block-type-padma-gallery'
 			),
 				array(
@@ -26,14 +26,14 @@ class PadmaGalleryBlockStyling {
 				),
 				array(
 					'id' => 'block-before-',
-					'name' => 'Before Block',
+					'name' => 'Vor Block',
 					'selector' => '.block-type-padma-gallery .padma-gallery .pur-block-before',
 					'properties' => array('fonts', 'background', 'borders', 'rounded-corners', 'box-shadow', 'margins', 'padding', 'nudging', 'overflow', 'text-shadow'),
 					'parent' => 'all-views'
 				),
 				array(
 					'id' => 'block-title',
-					'name' => 'Title',
+					'name' => 'Titel',
 					'selector' => '.block-type-padma-gallery .padma-gallery .pur-block-title',
 					'properties' => array('fonts', 'background', 'borders', 'rounded-corners', 'box-shadow', 'margins', 'padding', 'nudging', 'text-shadow'),
 					'parent' => 'all-views'
@@ -47,7 +47,7 @@ class PadmaGalleryBlockStyling {
 					),
 				array(
 					'id' => 'block-content',
-					'name' => 'Description',
+					'name' => 'Beschreibung',
 					'selector' => '.block-type-padma-gallery .padma-gallery .pur-block-content',
 					'properties' => array('fonts', 'background', 'borders', 'rounded-corners', 'box-shadow', 'margins', 'padding', 'nudging', 'text-shadow'),
 					'parent' => 'all-views'
@@ -61,14 +61,14 @@ class PadmaGalleryBlockStyling {
 				),
 				array(
 					'id' => 'block-after',
-					'name' => 'After Block',
+					'name' => 'Nach Block',
 					'selector' => '.block-type-padma-gallery .padma-gallery .pur-block-after',
 					'properties' => array('fonts', 'background', 'borders', 'rounded-corners', 'box-shadow', 'margins', 'padding', 'nudging', 'overflow', 'text-shadow'),
 					'parent' => 'all-views'
 				),
 				array(
 					'id' => 'items-container',
-					'name' => 'Items Container',
+					'name' => 'Elemente-Container',
 					'selector' => '.block-type-padma-gallery .padma-gallery .pur-album',
 					'properties' => array('fonts', 'background', 'borders', 'rounded-corners', 'box-shadow', 'margins', 'padding', 'nudging', 'overflow', 'text-shadow'),
 					'parent' => 'all-views'
@@ -86,14 +86,14 @@ class PadmaGalleryBlockStyling {
 				),
 				array(
 					'id' => 'image-container',
-					'name' => 'Image',
+					'name' => 'Bild',
 					'selector' => '.block-type-padma-gallery .padma-gallery .item, .block-type-padma-gallery .padma-gallery .slider-item',
 					'properties' => array('fonts', 'background', 'borders', 'rounded-corners', 'box-shadow', 'padding', 'nudging', 'overflow', 'text-shadow'),
 					'parent' => 'all-views'
 				),
 					array(
 						'id' => 'image-wrap',
-						'name' => 'Wrap',
+						'name' => 'Umschlag',
 						'selector' => '.block-type-padma-gallery .padma-gallery .image-wrap',
 						'properties' => array('fonts', 'background', 'borders', 'rounded-corners', 'box-shadow', 'padding', 'nudging', 'overflow', 'text-shadow'),
 						'parent' => 'image-container'
@@ -101,28 +101,28 @@ class PadmaGalleryBlockStyling {
 				
 					array(
 						'id' => 'image-title',
-						'name' => 'Title',
+						'name' => 'Titel',
 						'selector' => '.block-type-padma-gallery .padma-gallery .image-title',
 						'properties' => array('fonts', 'background', 'borders', 'rounded-corners', 'box-shadow', 'margins', 'padding', 'text-shadow'),
 						'parent' => 'image-container'
 					),
 						array(
 							'id' => 'image-title-count',
-							'name' => 'Count',
+							'name' => 'Zähler',
 							'selector' => '.block-type-padma-gallery .padma-gallery .image-title .album-count',
 							'properties' => array('fonts', 'background', 'borders', 'rounded-corners', 'box-shadow', 'margins', 'padding', 'text-shadow'),
 							'parent' => 'image-title'
 						),
 					array(
 						'id' => 'image-description',
-						'name' => 'Description',
+						'name' => 'Beschreibung',
 						'selector' => '.block-type-padma-gallery .padma-gallery .image-description',
 						'properties' => array('fonts', 'background', 'borders', 'rounded-corners', 'box-shadow', 'margins', 'padding', 'nudging', 'overflow', 'text-shadow'),
 						'parent' => 'image-container'
 					),
 				array(
 					'id' => 'overlay',
-					'name' => 'Overlay',
+					'name' => 'Überlagerung',
 					'selector' => '.block-type-padma-gallery .padma-gallery [class^="overlay"]',
 					'parent' => 'all-views'
 				),
@@ -135,21 +135,21 @@ class PadmaGalleryBlockStyling {
 					),
 					array(
 						'id' => 'overlay-title',
-						'name' => 'Title',
+						'name' => 'Titel',
 						'selector' => '.block-type-padma-gallery .padma-gallery .overlay-title',
 						'properties' => array('fonts', 'padding', 'text-shadow'),
 						'parent' => 'overlay'
 					),
 					array(
 						'id' => 'overlay-caption',
-						'name' => 'Caption',
+						'name' => 'Beschriftung',
 						'selector' => '.block-type-padma-gallery .padma-gallery .overlay-caption',
 						'properties' => array('fonts', 'padding', 'text-shadow'),
 						'parent' => 'overlay'
 					),
 					array(
 						'id' => 'overlay-image',
-						'name' => 'Image',
+						'name' => 'Bild',
 						'selector' => '.block-type-padma-gallery .padma-gallery .overlay-image',
 						'properties' => array('background', 'borders', 'rounded-corners', 'box-shadow', 'margins', 'padding', 'nudging'),
 						'parent' => 'overlay'
@@ -157,46 +157,46 @@ class PadmaGalleryBlockStyling {
 			/* album view */
 			array(
 				'id' => 'album-view',
-				'name' => 'Album View',
+				'name' => 'Album-Ansicht',
 				'selector' => '.block-type-padma-gallery .padma-gallery [class^="album"]'
 			),
 				array(
 					'id' => 'album-content-wrap',
-					'name' => 'Album Content',
+					'name' => 'Album-Inhalt',
 					'selector' => '.block-type-padma-gallery .padma-gallery .album-content-wrap',
 					'properties' => array('fonts', 'background', 'borders', 'rounded-corners', 'box-shadow', 'margins', 'padding', 'nudging', 'overflow', 'text-shadow'),
 					'parent' => 'album-view'
 				),
 				array(
 					'id' => 'album-title',
-					'name' => 'Album Title',
+					'name' => 'Album-Titel',
 					'selector' => '.block-type-padma-gallery .padma-gallery .album-title',
 					'properties' => array('fonts', 'background', 'borders', 'rounded-corners', 'box-shadow', 'margins', 'padding', 'nudging', 'overflow', 'text-shadow'),
 					'parent' => 'album-view'
 				),
 				array(
 					'id' => 'album-description',
-					'name' => 'Album Description',
+					'name' => 'Album-Beschreibung',
 					'selector' => '.block-type-padma-gallery .padma-gallery .album-description',
 					'properties' => array('fonts', 'background', 'borders', 'rounded-corners', 'box-shadow', 'margins', 'padding', 'nudging', 'overflow', 'text-shadow'),
 					'parent' => 'album-view'
 				),
 				array(
 					'id' => 'slider',
-					'name' => 'Slider Layout',
+					'name' => 'Slider-Layout',
 					'selector' => '.block-type-padma-gallery .padma-gallery [class^="pager"]',
 					'parent' => 'album-view'
 				),
 					array(
 						'id' => 'pagination-container',
-						'name' => 'Pagination Container',
+						'name' => 'Pagination-Container',
 						'selector' => '.block-type-padma-gallery .padma-gallery .pager',
 						'properties' => array('fonts', 'background', 'borders', 'rounded-corners', 'box-shadow', 'margins', 'padding', 'nudging', 'overflow', 'text-shadow'),
 						'parent' => 'slider'
 					),
 					array(
 						'id' => 'pagination-thumb',
-						'name' => 'Pagination Thumbnails',
+						'name' => 'Pagination-Vorschaubilder',
 						'selector' => '.block-type-padma-gallery .padma-gallery .pager-item',
 						'properties' => array('fonts', 'background', 'borders', 'rounded-corners', 'box-shadow', 'padding', 'nudging', 'overflow', 'text-shadow'),
 						'states' => array(
@@ -208,26 +208,26 @@ class PadmaGalleryBlockStyling {
 			/* media view */
 			array(
 				'id' => 'media-view',
-				'name' => 'Media View',
+				'name' => 'Medien-Ansicht',
 				'selector' => '.block-type-padma-gallery .padma-gallery .media-view'
 			),
 				array(
 					'id' => 'media-image-title',
-					'name' => 'Image Title',
+					'name' => 'Bild-Titel',
 					'selector' => '.block-type-padma-gallery .padma-gallery .media-view .image-title',
 					'properties' => array('fonts', 'background', 'borders', 'rounded-corners', 'box-shadow', 'margins', 'padding', 'text-shadow'),
 					'parent' => 'media-view'
 				),
 				array(
 					'id' => 'media-image-description',
-					'name' => 'Image Description',
+					'name' => 'Bild-Beschreibung',
 					'selector' => '.block-type-padma-gallery .padma-gallery .media-view .image-description',
 					'properties' => array('fonts', 'background', 'borders', 'rounded-corners', 'box-shadow', 'margins', 'padding', 'text-shadow'),
 					'parent' => 'media-view'
 				),
 				array(
 					'id' => 'image-nav-btn',
-					'name' => 'Next &amp; Previous',
+					'name' => 'Nächstes & Vorheriges',
 					'selector' => '.block-type-padma-gallery .padma-gallery .image-nav a',
 					'properties' => array('fonts', 'background', 'borders', 'rounded-corners', 'box-shadow', 'margins', 'padding', 'nudging', 'text-shadow'),
 					'states' => array(

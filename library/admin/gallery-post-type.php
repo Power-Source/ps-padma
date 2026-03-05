@@ -18,19 +18,19 @@ function padma_gallery_register_post_type() {
         'show_in_nav_menus' => true,
         'show_in_menu' => true,
         'labels' => array(
-            'name' => _x('Albums', 'padma'),
+            'name' => _x('Alben', 'padma'),
             'singular_name' => _x('Album', 'padma'),
-            'add_new' => _x('Add New Album', 'padma'),
-            'add_new_item' => sprintf( __( 'Add New %s', 'padma' ), __( 'Album', 'padma' ) ),
-            'edit_item' => sprintf( __( 'Edit %s', 'padma' ), __( 'Album', 'padma' ) ),
-            'new_item' => sprintf( __( 'New %s', 'padma' ), __( 'Album', 'padma' ) ),
-            'all_items' => sprintf( __( 'All %s', 'padma' ), __( 'Albums', 'padma' ) ),
-            'view_item' => sprintf( __( 'View %s', 'padma' ), __( 'Album', 'padma' ) ),
-            'search_items' => sprintf( __( 'Search %s', 'padma' ), __( 'Albums', 'padma' ) ),
-            'not_found' =>  sprintf( __( 'No %s Found', 'padma' ), __( 'Album', 'padma' ) ),
-            'not_found_in_trash' => sprintf( __( 'No %s Found In Trash', 'padma' ), __( 'Album', 'padma' ) ),
+            'add_new' => _x('Neues Album hinzufügen', 'padma'),
+            'add_new_item' => sprintf( __( 'Neues %s hinzufügen', 'padma' ), __( 'Album', 'padma' ) ),
+            'edit_item' => sprintf( __( '%s bearbeiten', 'padma' ), __( 'Album', 'padma' ) ),
+            'new_item' => sprintf( __( 'Neues %s', 'padma' ), __( 'Album', 'padma' ) ),
+            'all_items' => sprintf( __( 'Alle %s', 'padma' ), __( 'Alben', 'padma' ) ),
+            'view_item' => sprintf( __( '%s ansehen', 'padma' ), __( 'Album', 'padma' ) ),
+            'search_items' => sprintf( __( '%s durchsuchen', 'padma' ), __( 'Alben', 'padma' ) ),
+            'not_found' =>  sprintf( __( 'Keine %s gefunden', 'padma' ), __( 'Alben', 'padma' ) ),
+            'not_found_in_trash' => sprintf( __( 'Keine %s im Papierkorb gefunden', 'padma' ), __( 'Alben', 'padma' ) ),
             'parent_item_colon' => '',
-            'menu_name' => __( 'Gallery', 'padma' )
+            'menu_name' => __( 'Galerie', 'padma' )
         ),
         'supports' => array(
             'title',
@@ -47,19 +47,19 @@ function padma_gallery_register_post_type() {
 
     /* Album Categories Taxonomie */
     $labels = array(
-        'name'                       => _x('Album Categories', 'padma'),
-        'singular_name'              => _x('Album Category', 'padma'),
-        'search_items'               => __('Search Album Categories', 'padma'),
-        'popular_items'              => __('Popular Album Categories', 'padma'),
-        'all_items'                  => __('All Album Categories', 'padma'),
-        'parent_item'                => __('Parent Album Category', 'padma'),
-        'edit_item'                  => __('Edit Album Category', 'padma'),
-        'update_item'                => __('Update Album Category', 'padma'),
-        'add_new_item'               => _x('Add New Album Category', 'padma'),
-        'new_item_name'              => __('New Album Category', 'padma'),
-        'separate_items_with_commas' => __('Separate Album Categories with commas', 'padma'),
-        'add_or_remove_items'        => __('Add or remove Album Categories', 'padma'),
-        'choose_from_most_used'      => __('Choose from most used Album Categories', 'padma')
+        'name'                       => _x('Album-Kategorien', 'padma'),
+        'singular_name'              => _x('Album-Kategorie', 'padma'),
+        'search_items'               => __('Album-Kategorien durchsuchen', 'padma'),
+        'popular_items'              => __('Beliebte Album-Kategorien', 'padma'),
+        'all_items'                  => __('Alle Album-Kategorien', 'padma'),
+        'parent_item'                => __('Übergeordnete Album-Kategorie', 'padma'),
+        'edit_item'                  => __('Album-Kategorie bearbeiten', 'padma'),
+        'update_item'                => __('Album-Kategorie aktualisieren', 'padma'),
+        'add_new_item'               => _x('Neue Album-Kategorie hinzufügen', 'padma'),
+        'new_item_name'              => __('Neue Album-Kategorie', 'padma'),
+        'separate_items_with_commas' => __('Album-Kategorien mit Kommas trennen', 'padma'),
+        'add_or_remove_items'        => __('Album-Kategorien hinzufügen oder entfernen', 'padma'),
+        'choose_from_most_used'      => __('Aus den am häufigsten verwendeten Album-Kategorien wählen', 'padma')
     );
     $args = array(
         'labels'                     => $labels,
@@ -75,19 +75,19 @@ function padma_gallery_register_post_type() {
 
     /* Album Tags Taxonomie */
     $labels = array(
-        'name'                       => _x( 'Album Tags', 'padma' ),
-        'singular_name'              => _x( 'Album Tag', 'padma' ),
-        'search_items'               => __( 'Search Album Tags', 'padma' ),
-        'popular_items'              => __( 'Popular Album Tags', 'padma' ),
-        'all_items'                  => __( 'All Album Tags', 'padma' ),
-        'parent_item'                => __( 'Parent Album Tag', 'padma' ),
-        'edit_item'                  => __( 'Edit Album Tag', 'padma' ),
-        'update_item'                => __( 'Update Album Tag', 'padma' ),
-        'add_new_item'               => _x( 'Add New Album Tag', 'padma' ),
-        'new_item_name'              => __( 'New Album Tag', 'padma' ),
-        'separate_items_with_commas' => __( 'Separate Album Tags with commas', 'padma' ),
-        'add_or_remove_items'        => __( 'Add or remove Album Tags', 'padma' ),
-        'choose_from_most_used'      => __( 'Choose from most used Album Tags', 'padma' )
+        'name'                       => _x( 'Album-Schlagwörter', 'padma' ),
+        'singular_name'              => _x( 'Album-Schlagwort', 'padma' ),
+        'search_items'               => __( 'Album-Schlagwörter durchsuchen', 'padma' ),
+        'popular_items'              => __( 'Beliebte Album-Schlagwörter', 'padma' ),
+        'all_items'                  => __( 'Alle Album-Schlagwörter', 'padma' ),
+        'parent_item'                => __( 'Übergeordnetes Album-Schlagwort', 'padma' ),
+        'edit_item'                  => __( 'Album-Schlagwort bearbeiten', 'padma' ),
+        'update_item'                => __( 'Album-Schlagwort aktualisieren', 'padma' ),
+        'add_new_item'               => _x( 'Neues Album-Schlagwort hinzufügen', 'padma' ),
+        'new_item_name'              => __( 'Neues Album-Schlagwort', 'padma' ),
+        'separate_items_with_commas' => __( 'Album-Schlagwörter mit Kommas trennen', 'padma' ),
+        'add_or_remove_items'        => __( 'Album-Schlagwörter hinzufügen oder entfernen', 'padma' ),
+        'choose_from_most_used'      => __( 'Aus den am häufigsten verwendeten Album-Schlagwörtern wählen', 'padma' )
     );
     $args = array(
         'labels'                     => $labels,
@@ -116,7 +116,7 @@ add_action('publish_padma_gallery', 'padma_gallery_set_default_category');
 function padma_gallery_set_default_category($padma_gallery_id) {
 
 	if(!has_term('', 'gallery_categories', $padma_gallery_id)){
-		wp_set_object_terms($padma_gallery_id, array('Uncategorized'), 'gallery_categories');
+		wp_set_object_terms($padma_gallery_id, array('Unkategorisiert'), 'gallery_categories');
 	}
 
 }
@@ -129,11 +129,11 @@ function padma_gallery_admin_columns($columns) {
 
 	$columns = array(
 		'cb' => '<input type="checkbox" />',
-		'title' => __( 'Title' ),
-		'images' => __( 'Images' ),
-		'gallery-categories' => __( 'Album Categories' ),
-		'gallery-tags' => __( 'Album Tags' ),
-		'date' => __( 'Date' )
+		'title' => __( 'Titel', 'padma' ),
+		'images' => __( 'Bilder', 'padma' ),
+		'gallery-categories' => __( 'Album-Kategorien', 'padma' ),
+		'gallery-tags' => __( 'Album-Schlagwörter', 'padma' ),
+		'date' => __( 'Datum', 'padma' )
 	);
 
     return $columns;
@@ -173,33 +173,24 @@ function padma_gallery_admin_columns_content($column) {
 
 			    }
 
-			    $nbr_images = count($album_imgs) . ' images';
+		    $nbr_images = count($album_imgs) . ' Bilder';
 
-			} else {
+		} else {
 
-				$album_img = array();
-				$nbr_images = 'no image';
+			$album_img = array();
+			$nbr_images = 'kein Bild';
 
-			}
+	}
 
-			for ($i = 1; $i <= 4 - count($album_img); $i++) {
-				$placeholder_url = padma_url() . '/library/blocks/gallery/admin/images/no-image.png';
-			    echo '<div class="thumbnail-wrap"><div class="thumbnail"><img src="' . $placeholder_url . '" ></div></div>';
-			}
+	for ($i = 1; $i <= 4 - count($album_img); $i++) {
+		$placeholder_url = padma_url() . '/library/blocks/gallery/admin/images/no-image.png';
+	    echo '<div class="thumbnail-wrap"><div class="thumbnail"><img src="' . $placeholder_url . '" ></div></div>';
+	}
 
-			echo '<a class="nbr-images" href="' . admin_url('post.php?post=' . $post->ID . '&action=edit') . '">' . $nbr_images . '</span>';
-
-        break;
-
-        case 'gallery-categories' :
-        	$taxonomy_type = 'gallery_categories';
-        	$empty         = 'No Album Category';
-			echo padma_gallery_taxonomy_column_output($taxonomy_type, $empty);
-        break;
-
+	echo '<a class="nbr-images" href="' . admin_url('post.php?post=' . $post->ID . '&action=edit') . '">' . $nbr_images . '</span>';
         case 'gallery-tags':
         	$taxonomy_type = 'gallery_tags';
-        	$empty         = 'No Album Tag';
+        	$empty         = 'Kein Album-Schlagwort';
         	echo padma_gallery_taxonomy_column_output($taxonomy_type, $empty);
         break;
 

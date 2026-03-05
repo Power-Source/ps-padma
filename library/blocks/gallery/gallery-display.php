@@ -662,13 +662,13 @@ class PadmaGalleryBlockDisplay {
 			 $album_title = get_the_title($this->page_info['page-id']);
 
 		return array(
-			'no-album' => $open . 'You do not have any album set at the moment, please add at least one Album in WordPress (via the Gallery post type).' . $close,
-			'no-image' => $open . 'You do not have any image set for the album <strong>"' . $album_title . '"</strong> at the moment, please add at least one image in this album.' . $close,
-			'single-view' => $open . 'Since you are on the Gallery post type, all the children of this post type will be displayed as single view if left empty. Therefore, the albums view and filters are disabled. The first post is displayed below this notice as an example.' . $close,
-			'single-view-item' => $open . 'Since you are on <strong>"' . $album_title . '"</strong> page, only the <strong>"' . $album_title . '"</strong> album will be displayed. Therefore, the albums view and filters are disabled.' . $close,
-			'media-view' => $open . 'Since you are on the Media post type, all the children of this post type will be displayed as single view if left empty. Therefore, only the appropriate options are available. The first post is displayed below this notice as an example.' . $close,
-			'media-view-item' => $open . 'Since you are on Media post type page, the appropriate image will be displayed automatically. Therefore, only the appropriate options are available.' . $close,
-			'slider-disabled' => '<div class="slider-notice"><p>Slider is disabled in Design mode. View the page to see it in action!</p></div>'
+			'no-album' => $open . 'Du hast aktuell noch kein Album angelegt. Bitte füge mindestens ein Album in WordPress hinzu (über den Galerie-Post-Type).' . $close,
+			'no-image' => $open . 'Du hast für das Album <strong>"' . $album_title . '"</strong> noch kein Bild festgelegt. Bitte füge mindestens ein Bild zu diesem Album hinzu.' . $close,
+			'single-view' => $open . 'Da du dich auf dem Galerie-Post-Type befindest, werden alle Unterseiten dieses Post-Types als Einzelansicht angezeigt, wenn sie leer gelassen werden. Daher sind die Alben-Ansicht und Filter deaktiviert. Der erste Beitrag wird unten als Beispiel angezeigt.' . $close,
+			'single-view-item' => $open . 'Da du dich auf der Seite <strong>"' . $album_title . '"</strong> befindest, wird nur das Album <strong>"' . $album_title . '"</strong> angezeigt. Daher sind die Alben-Ansicht und Filter deaktiviert.' . $close,
+			'media-view' => $open . 'Da du dich auf dem Medien-Post-Type befindest, werden alle Unterseiten dieses Post-Types als Einzelansicht angezeigt, wenn sie leer gelassen werden. Daher sind nur die entsprechenden Optionen verfügbar. Der erste Beitrag wird unten als Beispiel angezeigt.' . $close,
+			'media-view-item' => $open . 'Da du dich auf einer Medien-Post-Type-Seite befindest, wird das entsprechende Bild automatisch angezeigt. Daher sind nur die entsprechenden Optionen verfügbar.' . $close,
+			'slider-disabled' => '<div class="slider-notice"><p>Der Slider ist im Design-Modus deaktiviert. Rufe die Seite auf, um ihn in Aktion zu sehen!</p></div>'
 		);
 	}
 

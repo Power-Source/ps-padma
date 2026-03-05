@@ -90,16 +90,16 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 			$inputs[$key][$key . '-notice'] = self::tab_notice($key . '-notice');
 			
 		$this->tabs = array(
-			'setup' => "Setup",
-			'media' => "Media",
-			'grid' => "Grid",
+			'setup' => "Einstellungen",
+			'media' => "Medien",
+			'grid' => "Raster",
 			'slider' => "Slider",
 			'lightbox' => "Lightbox",
-			'overlay' => "Overlay",
+			'overlay' => "Überlagerung",
 			'links' => "Links",
-			'filters' => "Filters",
-			'ordering' => "Ordering",
-			'content' => "Content"
+			'filters' => "Filter",
+			'ordering' => "Sortierung",
+			'content' => "Inhalt"
 		);
 		
 		$this->inputs = $inputs;
@@ -185,16 +185,16 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 									
 		$settings = array(
 			'open-wrap-view' => self::wrapper('view', true),
-				'heading-view' => self::header('heading-view', 'View &amp; Layout'),
+				'heading-view' => self::header('heading-view', 'Ansicht & Layout'),
 					'view' => array(
 						'type' => 'select',
 						'name' => 'view',
-						'label' => 'View',
+						'label' => 'Ansicht',
 						'default' => 'album',
 						'options' => array(
-							'albums' => 'Albums',
+							'albums' => 'Alben',
 							'album' => 'Album',
-							'media' => 'Media'
+							'media' => 'Medien'
 						),
 						'toggle' => array(
 							'albums' => array(
@@ -236,7 +236,7 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								
 							)
 						),
-						'tooltip' => 'Select whether to display a list of albums, or a specific album.'
+						'tooltip' => 'Wähle, ob eine Liste von Alben oder ein bestimmtes Album angezeigt werden soll.'
 					),
 					'layout' => array(
 						'type' => 'select',
@@ -244,7 +244,7 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 						'label' => 'Layout',
 						'default' => 'grid',
 						'options' => array(
-							'grid' => 'Grid',
+							'grid' => 'Raster',
 							'slider' => 'Slider'
 						),
 						'toggle' => array(
@@ -269,12 +269,12 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'Set whether the layout should be a Grid or a Slider.'
+						'tooltip' => 'Lege fest, ob das Layout ein Raster oder ein Slider sein soll.'
 					),
 			'close-wrap-view' => self::wrapper('view'),	
 								
 			'open-wrap-enable-overlay' => self::wrapper('enable-overlay', true),
-				'heading-enable-overlay' => self::header('heading-enable-overlay', 'Features'),
+				'heading-enable-overlay' => self::header('heading-enable-overlay', 'Funktionen'),
 					'enable-overlay' => array(
 						'type' => 'checkbox',
 						'name' => 'enable-overlay',
@@ -292,7 +292,7 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'Set whether the hover overlay on images should be enabled.'
+						'tooltip' => 'Lege fest, ob die Hover-Überlagerung auf Bildern aktiviert werden soll.'
 					),
 					'enable-lightbox' => array(
 						'type' => 'checkbox',
@@ -311,12 +311,12 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'Enable the full size lightbox preview for images in your Gallery.'
+						'tooltip' => 'Aktiviere die Lightbox-Vorschau in voller Größe für Bilder in deiner Galerie.'
 					),
 					'enable-filters' => array(
 						'type' => 'checkbox',
 						'name' => 'enable-filters',
-						'label' => 'Filters',
+						'label' => 'Filter',
 						'default' => true,
 						'toggle' => array(
 							'true' => array(
@@ -330,12 +330,12 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'Set whether the Gallery filters should be applied or not.'
+						'tooltip' => 'Lege fest, ob die Galerie-Filter angewendet werden sollen.'
 					),
 					'enable-ordering' => array(
 						'type' => 'checkbox',
 						'name' => 'enable-ordering',
-						'label' => 'Ordering',
+						'label' => 'Sortierung',
 						'default' => false,
 						'toggle' => array(
 							'true' => array(
@@ -349,7 +349,7 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'Set whether the Gallery odering should be applied or not.'
+						'tooltip' => 'Lege fest, ob die Galerie-Sortierung angewendet werden soll.'
 					),
 					'enable-links' => array(
 						'type' => 'checkbox',
@@ -368,7 +368,7 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'Set whether the Gallery links should be enabled.'
+						'tooltip' => 'Lege fest, ob die Galerie-Links aktiviert werden sollen.'
 					),
 			'close-wrap-enable-overlay' => self::wrapper('enable-overlay'),	
 				
@@ -377,7 +377,7 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 					'enable-limit-images' => array(
 						'type' => 'checkbox',
 						'name' => 'enable-limit-images',
-						'label' => 'Limit Images',
+						'label' => 'Bilder begrenzen',
 						'default' => false,
 						'toggle' => array(
 							'true' => array(
@@ -391,14 +391,14 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'Set whether you want to limit the images displayed in your Gallery.'
+						'tooltip' => 'Lege fest, ob du die Anzahl der angezeigten Bilder in deiner Galerie begrenzen möchtest.'
 					),
 					'nbr-images' => array(
 						'type' => 'integer',
 						'name' => 'nbr-images',
-						'label' => 'Number Of Images',
+						'label' => 'Anzahl der Bilder',
 						'default' => 10,
-						'tooltip' => 'Set the maximum number of images to display.'
+						'tooltip' => 'Lege die maximale Anzahl der anzuzeigenden Bilder fest.'
 					),
 			'close-wrap-nbr-images' => self::wrapper('nbr-images')
 		);
@@ -414,27 +414,27 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 				
 		$settings = array(
 			'open-wrap-img-nav' => self::wrapper('img-nav', true),
-				'heading-img-nav' => self::header('heading-img-nav', 'Image Navigation'),
+				'heading-img-nav' => self::header('heading-img-nav', 'Bild-Navigation'),
 					'img-nav' => array(
 						'type' => 'checkbox',
 						'name' => 'img-nav',
-						'label' => 'Next &amp; Previous Navigation',
+						'label' => 'Nächstes & Vorheriges Navigation',
 						'default' => true,
-						'tooltip' => 'Set whether the next &amp; previous navigation should be displayed.'
+						'tooltip' => 'Lege fest, ob die Nächstes/Vorheriges-Navigation angezeigt werden soll.'
 					),
 					'img-nav-previous-text' => array(
 						'type' => 'text',
 						'name' => 'img-nav-previous-text',
-						'label' => 'Previous Button Text',
-						'default' => 'Previous',
-						'tooltip' => 'Set the previous button text.'
+						'label' => 'Zurück-Button Text',
+						'default' => 'Zurück',
+						'tooltip' => 'Lege den Text für den Zurück-Button fest.'
 					),
 					'img-nav-next-text' => array(
 						'type' => 'text',
 						'name' => 'img-nav-next-text',
-						'label' => 'Next Button Text',
-						'default' => 'Next',
-						'tooltip' => 'Set the next button text.'
+						'label' => 'Weiter-Button Text',
+						'default' => 'Weiter',
+						'tooltip' => 'Lege den Text für den Weiter-Button fest.'
 					),
 			'close-wrap-img-nav' => self::wrapper('img-nav')	
 		);
@@ -449,11 +449,11 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 				
 		$settings = array(
 			'open-wrap-grid-col' => self::wrapper('grid-col', true),
-				'heading-grid-col' => self::header('heading-grid-col', 'Grid'),
+				'heading-grid-col' => self::header('heading-grid-col', 'Raster'),
 					'grid-col' => array(
 						'type' => 'select',
 						'name' => 'grid-col',
-						'label' => 'Columns',
+						'label' => 'Spalten',
 						'default' => 3,
 						'options' => array(
 							'1' => '1',
@@ -465,38 +465,38 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 							'7' => '7',
 							'8' => '8'
 						),
-						'tooltip' => 'Set the number of columns the Grid should contain.'
+						'tooltip' => 'Lege die Anzahl der Spalten fest, die das Raster enthalten soll.'
 					),
 					'grid-col-spacing' => array(
 						'type' => 'slider',
 						'name' => 'grid-col-spacing',
-						'label' => 'Columns Spacing',
+						'label' => 'Spaltenabstand',
 						'default' => 3,
 						'slider-min' => 0,
 						'slider-max' => 25,
 						'slider-interval' => 1,
 						'unit' => '%',
-						'tooltip' => 'Set the amount of spacing between your Gallery columns.'
+						'tooltip' => 'Lege den Abstand zwischen den Galerie-Spalten fest.'
 					),
 					'grid-row-spacing' => array(
 						'type' => 'slider',
 						'name' => 'grid-row-spacing',
-						'label' => 'Rows Spacing',
+						'label' => 'Zeilenabstand',
 						'default' => 10,
 						'slider-min' => 0,
 						'slider-max' => 500,
 						'slider-interval' => 1,
 						'unit' => 'px',
-						'tooltip' => "Set the rows spacing in pixels."
+						'tooltip' => "Lege den Zeilenabstand in Pixeln fest."
 					),
 			'close-wrap-grid-col' => self::wrapper('grid-col'),
 			
 			'open-wrap-img-enable-crop-height' => self::wrapper('img-enable-crop-height', true),
-				'heading-img-enable-crop-height' => self::header('heading-img-enable-crop-height', 'Resize'),
+				'heading-img-enable-crop-height' => self::header('heading-img-enable-crop-height', 'Größe anpassen'),
 					'img-enable-crop-height' => array(
 						'type' => 'checkbox',
 						'name' => 'img-enable-crop-height',
-						'label' => 'Crop Image Vertically',
+						'label' => 'Bild vertikal zuschneiden',
 						'default' => true,
 						'toggle' => array(
 							'true' => array(
@@ -511,17 +511,17 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'Set whether the image should be vertically cropped.'
+						'tooltip' => 'Lege fest, ob das Bild vertikal zugeschnitten werden soll.'
 					),
 					'img-crop-method' => array(
 						'type' => 'select',
 						'name' => 'img-crop-method',
-						'label' => 'Image Height Method',
+						'label' => 'Bildhöhe-Methode',
 						'default' => 'auto-thumb',
 						'options' => array(
-							'auto-thumb' => 'Auto Thumbnail',
-							'auto-crop' => 'Auto Crop',
-							'crop' => 'Manual Crop'
+							'auto-thumb' => 'Auto Vorschaubild',
+							'auto-crop' => 'Auto Zuschneiden',
+							'crop' => 'Manuell Zuschneiden'
 						),
 						'toggle' => array(
 							'auto-thumb' => array(
@@ -540,25 +540,25 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'The auto thumbnail will resize the width and height based on the available space in the grid column. The auto crop will get the height of the smallest image and use that as the height for all images in the album. The manual crop method allows you to specify a height to crop the images by.'
+						'tooltip' => 'Das Auto-Vorschaubild passt Breite und Höhe basierend auf dem verfügbaren Platz in der Raster-Spalte an. Das automatische Zuschneiden verwendet die Höhe des kleinsten Bildes als Höhe für alle Bilder im Album. Die manuelle Zuschnitt-Methode ermöglicht es dir, eine Höhe festzulegen, auf die die Bilder zugeschnitten werden.'
 					),
 					'img-crop-height' => array(
 						'type' => 'slider',
 						'name' => 'img-crop-height',
-						'label' => 'Image Height',
+						'label' => 'Bildhöhe',
 						'default' => 200,
 						'slider-min' => 50,
 						'slider-max' => 1500,
 						'slider-interval' => 1,
 						'unit' => 'px',
-						'tooltip' => 'Set the height of your image.'
+						'tooltip' => 'Lege die Höhe deines Bildes fest.'
 					),
 					'img-enable-crop-width' => array(
 						'type' => 'checkbox',
 						'name' => 'img-enable-crop-width',
-						'label' => 'Crop Image Horizontally',
+						'label' => 'Bild horizontal zuschneiden',
 						'default' => true,
-						'tooltip' => 'Set whether the image should be horizontally cropped.'
+						'tooltip' => 'Lege fest, ob das Bild horizontal zugeschnitten werden soll.'
 					),
 			'close-wrap-img-enable-crop-height' => self::wrapper('img-enable-crop-height')
 		);
@@ -573,11 +573,11 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 			
 		$settings = array(
 			'open-wrap-slider-nav' => self::wrapper('slider-nav', true),
-				'heading-slider-nav' => self::header('heading-slider-nav', 'Main Slider'),
+				'heading-slider-nav' => self::header('heading-slider-nav', 'Haupt-Slider'),
 					'slider-nav' => array(
 						'type' => 'checkbox',
 						'name' => 'slider-nav',
-						'label' => 'Next &amp; Previous Navigation',
+						'label' => 'Nächstes & Vorheriges Navigation',
 						'default' => true,
 						'toggle' => array(
 							'true' => array(
@@ -591,26 +591,26 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'Set whether you would like to display the slider next/previous navigation.'
+						'tooltip' => 'Lege fest, ob die Nächstes/Vorheriges-Navigation des Sliders angezeigt werden soll.'
 					),
 					'slider-nav-hover' => array(
 						'type' => 'checkbox',
 						'name' => 'slider-nav-hover',
-						'label' => 'Show Only On Hover',
+						'label' => 'Nur bei Hover anzeigen',
 						'default' => false,
-						'tooltip' => 'Set whether to only show the navigation when you move your mouse over the main image.'
+						'tooltip' => 'Lege fest, ob die Navigation nur angezeigt werden soll, wenn du die Maus über das Hauptbild bewegst.'
 					),
 					'slider-enable-loop' => array(
 						'type' => 'checkbox',
 						'name' => 'slider-enable-loop',
-						'label' => 'Loop',
+						'label' => 'Schleife',
 						'default' => true,
-						'tooltip' => 'Should the Slider be set to a continuous loop?'
+						'tooltip' => 'Soll der Slider als Endlosschleife eingestellt werden?'
 					),
 					'slider-enable-slideshow' => array(
 						'type' => 'checkbox',
 						'name' => 'slider-enable-slideshow',
-						'label' => 'Slideshow',
+						'label' => 'Diashow',
 						'default' => false,
 						'toggle' => array(
 							'true' => array(
@@ -624,32 +624,32 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'Set whether you want the Slider to act like a slideshow and play automatically.'
+						'tooltip' => 'Lege fest, ob der Slider wie eine Diashow funktionieren und automatisch abspielen soll.'
 					),
 					'slider-slideshow-speed' => array(
 						'type' => 'slider',
 						'name' => 'slider-slideshow-speed',
-						'label' => 'Slideshow Speed',
+						'label' => 'Diashow-Geschwindigkeit',
 						'default' => 7000,
 						'slider-min' => 2000,
 						'slider-max' => 20000,
 						'slider-interval' => 500,
 						'unit' => 'ms',
-						'tooltip' => 'Set the speed for the pause between slides.'
+						'tooltip' => 'Lege die Geschwindigkeit für die Pause zwischen den Folien fest.'
 					),
 			'close-wrap-slider-nav' => self::wrapper('slider-nav'),
 			
 			'open-wrap-slider-height' => self::wrapper('slider-height', true),
-				'heading-slider-height' => self::header('heading-slider-height', 'Resize'),
+				'heading-slider-height' => self::header('heading-slider-height', 'Größe anpassen'),
 					'slider-height' => array(
 						'type' => 'select',
 						'name' => 'slider-height',
-						'label' => 'Slider Height Method',
+						'label' => 'Slider-Höhen-Methode',
 						'default' => 'auto',
 						'options' => array(
-							'auto' => 'Auto Crop',
-							'crop' => 'Manual Crop',
-							'animate' => 'Animate',
+							'auto' => 'Auto Zuschneiden',
+							'crop' => 'Manuell Zuschneiden',
+							'animate' => 'Animieren',
 						),
 						'toggle' => array(
 							'auto' => array(
@@ -668,31 +668,31 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'Set whether to automatically crop the image, based on the height of the shortest image in the album or manually crop, where you set a specific height to crop to; or animate between the various image heights.'
+						'tooltip' => 'Lege fest, ob das Bild automatisch zugeschnitten werden soll, basierend auf der Höhe des kleinsten Bildes im Album, oder manuell zuschneiden, wobei du eine bestimmte Höhe zum Zuschneiden festlegst; oder zwischen den verschiedenen Bildhöhen animieren.'
 					),
 					'slider-crop-height' => array(
 						'type' => 'slider',
 						'name' => 'slider-crop-height',
-						'label' => 'Slider Height',
+						'label' => 'Slider-Höhe',
 						'default' => 200,
 						'slider-min' => 50,
 						'slider-max' => 1500,
 						'slider-interval' => 1,
 						'unit' => 'px',
-						'tooltip' => 'Set the height of your slider.'
+						'tooltip' => 'Lege die Höhe deines Sliders fest.'
 					),
 			'close-wrap-img-enable-crop-height' => self::wrapper('img-enable-crop-height'),
 			
 			'open-wrap-slider-effect' => self::wrapper('slider-effect', true),
-				'heading-slider-effect' => self::header('heading-slider-effect', 'Effects'),
+				'heading-slider-effect' => self::header('heading-slider-effect', 'Effekte'),
 					'slider-effect' => array(
 						'type' => 'select',
 						'name' => 'slider-effect',
-						'label' => 'Effect',
+						'label' => 'Effekt',
 						'default' => 'fade',
 						'options' => array(
-							'fade' => 'Fade',
-							'slide' => 'Slide'
+							'fade' => 'Ausblenden',
+							'slide' => 'Gleiten'
 						),
 						'toggle' => array(
 							'fade' => array(
@@ -706,46 +706,46 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'Set the effect to use for your album slider.'
+						'tooltip' => 'Lege den Effekt für deinen Album-Slider fest.'
 					),
 					'slider-direction' => array(
 						'type' => 'select',
 						'name' => 'slider-direction',
-						'label' => 'Direction',
+						'label' => 'Richtung',
 						'default' => 'horizontal',
 						'options' => array(
 							'horizontal' => 'Horizontal',
-							'vertical' => 'Vertical'
+							'vertical' => 'Vertikal'
 						),
-						'tooltip' => 'Set the direction for your album slider.'
+						'tooltip' => 'Lege die Richtung für deinen Album-Slider fest.'
 					),
 					'slider-speed' => array(
 						'type' => 'slider',
 						'name' => 'slider-speed',
-						'label' => 'Slider Speed',
+						'label' => 'Slider-Geschwindigkeit',
 						'default' => 300,
 						'slider-min' => 150,
 						'slider-max' => 5000,
 						'slider-interval' => 50,
 						'unit' => 'ms',
-						'tooltip' => 'Set the speed of your album slider.'
+						'tooltip' => 'Lege die Geschwindigkeit deines Album-Sliders fest.'
 					),
 					'slider-easing' => array(
 						'type' => 'select',
 						'name' => 'slider-easing',
-						'label' => 'Easing',
+						'label' => 'Beschleunigung',
 						'default' => 'swing',
 						'options' => self::easing_effect($block),
-						'tooltip' => 'Set whether the album slider should use the easing effect.'
+						'tooltip' => 'Lege fest, ob der Album-Slider den Beschleunigungseffekt verwenden soll.'
 					),
 			'close-wrap-slider-effect' => self::wrapper('slider-effect'),
 			
 			'open-wrap-slider-pager' => self::wrapper('slider-pager', true),
-				'heading-slider-pager' => self::header('heading-slider-pager', 'Pagination'),
+				'heading-slider-pager' => self::header('heading-slider-pager', 'Seitennummerierung'),
 					'slider-pager' => array(
 						'type' => 'checkbox',
 						'name' => 'slider-pager',
-						'label' => 'Pagination',
+						'label' => 'Seitennummerierung',
 						'default' => true,
 						'toggle' => array(
 							'true' => array(
@@ -759,12 +759,12 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'Set whether the slider pagination should be enabled.'
+						'tooltip' => 'Lege fest, ob die Slider-Seitennummerierung aktiviert werden soll.'
 					),
 					'slider-enable-pager-thumbs' => array(
 						'type' => 'checkbox',
 						'name' => 'slider-enable-pager-thumbs',
-						'label' => 'Use Thumbnails',
+						'label' => 'Verwende Vorschaubilder',
 						'default' => false,
 						'toggle' => array(
 							'false' => array(
@@ -779,16 +779,16 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'Set whether to use thumbnails for the slider pagination.'
+						'tooltip' => 'Lege fest, ob Vorschaubilder für die Slider-Seitennummerierung verwendet werden sollen.'
 					),
 			'close-wrap-slider-pager' => self::wrapper('slider-pager'),
 			
 			'open-wrap-slider-pager-show-all' => self::wrapper('slider-pager-show-all', true),
-				'heading-slider-pager-show-all' => self::header('heading-slider-pager-show-all', 'Pagination Thumbnails'),
+				'heading-slider-pager-show-all' => self::header('heading-slider-pager-show-all', 'Pagination-Vorschaubilder'),
 					'slider-pager-show-all' => array(
 						'type' => 'checkbox',
 						'name' => 'slider-pager-show-all',
-						'label' => 'Show All Thumbnails ',
+						'label' => 'Alle Vorschaubilder anzeigen',
 						'default' => false,
 						'toggle' => array(
 							'false' => array(
@@ -806,44 +806,44 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'Set whether all pager thumbnails should be displayed. If yes, the carousel navigation will automatically be enabled, allowing you to scroll horizontally between the thumbnails. If disabled, only the number of thumbnails you specify will be displayed.'
+						'tooltip' => 'Lege fest, ob alle Pagination-Vorschaubilder angezeigt werden sollen. Falls ja, wird die Karussell-Navigation automatisch aktiviert, sodass du horizontal zwischen den Vorschaubildern scrollen kannst. Falls deaktiviert, werden nur die von dir angegebene Anzahl an Vorschaubildern angezeigt.'
 					),
 					'slider-thumb-count' => array(
 						'type' => 'slider',
 						'name' => 'slider-thumb-count',
-						'label' => 'Number Of Thumbnails',
+						'label' => 'Anzahl der Vorschaubilder',
 						'default' => 4,
 						'slider-min' => 2,
 						'slider-max' => 10,
 						'slider-interval' => 1,
-						'tooltip' => 'Set the number of thumbnails to use for your slider pagination.'
+						'tooltip' => 'Lege die Anzahl der Vorschaubilder fest, die für deine Slider-Seitennummerierung verwendet werden sollen.'
 					),
 					'slider-pager-spacing' => array(
 						'type' => 'slider',
 						'name' => 'slider-pager-spacing',
-						'label' => 'Container Spacing',
+						'label' => 'Container-Abstand',
 						'default' => 0,
 						'slider-min' => 0,
 						'slider-max' => 500,
 						'slider-interval' => 2,
 						'unit' => 'px',
-						'tooltip' => 'Set the left and right spacing of the slider thumbnail container.'
+						'tooltip' => 'Lege den linken und rechten Abstand des Slider-Vorschaubild-Containers fest.'
 					),
 					'slider-thumb-spacing' => array(
 						'type' => 'slider',
 						'name' => 'slider-thumb-spacing',
-						'label' => 'Thumbnails Spacing',
+						'label' => 'Vorschaubild-Abstand',
 						'default' => 6,
 						'slider-min' => 0,
 						'slider-max' => 100,
 						'slider-interval' => 2,
 						'unit' => 'px',
-						'tooltip' => 'Set the amount of spacing between the slider pagination thumbnails.'
+						'tooltip' => 'Lege den Abstand zwischen den Slider-Pagination-Vorschaubildern fest.'
 					),
 					'slider-enable-thumb-crop-height' => array(
 						'type' => 'checkbox',
 						'name' => 'slider-enable-thumb-crop-height',
-						'label' => 'Crop Thumbnail Vertically',
+						'label' => 'Vorschaubild vertikal zuschneiden',
 						'default' => false,
 						'toggle' => array(
 							'true' => array(
@@ -862,7 +862,7 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 					'slider-thumb-crop-height' => array(
 						'type' => 'slider',
 						'name' => 'slider-thumb-crop-height',
-						'label' => 'Thumbnail Height',
+						'label' => 'Vorschaubild-Höhe',
 						'default' => 50,
 						'slider-min' => 5,
 						'slider-max' => 500,
@@ -873,7 +873,7 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 					'slider-pager-nav' => array(
 						'type' => 'checkbox',
 						'name' => 'slider-pager-nav',
-						'label' => 'Next &amp; Previous Navigation',
+						'label' => 'Nächstes & Vorheriges Navigation',
 						'default' => true,
 						'toggle' => array(
 							'true' => array(
@@ -887,12 +887,12 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'Set whether you would like to display the next/previous navigation.'
+						'tooltip' => 'Lege fest, ob du die Nächstes/Vorheriges-Navigation anzeigen möchtest.'
 					),
 					'slider-pager-nav-hover' => array(
 						'type' => 'checkbox',
 						'name' => 'slider-pager-nav-hover',
-						'label' => 'Show Only On Hover ',
+						'label' => 'Nur bei Hover anzeigen',
 						'default' => false,
 						'tooltip' => ''
 					),
@@ -913,14 +913,14 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 					'lightbox-enable-loop' => array(
 						'type' => 'checkbox',
 						'name' => 'lightbox-enable-loop',
-						'label' => 'Loop',
+						'label' => 'Schleife',
 						'default' => true,
-						'tooltip' => 'Set whether the enable the lightbox image loop. This means that your users will be able to navigation all the Gallery images without needing to open and close the lightbox full image view. '
+						'tooltip' => 'Lege fest, ob die Lightbox-Bildschleife aktiviert werden soll. Das bedeutet, dass deine Benutzer durch alle Galerie-Bilder navigieren können, ohne die Lightbox-Vollbildansicht öffnen und schließen zu müssen.'
 					),
 					'lightbox-show-title' => array(
 						'type' => 'checkbox',
 						'name' => 'lightbox-show-title',
-						'label' => 'Title',
+						'label' => 'Titel',
 						'default' => true,
 						'toggle' => array(
 							'true' => array(
@@ -934,27 +934,27 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'Set whether the lightbox title should be displayed.'
+						'tooltip' => 'Lege fest, ob der Lightbox-Titel angezeigt werden soll.'
 					),
 					'lightbox-title-position' => array(
 						'type' => 'select',
 						'name' => 'lightbox-title-position',
-						'label' => 'Title Position',
+						'label' => 'Titel-Position',
 						'default' => 'over',
 						'options' => array(
-							'over' => 'Over Image',
-							'float' => 'Below Image'
+							'over' => 'Über Bild',
+							'float' => 'Unter Bild'
 						),
-						'tooltip' => 'Set the position of the image title in the full size lightbox preview.'
+						'tooltip' => 'Lege die Position des Bildtitels in der Lightbox-Vollbildvorschau fest.'
 					),
 			'close-wrap-lightbox-enable-loop' => self::wrapper('lightbox-enable-loop'),
 			
 			'open-wrap-lightbox-enable-resize' => self::wrapper('lightbox-enable-resize', true),
-				'heading-lightbox-enable-resize' => self::header('heading-lightbox-enable-resize', 'Resize'),
+				'heading-lightbox-enable-resize' => self::header('heading-lightbox-enable-resize', 'Größe anpassen'),
 					'lightbox-enable-resize' => array(
 						'type' => 'checkbox',
 						'name' => 'lightbox-enable-resize',
-						'label' => 'Resize Lightbox',
+						'label' => 'Lightbox Größe anpassen',
 						'default' => false,
 						'toggle' => array(
 							'true' => array(
@@ -970,73 +970,73 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'Set the light box dimensions. If set to false, the lightbox size will be calculated automatically.'
+						'tooltip' => 'Lege die Lightbox-Abmessungen fest. Falls auf false gesetzt, wird die Lightbox-Größe automatisch berechnet.'
 					),
 					'lightbox-height' => array(
 						'type' => 'slider',
 						'name' => 'lightbox-height',
-						'label' => 'Height',
+						'label' => 'Höhe',
 						'default' => 1000,
 						'slider-min' => 100,
 						'slider-max' => 2000,
 						'slider-interval' => 10,
 						'unit' => 'px',
-						'tooltip' => 'Set the height of your lightbox.'
+						'tooltip' => 'Lege die Höhe deiner Lightbox fest.'
 					),
 					'lightbox-width' => array(
 						'type' => 'slider',
 						'name' => 'lightbox-width',
-						'label' => 'Width',
+						'label' => 'Breite',
 						'default' => 1000,
 						'slider-min' => 100,
 						'slider-max' => 2000,
 						'slider-interval' => 10,
 						'unit' => 'px',
-						'tooltip' => 'Set the width of your lightbox.'
+						'tooltip' => 'Lege die Breite deiner Lightbox fest.'
 					),
 			'close-wrap-img-enable-crop-height' => self::wrapper('img-enable-crop-height'),
 			
 			'open-wrap-lightbox-open-effect' => self::wrapper('lightbox-open-effect', true),
-				'heading-lightbox-open-effect' => self::header('heading-lightbox-open-effect', 'Effects'),
+				'heading-lightbox-open-effect' => self::header('heading-lightbox-open-effect', 'Effekte'),
 					'lightbox-open-effect' => array(
 						'type' => 'select',
 						'name' => 'lightbox-open-effect',
-						'label' => 'Open Effect',
+						'label' => 'Öffnen-Effekt',
 						'default' => 'elastic',
 						'options' => array(
-							'fade' => 'Fade',
-							'elastic' => 'Elastic',
-							'none' => 'None'
+							'fade' => 'Ausblenden',
+							'elastic' => 'Elastisch',
+							'none' => 'Kein'
 						),
 						'tooltip' => ''
 					),
 					'lightbox-close-effect' => array(
 						'type' => 'select',
 						'name' => 'lightbox-close-effect',
-						'label' => 'Close Effect',
+						'label' => 'Schließen-Effekt',
 						'default' => 'elastic',
 						'options' => array(
-							'fade' => 'Fade',
-							'elastic' => 'Elastic',
-							'none' => 'None'
+							'fade' => 'Ausblenden',
+							'elastic' => 'Elastisch',
+							'none' => 'Kein'
 						),
-						'tooltip' => 'Set the effect to use for the lightbox closing.'
+						'tooltip' => 'Lege den Effekt für das Schließen der Lightbox fest.'
 					),
 					'lightbox-easingin' => array(
 						'type' => 'select',
 						'name' => 'lightbox-easingin',
-						'label' => 'Easing In',
+						'label' => 'Einblenden-Beschleunigung',
 						'default' => 'swing',
 						'options' => self::easing_effect($block),
-						'tooltip' => 'Set whether the easing-in effect be enabled for the lightbox.'
+						'tooltip' => 'Lege fest, ob der Einblenden-Effekt für die Lightbox aktiviert werden soll.'
 					),
 					'lightbox-easingout' => array(
 						'type' => 'select',
 						'name' => 'lightbox-easingout',
-						'label' => 'Easing Out',
+						'label' => 'Ausblenden-Beschleunigung',
 						'default' => 'swing',
 						'options' => self::easing_effect($block),
-						'tooltip' => 'Set whether the easing-out effect be enabled for the lightbox.'
+						'tooltip' => 'Lege fest, ob der Ausblenden-Effekt für die Lightbox aktiviert werden soll.'
 					),
 			'close-wrap-lightbox-title-position' => self::wrapper('lightbox-title-position')
 		);
@@ -1050,62 +1050,62 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 		
 		$settings = array(
 			'open-wrap-overlay-content' => self::wrapper('overlay-content', true),
-				'heading-overlay-content' => self::header('heading-overlay-content', 'Overlay'),
+				'heading-overlay-content' => self::header('heading-overlay-content', 'Überlagerung'),
 					'overlay-content' => array(
 						'type' => 'multi-select',
 						'name' => 'overlay-content',
-						'label' => 'Overlay Content',
+						'label' => 'Überlagerungs-Inhalt',
 						'default' => array('image'),
 						'options' => array(
-							'title'	=> 'Title',
-							'caption' => 'Caption',
-							'image'	=> 'Image'
+							'title'	=> 'Titel',
+							'caption' => 'Beschriftung',
+							'image'	=> 'Bild'
 						),
-						'tooltip' => 'Set whether to display the thumnail title or caption in the hover overlay. The image is set in Mode->Caption Container->Background->Image'
+						'tooltip' => 'Lege fest, ob der Vorschaubild-Titel oder die Beschriftung in der Hover-Überlagerung angezeigt werden sollen. Das Bild wird unter Modus->Beschriftungs-Container->Hintergrund->Bild festgelegt.'
 					),
 			'close-wrap-overlay-content' => self::wrapper('overlay-content'),
 			
 			'open-wrap-overlay-effect' => self::wrapper('overlay-effect', true),
-				'heading-overlay-effect' => self::header('heading-overlay-effect', 'Effects'),
+				'heading-overlay-effect' => self::header('heading-overlay-effect', 'Effekte'),
 					'overlay-effect' => array(
 						'type' => 'select',
 						'name' => 'overlay-effect',
-						'label' => 'Effect',
+						'label' => 'Effekt',
 						'default' => 'bottom',
 						'options' => array(
-							'fade' => 'Fade',
-							'top' => 'Slide From Top',
-							'right' => 'Slide From Right',
-							'bottom' => 'Slide From Bottom',
-							'left' => 'Slide From Left'
+							'fade' => 'Ausblenden',
+							'top' => 'Von oben gleiten',
+							'right' => 'Von rechts gleiten',
+							'bottom' => 'Von unten gleiten',
+							'left' => 'Von links gleiten'
 						),
-						'tooltip' => 'Set the overlay effect for your album images.'
+						'tooltip' => 'Lege den Überlagerungs-Effekt für deine Album-Bilder fest.'
 					),
 					'overlay-speed' => array(
 						'type' => 'slider',
 						'name' => 'overlay-speed',
-						'label' => 'Speed',
+						'label' => 'Geschwindigkeit',
 						'default' => 300,
 						'slider-min' => 150,
 						'slider-max' => 2000,
 						'slider-interval' => 1,
 						'unit' => 'ms',
-						'tooltip' => 'Set the speed at which the hover overlay is displayed.'
+						'tooltip' => 'Lege die Geschwindigkeit fest, mit der die Hover-Überlagerung angezeigt wird.'
 					),
 					'overlay-easing' => array(
 						'type' => 'select',
 						'name' => 'overlay-easing',
-						'label' => 'Easing',
+						'label' => 'Beschleunigung',
 						'default' => 'easeOutQuad',
 						'options' => self::easing_effect($block),
-						'tooltip' => 'Should the easing effect be enabled when hovering over individual image?'
+						'tooltip' => 'Soll der Beschleunigungseffekt aktiviert werden, wenn du über ein einzelnes Bild fährst?'
 					),
 					'overlay-invert' => array(
 						'type' => 'checkbox',
 						'name' => 'overlay-invert',
-						'label' => 'Invert Effect',
+						'label' => 'Effekt umkehren',
 						'default' => false,
-						'tooltip' => 'Set whether to invert the overlay when moving your mouse over one of the album image.'
+						'tooltip' => 'Lege fest, ob die Überlagerung umgekehrt werden soll, wenn du die Maus über ein Album-Bild bewegst.'
 					),
 			'close-wrap-overlay-effect' => self::wrapper('overlay-effect')
 		);
@@ -1124,52 +1124,52 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 					'readon-text' => array(
 						'type' => 'text',
 						'name' => 'readon-text',
-						'label' => 'Readon Text',
-						'default' => 'View Album…',
-						'tooltip' => 'Set the readon text for your Gallery.'
+						'label' => 'Weiterlesen-Text',
+						'default' => 'Album ansehen…',
+						'tooltip' => 'Lege den Weiterlesen-Text für deine Galerie fest.'
 					),
 					'enable-title-link' => array(
 						'type' => 'checkbox',
 						'name' => 'enable-title-link',
-						'label' => 'Link Title',
+						'label' => 'Titel verlinken',
 						'default' => false,
-						'tooltip' => 'Set whether the Gallery title should be linked?'
+						'tooltip' => 'Lege fest, ob der Galerie-Titel verlinkt werden soll.'
 					),
 					'enable-image-link' => array(
 						'type' => 'checkbox',
 						'name' => 'enable-image-link',
-						'label' => 'Link Image',
+						'label' => 'Bild verlinken',
 						'default' => true,
-						'tooltip' => 'Set whether the images should be linked.'
+						'tooltip' => 'Lege fest, ob die Bilder verlinkt werden sollen.'
 					),
 					'link-target' => array(
 						'type' => 'checkbox',
 						'name' => 'link-target',
-						'label' => 'Open In New Window',
+						'label' => 'In neuem Fenster öffnen',
 						'default' => false,
-						'tooltip' => 'Set whether the read on link should open in a new window.'
+						'tooltip' => 'Lege fest, ob der Weiterlesen-Link in einem neuen Fenster geöffnet werden soll.'
 					),
 					'link-behaviour' => array(
 						'type' => 'multi-select',
 						'name' => 'link-behaviour',
-						'label' => 'Link Behaviour',
+						'label' => 'Link-Verhalten',
 						'default' => array('auto', 'custom'),
 						'options' => array(
-							'auto' => 'Link To Item',
-							'custom' => 'Custom Link'
+							'auto' => 'Zu Element verlinken',
+							'custom' => 'Benutzerdefinierter Link'
 						),
-						'tooltip' => 'If Link To Item is selected, it will automatically link to the album item from albums view or link to the image from album view. If Custom Link is selected, it will use the custom link set in the Wordpress ablum or image if not left empty. If both options are selected, it will use the custom link if set or fallback on the item link if custom link is left empty.'
+						'tooltip' => 'Wenn "Zu Element verlinken" ausgewählt ist, wird automatisch zum Album-Element aus der Alben-Ansicht oder zum Bild aus der Album-Ansicht verlinkt. Wenn "Benutzerdefinierter Link" ausgewählt ist, wird der benutzerdefinierte Link verwendet, der im WordPress-Album oder -Bild gesetzt wurde, falls nicht leer. Wenn beide Optionen ausgewählt sind, wird der benutzerdefinierte Link verwendet, falls gesetzt, oder auf den Element-Link zurückgegriffen, wenn der benutzerdefinierte Link leer ist.'
 					),
 			'close-wrap-readon-text' => self::wrapper('readon-text'),
 			
 			'open-wrap-link-show-title-tag' => self::wrapper('link-show-title-tag', true),
-				'heading-link-show-title-tag' => self::header('heading-link-show-title-tag', 'HTML Tags'),
+				'heading-link-show-title-tag' => self::header('heading-link-show-title-tag', 'HTML-Tags'),
 					'link-show-title-tag' => array(
 						'type' => 'checkbox',
 						'name' => 'link-show-title-tag',
-						'label' => 'Title Tag',
+						'label' => 'Titel-Tag',
 						'default' => true,
-						'tooltip' => 'Set whether the link title tag should be added.'
+						'tooltip' => 'Lege fest, ob das Link-Titel-Tag hinzugefügt werden soll.'
 					),
 			'close-wrap-link-show-title-tag' => self::wrapper('link-show-title-tag')
 		);
@@ -1226,7 +1226,7 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 					'enable-limit-albums' => array(
 						'type' => 'checkbox',
 						'name' => 'enable-limit-albums',
-						'label' => 'Limit Albums',
+						'label' => 'Alben begrenzen',
 						'default' => false,
 						'toggle' => array(
 							'true' => array(
@@ -1240,23 +1240,23 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'Set whether you want to limit the number of albums albums displayed.'
+						'tooltip' => 'Lege fest, ob du die Anzahl der angezeigten Alben begrenzen möchtest.'
 					),
 					'nbr-albums' => array(
 						'type' => 'integer',
 						'name' => 'nbr-albums',
-						'label' => 'Number Of Albums',
+						'label' => 'Anzahl der Alben',
 						'default' => 10,
-						'tooltip' => 'Set the maximum number of albums to display.'
+						'tooltip' => 'Lege die maximale Anzahl der anzuzeigenden Alben fest.'
 					),
 			'close-wrap-nbr-images' => self::wrapper('nbr-images'),
 			
 			'open-wrap-filters-enable-categories' => self::wrapper('filters-enable-categories', true),
-				'heading-filters-enable-categories' => self::header('heading-filters-enable-categories', 'Filters'),
+				'heading-filters-enable-categories' => self::header('heading-filters-enable-categories', 'Filter'),
 					'filters-enable-categories' => array(
 						'type' => 'checkbox',
 						'name' => 'filters-enable-categories',
-						'label' => 'By Category',
+						'label' => 'Nach Kategorie',
 						'default' => false,
 						'toggle' => array(
 							'true' => array(
@@ -1272,31 +1272,31 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'Set whether the filter category should be enabled.'
+						'tooltip' => 'Lege fest, ob der Kategorie-Filter aktiviert werden soll.'
 					),
 					'filters-categories' => array(
 						'type' => 'multi-select',
 						'name' => 'filters-categories',
-						'label' => 'Categories',
+						'label' => 'Kategorien',
 						'default' => null,
 						'options' => $category_options,
-						'tooltip' => 'Set which categories you would like to filter.'
+						'tooltip' => 'Lege fest, welche Kategorien du filtern möchtest.'
 					),
 					'filters-categories-mode' => array(
 						'type' => 'select',
 						'name' => 'filters-categories-mode',
-						'label' => 'Categories Mode',
+						'label' => 'Kategorien-Modus',
 						'default' => 'include',
 						'options' => array(
-							'include' => 'Include',
-							'exclude' => 'Exclude'
+							'include' => 'Einbeziehen',
+							'exclude' => 'Ausschließen'
 						),
-						'tooltip' => 'Set whether you would like to include or exclude the selected categories.'
+						'tooltip' => 'Lege fest, ob du die ausgewählten Kategorien einbeziehen oder ausschließen möchtest.'
 					),
 					'filters-enable-tags' => array(
 						'type' => 'checkbox',
 						'name' => 'filters-enable-tags',
-						'label' => 'By Tags',
+						'label' => 'Nach Tags',
 						'default' => false,
 						'toggle' => array(
 							'true' => array(
@@ -1312,7 +1312,7 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'Set whether the filter tags should be enabled.'
+						'tooltip' => 'Lege fest, ob der Tag-Filter aktiviert werden soll.'
 					),
 					'filters-tags' => array(
 						'type' => 'multi-select',
@@ -1320,23 +1320,23 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 						'label' => 'Tags',
 						'default' => null,
 						'options' => $tag_options,
-						'tooltip' => 'Set which tags you would like to filter.'
+						'tooltip' => 'Lege fest, welche Tags du filtern möchtest.'
 					),
 					'filters-tags-mode' => array(
 						'type' => 'select',
 						'name' => 'filters-tags-mode',
-						'label' => 'Tags Mode',
+						'label' => 'Tags-Modus',
 						'default' => 'include',
 						'options' => array(
-							'include' => 'Include',
-							'exclude' => 'Exclude'
+							'include' => 'Einbeziehen',
+							'exclude' => 'Ausschließen'
 						),
-						'tooltip' => 'Set whether you would like to include or exclude the selected tags.'
+						'tooltip' => 'Lege fest, ob du die ausgewählten Tags einbeziehen oder ausschließen möchtest.'
 					),
 					'filters-enable-wp-items' => array(
 						'type' => 'checkbox',
 						'name' => 'filters-enable-wp-items',
-						'label' => 'By Albums',
+						'label' => 'Nach Alben',
 						'default' => false,
 						'toggle' => array(
 							'true' => array(
@@ -1352,26 +1352,26 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'Set whether the filter album should be enabled.'
+						'tooltip' => 'Lege fest, ob der Album-Filter aktiviert werden soll.'
 					),
 					'filters-wp-items' => array(
 						'type' => 'multi-select',
 						'name' => 'filters-wp-items',
-						'label' => 'Albums',
+						'label' => 'Alben',
 						'default' => null,
 						'options' => $item_options,
-						'tooltip' => 'Set which album you would like to filter.'
+						'tooltip' => 'Lege fest, welches Album du filtern möchtest.'
 					),
 					'filters-wp-items-mode' => array(
 						'type' => 'select',
 						'name' => 'filters-wp-items-mode',
-						'label' => 'Albums Mode',
+						'label' => 'Alben-Modus',
 						'default' => 'include',
 						'options' => array(
-							'include' => 'Include',
-							'exclude' => 'Exclude'
+							'include' => 'Einbeziehen',
+							'exclude' => 'Ausschließen'
 						),
-						'tooltip' => 'Set whether you would like to include or exclude the selected albums.'
+						'tooltip' => 'Lege fest, ob du die ausgewählten Alben einbeziehen oder ausschließen möchtest.'
 					),
 			'close-wrap-enable-filters' => self::wrapper('enable-filters')
 		);
@@ -1386,58 +1386,58 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 	
 		$settings = array(
 			'open-wrap-heading-order-by' => self::wrapper('heading-order-by', true),
-				'heading-order-by' => self::header('heading-order-by', 'Ordering Albums'),
+				'heading-order-by' => self::header('heading-order-by', 'Alben sortieren'),
 					'order-by' => array(
 						'type' => 'select',
 						'name' => 'order-by',
-						'label' => 'Order By',
+						'label' => 'Sortieren nach',
 						'default' => 'id',
 						'options' => array(
-							'date' => 'Date',
-							'title' => 'Title',
+							'date' => 'Datum',
+							'title' => 'Titel',
 							'id' => 'ID',
-							'rand' => 'Random'
+							'rand' => 'Zufällig'
 						),
-						'tooltip' => 'Set your albums ordering.'
+						'tooltip' => 'Lege die Sortierung deiner Alben fest.'
 					),
 					'order' => array(
 						'type' => 'select',
 						'name' => 'order',
-						'label' => 'Order',
+						'label' => 'Reihenfolge',
 						'default' => 'desc',
 						'options' => array(
-							'desc' => 'Descending',
-							'asc' => 'Ascending',
+							'desc' => 'Absteigend',
+							'asc' => 'Aufsteigend',
 						),
-						'tooltip' => 'Set whether the ordering should be Descending or Ascending.'
+						'tooltip' => 'Lege fest, ob die Sortierung absteigend oder aufsteigend sein soll.'
 					),
 			'close-wrap-heading-order-by' => self::wrapper('heading-order-by'),
 			
 			'open-wrap-heading-order-images-by' => self::wrapper('heading-order-images-by', true),
-				'heading-order-images-by' => self::header('heading-order-images-by', 'Ordering Images'),
+				'heading-order-images-by' => self::header('heading-order-images-by', 'Bilder sortieren'),
 					'order-images-by' => array(
 						'type' => 'select',
 						'name' => 'order-images-by',
-						'label' => 'Order By',
+						'label' => 'Sortieren nach',
 						'default' => 'entry',
 						'options' => array(
-							'entry' => 'Manual',
-							'title' => 'Title',
+							'entry' => 'Manuell',
+							'title' => 'Titel',
 							'id' => 'ID',
-							'rand' => 'Random'
+							'rand' => 'Zufällig'
 						),
-						'tooltip' => 'Set your images ordering. If ordering is set to Manual, images will be displayed in the order you have them set in your album.'
+						'tooltip' => 'Lege die Sortierung deiner Bilder fest. Wenn die Sortierung auf Manuell gesetzt ist, werden die Bilder in der Reihenfolge angezeigt, in der du sie in deinem Album festgelegt hast.'
 					),
 					'order-images' => array(
 						'type' => 'select',
 						'name' => 'order-images',
-						'label' => 'Order',
+						'label' => 'Reihenfolge',
 						'default' => 'desc',
 						'options' => array(
-							'desc' => 'Descending',
-							'asc' => 'Ascending',
+							'desc' => 'Absteigend',
+							'asc' => 'Aufsteigend',
 						),
-						'tooltip' => 'Set whether the ordering should be Descending or Ascending.'
+						'tooltip' => 'Lege fest, ob die Sortierung absteigend oder aufsteigend sein soll.'
 					),
 			'close-wrap-heading-order-images-by' => self::wrapper('heading-order-images-by')
 		);
@@ -1454,25 +1454,25 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 
 		$settings = array(
 			'open-wrap-block-before' => self::wrapper('block-before', true),
-				'heading-block-before' => self::header('heading-block-before', 'Block Content'),
+				'heading-block-before' => self::header('heading-block-before', 'Block-Inhalt'),
 					'block-before' => array(
 						'type' => $wysiwyg,
 						'name' => 'block-before',
-						'label' => 'Before Block',
+						'label' => 'Vor Block',
 						'default' => '',
-						'tooltip' => 'Add your own custom html here and it will be outputted before the block content.'
+						'tooltip' => 'Füge hier dein eigenes benutzerdefiniertes HTML hinzu und es wird vor dem Block-Inhalt ausgegeben.'
 					),
 					'block-title' => array(
 						'type' => 'text',
 						'name' => 'block-title',
-						'label' => 'Block Title',
+						'label' => 'Block-Titel',
 						'default' => '',
-						'tooltip' => 'Add a name for this gallery block.'
+						'tooltip' => 'Füge einen Namen für diesen Galerie-Block hinzu.'
 					),
 					'block-title-type' => array(
 						'type' => 'select',
 						'name' => 'block-title-type',
-						'label' => 'Block Title Type',
+						'label' => 'Block-Titel-Typ',
 						'default' => 'h1',
 						'options' => array(
 							'h1' => 'h1',
@@ -1481,37 +1481,37 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 							'h4' => 'h4',
 							'h5' => 'h5'
 						),
-						'tooltip' => 'Choose which level of Heading should be used for the block name.'
+						'tooltip' => 'Wähle, welche Überschriftenebene für den Block-Namen verwendet werden soll.'
 					),
 					'block-content' => array(
 						'type' => $wysiwyg,
 						'name' => 'block-content',
-						'label' => 'Block Description',
+						'label' => 'Block-Beschreibung',
 						'default' => '',
-						'tooltip' => 'Add a description for this gallery block.'
+						'tooltip' => 'Füge eine Beschreibung für diesen Galerie-Block hinzu.'
 					),
 					'block-footer' => array(
 						'type' => $wysiwyg,
 						'name' => 'block-footer',
-						'label' => 'Block Footer',
+						'label' => 'Block-Fußzeile',
 						'default' => '',
-						'tooltip' => 'Add a footer for this gallery block.'
+						'tooltip' => 'Füge eine Fußzeile für diesen Galerie-Block hinzu.'
 					),
 					'block-after' => array(
 						'type' => $wysiwyg,
 						'name' => 'block-after',
-						'label' => 'After Block',
+						'label' => 'Nach Block',
 						'default' => '',
-						'tooltip' => 'Add your own custom html here and it will be outputted after the block content.'
+						'tooltip' => 'Füge hier dein eigenes benutzerdefiniertes HTML hinzu und es wird nach dem Block-Inhalt ausgegeben.'
 					),
 			'close-wrap-block-before' => self::wrapper('block-before'),
 			
 			'open-wrap-album-show-title' => self::wrapper('album-show-title', true),
-				'heading-album-show-title' => self::header('heading-album-show-title', 'Album Content'),
+				'heading-album-show-title' => self::header('heading-album-show-title', 'Album-Inhalt'),
 					'album-show-title' => array(
 						'type' => 'checkbox',
 						'name' => 'album-show-title',
-						'label' => 'Album Title',
+						'label' => 'Album-Titel',
 						'default' => true,
 						'toggle' => array(
 							'true' => array(
@@ -1525,12 +1525,12 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'Set a title for your Gallery.'
+						'tooltip' => 'Lege einen Titel für deine Galerie fest.'
 					),
 					'album-title-type' => array(
 						'type' => 'select',
 						'name' => 'album-title-type',
-						'label' => 'Title Markup',
+						'label' => 'Titel-Markup',
 						'default' => 'h2',
 						'options' => array(
 							'h1' => 'h1',
@@ -1539,23 +1539,23 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 							'h4' => 'h4',
 							'h5' => 'h5'
 						),
-						'tooltip' => 'Choose which heading type should be used for the Gallery title.'
+						'tooltip' => 'Wähle, welcher Überschriftentyp für den Galerie-Titel verwendet werden soll.'
 					),
 					'album-show-description' => array(
 						'type' => 'checkbox',
 						'name' => 'album-show-description',
-						'label' => 'Album Description',
+						'label' => 'Album-Beschreibung',
 						'default' => true,
-						'tooltip' => 'Set whether the album description should be displayed.'
+						'tooltip' => 'Lege fest, ob die Album-Beschreibung angezeigt werden soll.'
 					),
 			'close-wrap-album-show-title' => self::wrapper('album-show-title'),
 			
 			'open-wrap-img-show-title' => self::wrapper('img-show-title', true),
-				'heading-img-show-title' => self::header('heading-img-show-title', 'Image Content'),
+				'heading-img-show-title' => self::header('heading-img-show-title', 'Bild-Inhalt'),
 					'img-show-title' => array(
 						'type' => 'checkbox',
 						'name' => 'img-show-title',
-						'label' => 'Image Title',
+						'label' => 'Bild-Titel',
 						'default' => true,
 						'toggle' => array(
 							'true' => array(
@@ -1571,12 +1571,12 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'Set whether the image title should be displayed.'
+						'tooltip' => 'Lege fest, ob der Bild-Titel angezeigt werden soll.'
 					),
 					'img-title-type' => array(
 						'type' => 'select',
 						'name' => 'img-title-type',
-						'label' => 'Title Markup',
+						'label' => 'Titel-Markup',
 						'default' => 'h3',
 						'options' => array(
 							'h1' => 'h1',
@@ -1585,37 +1585,37 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 							'h4' => 'h4',
 							'h5' => 'h5'
 						),
-						'tooltip' => 'Choose which heading type should be used for the image title.'
+						'tooltip' => 'Wähle, welcher Überschriftentyp für den Bild-Titel verwendet werden soll.'
 					),
 					'img-title-position' => array(
 						'type' => 'select',
 						'name' => 'img-title-position',
-						'label' => 'Title Position',
+						'label' => 'Titel-Position',
 						'default' => 'below-image',
 						'options' => array(
-							'above-image' => 'Above Image',
-							'below-image' => 'Below Image'
+							'above-image' => 'Über Bild',
+							'below-image' => 'Unter Bild'
 						),
-						'tooltip' => 'Set the position of the image title.'
+						'tooltip' => 'Lege die Position des Bild-Titels fest.'
 					),
 					'img-title-prettifier' => array(
 						'type' => 'checkbox',
 						'name' => 'img-title-prettifier',
-						'label' => 'Prettify Title',
+						'label' => 'Titel verschönern',
 						'default' => true,
-						'tooltip' => 'Set whether you would like to prettify the image title. If enabled, the words first letters will be capitalized and the dashes and dots will be replaced by a space.'
+						'tooltip' => 'Lege fest, ob du den Bild-Titel verschönern möchtest. Falls aktiviert, werden die ersten Buchstaben der Wörter großgeschrieben und die Bindestriche und Punkte durch Leerzeichen ersetzt.'
 					),
 					'img-show-description' => array(
 						'type' => 'checkbox',
 						'name' => 'img-show-description',
-						'label' => 'Image Description',
+						'label' => 'Bild-Beschreibung',
 						'default' => false,
-						'tooltip' => 'Set whether the image description should be displayed.'
+						'tooltip' => 'Lege fest, ob die Bild-Beschreibung angezeigt werden soll.'
 					),
 					'img-enable-title-count' => array(
 						'type' => 'checkbox',
 						'name' => 'img-enable-title-count',
-						'label' => 'Enable Image Count',
+						'label' => 'Bildzahl aktivieren',
 						'default' => true,
 						'toggle' => array(
 							'true' => array(
@@ -1629,26 +1629,26 @@ class PadmaGalleryBlockOptions extends PadmaBlockOptionsAPI {
 								)
 							)
 						),
-						'tooltip' => 'Set whether the number of image should be displayed.'
+						'tooltip' => 'Lege fest, ob die Anzahl der Bilder angezeigt werden soll.'
 					),
 					'img-title-count-text' => array(
 						'type' => 'text',
 						'name' => 'img-title-count-text',
-						'label' => 'Image Count Suffix',
-						'default' => ' images',
+						'label' => 'Bildzahl-Suffix',
+						'default' => ' Bilder',
 						
-						'tooltip' => 'Set the text which will be displayed after the image count.'
+						'tooltip' => 'Lege den Text fest, der nach der Bildzahl angezeigt wird.'
 					),
 			'close-wrap-img-show-title' => self::wrapper('img-show-title'),
 			
 			'open-wrap-img-show-title-tag' => self::wrapper('img-show-title-tag', true),
-				'heading-img-show-title-tag' => self::header('heading-img-show-title-tag', 'HTML Tags'),
+				'heading-img-show-title-tag' => self::header('heading-img-show-title-tag', 'HTML-Tags'),
 					'img-show-title-tag' => array(
 						'type' => 'checkbox',
 						'name' => 'img-show-title-tag',
-						'label' => 'Image Title Tag',
+						'label' => 'Bild-Titel-Tag',
 						'default' => true,
-						'tooltip' => 'Set whether the image title tag should be added.'
+						'tooltip' => 'Lege fest, ob das Bild-Titel-Tag hinzugefügt werden soll.'
 					),
 			'close-wrap-img-show-title-tag' => self::wrapper('img-show-title-tag')
 		);
