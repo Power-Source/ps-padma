@@ -281,12 +281,14 @@ class Padma {
 		if ( PadmaRoute::is_visual_editor() || (defined('DOING_AJAX') && DOING_AJAX && strpos($request_action, 'padma') !== false ) )
 			$dependencies['visual-editor'] = true;
 
+		/* Gallery Post Type muss auch im Frontend geladen werden */
+		$dependencies['admin/gallery-post-type'] = false;
+
 		//Admin classes		
 		if ( is_admin() ) {
 			$dependencies['admin'] = true;
 			
 			/* Gallery Admin-Module laden */
-			$dependencies['admin/gallery-post-type'] = false;
 			$dependencies['admin/gallery-meta-boxes'] = false;
 			$dependencies['admin/gallery-admin-assets'] = false;
 		}

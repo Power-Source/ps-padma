@@ -34,12 +34,19 @@ function padma_gallery_register_post_type() {
         ),
         'supports' => array(
             'title',
-            'thumbnail'
+            'thumbnail',
+            'editor',
+            'padma-editor'
         ),
         'has_archive' => true,
         'taxonomies' => array('gallery_categories', 'gallery_tags'),
         'menu_position' => 20,
-        'rewrite' => array('slug' => 'albums'),
+        'rewrite' => array(
+            'slug' => 'albums',
+            'with_front' => false,
+            'feeds' => true,
+            'pages' => true
+        ),
         'menu_icon' => 'dashicons-format-gallery'
     );
 
@@ -101,10 +108,10 @@ function padma_gallery_register_post_type() {
 
     register_taxonomy( 'gallery_tags', 'padma_gallery', $args );
 
-    /* Rewrite-Regeln einmalig aktualisieren, damit Album-URLs nicht 404 laufen */
-    if ( get_option('padma_gallery_rewrite_flushed') !== '1' ) {
+    /* Rewrite-Regeln einmalig aktualisieren */
+    if ( get_option('padma_gallery_rewrite_flushed_v2') !== '1' ) {
         flush_rewrite_rules(false);
-        update_option('padma_gallery_rewrite_flushed', '1');
+        update_option('padma_gallery_rewrite_flushed_v2', '1');
     }
 
 }
@@ -116,7 +123,22 @@ add_action('publish_padma_gallery', 'padma_gallery_set_default_category');
 function padma_gallery_set_default_category($padma_gallery_id) {
 
 	if(!has_term('', 'gallery_categories', $padma_gallery_id)){
-		wp_set_object_terms($padma_gallery_id, array('Unkategorisiert'), 'gallery_categories');
+        $default_term = term_exists('uncategorized', 'gallery_categories');
+
+        if ( !$default_term ) {
+            $default_term = wp_insert_term(
+                __('Unkategorisiert', 'padma'),
+                'gallery_categories',
+                array('slug' => 'uncategorized')
+            );
+        }
+
+        if ( !is_wp_error($default_term) ) {
+            $term_id = is_array($default_term) ? $default_term['term_id'] : $default_term;
+            if ( !empty($term_id) ) {
+                wp_set_object_terms($padma_gallery_id, array((int) $term_id), 'gallery_categories');
+            }
+        }
 	}
 
 }
