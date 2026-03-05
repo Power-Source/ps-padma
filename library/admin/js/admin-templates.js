@@ -387,65 +387,6 @@ jQuery(document).ready(function($) {
 
 			});
 
-		/* Skin Save on Cloud */
-			$('#save-template-on-cloud-submit').on('click', function(event) {
-
-				event.preventDefault();
-
-				var params = {
-					'security': Padma.security,
-					'action': 'padma_visual_editor',
-					'method': 'save_skin_on_cloud',
-					'skin-info': $('#save-template-on-cloud-form').serialize(),
-					beforeSend: function() {
-                		showNotification({
-							id: 'skin-saving-start',
-							message: 'Saving template on Cloud ...',
-							closeTimer: 25000,
-							success: true
-						});	
-                	},
-            		complete: function() {
-            			hideNotification('skin-saving-start');
-					},
-				}
-
-				$('#TB_window .tb-close-icon').click();
-
-
-				/* Do AJAX request to save skin on cloud */
-				return $.post(Padma.ajaxURL, params).done(function(data) {
-
-					if ( typeof data['ok'] !== 'undefined') {
-						return showNotification({
-							id: 'skin-saved',
-							message: 'Template successfully saved.',
-							closeTimer: 5000,
-							success: true
-						});						
-					}
-					
-					if ( typeof data['error'] !== 'undefined' || typeof data['name'] == 'undefined' ) {
-
-						if ( typeof data['error'] == 'undefined' ){
-							data['error'] = 'Could not save template.';
-						}
-
-						return showNotification({
-							id: 'skin-not-saved',
-							message: 'Error: ' + data['error'],
-							closable: true,
-							closeTimer: false,
-							error: true
-						});
-
-					}
-
-						
-				});
-
-			});
-
 			/* Export Template Image */
 			var BTTemplateExportImageFrame;
 
@@ -482,46 +423,6 @@ jQuery(document).ready(function($) {
 
 				BTTemplateExportImageFrame.open();
 			});
-
-
-
-			/* Save on cloud Template Image */
-			var BTTemplateExportImageFrame;
-
-			$('#template-save-on-cloud-image-button ').on('click', function (event) {
-
-				event.preventDefault();
-
-				// If the media frame already exists, reopen it.
-				if (BTTemplateExportImageFrame) {
-					BTTemplateExportImageFrame.open();
-					return;
-				}
-
-				// Create the media frame.
-				BTTemplateExportImageFrame = wp.media.frames.file_frame = wp.media({
-					title: 'Select Image for Template',
-					button: {
-						text: 'Select Image',
-					},
-					multiple: false
-				});
-
-				// When an image is selected, run a callback.
-				BTTemplateExportImageFrame.on('select', function () {
-					attachment = BTTemplateExportImageFrame.state().get('selection').first().toJSON();
-
-					$('input#template-save-on-cloud-image').val(attachment.url);
-
-					$('img#template-save-on-cloud-image-preview')
-						.attr('src', attachment.url)
-						.show();
-
-				});
-
-				BTTemplateExportImageFrame.open();
-			});
-
 
 		/* Add Blank Skin */
 			$('#add-blank-template').on('click', function() {

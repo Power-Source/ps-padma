@@ -1645,11 +1645,6 @@ msgstr "Imagen de Plantilla"
 msgid "Select Image"
 msgstr "Seleccionar Imagen"
 
-#: library/admin/pages/templates.php:47 library/admin/pages/templates.php:112 
-#: library/admin/pages/templates.php:120
-msgid "Save Template on Cloud"
-msgstr "Guardar Plantilla en la Nube"
-
 #: library/admin/pages/templates.php:54 
 #: library/blocks/listings/block-options.php:85
 msgid "Name"

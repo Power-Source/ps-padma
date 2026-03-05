@@ -1174,12 +1174,6 @@ msgstr ""
 msgid "Select Image"
 msgstr ""
 
-#: library/admin/pages/templates.php:47
-#: library/admin/pages/templates.php:112
-#: library/admin/pages/templates.php:120
-msgid "Save Template on Cloud"
-msgstr ""
-
 #: library/admin/pages/templates.php:54
 #: library/blocks/listings/block-options.php:85
 msgid "Name"
