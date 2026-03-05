@@ -2,7 +2,7 @@
 Contributors: PSOURCE
 Requires at least: 5.0
 Tested up to: WordPress 8.6, ClassicPress 2.6.0
-Version: 1.0.6
+Version: 1.0.7
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -54,10 +54,19 @@ Nein. PS Padma bringt den Visual Editor und die Kernfunktionen selbst mit.
 = Wo finde ich Hilfe und Doku? =
 Hier entlang: https://power-source.github.io/ps-padma/
 
-= Läuft PS Padma auch mit ClassicPress? =
+= Läuft PS Padma auch mit WordPress? =
 Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 
 == Changelog ==
+
+= 1.0.7 =
+* Branding vereinheitlicht auf "PS Padma"
+* Cloud-Save-Feature entfernt (nicht mehr benötigt)
+* Get-More-Blocks-Werbung entfernt
+* Admin-UI aufgeräumt und verbessert
+* CSS-Konflikte im Admin-Bereich behoben
+* Dokumentation modernisiert
+* Sicherheits-Best-Practices für externe Links ergänzt
 
 = 1.0.6 =
 * Mehr Blöcke integriert
