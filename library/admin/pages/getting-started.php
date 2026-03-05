@@ -55,7 +55,7 @@ defined('ABSPATH') or die("No script kiddies please!");
 				
 				<p><?php _e('PS Padma | Unlimited Visual Editor ist ein leistungsstarkes Werkzeug zur Gestaltung von WordPress-Website-Layouts und -Vorlagen. Passen Sie fast jedes visuelle Element Ihrer Websites über eine grafische Benutzeroberfläche an (Code kann bei Bedarf einfach über den integrierten Code-Editor hinzugefügt werden).','padma'); ?></p>
 
-				<p><?php _e('Erfahre mehr über die Plattform in der Dokumentation <a rel="noopener" href="https://https://power-source.github.io/ps-padma//blog/basics/before-using-the-visual-editor/">"Einführung in den PS Padma | Unlimited Visual Editor". </a>','padma'); ?></p>
+				<p><?php _e('Erfahre mehr über die Plattform in der Dokumentation <a rel="noopener" href="https://power-source.github.io/ps-padma/blog/basics/before-using-the-visual-editor/">"Einführung in den PS Padma | Unlimited Visual Editor". </a>','padma'); ?></p>
 
 				<a href="<?php echo home_url() . '/?visual-editor=true'; ?>" class="access-to-unlimited-editor"><span class="text"><?php _e('Starte <b>PS Padma</b> | Unlimitierten Editor','padma'); ?></span><span class="line -right"></span><span class="line -top"></span><span class="line -left"></span><span class="line -bottom"></span></a>
 			</div>
@@ -92,7 +92,7 @@ defined('ABSPATH') or die("No script kiddies please!");
 			<div class="separator"></div>
 			<div class="box">
 				<h3><?php _e('PS Padma | Dokumentation','padma'); ?></h3>
-			<p><?php _e('Registriere dich bei uns und erhalte kostenlosen Zugang zu unserer umfassenden Dokumentation. <a target="_blank" href="https://https://power-source.github.io/ps-padma//" rel="noopener">https://power-source.github.io/ps-padma/</a>','padma'); ?></p>
+			<p><?php _e('Registriere dich bei uns und erhalte kostenlosen Zugang zu unserer umfassenden Dokumentation. <a target="_blank" href="https://power-source.github.io/ps-padma/" rel="noopener">https://power-source.github.io/ps-padma/</a>','padma'); ?></p>
 			</div>
 		</div>
 	</div>

@@ -50,29 +50,40 @@
 	}
 	p.padma-unlimited-notice-rate-actions {
 		margin-top: 15px;
+		display: flex;
+		align-items: center;
+		gap: 12px;
 	}
 	p.padma-unlimited-notice-rate-actions a {
-		vertical-align: middle !important;
+		vertical-align: middle;
+		text-decoration: none;
 	}
-	p.padma-unlimited-notice-rate-actions a + a {
-		margin-left: 20px;
+	.padma-unlimited-notice-rate .padma-admin-social-icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 32px;
+		height: 32px;
+	}
+	.padma-unlimited-notice-rate .padma-admin-social-icon img {
+		display: block;
+		width: 24px;
+		height: 24px;
 	}
 	.padma-unlimited-notice-rate-dismiss {
-		position: absolute;
-		top: 10px;
-		right: 10px;
-		padding: 10px 15px 10px 21px;
+		position: relative;
+		padding: 0 0 0 22px;
 		font-size: 13px;
-		line-height: 1.23076923;
+		line-height: 20px;
 		text-decoration: none;
+		color: #2271b1;
 	}
 	.padma-unlimited-notice-rate-dismiss:before {
 		position: absolute;
-		top: 8px;
+		top: 50%;
 		left: 0;
+		transform: translateY(-50%);
 		margin: 0;
-		-webkit-transition: all .1s ease-in-out;
-		transition: all .1s ease-in-out;
 		background: 0 0;
 		color: #b4b9be;
 		content: "\f153";
@@ -84,87 +95,5 @@
 	}
 	.padma-unlimited-notice-rate-dismiss:hover:before {
 		color: #c00;
-	}
-
-	/* Globales Admin-CSS neutralisieren (inkl. .access-to-unlimited-editor .text) */
-	.padma-unlimited-notice-rate .access-to-unlimited-editor .text,
-	.padma-unlimited-notice-rate .access-to-unlimited-editor:hover .text,
-	.padma-unlimited-notice-rate .access-to-unlimited-editor:active .text,
-	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-actions a,
-	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-actions a:hover,
-	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-actions a:active {
-		transform: none !important;
-		transition: none !important;
-	}
-
-	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-actions {
-		display: flex !important;
-		align-items: center !important;
-		gap: 12px !important;
-		margin-top: 15px !important;
-	}
-
-	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-actions .padma-admin-social-icon {
-		display: inline-flex !important;
-		width: 32px !important;
-		height: 32px !important;
-		padding: 0 !important;
-		background: transparent !important;
-		border: 0 !important;
-		box-shadow: none !important;
-	}
-
-	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-dismiss {
-		position: static !important;
-		padding: 0 !important;
-		line-height: 20px !important;
-		color: #2271b1 !important;
-		background: transparent !important;
-	}
-
-	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-dismiss:before {
-		top: 50% !important;
-		transform: translateY(-50%) !important;
-	}
-
-	/* Globalen CTA-Blockstil lokal ausschalten */
-	.padma-admin-container .padma-admin-tab .padma-unlimited-notice-rate .access-to-unlimited-editor,
-	.padma-unlimited-notice-rate .access-to-unlimited-editor {
-		display: inline-flex !important;
-		width: auto !important;
-		height: auto !important;
-		min-height: 0 !important;
-		margin: 0 !important;
-		padding: 0 !important;
-		background: transparent !important;
-		font-size: inherit !important;
-		position: static !important;
-		background-image: none !important;
-		box-shadow: none !important;
-		border: 0 !important;
-	}
-
-	/* Mögliche globale Overlay-/Shine-Effekte auf Links deaktivieren */
-	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-actions {
-		position: relative;
-		z-index: 2;
-	}
-
-	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-actions a {
-		position: relative !important;
-		overflow: visible !important;
-		z-index: 3 !important;
-		animation: none !important;
-	}
-
-	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-actions a:after,
-	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-actions .padma-admin-social-icon:before,
-	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-actions .padma-admin-social-icon:after,
-	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-actions .padma-unlimited-notice-rate-dismiss:after {
-		content: none !important;
-		display: none !important;
-		animation: none !important;
-		transition: none !important;
-		transform: none !important;
 	}
 </style>
