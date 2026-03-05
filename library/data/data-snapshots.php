@@ -103,7 +103,7 @@ class PadmaDataSnapshots {
 
 				$data_set = padma_maybe_unserialize(padma_get($data_array_id, $data));
 				$table_name = str_replace(array('data_', 'wp_'), '', $data_array_id);
-				$wpdb_table_name = $wpdb->{$table_name};
+				$wpdb_table_name = $wpdb->$table_name;
 
 				/* Handle Padma tables */
 				if ( strpos($table_name, 'pu_') === 0 ) {

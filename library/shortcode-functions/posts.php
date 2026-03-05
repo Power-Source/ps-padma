@@ -77,7 +77,8 @@ function padma_render_user( $args = array(), $content = '' ) {
 	}
 	
 	$user = get_user_by( 'id', $args['user_id'] );
-	$user_value = ( $user && isset( $user->data->{$args['field']} ) ) ? $user->data->{$args['field']} : $args['default'];
+	$field = $args['field'];
+	$user_value = ( $user && isset( $user->data->$field ) ) ? $user->data->$field : $args['default'];
 	
 	// Apply custom filter
 	if ( ! empty( $args['filter'] ) && function_exists( $args['filter'] ) ) {
@@ -112,7 +113,8 @@ function padma_render_post( $args = array(), $content = '' ) {
 	}
 	
 	$post = get_post( $args['post_id'] );
-	$post_value = ( ! empty( $post ) && ! empty( $post->{$args['field']} ) ) ? $post->{$args['field']} : $args['default'];
+	$field = $args['field'];
+	$post_value = ( ! empty( $post ) && ! empty( $post->$field ) ) ? $post->$field : $args['default'];
 	
 	// Apply custom filter
 	if ( ! empty( $args['filter'] ) && function_exists( $args['filter'] ) ) {

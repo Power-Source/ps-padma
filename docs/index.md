@@ -6,6 +6,8 @@ title: "PS Padma"
 <h2 align="center" style="color:#38c2bb;">📚 PS Padma Dokumentation</h2>
 
 <div class="menu">
+  <a href="/ps-padma/dokumentation/" style="color:#38c2bb;">📖 Dokumentation</a>
+  ·
   <a href="https://github.com/Power-Source/ps-padma/releases" style="color:#38c2bb;">⬇️ Releases</a>
   ·
   <a href="https://github.com/Power-Source/ps-padma" style="color:#38c2bb;">💻 GitHub</a>
