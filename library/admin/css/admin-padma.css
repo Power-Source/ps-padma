@@ -696,21 +696,22 @@ span.green {
     height: 1px;
 }
 .padma-admin-container .padma-admin-tab .access-to-unlimited-editor{
-	display: block;
+	display: flex;
+	align-items: center;
+	justify-content: center;
     width: 100%;
     height: 60px;
-    background-color: #0073aa;
+	background-color: transparent;
     text-decoration: none;
     font-size: 30px;
     margin-top: 35px;
     margin-bottom: 35px;
-    /*
-    background-image: url(https://cdn.padmaunlimited.com/logos/padma-32-white.png);
-    */
+	background-image: url(../images/padma-32-white.png);
     background-position: 100% center;
     background-repeat: no-repeat;
     cursor: pointer;
     position: relative;
+	text-align: center;
 }
 .padma-admin-container .padma-admin-tab .access-to-unlimited-editor:hover {
   

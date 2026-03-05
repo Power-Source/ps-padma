@@ -12,7 +12,7 @@
 			<p><?php _e( 'PS Padma ist der offizielle Nachfolger unseres UpFront-Frameworks. Beachte bitte, derzeit befindet sich dieser Theme-Builder in der Finalen Testphase.', 'padma' ); ?></p>
 			<h4><?php _e( 'Möchtest Du mitarbeiten?', 'padma' ); ?></h4>
 			<ul>				
-				<li><?php _e( '- Fehler melden: https://github.com/cp-psource/ps-padma/issues', 'padma' ); ?></li>
+				<li><?php _e( '- Fehler melden:', 'padma' ); ?> <a href="https://github.com/Power-Source/ps-padma/issues" target="_blank">https://github.com/Power-Source/ps-padma/issues</a></li>
 				<li><?php _e( '- Gemeinsames Programmieren über GitHub', 'padma' ); ?></li>
 				<li><?php _e( '- Schlage Funktionalitäten, Blöcke oder Plugins vor', 'padma' ); ?></li>
 				<li><?php _e( '- Trete unseren Netzwerk bei', 'padma' ); ?></li>
@@ -24,7 +24,7 @@
 		</div>
 
 		<p class="padma-unlimited-notice-rate-actions">		
-			<a href="https://github.com/cp-psource/ps-padma" class="padma-admin-social-icon" target="_blank"><img src="<?php echo get_template_directory_uri() . '/library/admin/images/github.png'; ?>"></a>			
+			<a href="https://github.com/Power-Source/ps-padma" class="padma-admin-social-icon" target="_blank"><img src="<?php echo get_template_directory_uri() . '/library/admin/images/github.png'; ?>"></a>			
 			<a href="<?php echo self::get_dismiss_link(); ?>" class="padma-unlimited-notice-rate-dismiss"><?php _e( 'Hab es gelesen', 'padma' ); ?></a>
 		</p>
 
@@ -84,5 +84,87 @@
 	}
 	.padma-unlimited-notice-rate-dismiss:hover:before {
 		color: #c00;
+	}
+
+	/* Globales Admin-CSS neutralisieren (inkl. .access-to-unlimited-editor .text) */
+	.padma-unlimited-notice-rate .access-to-unlimited-editor .text,
+	.padma-unlimited-notice-rate .access-to-unlimited-editor:hover .text,
+	.padma-unlimited-notice-rate .access-to-unlimited-editor:active .text,
+	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-actions a,
+	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-actions a:hover,
+	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-actions a:active {
+		transform: none !important;
+		transition: none !important;
+	}
+
+	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-actions {
+		display: flex !important;
+		align-items: center !important;
+		gap: 12px !important;
+		margin-top: 15px !important;
+	}
+
+	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-actions .padma-admin-social-icon {
+		display: inline-flex !important;
+		width: 32px !important;
+		height: 32px !important;
+		padding: 0 !important;
+		background: transparent !important;
+		border: 0 !important;
+		box-shadow: none !important;
+	}
+
+	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-dismiss {
+		position: static !important;
+		padding: 0 !important;
+		line-height: 20px !important;
+		color: #2271b1 !important;
+		background: transparent !important;
+	}
+
+	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-dismiss:before {
+		top: 50% !important;
+		transform: translateY(-50%) !important;
+	}
+
+	/* Globalen CTA-Blockstil lokal ausschalten */
+	.padma-admin-container .padma-admin-tab .padma-unlimited-notice-rate .access-to-unlimited-editor,
+	.padma-unlimited-notice-rate .access-to-unlimited-editor {
+		display: inline-flex !important;
+		width: auto !important;
+		height: auto !important;
+		min-height: 0 !important;
+		margin: 0 !important;
+		padding: 0 !important;
+		background: transparent !important;
+		font-size: inherit !important;
+		position: static !important;
+		background-image: none !important;
+		box-shadow: none !important;
+		border: 0 !important;
+	}
+
+	/* Mögliche globale Overlay-/Shine-Effekte auf Links deaktivieren */
+	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-actions {
+		position: relative;
+		z-index: 2;
+	}
+
+	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-actions a {
+		position: relative !important;
+		overflow: visible !important;
+		z-index: 3 !important;
+		animation: none !important;
+	}
+
+	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-actions a:after,
+	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-actions .padma-admin-social-icon:before,
+	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-actions .padma-admin-social-icon:after,
+	.padma-unlimited-notice-rate .padma-unlimited-notice-rate-actions .padma-unlimited-notice-rate-dismiss:after {
+		content: none !important;
+		display: none !important;
+		animation: none !important;
+		transition: none !important;
+		transform: none !important;
 	}
 </style>
