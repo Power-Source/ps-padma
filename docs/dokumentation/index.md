@@ -37,10 +37,11 @@ Alles rund um die Admin-Oberfläche:
 
 Der Kern von PS Padma:
 
-- Visual Editor Übersicht _(folgt bald)_
-- Grid-System _(folgt bald)_
+- [Visual Editor Übersicht](/ps-padma/dokumentation/visual-editor/) — Die Zentrale für Layout & Design
+- [Grid-Modus](/ps-padma/dokumentation/visual-editor/grid-modus) — Struktur & Layout aufbauen
+- [Design-Modus](/ps-padma/dokumentation/visual-editor/design-modus) — Styling & CSS-Anpassungen
 - Blöcke & Elemente _(folgt bald)_
-- Design-Editor _(folgt bald)_
+- Responsive Design _(folgt bald)_
 
 ## 🧩 Blöcke
 
