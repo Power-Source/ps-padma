@@ -1164,7 +1164,7 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 			blockTypeSelector.find('div.block-type').addClass('tooltip');
 			setupTooltips();
 
-			blockTypeSelector.find('div.block-type:not(#get-more-blocks)').on('click', function(event) {	
+			blockTypeSelector.find('div.block-type').on('click', function(event) {	
 
 				var blockType = $(this).attr('id').replace('block-type-', '');
 				var targetBlock = block;
@@ -1192,13 +1192,6 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 				openBlockOptions(targetBlock);
 
 			});
-			/*
-			blockTypeSelector.find('div.block-type#get-more-blocks').on('click', function(event) {
-				location.assign('https://cp-psource.github.io/ps-padma//how-to-get-more-blocks/');
-			});*/
-
-
-
 		/* Bind unfocus events */
 			if ( block.hasClass('blank-block') ) {
 
