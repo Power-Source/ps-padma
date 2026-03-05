@@ -9,14 +9,14 @@
 		<div class="padma-unlimited-notice-rate-content-text">
 			<p><?php _e( 'Hallo bei PS Padma', 'padma' ); ?>,</p>
 			<p><?php _e( 'Unser Team hat wirklich hart daran gearbeitet, Dir dieses leistungsstarke Tool zur Verfügung zu stellen. Wir hoffen, es gefällt Dir.', 'padma' ); ?></p>
-			<p><?php _e( 'PS Padma ist der offizielle Nachfolger unseres UpFront-Frameworks. Beachte bitte, derzeit befindet sich dieser Theme-Builder in der Finalen Testphase.', 'padma' ); ?></p>
+			<p><?php _e( 'PS Padma ist der offizielle Nachfolger unseres UpFront-Frameworks und wird kontinuierlich weiterentwickelt.', 'padma' ); ?></p>
 			<h4><?php _e( 'Möchtest Du mitarbeiten?', 'padma' ); ?></h4>
 			<ul>				
-				<li><?php _e( '- Fehler melden:', 'padma' ); ?> <a href="https://github.com/Power-Source/ps-padma/issues" target="_blank">https://github.com/Power-Source/ps-padma/issues</a></li>
+				<li><?php _e( '- Fehler melden:', 'padma' ); ?> <a href="https://github.com/Power-Source/ps-padma/issues" target="_blank" rel="noopener noreferrer">https://github.com/Power-Source/ps-padma/issues</a></li>
 				<li><?php _e( '- Gemeinsames Programmieren über GitHub', 'padma' ); ?></li>
 				<li><?php _e( '- Schlage Funktionalitäten, Blöcke oder Plugins vor', 'padma' ); ?></li>
 				<li><?php _e( '- Trete unseren Netzwerk bei', 'padma' ); ?></li>
-				<li><?php _e( '- Teile PS Padma Builder mit Kollegen und Freunden', 'padma' ); ?></li>
+				<li><?php _e( '- Teile PS Padma mit Kollegen und Freunden', 'padma' ); ?></li>
 				<li><?php _e( '- Sag es weiter!', 'padma' ); ?></li>
 			</ul>			
 			<p><?php _e( 'Lasst uns gemeinsam bauen!', 'padma' ); ?></p>
@@ -24,7 +24,7 @@
 		</div>
 
 		<p class="padma-unlimited-notice-rate-actions">		
-			<a href="https://github.com/Power-Source/ps-padma" class="padma-admin-social-icon" target="_blank"><img src="<?php echo get_template_directory_uri() . '/library/admin/images/github.png'; ?>"></a>			
+			<a href="https://github.com/Power-Source/ps-padma" class="padma-admin-social-icon" target="_blank" rel="noopener noreferrer"><img src="<?php echo get_template_directory_uri() . '/library/admin/images/github.png'; ?>"></a>			
 			<a href="<?php echo self::get_dismiss_link(); ?>" class="padma-unlimited-notice-rate-dismiss"><?php _e( 'Hab es gelesen', 'padma' ); ?></a>
 		</p>
 

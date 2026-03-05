@@ -24,7 +24,7 @@ defined('ABSPATH') or die("No script kiddies please!");
 
 			<h1><?php _e('Willkommen!','padma'); ?></h1>
 
-			<p><?php _e('Deine <strong>Padma Theme Builder</strong> Installation ist bereit.','padma'); ?></p>
+			<p><?php _e('Deine <strong>PS Padma</strong> Installation ist bereit.','padma'); ?></p>
 			
 			<p><strong><?php _e('Jetzt loslegen!','padma'); ?></strong></p>
 
@@ -34,28 +34,28 @@ defined('ABSPATH') or die("No script kiddies please!");
 
 			<div class="separator"></div>
 
-			<h2><?php _e('Padma | Unlimited - Kernfunktionen im ClassicPress-Dashboard / Admin-Menü.','padma'); ?></h2>
+			<h2><?php _e('PS Padma – Kernfunktionen im ClassicPress-Dashboard / Admin-Menü.','padma'); ?></h2>
 			<div class="box">
-				<h3><?php _e('Padma | Unlimited - Willkommen!','padma'); ?></h3>
+				<h3><?php _e('PS Padma – Willkommen!','padma'); ?></h3>
 				<p><?php _e('(Diese Seite)','padma'); ?></p>
 				<p><?php _e('Zugang zu ►','padma'); ?></p>
-				<p><?php _e('Allgemeine Informationen, Dokumentation und Support für <b>Padma</b> | Unlimited Theme Builder.','padma'); ?></p>
-				<p><?php _e('Blöcke und Vorlagen zur Erweiterung der Möglichkeiten des <b>Padma</b> | Unlimited Theme Builder.','padma'); ?></p>
+				<p><?php _e('Allgemeine Informationen, Dokumentation und Support für <b>PS Padma</b>.','padma'); ?></p>
+				<p><?php _e('Blöcke und Vorlagen zur Erweiterung der Möglichkeiten von <b>PS Padma</b>.','padma'); ?></p>
 			</div>
 			
 
 			<h2><?php _e('PS Padma starter users','padma'); ?></h2>
 			<div class="box">
-				<p><?php _e('Bitte lies die PS Padma | Unlimited Theme Builder <a href="https://cp-psource.github.io/ps-padma/">Dokumentation</a>.','padma'); ?></p>
+				<p><?php _e('Bitte lies die <a href="https://cp-psource.github.io/ps-padma/">PS Padma Dokumentation</a>.','padma'); ?></p>
 			</div>
 
 
 			<div class="box">
-				<h3><?php _e('PS Padma | Unlimited Visual Editor','padma'); ?></h3>
+				<h3><?php _e('PS Padma Visual Editor','padma'); ?></h3>
 				
-				<p><?php _e('PS Padma | Unlimited Visual Editor ist ein leistungsstarkes Werkzeug zur Gestaltung von WordPress-Website-Layouts und -Vorlagen. Passen Sie fast jedes visuelle Element Ihrer Websites über eine grafische Benutzeroberfläche an (Code kann bei Bedarf einfach über den integrierten Code-Editor hinzugefügt werden).','padma'); ?></p>
+				<p><?php _e('Der PS Padma Visual Editor ist ein leistungsstarkes Werkzeug zur Gestaltung von WordPress-Website-Layouts und -Vorlagen. Passe fast jedes visuelle Element deiner Website über eine grafische Oberfläche an (Code kann bei Bedarf einfach über den integrierten Code-Editor ergänzt werden).','padma'); ?></p>
 
-				<p><?php _e('Erfahre mehr über die Plattform in der Dokumentation <a rel="noopener" href="https://power-source.github.io/ps-padma/blog/basics/before-using-the-visual-editor/">"Einführung in den PS Padma | Unlimited Visual Editor". </a>','padma'); ?></p>
+				<p><?php _e('Erfahre mehr über die Plattform in der Dokumentation <a rel="noopener" href="https://power-source.github.io/ps-padma/blog/basics/before-using-the-visual-editor/">"Einführung in den PS Padma Visual Editor".</a>','padma'); ?></p>
 
 				<a href="<?php echo home_url() . '/?visual-editor=true'; ?>" class="access-to-unlimited-editor"><span class="text"><?php _e('Starte <b>PS Padma</b> | Unlimitierten Editor','padma'); ?></span><span class="line -right"></span><span class="line -top"></span><span class="line -left"></span><span class="line -bottom"></span></a>
 			</div>
@@ -66,21 +66,21 @@ defined('ABSPATH') or die("No script kiddies please!");
 	<div id="options" class="padma-admin-tab" style="display:none">
 		<div class="content">
 			<div class="box">
-				<h3><?php _e('PS Padma | Optionen','padma'); ?></h3>
+				<h3><?php _e('PS Padma Optionen','padma'); ?></h3>
 				<p><?php _e('Richte deine Google Analytics, SEO, Favicons und andere erweiterte Einstellungen ein.','padma'); ?></p>
 			</div>
-			<h2 class="center"><?php _e('PS Padma | Werkzeuge','padma'); ?></h2>
+			<h2 class="center"><?php _e('PS Padma Werkzeuge','padma'); ?></h2>
 			<div class="box">
 				<h3><?php _e('Systeminformationen','padma'); ?></h3>
 				<p><?php _e('Um ein Ticket zu öffnen oder eine Hilfefrage im Forum zu stellen, gib bitte diese Systeminformationen an.','padma'); ?></p>
 			</div>
 			<div class="box">
 				<h3><?php _e('Snapshots','padma'); ?></h3>
-				<p><?php _e('Um Speicherplatz freizugeben, lösche bitte PS Padma | Theme Builder-Snapshots.','padma'); ?></p>
+				<p><?php _e('Um Speicherplatz freizugeben, lösche bitte PS Padma Snapshots.','padma'); ?></p>
 			</div>
 			<div class="box">
 				<h3><?php _e('Zurücksetzen','padma'); ?></h3>
-				<p><?php _e('Anweisungen zum Zurücksetzen deiner PS Padma | Unlimited WordPress Theme Builder-Installation.','padma'); ?></p>
+				<p><?php _e('Anweisungen zum Zurücksetzen deiner PS Padma Installation.','padma'); ?></p>
 			</div>
 		</div>
 	</div>
@@ -88,10 +88,10 @@ defined('ABSPATH') or die("No script kiddies please!");
 	<div id="need-help" class="padma-admin-tab" style="display:none">
 		<div class="content">
 			<h2 class="center"><?php _e('Hilfe','padma'); ?></h2>
-			<p><?php _e('PS Padma | Unlimited Theme Builder bietet professionellen Support und umfassende Dokumentation, um Ihnen zu helfen, Ihre Projekte zum Leben zu erwecken.','padma'); ?></p>			
+			<p><?php _e('PS Padma bietet professionellen Support und umfassende Dokumentation, um dir zu helfen, deine Projekte zum Leben zu erwecken.','padma'); ?></p>			
 			<div class="separator"></div>
 			<div class="box">
-				<h3><?php _e('PS Padma | Dokumentation','padma'); ?></h3>
+				<h3><?php _e('PS Padma Dokumentation','padma'); ?></h3>
 			<p><?php _e('Registriere dich bei uns und erhalte kostenlosen Zugang zu unserer umfassenden Dokumentation. <a target="_blank" href="https://power-source.github.io/ps-padma/" rel="noopener">https://power-source.github.io/ps-padma/</a>','padma'); ?></p>
 			</div>
 		</div>
@@ -99,18 +99,18 @@ defined('ABSPATH') or die("No script kiddies please!");
 
 	<div id="unlimited-growth" class="padma-admin-tab" style="display:none">
 		<div class="content">
-			<h2 class="center"><?php _e('PS Padma | Unlimitiertes Wachstum','padma'); ?></h2>			
+			<h2 class="center"><?php _e('PS Padma – Unlimitiertes Wachstum','padma'); ?></h2>			
 			<p><?php _e('Entwickle, teile und bringe Templates und benutzerdefinierte Blöcke auf den Markt.','padma'); ?></p>
 			<p><?php _e('Gemeinsames Arbeiten wird das Wachstum der Community fördern, also mach mit!','padma'); ?></p>
 			<p><?php _e('Gestalte schneller und passe deinen Workflow mit nützlichen Tools an.','padma'); ?></p>
 			<div class="separator"></div>
 			<div class="box">
-				<h3><?php _e('PS Padma | Unlimited Templates','padma'); ?></h3>
-				<p><?php _e('<strong>PS Padma | Unlimited Templates</strong> minimiert deinen Projektentwicklungsprozess, optimiert die Designphase und führt zu einer schnelleren Inhaltserstellung und -bereitstellung.','padma'); ?></p>
+				<h3><?php _e('PS Padma Templates','padma'); ?></h3>
+				<p><?php _e('<strong>PS Padma Templates</strong> minimieren deinen Projektentwicklungsprozess, optimieren die Designphase und führen zu einer schnelleren Inhaltserstellung und -bereitstellung.','padma'); ?></p>
 			</div>
 			<div class="box">
-				<h3><?php _e('PS Padma | Unlimited Blocks','padma'); ?></h3>
-				<p><?php _e('Erweitere die Funktionalität deiner PS Padma | Unlimited WordPress Theme Builder-Installation, indem du nützliche benutzerdefinierte Blöcke zu deinen Projekten hinzufügst.','padma'); ?></p>
+				<h3><?php _e('PS Padma Blöcke','padma'); ?></h3>
+				<p><?php _e('Erweitere die Funktionalität deiner PS Padma Installation, indem du nützliche benutzerdefinierte Blöcke zu deinen Projekten hinzufügst.','padma'); ?></p>
 				<p><?php _e('Dienste: Dokumentation, Lifesaver (Migration von HTW/Blox), Child Theme, Templates in der Cloud, Site-Monitor.','padma'); ?></p>								
 
 				<p><?php _e('Nutze PSOURCE-Dienste, um das Potenzial von PS Padma freizuschalten.','padma'); ?></p>

@@ -1,4 +1,4 @@
-===PS Padma ===
+=== PS Padma ===
 Contributors: PSOURCE
 Requires at least: 5.0
 Tested up to: WordPress 8.6, ClassicPress 2.6.0
@@ -6,19 +6,86 @@ Version: 1.0.6
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Tags: theme, template, template builder, builder, theme builder, padma, flexible, flexible-header
+Tags: theme, template, template builder, builder, theme builder, padma, visual editor, drag-and-drop
 
 == Description ==
 
-PS Padma ist ein Template-Builder-Theme mit Drag-and-Drop-Bearbeitung, Point-and-Click-Designfunktionen, leistungsstarker Suchmaschinenoptimierung und vielem mehr.
+PS Padma ist ein moderner Theme- und Template-Builder für WordPress und ClassicPress.
 
+Was euch erwartet:
+
+* Visueller Editor mit Drag-and-Drop-Grid
+* Design-Anpassungen per Point-and-Click
+* Viele integrierte Blöcke direkt im Builder
+* Keine Abhängigkeit von externen Builder-Plugins
+* Solide Basis für schnelle, flexible und wartbare Projekte
+
+Kurz gesagt: weniger Frickelei, mehr bauen.
+
+Dokumentation:
+https://power-source.github.io/ps-padma/
 
 == Installation ==
 
-1. Upload Padma Base via FTP to your wp-content/themes/ directory.
-2. Go to your WordPress dashboard and select Appearance.
-3. Select Padma and click activate.
+1. Theme-ZIP hochladen (oder via FTP nach wp-content/themes/ kopieren).
+2. Im Backend zu Design > Themes gehen.
+3. PS Padma aktivieren.
+4. Optional: In den PS Padma Optionen die Startseite/Standard-Adminseite festlegen.
 
+== Empfohlene Serverwerte ==
+
+PS Padma läuft auch mit kleineren Limits, stabiler wird es mit:
+
+* PHP 8.0+
+* memory_limit: 256M oder höher
+* post_max_size: 32M oder höher
+
+== Sicherheit ==
+
+Wenn ihr die Ausführung von PHP in entsprechenden Blöcken deaktivieren wollt, ergänzt in eurer wp-config.php:
+
+define('PADMA_DISABLE_PHP_PARSING', false);
+
+== FAQ ==
+
+= Brauche ich zusätzliche Builder-Plugins? =
+Nein. PS Padma bringt den Visual Editor und die Kernfunktionen selbst mit.
+
+= Wo finde ich Hilfe und Doku? =
+Hier entlang: https://power-source.github.io/ps-padma/
+
+= Läuft PS Padma auch mit ClassicPress? =
+Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
+
+== Changelog ==
+
+= 1.0.6 =
+* Mehr Blöcke integriert
+* Keine externen Plugins mehr erforderlich
+* Verbesserungen für SEO-Workflows
+* Weitere Stabilitäts- und UX-Optimierungen
+
+= 1.0.5 =
+* Kritischen Headway-Support-Fehler behoben
+
+= 1.0.4 =
+* Uploader überarbeitet
+
+= 1.0.3 =
+* Verbesserungen im UI des Visual Editors
+* Fatal Error beim Anlegen einer Startseite behoben
+
+= 1.0.2 =
+* Google Fonts datenschutzsicher eingebunden
+* Deprecated-Aufruf `isFunction` bereinigt
+
+= 1.0.1 =
+* PHP-8-Fixes
+* Neue Dokumentation
+* Neuer Updater
+
+= 1.0.0 =
+* Initial Release
 
 == Copyright ==
 
@@ -37,43 +104,3 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-
-
-== Changelog ==
-
-= 1.0.6 = 
-
-* MORE BLOCKS!
-* KEINE EXTERNEN PLUGINS MEHR!
-* SEO SUITE DELUXE!
-* SMARTER ALS JE ZUVOR
-
-= 1.0.5 = 
-
-* Fix kritischer Error Headway Support
-
-= 1.0.4 = 
-
-* Uploader aktualisiert
-
-= 1.0.3 =
-
-* Verbesserungen UI Visual Editor
-* Fix Fatal Error beim Anlegen einer Startseite
-
-= 1.0.2 =
-
-* Google Fonts Datenschutzsicher vom Nerdservice-Eimen Server
-* Fixed deprecates isFunction
-
-= 1.0.1 =
-* Released: May 3, 2025
-
-* PhP8 fixes
-* New Docs
-* New Updater
-
-= 1.0.0 =
-* Released: Jun 26, 2024
-
-Initial release
