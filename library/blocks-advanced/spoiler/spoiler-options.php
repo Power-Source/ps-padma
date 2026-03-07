@@ -48,11 +48,13 @@ class PadmaVisualElementsBlockSpoilerOptions extends \PadmaBlockOptionsAPI {
 			'general' => array(
 
 				'spoilers' => array(
-					'type'    => 'repeater',
-					'name'    => 'spoilers',
-					'label'   => __( 'Spoiler', 'padma-advanced' ),
-					'tooltip' => __( 'Spoiler mit verstecktem Inhalt', 'padma-advanced' ),
-					'inputs'  => array(
+					'type'     => 'repeater',
+					'name'     => 'spoilers',
+					'label'    => __( 'Spoiler', 'padma-advanced' ),
+					'tooltip'  => __( 'Spoiler mit verstecktem Inhalt', 'padma-advanced' ),
+					'sortable' => true,
+					'limit'    => 100,
+					'inputs'   => array(
 						array(
 							'type'  => 'text',
 							'name'  => 'title',
@@ -103,14 +105,14 @@ class PadmaVisualElementsBlockSpoilerOptions extends \PadmaBlockOptionsAPI {
 								'folder-1'       => 'Folder-1',
 								'folder-2'       => 'Folder-2',
 							),
-							'tooltip' => __( 'Choose style for this spoiler', 'padma-advanced' ),
+							'tooltip' => __( 'Wähle das Symbol für diesen Spoiler', 'padma-advanced' ),
 						),
 
 						array(
 							'type'    => 'text',
 							'name'    => 'anchor',
 							'label'   => __( 'Anker', 'padma-advanced' ),
-							'tooltip' => __( 'Du kannst einen einzigartigen Anker für diesen Tab verwenden, um ihn mit einem Hash in der Seiten-URL aufzurufen. Beispiel: verwende Hallo und navigiere dann zu einer URL wie http://beispiel.de/seiten-url#Hallo. Dieser Tab wird aktiviert und gescrollt.', 'padma-advanced' ),
+							'tooltip' => __( 'Du kannst einen einzigartigen Anker für diesen Spoiler verwenden, um ihn mit einem Hash in der Seiten-URL aufzurufen. Beispiel: verwende Hallo und navigiere dann zu einer URL wie http://beispiel.de/seiten-url#Hallo. Dieser Spoiler wird aktiviert und gescrollt.', 'padma-advanced' ),
 						),
 
 						array(
@@ -121,8 +123,6 @@ class PadmaVisualElementsBlockSpoilerOptions extends \PadmaBlockOptionsAPI {
 						),
 					),
 				),
-				'sortable' => true,
-				'limit'    => 100,
 			),
 		);
 	}

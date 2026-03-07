@@ -86,11 +86,8 @@ class PadmaVisualElementsBlockHeading extends \PadmaBlockAPI {
 	 * Init
 	 */
 	public function init() {
-
-		if ( ! class_exists( 'PSOURCE_Shortcodes' ) ) {
-			return false;
-		}
-
+		// Shortcodes are registered in library/shortcode-functions/register.php
+		return function_exists( 'padma_render_heading' );
 	}
 
 	/**

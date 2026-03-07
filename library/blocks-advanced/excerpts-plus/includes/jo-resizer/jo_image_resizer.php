@@ -203,9 +203,9 @@
             imagefill($this->imageResized, 0, 0, $color);
           } else {
             $img_bg_color = (substr($img_bg_color, 0, 1) != '#') ? '#' . $img_bg_color : $img_bg_color;
-            $img_bg_color = (strlen($img_bg_color) == 4) ? ('#' . $img_bg_color{1} . $img_bg_color{1} . $img_bg_color{2} . $img_bg_color{2} . $img_bg_color{3} . $img_bg_color{3}) : $img_bg_color;
+            $img_bg_color = (strlen($img_bg_color) == 4) ? ('#' . $img_bg_color[1] . $img_bg_color[1] . $img_bg_color[2] . $img_bg_color[2] . $img_bg_color[3] . $img_bg_color[3]) : $img_bg_color;
             $img_bg_color = (strlen($img_bg_color) != 7) ? '#FFFFFF' : $img_bg_color;
-            $color        = imagecolorallocate($this->imageResized, hexdec('0x' . $img_bg_color{1} . $img_bg_color{2}), hexdec('0x' . $img_bg_color{3} . $img_bg_color{4}), hexdec('0x' . $img_bg_color{5} . $img_bg_color{6}));
+            $color        = imagecolorallocate($this->imageResized, hexdec('0x' . $img_bg_color[1] . $img_bg_color[2]), hexdec('0x' . $img_bg_color[3] . $img_bg_color[4]), hexdec('0x' . $img_bg_color[5] . $img_bg_color[6]));
             imagefill($this->imageResized, 0, 0, $color);
           }
 
@@ -219,9 +219,9 @@
           // *** if option is 'crop', then crop too
           if ($resizingType == 'crop') {
             $this->crop($optimalWidth, $optimalHeight,
-                        $newWidth, $newHeight,
-                        $vcrop_align, $hcrop_align,
-                        $focal_point, $start_src_x, $start_src_y);
+            $newWidth, $newHeight,
+            $vcrop_align, $hcrop_align,
+            $focal_point, $start_src_x, $start_src_y);
           }
         }
       }

@@ -69,7 +69,7 @@ $this->categories    = array( 'box' );
 public function init() {
 		// Check if native render function is available
 		// Fallback to PSOURCE_Shortcodes plugin if available
-		return function_exists( 'padma_render_quote' ) || class_exists( 'PSOURCE_Shortcodes' );
+		return function_exists( 'padma_render_quote' );
 	}
 
 public function setup_elements() {

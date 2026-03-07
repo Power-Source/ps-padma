@@ -32,7 +32,7 @@ class Padma {
 			define('THEME_FRAMEWORK', 'padma');			
 		}
 		if(!defined('PADMA_VERSION')){
-			define('PADMA_VERSION', '1.3.3');
+			define('PADMA_VERSION', '1.0.8');
 		}
 
 		/* Define directories */

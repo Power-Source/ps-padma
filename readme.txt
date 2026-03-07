@@ -71,6 +71,17 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 * PortfolioCards-Block vollständig auf Deutsch Informell lokalisiert
 * PortfolioCards-Block: Standard Post-Type festgelegt und Kategorie-Ladung verbessert
 * Alle Advanced Blocks (30+ Blöcke) auf Deutsch Informell lokalisiert
+* NEU: ExcerptsPlus Block mit modularer Architektur integriert
+* ExcerptsPlus: Magazine Layouts, Slider, umfangreiche Filter und Custom Fields
+* ExcerptsPlus: 4 Core-Module (Helpers, ImageProcessor, MetaHandler, QueryBuilder)
+* ExcerptsPlus: Vollständige Rückwärtskompatibilität mit Legacy-Code
+* ExcerptsPlus: Bild-Cache-System mit Focal-Point und WPML-Support
+* 21+ Advanced Blocks von falscher Plugin-Abhängigkeit befreit
+* Spoiler-Block: Options-Struktur korrigiert, Repeater jetzt funktionsfähig
+* Tabs-Block: Options-Struktur korrigiert, Repeater jetzt funktionsfähig
+* Alle Shortcodes direkt im Theme integriert (keine externen Plugins erforderlich)
+* PHP 8.0+ Kompatibilität für Image-Resizer verbessert
+* Block-Registrierung und Init-Prozess für alle Advanced Blocks optimiert
 
 = 1.0.7 =
 * Branding vereinheitlicht auf "PS Padma"
