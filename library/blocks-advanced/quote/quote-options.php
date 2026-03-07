@@ -39,7 +39,7 @@ class PadmaVisualElementsBlockQuoteOptions extends \PadmaBlockOptionsAPI {
 	public function __construct() {
 
 		$this->tabs = array(
-			'general' => __( 'General', 'padma-advanced' ),
+			'general' => __( 'Allgemein', 'padma-advanced' ),
 		);
 
 		$this->sets = array();
@@ -50,22 +50,22 @@ class PadmaVisualElementsBlockQuoteOptions extends \PadmaBlockOptionsAPI {
 				'quote' => array(
 					'name'    => 'quote',
 					'type'    => 'wysiwyg',
-					'label'   => __( 'Quote', 'padma-advanced' ),
-					'tooltip' => __( 'Quote text', 'padma-advanced' ),
+					'label'   => __( 'Zitat', 'padma-advanced' ),
+					'tooltip' => __( 'Zitat Text', 'padma-advanced' ),
 				),
 
 				'cite'  => array(
 					'name'    => 'cite',
 					'type'    => 'text',
-					'label'   => __( 'Cite', 'padma-advanced' ),
-					'tooltip' => __( 'Quote author name', 'padma-advanced' ),
+					'label'   => __( 'Zitiert', 'padma-advanced' ),
+					'tooltip' => __( 'Name des Zitatautors', 'padma-advanced' ),
 				),
 
 				'url'   => array(
 					'name'    => 'url',
 					'type'    => 'text',
-					'label'   => __( 'Author URL', 'padma-advanced' ),
-					'tooltip' => __( 'Url of the quote author. Leave empty to disable link', 'padma-advanced' ),
+					'label'   => __( 'Autor URL', 'padma-advanced' ),
+					'tooltip' => __( 'URL des Zitatautors. Leer lassen um Link zu deaktivieren', 'padma-advanced' ),
 				),
 			),
 		);

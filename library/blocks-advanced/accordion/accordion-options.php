@@ -39,7 +39,7 @@ class PadmaVisualElementsBlockAccordionOptions extends \PadmaBlockOptionsAPI {
 	public function __construct() {
 
 		$this->tabs = array(
-			'general' => __( 'General', 'padma-advanced' ),
+			'general' => __( 'Allgemein', 'padma-advanced' ),
 		);
 
 		$this->sets = array();
@@ -49,46 +49,46 @@ class PadmaVisualElementsBlockAccordionOptions extends \PadmaBlockOptionsAPI {
 				'accordion-class' => array(
 					'name'    => 'accordion-class',
 					'type'    => 'text',
-					'label'   => __( 'CSS Accordion Class', 'padma-advanced' ),
-					'tooltip' => __( 'Additional CSS class name(s) separated by space(s)', 'padma-advanced' ),
+					'label'   => __( 'CSS Accordion Klasse', 'padma-advanced' ),
+					'tooltip' => __( 'Zusätzliche CSS Klassennamen getrennt durch Leerzeichen', 'padma-advanced' ),
 				),
 				'spoilers'        => array(
 					'type'     => 'repeater',
 					'name'     => 'spoilers',
 					'label'    => __( 'Accordion', 'padma-advanced' ),
-					'tooltip'  => __( 'Accordion with hidden content', 'padma-advanced' ),
+					'tooltip'  => __( 'Accordion mit verstecktem Inhalt', 'padma-advanced' ),
 					'inputs'   => array(
 						array(
 							'type'  => 'text',
 							'name'  => 'title',
-							'label' => __( 'Title', 'padma-advanced' ),
+							'label' => __( 'Titel', 'padma-advanced' ),
 						),
 						array(
 							'type'    => 'select',
 							'name'    => 'open',
-							'label'   => __( 'Open', 'padma-advanced' ),
+							'label'   => __( 'Geöffnet', 'padma-advanced' ),
 							'options' => array(
-								'yes' => __( 'Yes', 'padma-advanced' ),
-								'no'  => __( 'No', 'padma-advanced' ),
+								'yes' => __( 'Ja', 'padma-advanced' ),
+								'no'  => __( 'Nein', 'padma-advanced' ),
 							),
 							'default' => 'no',
 						),
 						array(
 							'name'    => 'style',
 							'type'    => 'select',
-							'label'   => __( 'Style', 'padma-advanced' ),
+							'label'   => __( 'Stil', 'padma-advanced' ),
 							'default' => 'default',
 							'options' => array(
-								'default' => __( 'Default', 'padma-advanced' ),
-								'fancy'   => __( 'Fancy', 'padma-advanced' ),
-								'simple'  => __( 'Simple', 'padma-advanced' ),
+								'default' => __( 'Standard', 'padma-advanced' ),
+								'fancy'   => __( 'Schick', 'padma-advanced' ),
+								'simple'  => __( 'Einfach', 'padma-advanced' ),
 							),
-							'tooltip' => __( 'Choose style for this spoiler', 'padma-advanced' ),
+							'tooltip' => __( 'Wähle den Stil für diesen Spoiler', 'padma-advanced' ),
 						),
 						array(
 							'name'    => 'icon',
 							'type'    => 'select',
-							'label'   => __( 'Icon', 'padma-advanced' ),
+							'label'   => __( 'Symbol', 'padma-advanced' ),
 							'default' => 'plus',
 							'options' => array(
 								'plus'           => 'Plus',
@@ -105,18 +105,18 @@ class PadmaVisualElementsBlockAccordionOptions extends \PadmaBlockOptionsAPI {
 								'folder-1'       => 'Folder-1',
 								'folder-2'       => 'Folder-2',
 							),
-							'tooltip' => 'Choose style for this spoiler',
+							'tooltip' => 'Wähle den Stil für diesen Spoiler',
 						),
 						array(
 							'type'    => 'text',
 							'name'    => 'anchor',
-							'label'   => __( 'Anchor', 'padma-advanced' ),
-							'tooltip' => __( 'You can use unique anchor for this tab to access it with hash in page url. For example: use Hello and then navigate to url like http://example.com/page-url#Hello. This tab will be activated and scrolled in . ', 'padma-advanced' ),
+							'label'   => __( 'Anker', 'padma-advanced' ),
+							'tooltip' => __( 'Du kannst einen einzigartigen Anker für diesen Tab verwenden, um ihn mit einem Hash in der Seiten-URL aufzurufen. Beispiel: verwende Hallo und navigiere dann zu einer URL wie http://beispiel.de/seiten-url#Hallo. Dieser Tab wird aktiviert und gescrollt.', 'padma-advanced' ),
 						),
 						array(
 							'type'    => 'wysiwyg',
 							'name'    => 'content',
-							'label'   => __( 'Content', 'padma-advanced' ),
+							'label'   => __( 'Inhalt', 'padma-advanced' ),
 							'default' => null,
 						),
 					),

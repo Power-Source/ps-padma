@@ -39,7 +39,7 @@ class PadmaVisualElementsBlockColumnsOptions extends \PadmaBlockOptionsAPI {
 	public function __construct() {
 
 		$this->tabs = array(
-			'general' => __( 'General', 'padma-advanced' ),
+			'general' => __( 'Allgemein', 'padma-advanced' ),
 		);
 
 		$this->sets = array();
@@ -49,54 +49,54 @@ class PadmaVisualElementsBlockColumnsOptions extends \PadmaBlockOptionsAPI {
 				'columns' => array(
 					'type'     => 'repeater',
 					'name'     => 'columns',
-					'label'    => __( 'Columns', 'padma-advanced' ),
-					'tooltip'  => __( 'Content for your columns . ', 'padma-advanced' ),
+					'label'    => __( 'Spalten', 'padma-advanced' ),
+					'tooltip'  => __( 'Inhalt für deine Spalten', 'padma-advanced' ),
 					'inputs'   => array(
 						array(
 							'name'    => 'size',
-							'label'   => __( 'Size', 'padma-advanced' ),
+							'label'   => __( 'Größe', 'padma-advanced' ),
 							'type'    => 'select',
 							'default' => 'one-half',
 							'options' => array(
-								'full-width'   => __( 'Full width 1/1', 'padma-advanced' ),
-								'one-half'     => __( 'One half 1/2', 'padma-advanced' ),
-								'one-third'    => __( 'One third 1/3', 'padma-advanced' ),
-								'two-third'    => __( 'Two third 2/3', 'padma-advanced' ),
-								'one-fourth'   => __( 'One fourth 1/4', 'padma-advanced' ),
-								'three-fourth' => __( 'Three fourth 3/4', 'padma-advanced' ),
-								'one-fifth'    => __( 'One fifth 1/5', 'padma-advanced' ),
-								'two-fifth'    => __( 'Two fifth 2/5', 'padma-advanced' ),
-								'three-fifth'  => __( 'Three fifth 3/5', 'padma-advanced' ),
-								'four-fifth'   => __( 'Four fifth 4/5', 'padma-advanced' ),
-								'one-sixth'    => __( 'One sixth 1/6', 'padma-advanced' ),
-								'five-sixth'   => __( 'Five sixth 5/6', 'padma-advanced' ),
+								'full-width'   => __( 'Volle Breite 1/1', 'padma-advanced' ),
+								'one-half'     => __( 'Eine Hälfte 1/2', 'padma-advanced' ),
+								'one-third'    => __( 'Ein Drittel 1/3', 'padma-advanced' ),
+								'two-third'    => __( 'Zwei Drittel 2/3', 'padma-advanced' ),
+								'one-fourth'   => __( 'Ein Viertel 1/4', 'padma-advanced' ),
+								'three-fourth' => __( 'Drei Viertel 3/4', 'padma-advanced' ),
+								'one-fifth'    => __( 'Ein Fünftel 1/5', 'padma-advanced' ),
+								'two-fifth'    => __( 'Zwei Fünftel 2/5', 'padma-advanced' ),
+								'three-fifth'  => __( 'Drei Fünftel 3/5', 'padma-advanced' ),
+								'four-fifth'   => __( 'Vier Fünftel 4/5', 'padma-advanced' ),
+								'one-sixth'    => __( 'Ein Sechstel 1/6', 'padma-advanced' ),
+								'five-sixth'   => __( 'Fünf Sechstel 5/6', 'padma-advanced' ),
 							),
-							'tooltip' => __( 'Select column width. This width will be calculated depend page width', 'padma-advanced' ),
+							'tooltip' => __( 'Wähle die Spaltenbreite. Diese Breite wird abhängig von der Seitenbreite berechnet', 'padma-advanced' ),
 						),
 
 						array(
 							'type'    => 'select',
 							'name'    => 'center',
-							'label'   => __( 'Center', 'padma-advanced' ),
+							'label'   => __( 'Zentriert', 'padma-advanced' ),
 							'options' => array(
-								'yes' => __( 'Yes', 'padma-advanced' ),
-								'no'  => __( 'No', 'padma-advanced' ),
+								'yes' => __( 'Ja', 'padma-advanced' ),
+								'no'  => __( 'Nein', 'padma-advanced' ),
 							),
 							'default' => 'no',
-							'tooltip' => __( 'Is this column centered on the page', 'padma-advanced' ),
+							'tooltip' => __( 'Ist diese Spalte auf der Seite zentriert', 'padma-advanced' ),
 						),
 
 						array(
 							'type'    => 'text',
 							'name'    => 'class',
-							'label'   => __( 'Class', 'padma-advanced' ),
-							'tooltip' => __( 'Additional CSS class name(s) separated by space(s)', 'padma-advanced' ),
+							'label'   => __( 'Klasse', 'padma-advanced' ),
+							'tooltip' => __( 'Zusätzliche CSS Klassennamen getrennt durch Leerzeichen', 'padma-advanced' ),
 						),
 
 						array(
 							'type'    => 'wysiwyg',
 							'name'    => 'content',
-							'label'   => __( 'Content', 'padma-advanced' ),
+							'label'   => __( 'Inhalt', 'padma-advanced' ),
 							'default' => null,
 						),
 					),

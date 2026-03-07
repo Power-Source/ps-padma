@@ -36,7 +36,7 @@ class PadmaMDIBlockOptions extends \PadmaBlockOptionsAPI {
 	public function __construct() {
 
 		$this->tabs = array(
-			'general' => __( 'General', 'padma-advanced' ),
+			'general' => __( 'Allgemein', 'padma-advanced' ),
 		);
 
 		$this->sets = array();
@@ -48,21 +48,21 @@ class PadmaMDIBlockOptions extends \PadmaBlockOptionsAPI {
 					'name'    => 'url',
 					'label'   => 'Link',
 					'type'    => 'text',
-					'tooltip' => 'If set, the icon will be a link',
+					'tooltip' => 'Wenn gesetzt, wird das Symbol ein Link sein',
 				),
 
 				'before-icon' => array(
 					'name'    => 'before-icon',
-					'label'   => 'Before icon',
+					'label'   => 'Vor dem Symbol',
 					'type'    => 'wysiwyg',
-					'tooltip' => 'Add content before the icon',
+					'tooltip' => 'Inhalt vor dem Symbol hinzufügen',
 				),
 
 				'after-icon'  => array(
 					'name'    => 'after-icon',
-					'label'   => 'After icon',
+					'label'   => 'Nach dem Symbol',
 					'type'    => 'wysiwyg',
-					'tooltip' => 'Add content after the icon',
+					'tooltip' => 'Inhalt nach dem Symbol hinzufügen',
 				),
 				'filter'      => array(
 					'name' => 'filter',
@@ -72,19 +72,19 @@ class PadmaMDIBlockOptions extends \PadmaBlockOptionsAPI {
 				'mdi-icon-width' => array(
 					'name'    => 'mdi-icon-width',
 					'type'    => 'integer',
-					'label'   => 'Width',
+					'label'   => 'Breite',
 					'default' => '24',
 				),
 				'mdi-icon-height' => array(
 					'name'    => 'mdi-icon-height',
 					'type'    => 'integer',
-					'label'   => 'Height',
+					'label'   => 'Höhe',
 					'default' => '24',
 				),
 				'mdi-icon'     => array(
 					'name'    => 'mdi-icon',
 					'type'    => 'radio',
-					'label'   => 'Icon',
+					'label'   => 'Symbol',
 					'default' => '',
 					'options' => $this->load(),
 				),

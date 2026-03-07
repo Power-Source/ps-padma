@@ -39,7 +39,7 @@ class PadmaVisualElementsBlockDummyImageOptions extends \PadmaBlockOptionsAPI {
 	public function __construct() {
 
 		$this->tabs = array(
-			'general' => __( 'General', 'padma-advanced' ),
+			'general' => __( 'Allgemein', 'padma-advanced' ),
 		);
 
 		$this->sets = array();
@@ -49,41 +49,41 @@ class PadmaVisualElementsBlockDummyImageOptions extends \PadmaBlockOptionsAPI {
 				'width'  => array(
 					'name'    => 'width',
 					'type'    => 'integer',
-					'label'   => __( 'Width', 'padma-advanced' ),
-					'tooltip' => __( 'Image width', 'padma-advanced' ),
+					'label'   => __( 'Breite', 'padma-advanced' ),
+					'tooltip' => __( 'Bildbreite', 'padma-advanced' ),
 					'default' => 500,
 				),
 
 				'height' => array(
 					'name'    => 'height',
 					'type'    => 'integer',
-					'label'   => __( 'Height', 'padma-advanced' ),
-					'tooltip' => __( 'Image height', 'padma-advanced' ),
+					'label'   => __( 'Höhe', 'padma-advanced' ),
+					'tooltip' => __( 'Bildhöhe', 'padma-advanced' ),
 					'default' => 300,
 				),
 				'theme'  => array(
 					'name'    => 'theme ',
 					'type'    => 'select',
-					'label'   => __( 'Theme ', 'padma-advanced' ),
+					'label'   => __( 'Thema ', 'padma-advanced' ),
 					'default' => 'any',
 					'options' => array(
-						'any'       => __( 'Any', 'padma-advanced' ),
-						'abstract'  => __( 'Abstract', 'padma-advanced' ),
-						'animals'   => __( 'Animals', 'padma-advanced' ),
-						'business'  => __( 'Business', 'padma-advanced' ),
-						'cats'      => __( 'Cats', 'padma-advanced' ),
-						'city'      => __( 'City', 'padma-advanced' ),
-						'food'      => __( 'Food', 'padma-advanced' ),
-						'nightlife' => __( 'Nightlife', 'padma-advanced' ),
-						'fashion'   => __( 'Fashion', 'padma-advanced' ),
-						'people'    => __( 'People', 'padma-advanced' ),
-						'nature'    => __( 'Nature', 'padma-advanced' ),
-						'sports'    => __( 'Sports', 'padma-advanced' ),
-						'technics'  => __( 'Technics', 'padma-advanced' ),
+						'any'       => __( 'Beliebig', 'padma-advanced' ),
+						'abstract'  => __( 'Abstrakt', 'padma-advanced' ),
+						'animals'   => __( 'Tiere', 'padma-advanced' ),
+						'business'  => __( 'Geschäft', 'padma-advanced' ),
+						'cats'      => __( 'Katzen', 'padma-advanced' ),
+						'city'      => __( 'Stadt', 'padma-advanced' ),
+						'food'      => __( 'Essen', 'padma-advanced' ),
+						'nightlife' => __( 'Nachtleben', 'padma-advanced' ),
+						'fashion'   => __( 'Mode', 'padma-advanced' ),
+						'people'    => __( 'Menschen', 'padma-advanced' ),
+						'nature'    => __( 'Natur', 'padma-advanced' ),
+						'sports'    => __( 'Sport', 'padma-advanced' ),
+						'technics'  => __( 'Technik', 'padma-advanced' ),
 						'transport' => __( 'Transport', 'padma-advanced' ),
 
 					),
-					'tooltip' => 'Select the theme for this image . ',
+					'tooltip' => 'Wähle das Thema für dieses Bild',
 				),
 			),
 		);

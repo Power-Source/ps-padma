@@ -39,7 +39,7 @@ class PadmaVisualElementsBlockGmapOptions extends \PadmaBlockOptionsAPI {
 	public function __construct() {
 
 		$this->tabs = array(
-			'general' => __( 'General', 'padma-advanced' ),
+			'general' => __( 'Allgemein', 'padma-advanced' ),
 		);
 
 		$this->sets = array();
@@ -48,22 +48,22 @@ class PadmaVisualElementsBlockGmapOptions extends \PadmaBlockOptionsAPI {
 			'general' => array(
 				'address'    => array(
 					'name'    => 'address',
-					'label'   => __( 'Address', 'padma-advanced' ),
+					'label'   => __( 'Adresse', 'padma-advanced' ),
 					'type'    => 'text',
 					'default' => '',
-					'tooltip' => __( 'Address for the marker. You can type it in any language', 'padma-advanced' ),
+					'tooltip' => __( 'Adresse für den Marker. Du kannst sie in jeder Sprache eingeben', 'padma-advanced' ),
 				),
 
 				'responsive' => array(
 					'name'    => 'responsive',
 					'type'    => 'select',
-					'label'   => __( 'Responsive', 'padma-advanced' ),
+					'label'   => __( 'Responsiv', 'padma-advanced' ),
 					'default' => 'yes',
 					'options' => array(
-						'yes' => __( 'Yes', 'padma-advanced' ),
-						'no'  => __( 'No', 'padma-advanced' ),
+						'yes' => __( 'Ja', 'padma-advanced' ),
+						'no'  => __( 'Nein', 'padma-advanced' ),
 					),
-					'tooltip' => __( 'Ignore width and height parameters and make map responsive', 'padma-advanced' ),
+					'tooltip' => __( 'Breite und Höhe Parameter ignorieren und Karte responsiv machen', 'padma-advanced' ),
 				),
 
 				'zoom'       => array(
@@ -71,23 +71,23 @@ class PadmaVisualElementsBlockGmapOptions extends \PadmaBlockOptionsAPI {
 					'type'    => 'integer',
 					'label'   => __( 'Zoom', 'padma-advanced' ),
 					'default' => 0,
-					'tooltip' => __( 'Zoom sets the initial zoom level of the map. Accepted values range from 1 (the whole world) to 21 (individual buildings). Use 0 (zero) to set zoom level depending on displayed object (automatic)', 'padma-advanced' ),
+					'tooltip' => __( 'Zoom legt die Anfangs-Zoomstufe der Karte fest. Akzeptierte Werte reichen von 1 (die ganze Welt) bis 21 (einzelne Gebäude). Verwende 0 (Null) um die Zoomstufe automatisch je nach angezeigtem Objekt festzulegen', 'padma-advanced' ),
 				),
 
 				'width'      => array(
 					'name'    => 'width',
 					'type'    => 'integer',
-					'label'   => __( 'Width', 'padma-advanced' ),
+					'label'   => __( 'Breite', 'padma-advanced' ),
 					'default' => 600,
-					'tooltip' => __( 'Map width', 'padma-advanced' ),
+					'tooltip' => __( 'Kartenbreite', 'padma-advanced' ),
 				),
 
 				'height'     => array(
 					'name'    => 'height',
 					'type'    => 'integer',
-					'label'   => __( 'Height', 'padma-advanced' ),
+					'label'   => __( 'Höhe', 'padma-advanced' ),
 					'default' => 400,
-					'tooltip' => __( 'Map height', 'padma-advanced' ),
+					'tooltip' => __( 'Kartenhöhe', 'padma-advanced' ),
 				),
 			),
 		);

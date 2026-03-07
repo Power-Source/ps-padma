@@ -39,7 +39,7 @@ class PadmaVisualElementsBlockLabelOptions extends \PadmaBlockOptionsAPI {
 	public function __construct() {
 
 		$this->tabs = array(
-			'general' => __( 'General', 'padma-advanced' ),
+			'general' => __( 'Allgemein', 'padma-advanced' ),
 		);
 
 		$this->sets = array();
@@ -49,18 +49,18 @@ class PadmaVisualElementsBlockLabelOptions extends \PadmaBlockOptionsAPI {
 
 				'type' => array(
 					'name'    => 'type',
-					'label'   => __( 'Type', 'padma-advanced' ),
+					'label'   => __( 'Typ', 'padma-advanced' ),
 					'type'    => 'select',
 					'default' => 'default',
 					'options' => array(
-						'default'   => __( 'Default', 'padma-advanced' ),
-						'success'   => __( 'Success', 'padma-advanced' ),
-						'warning'   => __( 'Warning', 'padma-advanced' ),
-						'important' => __( 'Important', 'padma-advanced' ),
-						'black'     => __( 'Black', 'padma-advanced' ),
+						'default'   => __( 'Standard', 'padma-advanced' ),
+						'success'   => __( 'Erfolg', 'padma-advanced' ),
+						'warning'   => __( 'Warnung', 'padma-advanced' ),
+						'important' => __( 'Wichtig', 'padma-advanced' ),
+						'black'     => __( 'Schwarz', 'padma-advanced' ),
 						'info'      => __( 'Info', 'padma-advanced' ),
 					),
-					'tooltip' => __( 'Style of the label', 'padma-advanced' ),
+					'tooltip' => __( 'Stil des Labels', 'padma-advanced' ),
 				),
 
 				'text' => array(

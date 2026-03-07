@@ -39,7 +39,7 @@ class PadmaVisualElementsBlockDividerOptions extends \PadmaBlockOptionsAPI {
 	public function __construct() {
 
 		$this->tabs = array(
-			'general' => 'General',
+			'general' => 'Allgemein',
 		);
 
 		$this->sets = array();
@@ -48,46 +48,46 @@ class PadmaVisualElementsBlockDividerOptions extends \PadmaBlockOptionsAPI {
 			'general' => array(
 				'top'    => array(
 					'name'    => 'top',
-					'label'   => __( 'Top', 'padma-advanced' ),
+					'label'   => __( 'Nach oben', 'padma-advanced' ),
 					'type'    => 'select',
 					'default' => 'yes',
 					'options' => array(
-						'yes' => __( 'Yes', 'padma-advanced' ),
-						'no'  => __( 'No', 'padma-advanced' ),
+						'yes' => __( 'Ja', 'padma-advanced' ),
+						'no'  => __( 'Nein', 'padma-advanced' ),
 					),
-					'tooltip' => __( 'Show link to top of the page or not', 'padma-advanced' ),
+					'tooltip' => __( 'Link zum Seitenanfang anzeigen oder nicht', 'padma-advanced' ),
 				),
 				'text'   => array(
 					'name'    => 'text',
 					'type'    => 'text',
 					'label'   => __( 'Text', 'padma-advanced' ),
-					'tooltip' => __( 'Text for the GO TOP link', 'padma-advanced' ),
+					'tooltip' => __( 'Text für den NACH OBEN Link', 'padma-advanced' ),
 				),
 				'style'  => array(
 					'name'    => 'style',
-					'label'   => __( 'Style', 'padma-advanced' ),
+					'label'   => __( 'Stil', 'padma-advanced' ),
 					'type'    => 'select',
 					'default' => 'none',
 					'options' => array(
-						'default' => __( 'Default', 'padma-advanced' ),
-						'dotted'  => __( 'Dotted', 'padma-advanced' ),
-						'dashed'  => __( 'Dashed', 'padma-advanced' ),
-						'double'  => __( 'Double', 'padma-advanced' ),
+						'default' => __( 'Standard', 'padma-advanced' ),
+						'dotted'  => __( 'Gepunktet', 'padma-advanced' ),
+						'dashed'  => __( 'Gestrichelt', 'padma-advanced' ),
+						'double'  => __( 'Doppelt', 'padma-advanced' ),
 					),
-					'tooltip' => __( 'Choose style for this divider', 'padma-advanced' ),
+					'tooltip' => __( 'Wähle den Stil für diesen Trenner', 'padma-advanced' ),
 				),
 				'margin' => array(
 					'name'    => 'margin',
-					'label'   => __( 'Margin', 'padma-advanced' ),
+					'label'   => __( 'Abstand', 'padma-advanced' ),
 					'type'    => 'integer',
-					'tooltip' => __( 'Adjust the top and bottom margins of this divider (in pixels)', 'padma-advanced' ),
+					'tooltip' => __( 'Passe die oberen und unteren Abstände dieses Trenners an (in Pixeln)', 'padma-advanced' ),
 					'default' => 20,
 				),
 				'size'   => array(
 					'name'    => 'size',
-					'label'   => __( 'Size', 'padma-advanced' ),
+					'label'   => __( 'Größe', 'padma-advanced' ),
 					'type'    => 'integer',
-					'tooltip' => __( 'Height of the divider (in pixels)', 'padma-advanced' ),
+					'tooltip' => __( 'Höhe des Trenners (in Pixeln)', 'padma-advanced' ),
 					'default' => 3,
 				),
 			),

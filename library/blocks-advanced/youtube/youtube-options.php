@@ -39,7 +39,7 @@ class PadmaVisualElementsBlockYoutubeOptions extends \PadmaBlockOptionsAPI {
 	public function __construct() {
 
 		$this->tabs = array(
-			'general' => __( 'General', 'padma-advanced' ),
+			'general' => __( 'Allgemein', 'padma-advanced' ),
 		);
 
 		$this->sets = array();
@@ -49,38 +49,38 @@ class PadmaVisualElementsBlockYoutubeOptions extends \PadmaBlockOptionsAPI {
 
 				'url'        => array(
 					'name'    => 'url',
-					'label'   => __( 'Url', 'padma-advanced' ),
+					'label'   => __( 'URL', 'padma-advanced' ),
 					'type'    => 'text',
 					'default' => '',
-					'tooltip' => __( 'Url of YouTube page with video. Ex: http://youtube.com/watch?v=XXXXXX', 'padma-advanced' ),
+					'tooltip' => __( 'URL der YouTube Seite mit Video. Beispiel: http://youtube.com/watch?v=XXXXXX', 'padma-advanced' ),
 				),
 
 				'width'      => array(
 					'name'    => 'width',
 					'type'    => 'integer',
-					'label'   => __( 'Width', 'padma-advanced' ),
+					'label'   => __( 'Breite', 'padma-advanced' ),
 					'default' => 600,
-					'tooltip' => __( 'Width', 'padma-advanced' ),
+					'tooltip' => __( 'Breite', 'padma-advanced' ),
 				),
 
 				'height'     => array(
 					'name'    => 'height',
 					'type'    => 'integer',
-					'label'   => __( 'Height', 'padma-advanced' ),
+					'label'   => __( 'Höhe', 'padma-advanced' ),
 					'default' => 400,
-					'tooltip' => __( 'Height', 'padma-advanced' ),
+					'tooltip' => __( 'Höhe', 'padma-advanced' ),
 				),
 
 				'responsive' => array(
 					'name'    => 'responsive',
 					'type'    => 'select',
-					'label'   => __( 'Responsive', 'padma-advanced' ),
+					'label'   => __( 'Responsiv', 'padma-advanced' ),
 					'default' => 'yes',
 					'options' => array(
-						'yes' => __( 'Yes', 'padma-advanced' ),
-						'no'  => __( 'No', 'padma-advanced' ),
+						'yes' => __( 'Ja', 'padma-advanced' ),
+						'no'  => __( 'Nein', 'padma-advanced' ),
 					),
-					'tooltip' => __( 'Ignore width and height parameters and make player responsive', 'padma-advanced' ),
+					'tooltip' => __( 'Breite und Höhe Parameter ignorieren und Player responsiv machen', 'padma-advanced' ),
 				),
 
 				'autoplay'   => array(
@@ -89,22 +89,22 @@ class PadmaVisualElementsBlockYoutubeOptions extends \PadmaBlockOptionsAPI {
 					'label'   => __( 'Autoplay', 'padma-advanced' ),
 					'default' => 'yes',
 					'options' => array(
-						'yes' => __( 'Yes', 'padma-advanced' ),
-						'no'  => __( 'No', 'padma-advanced' ),
+						'yes' => __( 'Ja', 'padma-advanced' ),
+						'no'  => __( 'Nein', 'padma-advanced' ),
 					),
-					'tooltip' => __( 'Play video automatically when a page is loaded. Please note, in modern browsers autoplay option only works with the mute option enabled', 'padma-advanced' ),
+					'tooltip' => __( 'Video automatisch abspielen wenn die Seite geladen wird. Bitte beachte, dass in modernen Browsern die Autoplay-Option nur funktioniert, wenn die Stumm-Option aktiviert ist', 'padma-advanced' ),
 				),
 
 				'mute'       => array(
 					'name'    => 'mute',
 					'type'    => 'select',
-					'label'   => __( 'Mute', 'padma-advanced' ),
+					'label'   => __( 'Stumm', 'padma-advanced' ),
 					'default' => 'no',
 					'options' => array(
-						'yes' => __( 'Yes', 'padma-advanced' ),
-						'no'  => __( 'No', 'padma-advanced' ),
+						'yes' => __( 'Ja', 'padma-advanced' ),
+						'no'  => __( 'Nein', 'padma-advanced' ),
 					),
-					'tooltip' => __( 'Mute the player', 'padma-advanced' ),
+					'tooltip' => __( 'Player stumm schalten', 'padma-advanced' ),
 				),
 			),
 		);

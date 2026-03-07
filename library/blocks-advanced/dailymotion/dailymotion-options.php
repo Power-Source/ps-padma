@@ -38,7 +38,7 @@ class PadmaVisualElementsBlockDailymotionOptions extends \PadmaBlockOptionsAPI {
 	 */
 	public function __construct() {
 		$this->tabs = array(
-			'general' => __( 'General', 'padma-advanced' ),
+			'general' => __( 'Allgemein', 'padma-advanced' ),
 		);
 
 		$this->sets = array();
@@ -48,38 +48,38 @@ class PadmaVisualElementsBlockDailymotionOptions extends \PadmaBlockOptionsAPI {
 
 				'url'        => array(
 					'name'    => 'url',
-					'label'   => __( 'Url', 'padma-advanced' ),
+					'label'   => __( 'URL', 'padma-advanced' ),
 					'type'    => 'text',
 					'default' => '',
-					'tooltip' => __( 'Url of Dailymotion page with video', 'padma-advanced' ),
+					'tooltip' => __( 'URL der Dailymotion Seite mit Video', 'padma-advanced' ),
 				),
 
 				'width'      => array(
 					'name'    => 'width',
 					'type'    => 'integer',
-					'label'   => __( 'Width', 'padma-advanced' ),
+					'label'   => __( 'Breite', 'padma-advanced' ),
 					'default' => 600,
-					'tooltip' => __( 'Video width', 'padma-advanced' ),
+					'tooltip' => __( 'Video Breite', 'padma-advanced' ),
 				),
 
 				'height'     => array(
 					'name'    => 'height',
 					'type'    => 'integer',
-					'label'   => __( 'Height', 'padma-advanced' ),
+					'label'   => __( 'Höhe', 'padma-advanced' ),
 					'default' => 400,
-					'tooltip' => __( 'Map height', 'padma-advanced' ),
+					'tooltip' => __( 'Video Höhe', 'padma-advanced' ),
 				),
 
 				'responsive' => array(
 					'name'    => 'responsive',
 					'type'    => 'select',
-					'label'   => __( 'Responsive', 'padma-advanced' ),
+					'label'   => __( 'Responsiv', 'padma-advanced' ),
 					'default' => 'yes',
 					'options' => array(
-						'yes' => __( 'Yes', 'padma-advanced' ),
-						'no'  => __( 'No', 'padma-advanced' ),
+						'yes' => __( 'Ja', 'padma-advanced' ),
+						'no'  => __( 'Nein', 'padma-advanced' ),
 					),
-					'tooltip' => __( 'Ignore width and height parameters and make player responsive', 'padma-advanced' ),
+					'tooltip' => __( 'Breite und Höhe Parameter ignorieren und Player responsiv machen', 'padma-advanced' ),
 				),
 
 				'autoplay'   => array(
@@ -88,34 +88,34 @@ class PadmaVisualElementsBlockDailymotionOptions extends \PadmaBlockOptionsAPI {
 					'label'   => __( 'Autoplay', 'padma-advanced' ),
 					'default' => 'yes',
 					'options' => array(
-						'yes' => __( 'Yes', 'padma-advanced' ),
-						'no'  => __( 'No', 'padma-advanced' ),
+						'yes' => __( 'Ja', 'padma-advanced' ),
+						'no'  => __( 'Nein', 'padma-advanced' ),
 					),
-					'tooltip' => __( 'Play video automatically when a page is loaded. Please note, in modern browsers autoplay option only works with the mute option enabled', 'padma-advanced' ),
+					'tooltip' => __( 'Video automatisch abspielen wenn die Seite geladen wird. Bitte beachte, dass in modernen Browsern die Autoplay-Option nur funktioniert, wenn die Stumm-Option aktiviert ist', 'padma-advanced' ),
 				),
 
 				'background' => array(
 					'name'    => 'background',
 					'type'    => 'text',
-					'label'   => __( 'Background', 'padma-advanced' ),
+					'label'   => __( 'Hintergrund', 'padma-advanced' ),
 					'default' => '#FFC300',
-					'tooltip' => __( 'HTML (HEX) color of the background of controls elements', 'padma-advanced' ),
+					'tooltip' => __( 'HTML (HEX) Farbe des Hintergrunds der Steuerelemente', 'padma-advanced' ),
 				),
 
 				'foreground' => array(
 					'name'    => 'foreground',
 					'type'    => 'text',
-					'label'   => __( 'Foreground', 'padma-advanced' ),
+					'label'   => __( 'Vordergrund', 'padma-advanced' ),
 					'default' => '#F7FFFD',
-					'tooltip' => __( 'HTML (HEX) color of the foreground of controls elements', 'padma-advanced' ),
+					'tooltip' => __( 'HTML (HEX) Farbe des Vordergrunds der Steuerelemente', 'padma-advanced' ),
 				),
 
 				'highlight'  => array(
 					'name'    => 'highlight',
 					'type'    => 'text',
-					'label'   => __( 'Highlight', 'padma-advanced' ),
+					'label'   => __( 'Hervorhebung', 'padma-advanced' ),
 					'default' => '#171D1B',
-					'tooltip' => __( "HTML (HEX) color of the controls elements' highlights", 'padma-advanced' ),
+					'tooltip' => __( 'HTML (HEX) Farbe der Hervorhebungen der Steuerelemente', 'padma-advanced' ),
 				),
 
 				'logo'       => array(
@@ -124,16 +124,16 @@ class PadmaVisualElementsBlockDailymotionOptions extends \PadmaBlockOptionsAPI {
 					'label'   => __( 'Logo', 'padma-advanced' ),
 					'default' => 'yes',
 					'options' => array(
-						'yes' => __( 'Yes', 'padma-advanced' ),
-						'no'  => __( 'No', 'padma-advanced' ),
+						'yes' => __( 'Ja', 'padma-advanced' ),
+						'no'  => __( 'Nein', 'padma-advanced' ),
 					),
-					'tooltip' => __( 'Allows to hide or show the Dailymotion logo', 'padma-advanced' ),
+					'tooltip' => __( 'Erlaubt das Dailymotion Logo zu verstecken oder anzuzeigen', 'padma-advanced' ),
 				),
 
 				'quality'    => array(
 					'name'    => 'quality',
 					'type'    => 'select',
-					'label'   => __( 'Quality', 'padma-advanced' ),
+					'label'   => __( 'Qualität', 'padma-advanced' ),
 					'default' => '380',
 					'options' => array(
 						'240'  => '240',
@@ -142,19 +142,19 @@ class PadmaVisualElementsBlockDailymotionOptions extends \PadmaBlockOptionsAPI {
 						'720'  => '720',
 						'1080' => '1080',
 					),
-					'tooltip' => __( 'Determines the quality that must be played by default if available', 'padma-advanced' ),
+					'tooltip' => __( 'Bestimmt die Qualität die standardmäßig abgespielt werden soll falls verfügbar', 'padma-advanced' ),
 				),
 
 				'related'    => array(
 					'name'    => 'related',
 					'type'    => 'select',
-					'label'   => __( 'Related', 'padma-advanced' ),
+					'label'   => __( 'Verwandte', 'padma-advanced' ),
 					'default' => 'yes',
 					'options' => array(
-						'yes' => __( 'Yes', 'padma-advanced' ),
-						'no'  => __( 'No', 'padma-advanced' ),
+						'yes' => __( 'Ja', 'padma-advanced' ),
+						'no'  => __( 'Nein', 'padma-advanced' ),
 					),
-					'tooltip' => __( 'Show related videos at the end of the video', 'padma-advanced' ),
+					'tooltip' => __( 'Verwandte Videos am Ende des Videos anzeigen', 'padma-advanced' ),
 				),
 
 				'info'       => array(
@@ -163,10 +163,10 @@ class PadmaVisualElementsBlockDailymotionOptions extends \PadmaBlockOptionsAPI {
 					'label'   => __( 'Info', 'padma-advanced' ),
 					'default' => 'yes',
 					'options' => array(
-						'yes' => __( 'Yes', 'padma-advanced' ),
-						'no'  => __( 'No', 'padma-advanced' ),
+						'yes' => __( 'Ja', 'padma-advanced' ),
+						'no'  => __( 'Nein', 'padma-advanced' ),
 					),
-					'tooltip' => __( 'Show videos info (title/author) on the start screen', 'padma-advanced' ),
+					'tooltip' => __( 'Video Infos (Titel/Autor) auf dem Startbildschirm anzeigen', 'padma-advanced' ),
 				),
 			),
 		);

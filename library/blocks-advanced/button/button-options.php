@@ -39,7 +39,7 @@ class PadmaVisualElementsBlockButtonOptions extends \PadmaBlockOptionsAPI {
 	public function __construct() {
 
 		$this->tabs = array(
-			'general' => __( 'General', 'padma-advanced' ),
+			'general' => __( 'Allgemein', 'padma-advanced' ),
 		);
 
 		$this->sets = array();
@@ -51,31 +51,31 @@ class PadmaVisualElementsBlockButtonOptions extends \PadmaBlockOptionsAPI {
 					'name'    => 'text',
 					'type'    => 'text',
 					'label'   => __( 'Text', 'padma-advanced' ),
-					'tooltip' => __( 'Button text content', 'padma-advanced' ),
+					'tooltip' => __( 'Button Text Inhalt', 'padma-advanced' ),
 				),
 
 				'url'     => array(
 					'name'    => 'url',
 					'type'    => 'text',
-					'label'   => __( 'Url', 'padma-advanced' ),
-					'tooltip' => __( 'Button link', 'padma-advanced' ),
+					'label'   => __( 'URL', 'padma-advanced' ),
+					'tooltip' => __( 'Button Link', 'padma-advanced' ),
 				),
 
 				'target'  => array(
 					'name'    => 'target',
 					'type'    => 'select',
-					'label'   => __( 'Target', 'padma-advanced' ),
+					'label'   => __( 'Ziel', 'padma-advanced' ),
 					'default' => 'self',
 					'options' => array(
-						'self'  => __( 'Open in same tab', 'padma-advanced' ),
-						'blank' => __( 'Open in new tab', 'padma-advanced' ),
+						'self'  => __( 'Im gleichen Tab öffnen', 'padma-advanced' ),
+						'blank' => __( 'In neuem Tab öffnen', 'padma-advanced' ),
 					),
-					'tooltip' => __( 'Button link target', 'padma-advanced' ),
+					'tooltip' => __( 'Button Link Ziel', 'padma-advanced' ),
 				),
 
 				'style'   => array(
 					'name'    => 'style',
-					'label'   => __( 'Style', 'padma-advanced' ),
+					'label'   => __( 'Stil', 'padma-advanced' ),
 					'type'    => 'select',
 					'default' => 'default',
 					'options' => array(
@@ -90,42 +90,42 @@ class PadmaVisualElementsBlockButtonOptions extends \PadmaBlockOptionsAPI {
 						'stroked' => 'Stroked',
 						'3d'      => '3D',
 					),
-					'tooltip' => __( 'Button background style preset', 'padma-advanced' ),
+					'tooltip' => __( 'Button Hintergrund Stil Voreinstellung', 'padma-advanced' ),
 				),
 
 				'icon'    => array(
 					'name'    => 'icon',
-					'label'   => __( 'Icon', 'padma-advanced' ),
+					'label'   => __( 'Symbol', 'padma-advanced' ),
 					'type'    => 'text',
-					'tooltip' => __( 'You can upload custom icon for this button or pick a built-in icon. FontAwesome icon name or icon image URL. Examples: "star", http://example.com/icon.png', 'padma-advanced' ),
+					'tooltip' => __( 'Du kannst ein eigenes Symbol für diesen Button hochladen oder ein eingebautes Symbol wählen. FontAwesome Symbol Name oder Symbol Bild URL. Beispiele: "star", http://beispiel.de/icon.png', 'padma-advanced' ),
 				),
 
 				'desc'    => array(
 					'name'    => 'desc',
-					'label'   => __( 'Desc', 'padma-advanced' ),
+					'label'   => __( 'Beschreibung', 'padma-advanced' ),
 					'type'    => 'text',
-					'tooltip' => __( 'Small description under button text. This option is incompatible with icon . ', 'padma-advanced' ),
+					'tooltip' => __( 'Kleine Beschreibung unter dem Button Text. Diese Option ist inkompatibel mit Symbol.', 'padma-advanced' ),
 				),
 
 				'onclick' => array(
 					'name'    => 'onclick',
 					'label'   => __( 'onClick', 'padma-advanced' ),
 					'type'    => 'text',
-					'tooltip' => __( 'Advanced JavaScript code for onClick action . ', 'padma-advanced' ),
+					'tooltip' => __( 'Erweiterter JavaScript Code für onClick Aktion.', 'padma-advanced' ),
 				),
 
 				'rel'     => array(
 					'name'    => 'rel',
 					'label'   => __( 'Rel', 'padma-advanced' ),
 					'type'    => 'text',
-					'tooltip' => __( 'Here you can add value for the rel attribute. Example values: nofollow, lightbox', 'padma-advanced' ),
+					'tooltip' => __( 'Hier kannst du einen Wert für das rel Attribut hinzufügen. Beispielwerte: nofollow, lightbox', 'padma-advanced' ),
 				),
 
 				'title'   => array(
 					'name'    => 'title',
-					'label'   => __( 'Title', 'padma-advanced' ),
+					'label'   => __( 'Titel', 'padma-advanced' ),
 					'type'    => 'text',
-					'tooltip' => __( 'Here you can add value for the title attribute', 'padma-advanced' ),
+					'tooltip' => __( 'Hier kannst du einen Wert für das title Attribut hinzufügen', 'padma-advanced' ),
 				),
 			),
 		);

@@ -68,6 +68,9 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 * Contact-Form-7-Block entfernt (funktioniert nicht mit ClassicPress)
 * Gravity-Forms-Block entfernt (nicht mehr benötigt)
 * Shortcode-Block: E-Newsletter Integration mit Formular-Designer und Styling-Optionen
+* PortfolioCards-Block vollständig auf Deutsch Informell lokalisiert
+* PortfolioCards-Block: Standard Post-Type festgelegt und Kategorie-Ladung verbessert
+* Alle Advanced Blocks (30+ Blöcke) auf Deutsch Informell lokalisiert
 
 = 1.0.7 =
 * Branding vereinheitlicht auf "PS Padma"

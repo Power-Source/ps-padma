@@ -39,7 +39,7 @@ class PadmaVisualElementsBlockVimeoOptions extends \PadmaBlockOptionsAPI {
 	public function __construct() {
 
 		$this->tabs = array(
-			'general' => __( 'General', 'padma-advanced' ),
+			'general' => __( 'Allgemein', 'padma-advanced' ),
 		);
 
 		$this->sets = array();
@@ -49,38 +49,38 @@ class PadmaVisualElementsBlockVimeoOptions extends \PadmaBlockOptionsAPI {
 
 				'url'        => array(
 					'name'    => 'url',
-					'label'   => __( 'Url', 'padma-advanced' ),
+					'label'   => __( 'URL', 'padma-advanced' ),
 					'type'    => 'text',
 					'default' => '',
-					'tooltip' => __( 'Url of Vimeo page with video. Ex: http://vimeo.com/watch?v=XXXXXX', 'padma-advanced' ),
+					'tooltip' => __( 'URL der Vimeo Seite mit Video. Beispiel: http://vimeo.com/watch?v=XXXXXX', 'padma-advanced' ),
 				),
 
 				'width'      => array(
 					'name'    => 'width',
 					'type'    => 'integer',
-					'label'   => __( 'Width', 'padma-advanced' ),
+					'label'   => __( 'Breite', 'padma-advanced' ),
 					'default' => 600,
-					'tooltip' => __( 'Map width', 'padma-advanced' ),
+					'tooltip' => __( 'Breite', 'padma-advanced' ),
 				),
 
 				'height'     => array(
 					'name'    => 'height',
 					'type'    => 'integer',
-					'label'   => __( 'Height', 'padma-advanced' ),
+					'label'   => __( 'Höhe', 'padma-advanced' ),
 					'default' => 400,
-					'tooltip' => __( 'Map height', 'padma-advanced' ),
+					'tooltip' => __( 'Höhe', 'padma-advanced' ),
 				),
 
 				'responsive' => array(
 					'name'    => 'responsive',
 					'type'    => 'select',
-					'label'   => __( 'Responsive', 'padma-advanced' ),
+					'label'   => __( 'Responsiv', 'padma-advanced' ),
 					'default' => 'yes',
 					'options' => array(
-						'yes' => __( 'Yes', 'padma-advanced' ),
-						'no'  => __( 'No', 'padma-advanced' ),
+						'yes' => __( 'Ja', 'padma-advanced' ),
+						'no'  => __( 'Nein', 'padma-advanced' ),
 					),
-					'tooltip' => __( 'Ignore width and height parameters and make player responsive', 'padma-advanced' ),
+					'tooltip' => __( 'Breite und Höhe Parameter ignorieren und Player responsiv machen', 'padma-advanced' ),
 				),
 
 				'autoplay'   => array(
@@ -89,10 +89,10 @@ class PadmaVisualElementsBlockVimeoOptions extends \PadmaBlockOptionsAPI {
 					'label'   => __( 'Autoplay', 'padma-advanced' ),
 					'default' => 'yes',
 					'options' => array(
-						'yes' => __( 'Yes', 'padma-advanced' ),
-						'no'  => __( 'No', 'padma-advanced' ),
+						'yes' => __( 'Ja', 'padma-advanced' ),
+						'no'  => __( 'Nein', 'padma-advanced' ),
 					),
-					'tooltip' => __( 'Play video automatically when a page is loaded . ', 'padma-advanced' ),
+					'tooltip' => __( 'Video automatisch abspielen wenn die Seite geladen wird.', 'padma-advanced' ),
 				),
 
 				'dnt'        => array(
@@ -101,10 +101,10 @@ class PadmaVisualElementsBlockVimeoOptions extends \PadmaBlockOptionsAPI {
 					'label'   => __( 'DNT', 'padma-advanced' ),
 					'default' => 'no',
 					'options' => array(
-						'yes' => __( 'Yes', 'padma-advanced' ),
-						'no'  => __( 'No', 'padma-advanced' ),
+						'yes' => __( 'Ja', 'padma-advanced' ),
+						'no'  => __( 'Nein', 'padma-advanced' ),
 					),
-					'tooltip' => __( 'Setting this parameter to YES will block the player from tracking any playback session data. Will have the same effect as enabling a Do Not Track header in your browser', 'padma-advanced' ),
+					'tooltip' => __( 'Wenn du diesen Parameter auf JA setzt, wird der Player daran gehindert, Wiedergabesitzungsdaten zu verfolgen. Hat den gleichen Effekt wie das Aktivieren eines Do Not Track Headers in deinem Browser', 'padma-advanced' ),
 				),
 			),
 		);

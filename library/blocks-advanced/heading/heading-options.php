@@ -38,7 +38,7 @@ class PadmaVisualElementsBlockHeadingOptions extends \PadmaBlockOptionsAPI {
 	 */
 	public function __construct() {
 		$this->tabs = array(
-			'general' => __( 'General', 'padma-advanced' ),
+			'general' => __( 'Allgemein', 'padma-advanced' ),
 		);
 
 		$this->sets = array();
@@ -48,7 +48,7 @@ class PadmaVisualElementsBlockHeadingOptions extends \PadmaBlockOptionsAPI {
 				'heading-text' => array(
 					'name'  => 'heading-text',
 					'type'  => 'text',
-					'label' => __( 'Heading text', 'padma-advanced' ),
+					'label' => __( 'Überschrift Text', 'padma-advanced' ),
 				),
 			),
 		);

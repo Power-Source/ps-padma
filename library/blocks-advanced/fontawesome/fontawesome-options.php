@@ -36,7 +36,7 @@ class PadmaVisualElementsFontAwesomeBlockOptions extends \PadmaBlockOptionsAPI {
 	public function __construct() {
 
 		$this->tabs = array(
-			'general' => __( 'General', 'padma-advanced' ),
+			'general' => __( 'Allgemein', 'padma-advanced' ),
 		);
 
 		$this->sets = array();
@@ -48,21 +48,21 @@ class PadmaVisualElementsFontAwesomeBlockOptions extends \PadmaBlockOptionsAPI {
 					'name'    => 'url',
 					'label'   => 'Link',
 					'type'    => 'text',
-					'tooltip' => 'If set, the icon will be a link',
+					'tooltip' => 'Wenn gesetzt, wird das Symbol ein Link sein',
 				),
 
 				'before-icon' => array(
 					'name'    => 'before-icon',
-					'label'   => 'Before icon',
+					'label'   => 'Vor dem Symbol',
 					'type'    => 'wysiwyg',
-					'tooltip' => 'Add content before the icon',
+					'tooltip' => 'Inhalt vor dem Symbol hinzufügen',
 				),
 
 				'after-icon'  => array(
 					'name'    => 'after-icon',
-					'label'   => 'After icon',
+					'label'   => 'Nach dem Symbol',
 					'type'    => 'wysiwyg',
-					'tooltip' => 'Add content after the icon',
+					'tooltip' => 'Inhalt nach dem Symbol hinzufügen',
 				),
 				'filter'      => array(
 					'name' => 'filter',
@@ -72,7 +72,7 @@ class PadmaVisualElementsFontAwesomeBlockOptions extends \PadmaBlockOptionsAPI {
 				'fa-icon'     => array(
 					'name'    => 'fa-icon',
 					'type'    => 'radio',
-					'label'   => 'Icon',
+					'label'   => 'Symbol',
 					'default' => '',
 					'options' => array(
 						'fab_fa-500px'                     => '<i class="fab fa-500px"></i>',

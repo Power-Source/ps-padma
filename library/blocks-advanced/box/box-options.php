@@ -37,7 +37,7 @@ class PadmaVisualElementsBlockBoxOptions extends \PadmaBlockOptionsAPI {
 	public function __construct() {
 
 		$this->tabs = array(
-			'general' => __( 'General', 'padma-advanced' ),
+			'general' => __( 'Allgemein', 'padma-advanced' ),
 		);
 
 		$this->sets = array();
@@ -47,14 +47,14 @@ class PadmaVisualElementsBlockBoxOptions extends \PadmaBlockOptionsAPI {
 				'title'   => array(
 					'name'    => 'title',
 					'type'    => 'text',
-					'label'   => __( 'Title', 'padma-advanced' ),
-					'tooltip' => __( 'Text for the box title', 'padma-advanced' ),
+					'label'   => __( 'Titel', 'padma-advanced' ),
+					'tooltip' => __( 'Text für den Box Titel', 'padma-advanced' ),
 				),
 
 				'style'   => array(
 					'name'    => 'style',
 					'type'    => 'select',
-					'label'   => __( 'Style', 'padma-advanced' ),
+					'label'   => __( 'Stil', 'padma-advanced' ),
 					'default' => 'default',
 					'options' => array(
 						'default' => 'Default',
@@ -63,14 +63,14 @@ class PadmaVisualElementsBlockBoxOptions extends \PadmaBlockOptionsAPI {
 						'bubbles' => 'Bubbles',
 						'noise'   => 'Noise',
 					),
-					'tooltip' => __( 'Box style preset', 'padma-advanced' ),
+					'tooltip' => __( 'Box Stil Voreinstellung', 'padma-advanced' ),
 				),
 
 				'content' => array(
 					'name'    => 'content',
 					'type'    => 'wysiwyg',
-					'label'   => __( 'Content', 'padma-advanced' ),
-					'tooltip' => __( 'Box content', 'padma-advanced' ),
+					'label'   => __( 'Inhalt', 'padma-advanced' ),
+					'tooltip' => __( 'Box Inhalt', 'padma-advanced' ),
 				),
 			),
 		);
