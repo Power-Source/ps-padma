@@ -127,9 +127,6 @@ class PadmaBlocksData {
 		if ( !$block_to_be_deleted )
 			return null;
 
-		/* Log deletion for debugging */
-		error_log('DEBUG: Deleting block ID: ' . $block_id . ' from layout: ' . $block_to_be_deleted['layout']);
-
 		/* Store layout and type before deletion for cache clearing */
 		$layout_id = $block_to_be_deleted['layout'];
 		$block_type = $block_to_be_deleted['type'];
@@ -146,8 +143,6 @@ class PadmaBlocksData {
 			'template' => PadmaOption::$current_skin,
 			'id' => $block_id
 		));
-
-		error_log('DEBUG: Delete query result: ' . ($query !== false ? 'success' : 'failed'));
 
 		/* Unmirror the blocks mirroring this block */
 		$wpdb->update( $wpdb->pu_blocks, array(
@@ -170,12 +165,12 @@ class PadmaBlocksData {
 
 			$block_element = PadmaElementAPI::get_element('block-' . $block_type);
 
-			/* Start by queuing the instance of the block element */
-				$instances_to_delete = array(
-					'block-' . $block_type => $block_type . '-block-' . $block_id
-				);
+		/* Make sure block element exists before proceeding */
+		if ( !$block_element || !is_array($block_element) ) {
+			error_log('Warning: Could not find block element for type: ' . $block_type);
+			return;
+		}
 
-			/* Find all block children element instances and queue them to be deleted */
 				foreach ( PadmaElementAPI::get_block_elements($block_type) as $element_id => $element_info )
 					$instances_to_delete[$element_id] = $element_id . '-block-' . $block_id;
 

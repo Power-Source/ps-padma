@@ -307,8 +307,8 @@ abstract class PadmaBlockAPI {
 		$defaults = array(
 			'group' 	=> 'blocks',
 			'parent' 	=> 'block-' . $this->id,
-			'id' 		=> 'block-' . $this->id . '-' . $args['id'],
-			'name' 		=> $args['name'],
+			'id' 		=> 'block-' . $this->id . '-' . padma_get('id', $args, ''),
+			'name' 		=> padma_get('name', $args, ''),
 			'selector'	=> $modified_selector
 		);
 

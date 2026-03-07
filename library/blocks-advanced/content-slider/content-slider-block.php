@@ -237,7 +237,7 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 				if($onlyShowFeatured && has_post_thumbnail()){
 					$result .= $itemTag;
 					$result .= get_the_post_thumbnail( 
-						$post->ID, 
+						get_the_ID(), 
 						'large', 
 						array( 
 							'class' => "img-responsive",
@@ -251,7 +251,7 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 					
 					$result .= $itemTag;
 					$result .= get_the_post_thumbnail( 
-						$post->ID, 
+						get_the_ID(), 
 						'large', 
 						array( 
 							'class' => "img-responsive",
