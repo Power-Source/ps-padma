@@ -66,6 +66,7 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 * Neuer PowerForm-Block für ClassicPress-Kompatibilität hinzugefügt
 * PowerForm-Block: Styling-Elemente für alle Formular-Komponenten im Design-Editor
 * Contact-Form-7-Block entfernt (funktioniert nicht mit ClassicPress)
+* Gravity-Forms-Block entfernt (nicht mehr benötigt)
 * Shortcode-Block: E-Newsletter Integration mit Formular-Designer und Styling-Optionen
 
 = 1.0.7 =

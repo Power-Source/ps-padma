@@ -19,7 +19,6 @@ class PadmaBlocks {
 		'embed',
 		'footer',
 		'gallery',
-		'gravity-forms',
 		'header',
 		'image',
 		'listings',
