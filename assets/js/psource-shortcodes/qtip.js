@@ -310,7 +310,7 @@
         return !($.isFunction(c) || 
                 c && c.attr || 
                 c.length || 
-                $.type(c) === 'object' && (c.jquery || c.then));
+                typeof c === 'object' && c !== null && (c.jquery || c.then));
     }
     
     // Option object sanitizer

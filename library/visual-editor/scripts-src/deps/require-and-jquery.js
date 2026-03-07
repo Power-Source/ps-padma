@@ -12442,7 +12442,7 @@ jQuery.isNumeric = function( obj ) {
     // As of jQuery 3.0, isNumeric is limited to
     // strings and numbers (primitives or objects)
     // that can be coerced to finite numbers (gh-2662)
-    var type = jQuery.type( obj );
+    var type = typeof obj;
     return ( type === "number" || type === "string" ) &&
 
         // parseFloat NaNs numeric-cast false positives ("")

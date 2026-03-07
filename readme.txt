@@ -62,12 +62,14 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 = 1.0.9 =
 * jQuery Migrate Deprecation Warnings behoben
 * jQuery.fn.resize() durch jQuery.on('resize') ersetzt (unminified Versionen)
+* jQuery.type() durch native typeof-Checks ersetzt
 * Non-passive Event Listener für Scroll/Resize Events hinzugefügt
 * Event-Namespacing für bessere Event-Verwaltung implementiert
-* Owl Carousel unminified Version aktualisiert
+* Owl Carousel minified und unminified Versionen aktualisiert
 * Sticky Kit Event Handler optimiert
 * Colorpicker Event Handler für Passive Listener aktualisiert
-* QTip2 Event Handler für bessere Performance optimiert
+* QTip2 Event Handler modernisiert (typeof statt deprecated jQuery.type)
+* require-and-jquery.js: jQuery.isNumeric mit nativen Type-Checks aktualisiert
 * INFO: Minified Files können nicht direkt editiert werden - nutze SCRIPT_DEBUG=true für Development
 
 = 1.0.8 =
