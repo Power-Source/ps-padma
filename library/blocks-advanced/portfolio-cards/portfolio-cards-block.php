@@ -57,9 +57,9 @@ class PadmaVisualElementsBlockPortfolioCards extends \PadmaBlockAPI {
 	 */
 	public function __construct() {
 		$this->id            = 've-portfolio-cards';	
-		$this->name          = __( 'PortfolioCards', 'padma-advanced' );
+		$this->name          = 'Portfolio Karten';
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockPortfolioCardsOptions';	
-		$this->description   = __( 'Allows you to create blocks with hidden posts content. Hidden content will be shown when block title will be clicked. You can specify different icons or even use different styles for each spoiler.', 'padma-advanced' );
+		$this->description   = 'Zeigt Beiträge als Portfolio-Karten in einem anpassbaren Grid-Layout mit Filtern und Sortieroptionen an';
 		$this->categories    = array( 'box', 'content', 'dynamic-content' );
 	}
 

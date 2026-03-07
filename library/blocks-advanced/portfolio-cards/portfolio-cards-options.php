@@ -39,8 +39,8 @@ class PadmaVisualElementsBlockPortfolioCardsOptions extends \PadmaBlockOptionsAP
 	public function __construct() {
 
 		$this->tabs = array(
-			'general'       => __( 'General', 'padma-advanced' ),
-			'query-filters' => __( 'Query Filters', 'padma-advanced' ),
+			'general'       => 'Allgemein',
+			'query-filters' => 'Query Filter',
 		);
 
 		$this->sets = array();
@@ -52,8 +52,8 @@ class PadmaVisualElementsBlockPortfolioCardsOptions extends \PadmaBlockOptionsAP
 				'columns' => array(
 					'type'       => 'slider',
 					'name'       => 'columns',
-					'label'      => __( 'Columns', 'padma-advanced' ),
-					'tooltip'    => __( 'Amount of portfolio columns . ', 'padma-advanced' ),
+					'label'      => 'Spalten',
+					'tooltip'    => 'Anzahl der Portfolio-Spalten',
 					'unit'       => null,
 					'default'    => 4,
 					'slider-min' => 1,
@@ -141,27 +141,27 @@ class PadmaVisualElementsBlockPortfolioCardsOptions extends \PadmaBlockOptionsAP
 				'categories'      => array(
 					'type'    => 'multi-select',
 					'name'    => 'categories',
-					'label'   => __( 'Categories', 'padma-advanced' ),
-					'tooltip' => '',
+					'label'   => 'Kategorien',
+					'tooltip' => 'Wähle Kategorien aus den ausgewählten Post Types',
 					'options' => 'get_categories()',
 				),
 
 				'categories-mode' => array(
 					'type'    => 'select',
 					'name'    => 'categories-mode',
-					'label'   => __( 'Categories Mode', 'padma-advanced' ),
-					'tooltip' => '',
+					'label'   => 'Kategorien-Modus',
+					'tooltip' => 'Sollen die ausgewählten Kategorien eingeschlossen oder ausgeschlossen werden',
 					'options' => array(
-						'include' => __( 'Include', 'padma-advanced' ),
-						'exclude' => __( 'Exclude', 'padma-advanced' ),
+						'include' => 'Einschließen',
+						'exclude' => 'Ausschließen',
 					),
 				),
 
 				'enable-tags'     => array(
 					'type'    => 'checkbox',
 					'name'    => 'tags-filter',
-					'label'   => __( 'Tags Filter', 'padma-advanced' ),
-					'tooltip' => __( 'Check this to allow the tags filter show . ', 'padma-advanced' ),
+					'label'   => 'Tags Filter',
+					'tooltip' => 'Aktiviere diese Option, um nach Tags zu filtern',
 					'default' => false,
 					'toggle'  => array(
 						'false' => array(
@@ -180,16 +180,17 @@ class PadmaVisualElementsBlockPortfolioCardsOptions extends \PadmaBlockOptionsAP
 				'tags'            => array(
 					'type'    => 'multi-select',
 					'name'    => 'tags',
-					'label'   => __( 'Tags', 'padma-advanced' ),
-					'tooltip' => '',
+					'label'   => 'Tags',
+					'tooltip' => 'Wähle Tags aus, um Beiträge zu filtern',
 					'options' => 'get_tags()',
 				),
 
 				'post-type'       => array(
 					'type'     => 'multi-select',
 					'name'     => 'post-type',
-					'label'    => __( 'Post Type', 'padma-advanced' ),
-					'tooltip'  => '',
+					'label'    => 'Post Type',
+					'tooltip'  => 'Wähle die Post Types aus, die angezeigt werden sollen',
+					'default'  => array('post'),
 					'options'  => 'get_post_types()',
 					'callback' => 'reloadBlockOptions()',
 				),
@@ -197,75 +198,75 @@ class PadmaVisualElementsBlockPortfolioCardsOptions extends \PadmaBlockOptionsAP
 				'post-status'     => array(
 					'type'    => 'multi-select',
 					'name'    => 'post-status',
-					'label'   => __( 'Post Status', 'padma-advanced' ),
-					'tooltip' => '',
+					'label'   => 'Post Status',
+					'tooltip' => 'Wähle den Status der Beiträge (veröffentlicht, Entwurf, etc.)',
 					'options' => 'get_post_status()',
 				),
 
 				'author'          => array(
 					'type'    => 'multi-select',
 					'name'    => 'author',
-					'label'   => __( 'Author', 'padma-advanced' ),
-					'tooltip' => '',
+					'label'   => 'Autor',
+					'tooltip' => 'Filtere Beiträge nach Autor',
 					'options' => 'get_authors()',
 				),
 
 				'number-of-posts' => array(
 					'type'    => 'integer',
 					'name'    => 'number-of-posts',
-					'label'   => __( 'Number of Posts', 'padma-advanced' ),
-					'tooltip' => '',
+					'label'   => 'Anzahl der Beiträge',
+					'tooltip' => 'Wie viele Beiträge sollen angezeigt werden',
 					'default' => 10,
 				),
 
 				'offset'          => array(
 					'type'    => 'integer',
 					'name'    => 'offset',
-					'label'   => __( 'Offset', 'padma-advanced' ),
-					'tooltip' => __( 'The offset is the number of entries or posts you would like to skip.  If the offset is 1, then the first post will be skipped . ', 'padma-advanced' ),
+					'label'   => 'Offset',
+					'tooltip' => 'Die Anzahl der Beiträge, die übersprungen werden sollen. Bei Offset 1 wird der erste Beitrag übersprungen',
 					'default' => 0,
 				),
 
 				'order-by'        => array(
 					'type'    => 'select',
 					'name'    => 'order-by',
-					'label'   => __( 'Order By', 'padma-advanced' ),
-					'tooltip' => __( 'Order By', 'padma-advanced' ),
+					'label'   => 'Sortieren nach',
+					'tooltip' => 'Nach welchem Feld sollen die Beiträge sortiert werden',
 					'options' => array(
-						'date'          => __( 'Date', 'padma-advanced' ),
-						'title'         => __( 'Title', 'padma-advanced' ),
-						'rand'          => __( 'Random', 'padma-advanced' ),
-						'comment_count' => __( 'Comment Count', 'padma-advanced' ),
-						'ID'            => __( 'ID', 'padma-advanced' ),
-						'author'        => __( 'Author', 'padma-advanced' ),
-						'type'          => __( 'Post Type', 'padma-advanced' ),
-						'menu_order'    => __( 'Custom Order', 'padma-advanced' ),
+						'date'          => 'Datum',
+						'title'         => 'Titel',
+						'rand'          => 'Zufällig',
+						'comment_count' => 'Kommentar-Anzahl',
+						'ID'            => 'ID',
+						'author'        => 'Autor',
+						'type'          => 'Post Type',
+						'menu_order'    => 'Benutzerdefinierte Reihenfolge',
 					),
 				),
 
 				'order'           => array(
 					'type'    => 'select',
 					'name'    => 'order',
-					'label'   => __( 'Order', 'padma-advanced' ),
-					'tooltip' => '',
+					'label'   => 'Reihenfolge',
+					'tooltip' => 'Aufsteigend oder absteigend sortieren',
 					'options' => array(
-						'desc' => __( 'Descending', 'padma-advanced' ),
-						'asc'  => __( 'Ascending', 'padma-advanced' ),
+						'desc' => 'Absteigend',
+						'asc'  => 'Aufsteigend',
 					),
 				),
 
 				'byid-include'    => array(
 					'type'    => 'text',
 					'name'    => 'byid-include',
-					'label'   => __( 'Include by ID', 'padma-advanced' ),
-					'tooltip' => __( 'In both Include and Exclude by ID, you use a comma separated list of IDs of your post type . ', 'padma-advanced' ),
+					'label'   => 'Einschließen nach ID',
+					'tooltip' => 'Komma-getrennte Liste von Post-IDs, die eingeschlossen werden sollen',
 				),
 
 				'byid-exclude'    => array(
 					'type'    => 'text',
 					'name'    => 'byid-exclude',
-					'label'   => __( 'Exclude by ID', 'padma-advanced' ),
-					'tooltip' => __( 'In both Include and Exclude by ID, you use a comma separated list of IDs of your post type . ', 'padma-advanced' ),
+					'label'   => 'Ausschließen nach ID',
+					'tooltip' => 'Komma-getrennte Liste von Post-IDs, die ausgeschlossen werden sollen',
 				),
 			),
 		);
@@ -277,10 +278,12 @@ class PadmaVisualElementsBlockPortfolioCardsOptions extends \PadmaBlockOptionsAP
 	 * @return array
 	 */
 	public function get_categories() {
-		if ( isset( $this->block['settings']['post-type'] ) ) {
+		// Wenn Post Type gesetzt ist, lade kategorien für diese Post Types
+		if ( isset( $this->block['settings']['post-type'] ) && !empty( $this->block['settings']['post-type'] ) ) {
 			return \PadmaQuery::get_categories( $this->block['settings']['post-type'] );
 		} else {
-			return array();
+			// Falls kein Post Type gesetzt ist, verwende 'post' als Default
+			return \PadmaQuery::get_categories( array('post') );
 		}
 	}
 
