@@ -26,11 +26,18 @@ class PadmaSliderBlock extends PadmaBlockAPI {
 	public static function enqueue_action($block_id, $block) {
 
 		$images = parent::get_setting($block, 'images', array());
+		$valid_images_count = 0;
+
+		foreach ( $images as $image ) {
+			if ( !empty($image['image']) ) {
+				$valid_images_count++;
+			}
+		}
 
 		wp_enqueue_style('flexslider', padma_url() . '/library/blocks/slider/assets/flexslider.css');
 
 		//If there are no images or only 1 image, do not load FlexSlider JS.
-		if ( count($images) <= 1 )
+		if ( $valid_images_count <= 1 )
 			return false;
 
 		wp_enqueue_script('flexslider', padma_url() . '/library/blocks/slider/assets/jquery.flexslider-min.js', array('jquery'));
@@ -41,9 +48,16 @@ class PadmaSliderBlock extends PadmaBlockAPI {
 	public static function dynamic_js($block_id, $block) {
 
 		$images = parent::get_setting($block, 'images', array());
+		$valid_images_count = 0;
+
+		foreach ( $images as $image ) {
+			if ( !empty($image['image']) ) {
+				$valid_images_count++;
+			}
+		}
 
 		//If there are no images or only 1 image, do not load FlexSlider.
-		if ( count($images) <= 1 )
+		if ( $valid_images_count <= 1 )
 			return false;
 
 		return '
@@ -90,11 +104,12 @@ if(document.readyState === "loading") {
 		$block_height = PadmaBlocksData::get_block_height($block);
 
 		$has_images = false;
+		$valid_images_count = 0;
 
 		foreach ( $images as $image ){
-			if ( $image['image'] ) {
+			if ( !empty($image['image']) ) {
 				$has_images = true;
-				break;
+				$valid_images_count++;
 			}
 		}
 
@@ -106,12 +121,12 @@ if(document.readyState === "loading") {
 
 		}
 
-		$no_slide_class = count($images) === 1 ? ' flexslider-no-slide' : '';
+		$no_slide_class = $valid_images_count === 1 ? ' flexslider-no-slide' : '';
 
 		echo '<div class="flexslider' . $no_slide_class . '">';
 
 			/* Put in viewport div for sliders that only have 1 image and don't slide */
-			if ( count($images) === 1 )
+			if ( $valid_images_count === 1 )
 				echo '<div class="flex-viewport">';
 
 			echo '<ul class="slides">';
@@ -159,7 +174,7 @@ if(document.readyState === "loading") {
 		  	echo '</ul>';
 
 		  	/* Put in viewport div for sliders that only have 1 image and don't slide */
-		  	if ( count($images) === 1 )
+		  	if ( $valid_images_count === 1 )
 		  		echo '</div>';
 
 		echo '</div>';

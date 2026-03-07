@@ -52,80 +52,80 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 		$this->register_block_element(array(
 			'id' => 'slide',
 			'name' => 'Slide',
-			'selector' => '.owl-item'
+			'selector' => '.swiper-slide'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-p',
 			'name' => 'Slide text',
-			'selector' => '.owl-item p'
+			'selector' => '.swiper-slide p'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-a',
 			'name' => 'Slide link',
-			'selector' => '.owl-item a'
+			'selector' => '.swiper-slide a'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-a-button',
 			'name' => 'Slide Read more button',
-			'selector' => '.owl-item a.button'
+			'selector' => '.swiper-slide a.button'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-h1',
 			'name' => 'Slide H1',
-			'selector' => '.owl-item h1'
+			'selector' => '.swiper-slide h1'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-h2',
 			'name' => 'Slide H2',
-			'selector' => '.owl-item h2'
+			'selector' => '.swiper-slide h2'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-h3',
 			'name' => 'Slide H3',
-			'selector' => '.owl-item h3'
+			'selector' => '.swiper-slide h3'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-h4',
 			'name' => 'Slide H4',
-			'selector' => '.owl-item h4'
+			'selector' => '.swiper-slide h4'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-h5',
 			'name' => 'Slide H5',
-			'selector' => '.owl-item h5'
+			'selector' => '.swiper-slide h5'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-ul',
 			'name' => 'Slide UL',
-			'selector' => '.owl-item ul'
+			'selector' => '.swiper-slide ul'
 		));
 
 
 		$this->register_block_element(array(
 			'id' => 'slide-li',
 			'name' => 'Slide LI',
-			'selector' => '.owl-item li'
+			'selector' => '.swiper-slide li'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'dots',
 			'name' => 'Dots',
-			'selector' => '.owl-dots'
+			'selector' => '.swiper-pagination'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'dots-item',
 			'name' => 'Dots Item',
-			'selector' => '.owl-dots .owl-dot'
+			'selector' => '.swiper-pagination-bullet'
 		));
 
 		/**
@@ -462,13 +462,11 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 		$in_visual_editor = ( function_exists('padma_get') && ( padma_get('ve-iframe') || padma_get('visual-editor-open') ) )
 			|| ( class_exists('\\PadmaRoute') && ( \PadmaRoute::is_visual_editor() || \PadmaRoute::is_visual_editor_iframe() ) );
 
-		wp_enqueue_style('padma-post-slider-transitions-css', $path . 'css/owl.transitions.css', array(), PADMA_VERSION);
-		wp_enqueue_style('padma-post-slider-slider-css', $path . 'css/owl.carousel.css', array(), PADMA_VERSION);
 		wp_enqueue_style('padma-post-slider-awesome-css', $path . 'css/font-awesome.css', array(), PADMA_VERSION);
-		wp_enqueue_style('padma-post-slider-theme-css', $path . 'css/owl.theme.css', array(), PADMA_VERSION);
+		wp_enqueue_style('swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css');
 
 		if ( !$in_visual_editor ) {
-			wp_enqueue_script('padma-post-slider-slider-js', $path . 'js/owl.carousel.js', array('jquery'), PADMA_VERSION, false);
+			wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', array(), '11.0', false);
 		}
 	}
 
@@ -553,12 +551,13 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 		
 		$html = '';
 		$html .='<div class="padma-post-slider-area-style1 post_slider_'.$block['id'] .' padma-post-slider-area'.$block['id'].'">';
-		$html .='<div id="tppost-main-slider-'.$block['id'].'" class="carousel-style1 owl-carousel tppost-main-slider">';
+		$html .='<div id="tppost-main-slider-'.$block['id'].'" class="carousel-style1 swiper tppost-main-slider">';
+		$html .='<div class="swiper-wrapper">';
 		foreach ($posts as $key => $post) {
 
 			$content = $this->prepare_content($block,$post);
 
-			$html .= '<div class="carousel-style1-item pps_single_slider_items-'.$block['id'].' pps_single_slider_items">';
+			$html .= '<div class="swiper-slide carousel-style1-item pps_single_slider_items-'.$block['id'].' pps_single_slider_items">';
 				
 
 				// Featured image
@@ -603,7 +602,7 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 			$html .= '</div></div>';
 
 		}
-		$html .='</div></div><div class="clearfix"></div>';
+		$html .='</div><div class="swiper-pagination"></div><div class="swiper-button-prev"></div><div class="swiper-button-next"></div></div></div><div class="clearfix"></div>';
 	
 		return $html;
 	}
@@ -612,12 +611,13 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 
 		$html = '';
 		$html .='<div class="padma-post-slider-area-style2 post_slider_'.$block['id'] .' padma-post-slider-area'.$block['id'].'">';
-		$html .='<div id="tppost-main-slider-'.$block['id'].'" class="carousel-style2 owl-carousel tppost-main-slider">';
+		$html .='<div id="tppost-main-slider-'.$block['id'].'" class="carousel-style2 swiper tppost-main-slider">';
+		$html .='<div class="swiper-wrapper">';
 		foreach ($posts as $key => $post) {
 
 			$content = $this->prepare_content($block,$post);
 			
-			$html .= '<div class="post_slider_'.$block['id'].'_style_two carousel-style2-item ">';					  
+			$html .= '<div class="swiper-slide post_slider_'.$block['id'].'_style_two carousel-style2-item ">';					  
 				
 
 				// Featured image
@@ -652,7 +652,7 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 				
 				$html .= '</div>';					
 		}
-		$html .='</div></div><div class="clearfix"></div>';
+		$html .='</div><div class="swiper-pagination"></div><div class="swiper-button-prev"></div><div class="swiper-button-next"></div></div></div><div class="clearfix"></div>';
 	
 		return $html;
 	}
@@ -663,13 +663,14 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 		
 		$html = '';
 		$html .='<div class="padma-post-slider-area-style3 post_slider_'.$block['id'] .' padma-post-slider-area'.$block['id'].'">';
-		$html .='<div id="tppost-main-slider-'.$block['id'].'" class="carousel-style3 owl-carousel tppost-main-slider">';
+		$html .='<div id="tppost-main-slider-'.$block['id'].'" class="carousel-style3 swiper tppost-main-slider">';
+		$html .='<div class="swiper-wrapper">';
 	
 		foreach ($posts as $key => $post) {
 
 			$content = $this->prepare_content($block,$post);
 
-			$html .= '<div class="post_slider_'.$block['id'].'_style3 carousel-style3-item ">';
+			$html .= '<div class="swiper-slide post_slider_'.$block['id'].'_style3 carousel-style3-item ">';
 				
 				// Featured image
 				$html .= '<div class="post_slider_'.$block['id'].'_style3_img  carousel-style3-item-image">';
@@ -699,7 +700,7 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 				$html .= '</div>';
 				
 		}
-		$html .='</div></div><div class="clearfix"></div>';
+		$html .='</div><div class="swiper-pagination"></div><div class="swiper-button-prev"></div><div class="swiper-button-next"></div></div></div><div class="clearfix"></div>';
 	
 		return $html;
 	}
@@ -708,7 +709,8 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 
 		$html = '';
 		$html .='<div class="padma-post-slider-area-style4 post_slider_'.$block['id'] .' padma-post-slider-area'.$block['id'].'">';
-		$html .='<div id="tppost-main-slider-'.$block['id'].'" class="carousel-style4 owl-carousel tppost-main-slider">';
+		$html .='<div id="tppost-main-slider-'.$block['id'].'" class="carousel-style4 swiper tppost-main-slider">';
+		$html .='<div class="swiper-wrapper">';
 	
 		foreach ($posts as $key => $post) {
 
@@ -721,11 +723,11 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 			}
 
 			if( $content !== false )
-				$html .= '<div class="carousel-style4-item-description '.$clases.'">'.$content.'</div>';
+				$html .= '<div class="swiper-slide carousel-style4-item-description '.$clases.'">'.$content.'</div>';
 
 				
 		}
-		$html .='</div></div><div class="clearfix"></div>';
+		$html .='</div><div class="swiper-pagination"></div><div class="swiper-button-prev"></div><div class="swiper-button-next"></div></div></div><div class="clearfix"></div>';
 	
 		return $html;
 	}
@@ -736,13 +738,14 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 
 		$html = '';
 		$html .='<div class="padma-post-slider-area-style5 post_slider_'.$block['id'] .' padma-post-slider-area'.$block['id'].'">';
-		$html .='<div id="tppost-main-slider-'.$block['id'].'" class="carousel-style5 owl-carousel tppost-main-slider">';
+		$html .='<div id="tppost-main-slider-'.$block['id'].'" class="carousel-style5 swiper tppost-main-slider">';
+		$html .='<div class="swiper-wrapper">';
 	
 		foreach ($posts as $key => $post) {
 
 			$content = $this->prepare_content($block,$post);
 
-			$html .= '<div class="post_slider_'.$block['id'].'_style5 carousel-style5-item ">';
+			$html .= '<div class="swiper-slide post_slider_'.$block['id'].'_style5 carousel-style5-item ">';
 				
 				// Featured image
 				$html .= '<div class="post_slider_'.$block['id'].'_style5_img  carousel-style5-item-image">';
@@ -772,7 +775,7 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 			$html .= '</div>';
 				
 		}
-		$html .='</div></div><div class="clearfix"></div>';
+		$html .='</div><div class="swiper-pagination"></div><div class="swiper-button-prev"></div><div class="swiper-button-next"></div></div></div><div class="clearfix"></div>';
 	
 		return $html;
 	}
@@ -781,11 +784,12 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 				
 		$html = '';
 		$html .='<div class="padma-post-slider-area-style6 post_slider_'.$block['id'] .' padma-post-slider-area'.$block['id'].'">';
-		$html .='<div id="tppost-main-slider-'.$block['id'].'" class="carousel-style6 owl-carousel tppost-main-slider">';
+		$html .='<div id="tppost-main-slider-'.$block['id'].'" class="carousel-style6 swiper tppost-main-slider">';
+		$html .='<div class="swiper-wrapper">';
 	
 		foreach ($posts as $key => $post) {
 
-			$html .= '<div class="post_slider_'.$block['id'].'_style6 carousel-style6-item ">';
+			$html .= '<div class="swiper-slide post_slider_'.$block['id'].'_style6 carousel-style6-item ">';
 				
 				// Featured image
 				$html .= '<div class="post_slider_'.$block['id'].'_style6_img  carousel-style6-item-image">';
@@ -805,7 +809,7 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 			$html .= '</div>';
 				
 		}
-		$html .='</div></div><div class="clearfix"></div>';
+		$html .='</div><div class="swiper-pagination"></div><div class="swiper-button-prev"></div><div class="swiper-button-next"></div></div></div><div class="clearfix"></div>';
 	
 		return $html;
 	}
@@ -818,41 +822,70 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 		$auto_play 		 = ( !empty($block['settings']['auto_play']) ) ? $block['settings']['auto_play']: 'true';
 		$show_items 	 = ( !empty($block['settings']['show_items']) ) ? $block['settings']['show_items']: 3;
 		$show_pagination = ( !empty($block['settings']['show_pagination']) ) ? $block['settings']['show_pagination']: 'true';
+		$autoplay_delay = !empty($block['settings']['autoplay-timeout']) ? intval($block['settings']['autoplay-timeout']) : 5000;
+		$speed = !empty($block['settings']['animation-speed']) ? intval($block['settings']['animation-speed']) : 500;
+		$show_navigation = !empty($block['settings']['show-direction-nav']) ? 'true' : 'false';
+		$show_pagination = !empty($block['settings']['show_pagination']) ? 'true' : 'false';
+		$autoplay = ( !empty($auto_play) && $auto_play !== 'false' )
+			? '{delay: '.$autoplay_delay.', disableOnInteraction: false, pauseOnMouseEnter: true}'
+			: 'false';
 
 		return 'if(document.readyState === "loading") {
 					document.addEventListener("DOMContentLoaded", function() {
-						if(jQuery("#tppost-main-slider-'.$block['id'].'").length) {
-							jQuery("#tppost-main-slider-'.$block['id'].'").owlCarousel({
-								autoPlay: '.$auto_play.',
-								stopOnHover: true,
-								items : '.$show_items.',
-								itemsDesktop : [1199,'.$show_items.'],
-								itemsDesktopSmall : [979,'.$show_items.'],
-								itemsTablet : [979,'.$show_items.'],
-								itemsTabletSmall : [979,'.$show_items.'],
-								itemsMobile : [979,'.$show_items.'],
-								navigation : false,
-								navigationText : ["‹","›"],
-								paginationNumbers: false,
-								pagination: '.$show_pagination.'
+						if(document.querySelector("#tppost-main-slider-'.$block['id'].'")) {
+							if(window.tppostSlider_'.$block['id'].' && typeof window.tppostSlider_'.$block['id'].'.destroy === "function") {
+								window.tppostSlider_'.$block['id'].'.destroy(true, true);
+							}
+							window.tppostSlider_'.$block['id'].' = new Swiper("#tppost-main-slider-'.$block['id'].'", {
+								slidesPerView: '.$show_items.',
+								spaceBetween: 0,
+								loop: document.querySelectorAll("#tppost-main-slider-'.$block['id'].' .swiper-slide").length > 1,
+								watchOverflow: true,
+								speed: '.$speed.',
+								autoplay: document.querySelectorAll("#tppost-main-slider-'.$block['id'].' .swiper-slide").length > 1 ? '.$autoplay.' : false,
+								navigation: ('.$show_navigation.' && document.querySelectorAll("#tppost-main-slider-'.$block['id'].' .swiper-slide").length > 1) ? {
+									nextEl: "#tppost-main-slider-'.$block['id'].' .swiper-button-next",
+									prevEl: "#tppost-main-slider-'.$block['id'].' .swiper-button-prev"
+								} : false,
+								pagination: ('.$show_pagination.' && document.querySelectorAll("#tppost-main-slider-'.$block['id'].' .swiper-slide").length > 1) ? {
+									el: "#tppost-main-slider-'.$block['id'].' .swiper-pagination",
+									clickable: true
+								} : false,
+								breakpoints: {
+									0: {slidesPerView: 1},
+									600: {slidesPerView: 1},
+									979: {slidesPerView: '.$show_items.'},
+									1199: {slidesPerView: '.$show_items.'}
+								}
 							});
 						}
 					});
 				} else {
-					if(jQuery("#tppost-main-slider-'.$block['id'].'").length) {
-						jQuery("#tppost-main-slider-'.$block['id'].'").owlCarousel({
-							autoPlay: '.$auto_play.',
-							stopOnHover: true,
-							items : '.$show_items.',
-							itemsDesktop : [1199,'.$show_items.'],
-							itemsDesktopSmall : [979,'.$show_items.'],
-							itemsTablet : [979,'.$show_items.'],
-							itemsTabletSmall : [979,'.$show_items.'],
-							itemsMobile : [979,'.$show_items.'],
-							navigation : false,
-							navigationText : ["‹","›"],
-							paginationNumbers: false,
-							pagination: '.$show_pagination.'
+					if(document.querySelector("#tppost-main-slider-'.$block['id'].'")) {
+						if(window.tppostSlider_'.$block['id'].' && typeof window.tppostSlider_'.$block['id'].'.destroy === "function") {
+							window.tppostSlider_'.$block['id'].'.destroy(true, true);
+						}
+						window.tppostSlider_'.$block['id'].' = new Swiper("#tppost-main-slider-'.$block['id'].'", {
+							slidesPerView: '.$show_items.',
+							spaceBetween: 0,
+							loop: document.querySelectorAll("#tppost-main-slider-'.$block['id'].' .swiper-slide").length > 1,
+							watchOverflow: true,
+							speed: '.$speed.',
+							autoplay: document.querySelectorAll("#tppost-main-slider-'.$block['id'].' .swiper-slide").length > 1 ? '.$autoplay.' : false,
+							navigation: ('.$show_navigation.' && document.querySelectorAll("#tppost-main-slider-'.$block['id'].' .swiper-slide").length > 1) ? {
+								nextEl: "#tppost-main-slider-'.$block['id'].' .swiper-button-next",
+								prevEl: "#tppost-main-slider-'.$block['id'].' .swiper-button-prev"
+							} : false,
+							pagination: ('.$show_pagination.' && document.querySelectorAll("#tppost-main-slider-'.$block['id'].' .swiper-slide").length > 1) ? {
+								el: "#tppost-main-slider-'.$block['id'].' .swiper-pagination",
+								clickable: true
+							} : false,
+							breakpoints: {
+								0: {slidesPerView: 1},
+								600: {slidesPerView: 1},
+								979: {slidesPerView: '.$show_items.'},
+								1199: {slidesPerView: '.$show_items.'}
+							}
 						});
 					}
 				}';
@@ -1432,24 +1465,24 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 					.tps-slider-post-link_style5{
 						text-align: center;
 					}
-					div.owl-item > div.post_slider_'.$block['id'].'_style5 div.tps-slider-post-link_style5 > a.post_slider_'.$block['id'].'_style5_p_readmores{
+					div.swiper-slide > div.post_slider_'.$block['id'].'_style5 div.tps-slider-post-link_style5 > a.post_slider_'.$block['id'].'_style5_p_readmores{
 						text-align: center;
 						background: transparent;
 						font-size: 16px !important;
 						color: #48c7e7;
 					}
-					.owl-theme .owl-controls .owl-buttons div{
+					.post_slider_'.$block['id'].' .swiper-button-next,
+					.post_slider_'.$block['id'].' .swiper-button-prev{
 						color: #000;
-						display: inline-block;
-						zoom: 1;
-						margin: 5px;
+						display: inline-flex;
+						align-items: center;
+						justify-content: center;
 						padding: 3px 10px;
-						font-size: 25px;
+						font-size: 18px;
 						-webkit-border-radius: 30px;
 						-moz-border-radius: 30px;
 						border-radius: 0;
 						background: #fafafa;
-						filter: Alpha(Opacity=50);
 						opacity: 0.5;
 						border: 1px solid #eee;
 						margin-top: 50px;
@@ -1609,7 +1642,7 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 					.tps-slider-post-link_style6{
 						text-align: center;
 					}
-					div.owl-item > div.post_slider_'.$block['id'].'_style6 div.tps-slider-post-link_style6 > a.post_slider_'.$block['id'].'_style6_p_readmores{
+					div.swiper-slide > div.post_slider_'.$block['id'].'_style6 div.tps-slider-post-link_style6 > a.post_slider_'.$block['id'].'_style6_p_readmores{
 						text-align: center;
 						background: transparent;
 						font-size: 16px !important;
@@ -1619,18 +1652,18 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 						padding-right: 100px;
 						padding-left: 100px;
 					}
-					.owl-theme .owl-controls .owl-buttons div{
+					.post_slider_'.$block['id'].' .swiper-button-next,
+					.post_slider_'.$block['id'].' .swiper-button-prev{
 						color: #000;
-						display: inline-block;
-						zoom: 1;
-						margin: 5px;
+						display: inline-flex;
+						align-items: center;
+						justify-content: center;
 						padding: 3px 10px;
-						font-size: 25px;
+						font-size: 18px;
 						-webkit-border-radius: 30px;
 						-moz-border-radius: 30px;
 						border-radius: 0;
 						background: #fafafa;
-						filter: Alpha(Opacity=50);
 						opacity: 0.5;
 						border: 1px solid #eee;
 						margin-top: 50px;

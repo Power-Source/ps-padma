@@ -14,14 +14,14 @@ class PadmaWidgetAreaBlock extends PadmaBlockAPI {
 	function __construct(){
 
 		$this->id = 'widget-area';
-		$this->name = __('Widget Area','padma');
+		$this->name = __('Widget-Bereich','padma');
 		$this->options_class = 'PadmaWidgetAreaBlockOptions';
 		$this->html_tag = 'aside';
 		$this->attributes = array(
 			'itemscope' => '',
 			'itemtype' => 'http://schema.org/WPSideBar'
 		);
-		$this->description = __('Used typically as a sidebar or to aid the footer.  The widget area will display WordPress widgets which are managed in the WordPress Appearance &raquo; Widgets panel.','padma');
+		$this->description = __('Wird typischerweise als Seitenleiste oder zur Unterstützung der Fußzeile verwendet. Der Widget-Bereich zeigt WordPress-Widgets an, die im WordPress-Design-Bereich „Widgets“ verwaltet werden.','padma');
 		$this->categories 	= array('core','content');
 
 	}
@@ -49,7 +49,7 @@ class PadmaWidgetAreaBlock extends PadmaBlockAPI {
 
 		$this->register_block_element(array(
 			'id' => 'widget-area',
-			'name' => __('Widget Area','padma'),
+			'name' => __('Widget-Bereich','padma'),
 			'selector' => 'ul.widget-area'
 		));
 
@@ -61,19 +61,19 @@ class PadmaWidgetAreaBlock extends PadmaBlockAPI {
 
 		$this->register_block_element(array(
 			'id' => 'widget-title',
-			'name' => __('Widget Title','padma'),
+			'name' => __('Widget-Titel','padma'),
 			'selector' => 'li.widget h3.widget-title'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'widget-title-inner',
-			'name' => __('Widget Title Inner','padma'),
+			'name' => __('Widget-Titel-Inhalt','padma'),
 			'selector' => 'li.widget .widget-title span'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'widget-links',
-			'name' => __('Widget Links','padma'),
+			'name' => __('Widget-Links','padma'),
 			'selector' => 'li.widget a',
 			'states' => array(
 				'Selected' => 'ul li.current_page_item a', 
@@ -84,7 +84,7 @@ class PadmaWidgetAreaBlock extends PadmaBlockAPI {
 
 		$this->register_block_element(array(
 			'id' => 'widget-lists',
-			'name' => __('Widget Lists','padma'),
+			'name' => __('Widget-Listen','padma'),
 			'description' => '&lt;UL&gt;',
 			'selector' => 'li.widget ul',
 			'properties' => array('fonts', 'lists', 'background', 'borders', 'padding', 'corners', 'box-shadow', 'advanced', 'transition', 'outlines'),
@@ -92,7 +92,7 @@ class PadmaWidgetAreaBlock extends PadmaBlockAPI {
 
 			$this->register_block_element(array(
 				'id' => 'widget-list-items',
-				'name' => __('Widget List Items','padma'),
+				'name' => __('Widget-Listenelemente','padma'),
 				'description' => '&lt;LI&gt;',
 				'selector' => 'li.widget ul li'
 			));
@@ -174,8 +174,8 @@ class PadmaWidgetAreaBlock extends PadmaBlockAPI {
 				} else {
 
 					echo '<li class="widget widget-no-widgets">';
-						echo '<h3 class="widget-title"><span class="widget-inner">' . __('No widgets!','padma') . '</span></h3>';
-						echo sprintf( __('<p>Add widgets to this sidebar in the <a href="%s">Widgets panel</a> under Appearance in the WordPress Admin.</p>','padma'), admin_url('widgets.php') );
+						echo '<h3 class="widget-title"><span class="widget-inner">' . __('Keine Widgets!','padma') . '</span></h3>';
+						echo sprintf( __('<p>Füge Widgets zu diesem Sidebar im <a href="%s">Widgets-Panel</a> unter Darstellung im WordPress-Admin hinzu.</p>','padma'), admin_url('widgets.php') );
 					echo '</li>';
 
 				}
@@ -211,9 +211,9 @@ class PadmaWidgetAreaBlockOptions extends PadmaBlockOptionsAPI {
 				'horizontal-widgets' => array(
 					'type' => 'checkbox',
 					'name' => 'horizontal-widgets',
-					'label' => __('Horizontal Widgets','padma'),
+					'label' => __('Horizontale Widgets','padma'),
 					'default' => false,
-					'tooltip' => __('Instead of showing widgets vertically, you can make them span horizontally. This is especially useful for widgetized footers.','padma')
+					'tooltip' => __('Anstatt von Widgets vertikal anzuzeigen, kannst Du sie horizontal anzeigen lassen. Dies ist besonders nützlich für widgetisierte Fußzeilen.','padma')
 				)
 			)
 		);
@@ -227,7 +227,7 @@ class PadmaWidgetAreaBlockOptions extends PadmaBlockOptionsAPI {
 		$sidebar_id = 'widget-area-' . $args['block_id'];
 
 		$this->tab_notices['widget-area-content'] =  sprintf( 
-			__('To add widgets to this widget area, go to <a href="%s" target="_blank">WordPress Admin &raquo; Appearance &raquo; Widgets</a> and add the widgets to <em>%s &mdash; Layout: %s</em>.','padma'), 
+			__('Um Widgets zu diesem Widget-Bereich hinzuzufügen, gehe zu <a href="%s" target="_blank">WordPress Admin &raquo; Darstellung &raquo; Widgets</a> und füge die Widgets zu <em>%s &mdash; Layout: %s</em> hinzu.','padma'), 
 			admin_url('widgets.php'), 
 			PadmaBlocksData::get_block_name( $args['block'] ), 
 			PadmaLayout::get_name( $args['layoutID'] ) 
@@ -241,8 +241,8 @@ class PadmaWidgetAreaBlockOptions extends PadmaBlockOptionsAPI {
 			$this->inputs['widget-default']['default-widgets'] = array(
 				'type' => 'repeater',
 				'name' => 'default-widgets',
-				'label' => __('Default Widgets','padma'),
-				'tooltip' => __('Assign default widgets to this widget area.','padma'),
+				'label' => __('Standard Widgets','padma'),
+				'tooltip' => __('Weise diesem Widget-Bereich Standard-Widgets zu..','padma'),
 				'inputs' => array(
 					array(
 						'type' => 'select',
@@ -254,7 +254,7 @@ class PadmaWidgetAreaBlockOptions extends PadmaBlockOptionsAPI {
 					array(
 						'type'    => 'checkbox',
 						'name'    => 'show-title',
-						'label'   => __('Show Title','padma'),
+						'label'   => __('Titel anzeigen','padma'),
 						'default' => true,
 						'toggle' => array(
 							'true' => array(
@@ -268,9 +268,9 @@ class PadmaWidgetAreaBlockOptions extends PadmaBlockOptionsAPI {
 					array(
 						'type' => 'text',
 						'name' => 'title',
-						'label' => __('Title','padma'),
+						'label' => __('Titel','padma'),
 						'default' => '%default%',
-						'tootlip' => __('This will be the title shown above the widget.  If you want to use the default for the widget type, please enter <em>%default%</em>','padma')
+						'tootlip' => __('Dies wird der Titel sein, der über dem Widget angezeigt wird. Wenn du den Standard für den Widget-Typ verwenden möchtest, gib bitte <em>%default%</em> ein.','padma')
 					)
 				),
 				'sortable' => true

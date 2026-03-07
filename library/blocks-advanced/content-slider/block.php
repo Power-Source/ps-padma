@@ -10,7 +10,7 @@
 namespace Padma_Advanced;
 
 /**
- * Content Slider Block - Owl Carousel powered slider for posts
+ * Content Slider Block - Swiper powered slider for posts
  */
 class PadmaContentSliderBlock extends \PadmaBlockAPI {
 
@@ -25,98 +25,98 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		$this->register_block_element(array(
 			'id' => 'slide',
 			'name' => 'Slide',
-			'selector' => '.owl-item'
+			'selector' => '.swiper-slide'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-p',
 			'name' => 'Slide text',
-			'selector' => '.owl-item p'
+			'selector' => '.swiper-slide p'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-a',
 			'name' => 'Slide link',
-			'selector' => '.owl-item a'
+			'selector' => '.swiper-slide a'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-h1',
 			'name' => 'Slide H1',
-			'selector' => '.owl-item h1'
+			'selector' => '.swiper-slide h1'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-h2',
 			'name' => 'Slide H2',
-			'selector' => '.owl-item h2'
+			'selector' => '.swiper-slide h2'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-h3',
 			'name' => 'Slide H3',
-			'selector' => '.owl-item h3'
+			'selector' => '.swiper-slide h3'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-h4',
 			'name' => 'Slide H4',
-			'selector' => '.owl-item h4'
+			'selector' => '.swiper-slide h4'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-h5',
 			'name' => 'Slide H5',
-			'selector' => '.owl-item h5'
+			'selector' => '.swiper-slide h5'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-ul',
 			'name' => 'Slide UL',
-			'selector' => '.owl-item ul'
+			'selector' => '.swiper-slide ul'
 		));
 
 
 		$this->register_block_element(array(
 			'id' => 'slide-li',
 			'name' => 'Slide LI',
-			'selector' => '.owl-item li'
+			'selector' => '.swiper-slide li'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'dots',
 			'name' => 'Dots',
-			'selector' => '.owl-dots'
+			'selector' => '.swiper-pagination'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'dots-item',
 			'name' => 'Dots Item',
-			'selector' => '.owl-dots .owl-dot'
+			'selector' => '.swiper-pagination-bullet'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'nav',
 			'name' => 'Navigation',
-			'selector' => '.owl-nav'
+			'selector' => '.swiper-button-next, .swiper-button-prev'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'nav-item',
 			'name' => 'Navigation item',
-			'selector' => '.owl-nav div'
+			'selector' => '.swiper-button-next, .swiper-button-prev'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'nav-item-next',
 			'name' => 'Navigation Next',
-			'selector' => '.owl-nav div.owl-next'
+			'selector' => '.swiper-button-next'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'nav-item-prev',
 			'name' => 'Navigation Prev',
-			'selector' => '.owl-nav div.owl-prev'
+			'selector' => '.swiper-button-prev'
 		));
 
 		
@@ -124,12 +124,8 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 	}
 
 	public static function enqueue_action($block_id, $block) {
-		$theme_url = get_template_directory_uri() . '/library/blocks-advanced/content-slider/';
-		
-		wp_enqueue_style('padma-content-slider-owl-carousel-css', $theme_url . 'css/owl.carousel.min.css');
-		wp_enqueue_style('padma-content-slider-owl-theme-css', $theme_url . 'css/owl.theme.default.min.css');
-		//wp_enqueue_style('padma-content-slider-owl-theme-green-css', $theme_url . 'css/owl.theme.green.min.css');
-		wp_enqueue_script('padma-content-slider-slider-js', $theme_url . 'js/owl.carousel.min.js', array('jquery'), '1.0', false);
+		wp_enqueue_style('swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css');
+		wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', array(), '11.0', false);
 	}
 
 	function content($block) {
@@ -169,16 +165,17 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		$content_slider_query = new WP_Query( $args );
 
 
-		$result = '<div id="content-slider-'.$block['id'].'" class="owl-carousel owl-theme">';
+		$result = '<div id="content-slider-'.$block['id'].'" class="swiper content-slider-swiper">';
+		$result .= '<div class="swiper-wrapper">';
 
 		while ( $content_slider_query->have_posts() ) : $content_slider_query->the_post();
 
 			setup_postdata( $post );			
 
 			if( !empty($block['settings']['item-width']) ){
-				$itemTag = '<div class="item" style="width:'.$block['settings']['item-width'].'px">';
+				$itemTag = '<div class="swiper-slide item" style="width:'.$block['settings']['item-width'].'px">';
 			}else{
-				$itemTag = '<div class="item">';
+				$itemTag = '<div class="swiper-slide item">';
 			}
 
 			if($onlyShowTitle){
@@ -249,6 +246,10 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		endwhile;
 		wp_reset_postdata();
 		$result .= '</div>';
+		$result .= '<div class="swiper-pagination content-slider-pagination-'.$block['id'].'"></div>';
+		$result .= '<div class="swiper-button-prev content-slider-prev-'.$block['id'].'"></div>';
+		$result .= '<div class="swiper-button-next content-slider-next-'.$block['id'].'"></div>';
+		$result .= '</div>';
 
 		echo $result;
 	}
@@ -258,178 +259,89 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		if ( !$block )
 			$block = PadmaBlocksData::get_block($block_id);
 
-		// Settings
-		$carouselParams = '';
+		$slides_per_view = ( !empty($block['settings']['items']) && intval($block['settings']['items']) > 0 ) ? intval($block['settings']['items']) : 3;
+		$space_between = !empty($block['settings']['margin']) ? intval($block['settings']['margin']) : 0;
+		$loop = !empty($block['settings']['loop']) ? 'true' : 'false';
+		$centered_slides = !empty($block['settings']['center']) ? 'true' : 'false';
+		$allow_touch_move = !empty($block['settings']['touch-drag']) ? 'true' : 'false';
+		$simulate_touch = !empty($block['settings']['mouse-drag']) ? 'true' : 'false';
+		$free_mode = !empty($block['settings']['free-drag']) ? 'true' : 'false';
+		$slides_per_group = !empty($block['settings']['slide-by']) ? intval($block['settings']['slide-by']) : 1;
+		$initial_slide = !empty($block['settings']['start-position']) ? intval($block['settings']['start-position']) : 0;
+		$speed = !empty($block['settings']['smart-speed']) ? intval($block['settings']['smart-speed']) : 250;
+		$rewind = !empty($block['settings']['rewind']) ? 'true' : 'false';
+		$show_nav = !empty($block['settings']['nav']) ? 'true' : 'false';
+		$show_dots = isset($block['settings']['dots']) ? ( !empty($block['settings']['dots']) ? 'true' : 'false' ) : 'true';
+		$lazy_load = !empty($block['settings']['lazy-load']) ? 'true' : 'false';
+		$autoplay_timeout = !empty($block['settings']['autoplay-timeout']) ? intval($block['settings']['autoplay-timeout']) : 5000;
+		$autoplay_pause_on_hover = !empty($block['settings']['autoplay-hover-pause']) ? 'true' : 'false';
+		$autoplay = !empty($block['settings']['autoplay'])
+			? '{delay: '.$autoplay_timeout.', disableOnInteraction: false, pauseOnMouseEnter: '.$autoplay_pause_on_hover.'}'
+			: 'false';
 
-		// Items
-		$carouselParams .= 'items:' . ( !empty($block['settings']['items']) && $block['settings']['items'] > 0 ? $block['settings']['items'] : '3' ) . ', ';
-
-		// Margin
-		$carouselParams .= 'margin:' . ( !empty($block['settings']['margin']) ? $block['settings']['margin'] : '0' ) . ', ';
-
-		// Loop
-		$carouselParams .= 'loop:' . ( !empty($block['settings']['loop']) ? $block['settings']['loop'] : 'false' ) . ', ';
-
-		// Center
-		$carouselParams .= 'center:' . ( !empty($block['settings']['center']) ? $block['settings']['center'] : 'false' ) . ', ';
-
-		// mouse-drag
-		$carouselParams .= 'mouseDrag:' . ( !empty($block['settings']['mouse-drag']) ? $block['settings']['mouse-drag'] : 'true' ) . ', ';
-
-		// touch-drag
-		$carouselParams .= 'touchDrag:' . ( !empty($block['settings']['touch-drag']) ? $block['settings']['touch-drag'] : 'true' ) . ', ';
-
-		// pull-drag
-		$carouselParams .= 'pullDrag:' . ( !empty($block['settings']['pull-drag']) ? $block['settings']['pull-drag'] : 'true' ) . ', ';
-
-		// pull-drag
-		$carouselParams .= 'freeDrag:' . ( !empty($block['settings']['free-drag']) ? $block['settings']['free-drag'] : 'false' ) . ', ';
-
-		// stagePadding
-		$carouselParams .= 'stagePadding:' . ( !empty($block['settings']['stage-padding']) ? $block['settings']['stage-padding'] : '0' ) . ', ';
-
-		// merge
-		$carouselParams .= 'merge:'. ( !empty($block['settings']['merge']) ? $block['settings']['merge']: 'false' ) . ', ';
-		
-		// mergeFit
-		$carouselParams .= 'mergeFit:'. ( !empty($block['settings']['merge-fit']) ? $block['settings']['merge-fit']: 'true' ) . ', ';
-		
-		// autoWidth
-		$carouselParams .= 'autoWidth:'. ( !empty($block['settings']['auto-width']) ? 'true': 'false' ) . ', ';
-		
-		// startPosition
-		$carouselParams .= 'startPosition:'. ( !empty($block['settings']['start-position']) ? $block['settings']['start-position']: '0' ) . ', ';
-		
-		// startPosition
-		$carouselParams .= 'URLhashListener:'. ( !empty($block['settings']['url-hash-listener']) ? $block['settings']['url-hash-listener']: '0' ) . ', ';
-		
-		// nav
-		$carouselParams .= 'nav:'. ( !empty($block['settings']['nav']) ? $block['settings']['nav']: 'false' ) . ', ';
-
-		// rewind
-		$carouselParams .= 'rewind:'. ( !empty($block['settings']['rewind']) ? $block['settings']['rewind']: 'true' ) . ', ';
-
-		// navText
-		if( !empty($block['settings']['nav-text-next']) || !empty($block['settings']['nav-text-prev']) ){
-			
-			$navText_next	= ( !empty($block['settings']['nav-text-next']) ) ? $block['settings']['nav-text-next']: '>';
-			$navText_prev	= ( !empty($block['settings']['nav-text-prev']) ) ? $block['settings']['nav-text-prev']: '<';
-			$carouselParams .= 'navText:["'.$navText_prev.'","'.$navText_next.'"],';
-		}else{
-			$carouselParams .= 'navText:["Prev","Next"],';			
-		}
-
-		// navElement
-		$carouselParams .= 'navElement:'. ( !empty($block['settings']['nav-element']) ? $block['settings']['nav-element']: '"div"' ) . ', ';
-
-		// slideBy
-		$carouselParams .= 'slideBy:'. ( !empty($block['settings']['slide-by']) ? $block['settings']['slide-by']: '1' ) . ', ';
-
-		// slideTransition
-		$carouselParams .= 'slideTransition:'. ( !empty($block['settings']['slide-transition']) ? $block['settings']['slide-transition']: '``' ) . ', ';
-
-		// dots
-		$carouselParams .= 'dots:'. (!empty($block['settings']['dots']) ? $block['settings']['dots'] : 'true') . ', ';
-		
-		// dotsEach
-		$carouselParams .= 'dotsEach:'. (!empty($block['settings']['dots-each']) ? $block['settings']['dots-each'] : 'false') . ', ';
-
-		// dotsData
-		$carouselParams .= 'dotsData:'. (!empty($block['settings']['dots-data']) ? $block['settings']['dots-data'] : 'false') . ', ';
-		
-		// lazyLoad
-		$carouselParams .= 'lazyLoad:'. (!empty($block['settings']['lazy-load']) ? $block['settings']['lazy-load'] : 'false') . ', ';
-
-		// lazyLoadEager
-		$carouselParams .= 'lazyLoadEager:'. (!empty($block['settings']['lazy-load-eager']) ? $block['settings']['lazy-load-eager'] : '0') . ', ';
-		
-		// autoPlay
-		$carouselParams .= 'autoPlay:'. (!empty($block['settings']['autoplay']) ? 'true' : 'false') . ', ';
-		
-		// autoplayTimeout
-		$carouselParams .= 'autoplayTimeout:'. (!empty($block['settings']['autoplay-timeout']) ? $block['settings']['autoplay-timeout'] : '5000') . ', ';
-		
-		// autoplayHoverPause
-		$carouselParams 	.= 'autoplayHoverPause:'. (!empty($block['settings']['autoplay-hover-pause']) ? $block['settings']['autoplay-hover-pause'] : 'false') . ', ';
-
-		// smartSpeed
-		$carouselParams 	.= 'smartSpeed:'. (!empty($block['settings']['smart-speed']) ? $block['settings']['smart-speed'] : '250') . ', ';		
-
-		// fluidSpeed
-		$carouselParams 	.= 'fluidSpeed:'. (!empty($block['settings']['fluid-speed']) ? $block['settings']['fluid-speed'] : 'Number') . ', ';		
-
-		// autoplaySpeed
-		$carouselParams 	.= 'autoplaySpeed:'. (!empty($block['settings']['autoplay-speed']) ? $block['settings']['autoplay-speed'] : 'false') . ', ';
-
-		// navSpeed
-		$carouselParams 	.= 'navSpeed:'. (!empty($block['settings']['nav-speed']) ? $block['settings']['nav-speed'] : 'false') . ', ';		
-
-		// dotsSpeed
-		$carouselParams 	.= 'dotsSpeed:'. (!empty($block['settings']['dots-speed']) ? $block['settings']['dots-speed'] : 'false') . ', ';		
-
-		// dragEndSpeed
-		$carouselParams 	.= 'dragEndSpeed:'. (!empty($block['settings']['dragend-speed']) ? $block['settings']['dragend-speed'] : 'false') . ', ';	
-
-		// callbacks
-		$carouselParams 	.= 'callbacks:'. (!empty($block['settings']['callbacks']) ? $block['settings']['callbacks'] : 'false') . ', ';
-		
-		// responsive
-		//$carouselParams 	.= 'responsive:{ 0:{ items: 1 }, 480:{ items: 1 }, 640:{ items: 2 }, 1200:{ items: 3 }  }' . ', ';
-				
-		// responsiveRefreshRate
-		$carouselParams 	.= 'responsiveRefreshRate:'. (!empty($block['settings']['responsive-refresh-rate']) ? $block['settings']['responsive-refresh-rate'] : '200') . ', ';
-		
-		// responsiveBaseElement
-		$carouselParams 	.= 'responsiveBaseElement:'. (!empty($block['settings']['responsive-base-element']) ? $block['settings']['responsive-base-element'] : 'window') . ', ';
-		
-		// video
-		$carouselParams 	.= 'video:'. (!empty($block['settings']['video']) ? $block['settings']['video'] : 'false') . ', ';
-
-		// videoHeight
-		$carouselParams 	.= 'videoHeight:'. (!empty($block['settings']['video-height']) ? $block['settings']['video-height'] : 'false') . ', ';
-		
-		// videoWidth
-		$carouselParams 	.= 'videoWidth:'. (!empty($block['settings']['video-width']) ? $block['settings']['video-width'] : 'false') . ', ';
-
-		// animateOut
-		$carouselParams 	.= 'animateOut:'. (!empty($block['settings']['animate-out']) ? $block['settings']['animate-out'] : 'false') . ', ';
-
-		// animateIn
-		$carouselParams 	.= 'animateIn:'. (!empty($block['settings']['animate-in']) ? $block['settings']['animate-in'] : 'false') . ', ';
-		
-		// fallbackEasing
-		$carouselParams 	.= 'fallbackEasing:'. (!empty($block['settings']['fallback-easing']) ? $block['settings']['fallback-easing'] : '"swing"') . ', ';
-		
-		// info
-		$carouselParams 	.= 'info:'. (!empty($block['settings']['info']) ? $block['settings']['info'] : 'false') . ', ';
-		
-		// nestedItemSelector
-		$carouselParams 	.= 'nestedItemSelector:'. (!empty($block['settings']['nested-item-selector']) ? $block['settings']['nested-item-selector'] : 'false') . ', ';
-		
-		// itemElement
-		$carouselParams 	.= 'itemElement:'. (!empty($block['settings']['item-element']) ? $block['settings']['item-element'] : '"div"') . ', ';
-		
-		// stageElement
-		$carouselParams .= 'stageElement:'. (!empty($block['settings']['stage-element']) ? $block['settings']['stage-element'] : '"div"') . ', ';
-		
-		// navContainer
-		$carouselParams .= 'navContainer:'. (!empty($block['settings']['nav-container']) ? $block['settings']['nav-container'] : 'false') . ', ';
-		
-		// dotsContainer
-		$carouselParams .= 'dotsContainer:'. (!empty($block['settings']['dots-container']) ? $block['settings']['dots-container'] : 'false') . ', ';
-		
-		// checkVisible
-		$carouselParams .= 'checkVisible:'. (!empty($block['settings']['check-visible']) ? $block['settings']['check-visible'] : 'true');
-			 
 		$js = 'if(document.readyState === "loading") {
 			document.addEventListener("DOMContentLoaded", function() {
-				if(jQuery("#content-slider-'.$block['id'].'").length) {
-					window.carousel_'.$block['id'].' = jQuery("#content-slider-'.$block['id'].'.owl-carousel").owlCarousel({'.$carouselParams.'});
+				if(document.querySelector("#content-slider-'.$block['id'].'")) {
+					if(window.carousel_'.$block['id'].' && typeof window.carousel_'.$block['id'].'.destroy === "function") {
+						window.carousel_'.$block['id'].'.destroy(true, true);
+					}
+
+					window.carousel_'.$block['id'].' = new Swiper("#content-slider-'.$block['id'].'", {
+						slidesPerView: '.$slides_per_view.',
+						spaceBetween: '.$space_between.',
+						loop: '.$loop.' && document.querySelectorAll("#content-slider-'.$block['id'].' .swiper-slide").length > 1,
+						watchOverflow: true,
+						rewind: '.$rewind.',
+						centeredSlides: '.$centered_slides.',
+						allowTouchMove: document.querySelectorAll("#content-slider-'.$block['id'].' .swiper-slide").length > 1 ? '.$allow_touch_move.' : false,
+						simulateTouch: document.querySelectorAll("#content-slider-'.$block['id'].' .swiper-slide").length > 1 ? '.$simulate_touch.' : false,
+						freeMode: '.$free_mode.',
+						slidesPerGroup: '.$slides_per_group.',
+						initialSlide: '.$initial_slide.',
+						speed: '.$speed.',
+						autoplay: document.querySelectorAll("#content-slider-'.$block['id'].' .swiper-slide").length > 1 ? '.$autoplay.' : false,
+						lazy: '.$lazy_load.',
+						navigation: ('.$show_nav.' && document.querySelectorAll("#content-slider-'.$block['id'].' .swiper-slide").length > 1) ? {
+							nextEl: "#content-slider-'.$block['id'].' .content-slider-next-'.$block['id'].'",
+							prevEl: "#content-slider-'.$block['id'].' .content-slider-prev-'.$block['id'].'"
+						} : false,
+						pagination: ('.$show_dots.' && document.querySelectorAll("#content-slider-'.$block['id'].' .swiper-slide").length > 1) ? {
+							el: "#content-slider-'.$block['id'].' .content-slider-pagination-'.$block['id'].'",
+							clickable: true
+						} : false
+					});
 				}
 			});
 		} else {
-			if(jQuery("#content-slider-'.$block['id'].'").length) {
-				window.carousel_'.$block['id'].' = jQuery("#content-slider-'.$block['id'].'.owl-carousel").owlCarousel({'.$carouselParams.'});
+			if(document.querySelector("#content-slider-'.$block['id'].'")) {
+				if(window.carousel_'.$block['id'].' && typeof window.carousel_'.$block['id'].'.destroy === "function") {
+					window.carousel_'.$block['id'].'.destroy(true, true);
+				}
+
+				window.carousel_'.$block['id'].' = new Swiper("#content-slider-'.$block['id'].'", {
+					slidesPerView: '.$slides_per_view.',
+					spaceBetween: '.$space_between.',
+					loop: '.$loop.' && document.querySelectorAll("#content-slider-'.$block['id'].' .swiper-slide").length > 1,
+					watchOverflow: true,
+					rewind: '.$rewind.',
+					centeredSlides: '.$centered_slides.',
+					allowTouchMove: document.querySelectorAll("#content-slider-'.$block['id'].' .swiper-slide").length > 1 ? '.$allow_touch_move.' : false,
+					simulateTouch: document.querySelectorAll("#content-slider-'.$block['id'].' .swiper-slide").length > 1 ? '.$simulate_touch.' : false,
+					freeMode: '.$free_mode.',
+					slidesPerGroup: '.$slides_per_group.',
+					initialSlide: '.$initial_slide.',
+					speed: '.$speed.',
+					autoplay: document.querySelectorAll("#content-slider-'.$block['id'].' .swiper-slide").length > 1 ? '.$autoplay.' : false,
+					lazy: '.$lazy_load.',
+					navigation: ('.$show_nav.' && document.querySelectorAll("#content-slider-'.$block['id'].' .swiper-slide").length > 1) ? {
+						nextEl: "#content-slider-'.$block['id'].' .content-slider-next-'.$block['id'].'",
+						prevEl: "#content-slider-'.$block['id'].' .content-slider-prev-'.$block['id'].'"
+					} : false,
+					pagination: ('.$show_dots.' && document.querySelectorAll("#content-slider-'.$block['id'].' .swiper-slide").length > 1) ? {
+						el: "#content-slider-'.$block['id'].' .content-slider-pagination-'.$block['id'].'",
+						clickable: true
+					} : false
+				});
 			}
 		}';
 
