@@ -649,6 +649,113 @@ class PadmaVisualElementsBlockShortcodeBlock extends \PadmaBlockAPI {
 		   'Clicked' => '.rpt_icon:selected'
 		   )
 		)); 
+
+		// E-Newsletter Elemente
+		$this->register_block_element(array(
+			'id' => 'enewsletter-widget-container',
+			'name' => 'Newsletter Widget Container',
+			'selector' => '.e-newsletter-widget',
+		));
+
+		$this->register_block_element(array(
+			'id' => 'enewsletter-message',
+			'name' => 'Newsletter Nachricht',
+			'selector' => '.e-newsletter-widget #message',
+		));
+
+		$this->register_block_element(array(
+			'id' => 'enewsletter-form',
+			'name' => 'Newsletter Formular',
+			'selector' => '.e-newsletter-widget form',
+		));
+
+		$this->register_block_element(array(
+			'id' => 'enewsletter-screen',
+			'name' => 'Newsletter Screen',
+			'selector' => '.e-newsletter-widget .e-newsletter-widget-screen',
+		));
+
+		$this->register_block_element(array(
+			'id' => 'enewsletter-label',
+			'name' => 'Newsletter Label',
+			'selector' => '.e-newsletter-widget label',
+		));
+
+		$this->register_block_element(array(
+			'id' => 'enewsletter-input-text',
+			'name' => 'Newsletter Eingabefeld',
+			'selector' => '.e-newsletter-widget input[type="text"]',
+			'states' => array(
+				'Focus' => '.e-newsletter-widget input[type="text"]:focus',
+			)
+		));
+
+		$this->register_block_element(array(
+			'id' => 'enewsletter-email-input',
+			'name' => 'Newsletter Email-Feld',
+			'selector' => '.e-newsletter-widget #e_newsletter_email',
+			'states' => array(
+				'Focus' => '.e-newsletter-widget #e_newsletter_email:focus',
+			)
+		));
+
+		$this->register_block_element(array(
+			'id' => 'enewsletter-name-input',
+			'name' => 'Newsletter Name-Feld',
+			'selector' => '.e-newsletter-widget #e_newsletter_name',
+			'states' => array(
+				'Focus' => '.e-newsletter-widget #e_newsletter_name:focus',
+			)
+		));
+
+		$this->register_block_element(array(
+			'id' => 'enewsletter-groups-heading',
+			'name' => 'Newsletter Gruppen Überschrift',
+			'selector' => '.e-newsletter-widget h3',
+		));
+
+		$this->register_block_element(array(
+			'id' => 'enewsletter-groups-list',
+			'name' => 'Newsletter Gruppen Liste',
+			'selector' => '.e-newsletter-widget .subscribe_groups',
+		));
+
+		$this->register_block_element(array(
+			'id' => 'enewsletter-groups-list-item',
+			'name' => 'Newsletter Gruppen Listeneintrag',
+			'selector' => '.e-newsletter-widget .subscribe_groups li',
+		));
+
+		$this->register_block_element(array(
+			'id' => 'enewsletter-checkbox',
+			'name' => 'Newsletter Checkbox',
+			'selector' => '.e-newsletter-widget input[type="checkbox"]',
+		));
+
+		$this->register_block_element(array(
+			'id' => 'enewsletter-checkbox-label',
+			'name' => 'Newsletter Checkbox Label',
+			'selector' => '.e-newsletter-widget .subscribe_groups label',
+		));
+
+		$this->register_block_element(array(
+			'id' => 'enewsletter-button',
+			'name' => 'Newsletter Button',
+			'selector' => '.e-newsletter-widget input[type="submit"]',
+			'states' => array(
+				'Hover' => '.e-newsletter-widget input[type="submit"]:hover',
+				'Active' => '.e-newsletter-widget input[type="submit"]:active',
+			)
+		));
+
+		$this->register_block_element(array(
+			'id' => 'enewsletter-link',
+			'name' => 'Newsletter Links',
+			'selector' => '.e-newsletter-widget a',
+			'states' => array(
+				'Hover' => '.e-newsletter-widget a:hover',
+			)
+		));
 	}
 
 	function content($block) {
@@ -739,6 +846,58 @@ class PadmaVisualElementsBlockShortcodeBlock extends \PadmaBlockAPI {
 
 			echo do_shortcode( '[' . $community_shortcode . ']' );
 			return;
+		}
+
+		if ($shortcodeproduct === 'e-newsletter') {
+			$enewsletter_shortcode_type = parent::get_setting($block, 'enewsletter-shortcode-type', 'none');
+
+			if ( !class_exists('Email_Newsletter') ) {
+				echo '<p>E-Newsletter ist nicht installiert oder nicht aktiv.</p>';
+				return;
+			}
+
+			if ( $enewsletter_shortcode_type === 'none' || empty($enewsletter_shortcode_type) ) {
+				echo '<p>Bitte einen E-Newsletter Shortcode auswählen.</p>';
+				return;
+			}
+
+			// Subscribe-Message Shortcode
+			if ( $enewsletter_shortcode_type === 'subscribe-message' ) {
+				echo do_shortcode( '[enewsletter_subscribe_message]' );
+				return;
+			}
+
+			// Unsubscribe-Message Shortcode
+			if ( $enewsletter_shortcode_type === 'unsubscribe-message' ) {
+				echo do_shortcode( '[enewsletter_unsubscribe_message]' );
+				return;
+			}
+
+			// Subscribe-Formular mit Optionen
+			if ( $enewsletter_shortcode_type === 'subscribe' ) {
+				$show_name = parent::get_setting($block, 'enewsletter-show-name', false);
+				$show_groups = parent::get_setting($block, 'enewsletter-show-groups', true);
+				$subscribe_to_groups = parent::get_setting($block, 'enewsletter-subscribe-to-groups', array());
+
+				// Konvertiere Array zu komma-separiertem String
+				$groups_string = '';
+				if ( is_array($subscribe_to_groups) && count($subscribe_to_groups) > 0 ) {
+					$groups_string = implode(',', $subscribe_to_groups);
+				}
+
+				// Baue Shortcode-Attribute
+				$atts = array();
+				$atts[] = 'show_name="' . ($show_name ? 'true' : 'false') . '"';
+				$atts[] = 'show_groups="' . ($show_groups ? 'true' : 'false') . '"';
+				
+				if ( !empty($groups_string) ) {
+					$atts[] = 'subscribe_to_groups="' . esc_attr($groups_string) . '"';
+				}
+
+				$shortcode = '[enewsletter_subscribe ' . implode(' ', $atts) . ']';
+				echo do_shortcode( $shortcode );
+				return;
+			}
 		}
 
 		echo '<p>Bitte Plugin und Shortcode auswählen.</p>';

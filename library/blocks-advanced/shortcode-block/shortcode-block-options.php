@@ -9,6 +9,7 @@ class PadmaVisualElementsBlockShortcodeBlockOptions extends \PadmaBlockOptionsAP
 		'marketpress-tab' 	=> 'MarketPress',
 		'powerform-tab' 	=> 'PowerForm',
 		'community-tab' 	=> 'PS Community',
+		'e-newsletter-tab' 	=> 'E-Newsletter',
 	);
 
 	public $inputs = array(
@@ -19,10 +20,11 @@ class PadmaVisualElementsBlockShortcodeBlockOptions extends \PadmaBlockOptionsAP
 				'name' => 'shortcode-product-type',
 				'label' => 'Welches Plugin',
 				'options' => array(
-					'none' 		=> 'Bitte Plugin auswählen',
+					'none' 			=> 'Bitte Plugin auswählen',
 					'marketpress' 	=> 'MarketPress',
 					'powerform' 	=> 'PowerForm',
 					'community' 	=> 'PS Community',
+					'e-newsletter' 	=> 'E-Newsletter',
 				),
 				'toggle' => array(
 					'none' => array(
@@ -31,19 +33,24 @@ class PadmaVisualElementsBlockShortcodeBlockOptions extends \PadmaBlockOptionsAP
 							'#sub-tab-marketpress-tab',
 							'#sub-tab-powerform-tab',
 							'#sub-tab-community-tab',
+							'#sub-tab-e-newsletter-tab',
 						),
 					),
 					'marketpress' => array(
 						'show' => array('#sub-tab-marketpress-tab'),
-						'hide' => array('#sub-tab-powerform-tab', '#sub-tab-community-tab'),
+						'hide' => array('#sub-tab-powerform-tab', '#sub-tab-community-tab', '#sub-tab-e-newsletter-tab'),
 					),
 					'powerform' => array(
 						'show' => array('#sub-tab-powerform-tab'),
-						'hide' => array('#sub-tab-marketpress-tab', '#sub-tab-community-tab'),
+						'hide' => array('#sub-tab-marketpress-tab', '#sub-tab-community-tab', '#sub-tab-e-newsletter-tab'),
 					),
 					'community' => array(
 						'show' => array('#sub-tab-community-tab'),
-						'hide' => array('#sub-tab-marketpress-tab', '#sub-tab-powerform-tab'),
+						'hide' => array('#sub-tab-marketpress-tab', '#sub-tab-powerform-tab', '#sub-tab-e-newsletter-tab'),
+					),
+					'e-newsletter' => array(
+						'show' => array('#sub-tab-e-newsletter-tab'),
+						'hide' => array('#sub-tab-marketpress-tab', '#sub-tab-powerform-tab', '#sub-tab-community-tab'),
 					),
 				),
 				'default' => 'none',
@@ -187,6 +194,77 @@ class PadmaVisualElementsBlockShortcodeBlockOptions extends \PadmaBlockOptionsAP
 				'tooltip' => 'Gruppe für Single/Members/Join/Leave auswählen',
 			),
 		),
+
+		'e-newsletter-tab' => array(
+			'enewsletter-shortcode-type' => array(
+				'type' => 'select',
+				'name' => 'enewsletter-shortcode-type',
+				'label' => 'Newsletter Shortcode',
+				'options' => array(
+					'none' => 'Shortcode auswählen',
+					'subscribe' => 'Anmeldeformular',
+					'subscribe-message' => 'Anmeldebestätigung',
+					'unsubscribe-message' => 'Abmeldebestätigung',
+				),
+				'toggle' => array(
+					'none' => array(
+						'show' => array(),
+						'hide' => array(
+							'#sub-tab-e-newsletter-tab-content #input-enewsletter-show-name',
+							'#sub-tab-e-newsletter-tab-content #input-enewsletter-show-groups',
+							'#sub-tab-e-newsletter-tab-content #input-enewsletter-subscribe-to-groups',
+						),
+					),
+					'subscribe' => array(
+						'show' => array(
+							'#sub-tab-e-newsletter-tab-content #input-enewsletter-show-name',
+							'#sub-tab-e-newsletter-tab-content #input-enewsletter-show-groups',
+							'#sub-tab-e-newsletter-tab-content #input-enewsletter-subscribe-to-groups',
+						),
+						'hide' => array(),
+					),
+					'subscribe-message' => array(
+						'show' => array(),
+						'hide' => array(
+							'#sub-tab-e-newsletter-tab-content #input-enewsletter-show-name',
+							'#sub-tab-e-newsletter-tab-content #input-enewsletter-show-groups',
+							'#sub-tab-e-newsletter-tab-content #input-enewsletter-subscribe-to-groups',
+						),
+					),
+					'unsubscribe-message' => array(
+						'show' => array(),
+						'hide' => array(
+							'#sub-tab-e-newsletter-tab-content #input-enewsletter-show-name',
+							'#sub-tab-e-newsletter-tab-content #input-enewsletter-show-groups',
+							'#sub-tab-e-newsletter-tab-content #input-enewsletter-subscribe-to-groups',
+						),
+					),
+				),
+				'default' => 'none',
+				'tooltip' => 'Wähle den E-Newsletter Shortcode',
+			),
+			'enewsletter-show-name' => array(
+				'type' => 'checkbox',
+				'name' => 'enewsletter-show-name',
+				'label' => 'Namensfeld anzeigen',
+				'default' => false,
+				'tooltip' => 'Zusätzlich zum Email-Feld auch ein Namensfeld anzeigen',
+			),
+			'enewsletter-show-groups' => array(
+				'type' => 'checkbox',
+				'name' => 'enewsletter-show-groups',
+				'label' => 'Gruppenauswahl anzeigen',
+				'default' => true,
+				'tooltip' => 'Dem User erlauben, Gruppen auszuwählen',
+			),
+			'enewsletter-subscribe-to-groups' => array(
+				'type' => 'multi-select',
+				'name' => 'enewsletter-subscribe-to-groups',
+				'label' => 'Auto-Subscribe zu Gruppen',
+				'default' => array(),
+				'tooltip' => 'Automatisch zu diesen Gruppen anmelden (User kann nicht abwählen)',
+			),
+		),
 	);
 
 	public function modify_arguments($args = false){
@@ -227,6 +305,30 @@ class PadmaVisualElementsBlockShortcodeBlockOptions extends \PadmaBlockOptionsAP
 			$this->inputs['community-tab']['community-group-id']['options'] = $options;
 		} else {
 			$this->inputs['community-tab']['community-group-id']['options'] = array('none' => 'PS Community ist nicht installiert');
+		}
+
+		// E-Newsletter Gruppen laden
+		if ( class_exists('Email_Newsletter') ) {
+			global $email_newsletter;
+			
+			if ( isset($email_newsletter) && method_exists($email_newsletter, 'get_groups') ) {
+				$groups = $email_newsletter->get_groups(0); // 0 = alle Gruppen (inkl. nicht-öffentliche)
+				
+				$options = array();
+				if ( is_array($groups) && count($groups) > 0 ) {
+					foreach ( $groups as $group ) {
+						$options[$group['group_id']] = $group['group_name'];
+					}
+				} else {
+					$options['none'] = 'Keine Newsletter-Gruppen vorhanden';
+				}
+				
+				$this->inputs['e-newsletter-tab']['enewsletter-subscribe-to-groups']['options'] = $options;
+			} else {
+				$this->inputs['e-newsletter-tab']['enewsletter-subscribe-to-groups']['options'] = array('none' => 'E-Newsletter nicht korrekt initialisiert');
+			}
+		} else {
+			$this->inputs['e-newsletter-tab']['enewsletter-subscribe-to-groups']['options'] = array('none' => 'E-Newsletter ist nicht installiert');
 		}
 	}
 }
