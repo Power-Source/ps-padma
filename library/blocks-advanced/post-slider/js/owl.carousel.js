@@ -290,7 +290,7 @@ if (typeof Object.create !== "function") {
                     }, base.options.responsiveRefreshRate);
                 }
             };
-            $(window).resize(base.resizer);
+            $(window).on('resize.owl', base.resizer);
         },
 
         updatePosition : function () {

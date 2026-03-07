@@ -2,7 +2,7 @@
 Contributors: PSOURCE
 Requires at least: 5.0
 Tested up to: WordPress 8.6, ClassicPress 2.6.0
-Version: 1.0.8
+Version: 1.0.9
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -58,6 +58,17 @@ Hier entlang: https://power-source.github.io/ps-padma/
 Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 
 == Changelog ==
+
+= 1.0.9 =
+* jQuery Migrate Deprecation Warnings behoben
+* jQuery.fn.resize() durch jQuery.on('resize') ersetzt (unminified Versionen)
+* Non-passive Event Listener für Scroll/Resize Events hinzugefügt
+* Event-Namespacing für bessere Event-Verwaltung implementiert
+* Owl Carousel unminified Version aktualisiert
+* Sticky Kit Event Handler optimiert
+* Colorpicker Event Handler für Passive Listener aktualisiert
+* QTip2 Event Handler für bessere Performance optimiert
+* INFO: Minified Files können nicht direkt editiert werden - nutze SCRIPT_DEBUG=true für Development
 
 = 1.0.8 =
 * Positionsmarker der Slider im Visual Editor wieder sichtbar gemacht

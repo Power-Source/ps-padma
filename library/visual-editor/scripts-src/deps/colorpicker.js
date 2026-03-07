@@ -1349,15 +1349,11 @@ $.fn.colorpicker = function(options){
 				$.colorpicker._isDragging = false;
 				return false;
 			});
-			$(window).on('resize', function(){
-				if($.colorpicker._colorpickerShowing){
-					$.colorpicker._positionColorpicker();
-				}
-			})			
-
-		$.colorpicker._setMode($.colorpicker.mode);
-
-		$.colorpicker.initialized = true;
+		$(window).on('resize.colorpicker', function(){
+			if($.colorpicker._colorpickerShowing){
+				$.colorpicker._positionColorpicker();
+			}
+		}, {passive: true})
 	}
 
 	var otherArgs = Array.prototype.slice.call(arguments, 1);

@@ -118,15 +118,15 @@ jQuery(document).ready(function($) {
 				e.preventDefault();
 				e.stopPropagation();
 			});
-			$(window).on('scroll resize', function() {
+			$(window).on('scroll.qtip resize.qtip', function() {
 				$tt.qtip('reposition');
-			});
+			}, {passive: true});
 		} else if (data.behavior === 'always') {
 			config.show = true;
 			config.hide = false;
-			$(window).on('scroll resize', function() {
+			$(window).on('scroll.qtip resize.qtip', function() {
 				$tt.qtip('reposition');
-			});
+			}, {passive: true});
 		} else if (data.behavior === 'hover' && is_advanced) {
 			config.hide = {
 				fixed: true,

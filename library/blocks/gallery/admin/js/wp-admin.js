@@ -173,7 +173,7 @@ jQuery.noConflict();
 	  	/* we set the thickbox dynamic rezising */
 	  	$('#TB_window').css("height", thickbox_height + "px");
 
-	  	$(window).resize(function() {
+	  	$(window).on('resize.thickbox', function() {
 
 	  		var thickbox_height = ($(window).height() * 90) / 100;
 
