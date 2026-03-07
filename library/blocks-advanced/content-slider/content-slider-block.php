@@ -136,6 +136,45 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		wp_enqueue_script('padma-content-slider-slider-js', $theme_url . 'js/owl.carousel.min.js', array('jquery'), '1.0', false);
 	}
 
+	public static function dynamic_css($block_id, $block = false) {
+		if ( !$block )
+			$block = \PadmaBlocksData::get_block($block_id);
+
+		$image_max_height = !empty($block['settings']['image-max-height']) ? intval($block['settings']['image-max-height']) : 400;
+
+		$css = '
+			#content-slider-' . $block_id . ' .item {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+			#content-slider-' . $block_id . ' .item img {
+				max-width: 100%;
+				max-height: ' . $image_max_height . 'px;
+				height: auto;
+				width: 100%;
+				object-fit: contain;
+				display: block;
+			}
+			#content-slider-' . $block_id . ' .item h3,
+			#content-slider-' . $block_id . ' .item p,
+			#content-slider-' . $block_id . ' .item a {
+				margin: 10px 0;
+				padding: 0 15px;
+				width: 100%;
+				box-sizing: border-box;
+			}
+			#content-slider-' . $block_id . ' .owl-carousel {
+				margin-bottom: 0;
+			}
+			#content-slider-' . $block_id . ' .owl-stage-outer {
+				padding-bottom: 0;
+			}
+		';
+
+		return $css;
+	}
+
 	function content($block) {
 
 		// Content
@@ -151,8 +190,6 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		$showLinkText		= ( !empty($block['settings']['show-link-text']) ) ? $block['settings']['show-link-text']: __( 'Mehr anzeigen', 'padma' );
 
 		
-		global $post;
-
 		$args 	= array ( 
 					'post_type' 		=> $post_type,
 					//'posts_per_page' 	=> $number,
@@ -170,14 +207,16 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 			);
 		}
 
-		$content_slider_query = new WP_Query( $args );
+		$content_slider_query = new \WP_Query( $args );
 
+		// Keine Posts gefunden - gib nichts aus
+		if ( !$content_slider_query->have_posts() ) {
+			return;
+		}
 
 		$result = '<div id="content-slider-'.$block['id'].'" class="owl-carousel owl-theme">';
 
-		while ( $content_slider_query->have_posts() ) : $content_slider_query->the_post();
-
-			setup_postdata( $post );			
+		while ( $content_slider_query->have_posts() ) : $content_slider_query->the_post();			
 
 			if( !empty($block['settings']['item-width']) ){
 				$itemTag = '<div class="item" style="width:'.$block['settings']['item-width'].'px">';
@@ -186,18 +225,20 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 			}
 
 			if($onlyShowTitle){
+				$result .= $itemTag;
 				if($linkTitle){
 					$result .= '<h3><a href="'.get_permalink().'">'.get_the_title().'</a></h3>';
 				}else{
 					$result .= '<h3>'.get_the_title().'</h3>';
 				}
+				$result .= '</div>';
 			}else{
 
 				if($onlyShowFeatured && has_post_thumbnail()){
 					$result .= $itemTag;
 					$result .= get_the_post_thumbnail( 
 						$post->ID, 
-						'content-slider-thumb', 
+						'large', 
 						array( 
 							'class' => "img-responsive",
 							'alt' 	=> get_the_title(),
@@ -211,7 +252,7 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 					$result .= $itemTag;
 					$result .= get_the_post_thumbnail( 
 						$post->ID, 
-						'content-slider-thumb', 
+						'large', 
 						array( 
 							'class' => "img-responsive",
 							'alt' 	=> get_the_title(),
@@ -222,9 +263,9 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 
 					$result .= '<h3>'.get_the_title().'</h3>';
 					if($onlyShowExcerpt){
-						$result .= do_shortcode('<p>'.get_the_excerpt().'</p>');
+						$result .= '<p>'.get_the_excerpt().'</p>';
 					}else{
-						$result .= do_shortcode('<p>'.get_the_content().'</p>');
+						$result .= '<p>'.wp_trim_words(get_the_excerpt(), 30, '...').'</p>';
 					}
 
 					if($showLink){
@@ -234,16 +275,17 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 					$result .= '</div>';
 				
 				}else{
+					$result .= $itemTag;
 					if($onlyShowExcerpt){
-						$result .= $itemTag.do_shortcode('<p>'.get_the_excerpt().'</p>').'</div>';
+						$result .= '<p>'.get_the_excerpt().'</p>';
 					}else{
-						$result .= $itemTag.do_shortcode('<p>'.get_the_content().'</p>').'</div>';
+						$result .= '<p>'.wp_trim_words(get_the_excerpt(), 30, '...').'</p>';
 					}
 
 					if($showLink){
 						$result .= '<a href='.get_the_permalink().'>' . $showLinkText . '</a>';
 					}
-					
+					$result .= '</div>';
 				}
 			}
 
@@ -251,25 +293,27 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		endwhile;
 		wp_reset_postdata();
 
+		$result .= '</div>';
+
 		echo $result;
 	}
 
 	public static function dynamic_js($block_id, $block = false) {
 
 		if ( !$block )
-			$block = PadmaBlocksData::get_block($block_id);
+			$block = \PadmaBlocksData::get_block($block_id);
 
 		// Settings
 		$carouselParams = '';
 
 		// Items
-		$carouselParams .= 'items:' . ( !empty($block['settings']['items']) && $block['settings']['items'] > 0 ? $block['settings']['items'] : '3' ) . ', ';
+		$carouselParams .= 'items:' . ( !empty($block['settings']['items']) && $block['settings']['items'] > 0 ? $block['settings']['items'] : '1' ) . ', ';
 
 		// Margin
 		$carouselParams .= 'margin:' . ( !empty($block['settings']['margin']) ? $block['settings']['margin'] : '0' ) . ', ';
 
 		// Loop
-		$carouselParams .= 'loop:' . ( !empty($block['settings']['loop']) ? $block['settings']['loop'] : 'false' ) . ', ';
+		$carouselParams .= 'loop:' . ( !empty($block['settings']['loop']) ? $block['settings']['loop'] : 'true' ) . ', ';
 
 		// Center
 		$carouselParams .= 'center:' . ( !empty($block['settings']['center']) ? $block['settings']['center'] : 'false' ) . ', ';
@@ -305,7 +349,7 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		$carouselParams .= 'URLhashListener:'. ( !empty($block['settings']['url-hash-listener']) ? $block['settings']['url-hash-listener']: '0' ) . ', ';
 		
 		// nav
-		$carouselParams .= 'nav:'. ( !empty($block['settings']['nav']) ? $block['settings']['nav']: 'false' ) . ', ';
+		$carouselParams .= 'nav:'. ( !empty($block['settings']['nav']) ? $block['settings']['nav']: 'true' ) . ', ';
 
 		// rewind
 		$carouselParams .= 'rewind:'. ( !empty($block['settings']['rewind']) ? $block['settings']['rewind']: 'true' ) . ', ';
@@ -374,8 +418,13 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		// callbacks
 		$carouselParams 	.= 'callbacks:'. (!empty($block['settings']['callbacks']) ? $block['settings']['callbacks'] : 'false') . ', ';
 		
+		// Autoplay
+		$carouselParams .= 'autoplay:'. ( !empty($block['settings']['autoplay']) ? $block['settings']['autoplay'] : 'false' ) . ', ';
+		$carouselParams .= 'autoplayTimeout:'. ( !empty($block['settings']['autoplay-timeout']) ? $block['settings']['autoplay-timeout'] : '5000' ) . ', ';
+		$carouselParams .= 'autoplayHoverPause:'. ( !empty($block['settings']['autoplay-hover-pause']) ? $block['settings']['autoplay-hover-pause'] : 'true' ) . ', ';
+		
 		// responsive
-		//$carouselParams 	.= 'responsive:{ 0:{ items: 1 }, 480:{ items: 1 }, 640:{ items: 2 }, 1200:{ items: 3 }  }' . ', ';
+		$carouselParams 	.= 'responsive:{ 0:{ items: 1 }, 768:{ items: ' . ( !empty($block['settings']['items']) ? $block['settings']['items'] : '1' ) . ' } }, ';
 				
 		// responsiveRefreshRate
 		$carouselParams 	.= 'responsiveRefreshRate:'. (!empty($block['settings']['responsive-refresh-rate']) ? $block['settings']['responsive-refresh-rate'] : '200') . ', ';

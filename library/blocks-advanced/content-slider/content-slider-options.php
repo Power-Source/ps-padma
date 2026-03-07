@@ -145,12 +145,19 @@ class PadmaContentSliderBlockOptions extends \PadmaBlockOptionsAPI {
 				'label' 	=> __( 'Link-Text', 'padma' ),
 				'tooltip' 	=> __( 'Text für den Link zum vollständigen Beitrag', 'padma' ),
 			),
+			'image-max-height' => array(
+				'type' 		=> 'integer',
+				'default' 	=> 400,
+				'name' 		=> 'image-max-height',
+				'label' 	=> __( 'Maximale Bildhöhe', 'padma' ),
+				'tooltip' 	=> __( 'Maximale Höhe der Bilder in Pixel', 'padma' ),
+			),
 		),
 		'slider-tab' => array(
 
 			'items' => array(
 				'type' 		=> 'integer',
-				'default' 	=> 3,
+				'default' 	=> 1,
 				'name' 		=> 'items',
 				'label' 	=> __( 'Anzahl Elemente', 'padma' ),
 				'tooltip' 	=> __( 'Wie viele Elemente sollen gleichzeitig angezeigt werden?', 'padma' ),				
@@ -166,7 +173,7 @@ class PadmaContentSliderBlockOptions extends \PadmaBlockOptionsAPI {
 
 			'loop' => array(
 				'type' 		=> 'checkbox',
-				'default' 	=> false,
+				'default' 	=> true,
 				'name' 		=> 'loop',
 				'label' 	=> __( 'Endlos-Schleife', 'padma' ),
 				'tooltip' 	=> __( 'Endlos-Schleife aktivieren. Dupliziert erste und letzte Elemente für nahtlose Wiederholung', 'padma' ),
@@ -182,7 +189,7 @@ class PadmaContentSliderBlockOptions extends \PadmaBlockOptionsAPI {
 
 			'mouse-drag' => array(
 				'type' 		=> 'checkbox',
-				'default' 	=> false,
+				'default' 	=> true,
 				'name' 		=> 'mouse-drag',
 				'label' 	=> __( 'Maus-Drag', 'padma' ),
 				'tooltip' 	=> __( 'Slider mit der Maus ziehen aktivieren', 'padma' ),
@@ -190,7 +197,7 @@ class PadmaContentSliderBlockOptions extends \PadmaBlockOptionsAPI {
 
 			'touch-drag' => array(
 				'type' 		=> 'checkbox',
-				'default' 	=> false,
+				'default' 	=> true,
 				'name' 		=> 'touch-drag',
 				'label' 	=> __( 'Touch-Drag', 'padma' ),
 				'tooltip' 	=> __( 'Touch-Gesten auf mobilen Geräten aktivieren', 'padma' ),
@@ -198,7 +205,7 @@ class PadmaContentSliderBlockOptions extends \PadmaBlockOptionsAPI {
 			
 			'pull-drag' => array(
 				'type' 		=> 'checkbox',
-				'default' 	=> false,
+				'default' 	=> true,
 				'name' 		=> 'pull-drag',
 				'label' 	=> __( 'Pull Drag', 'padma' ),
 				'tooltip' 	=> __( 'Slider kann bis zum Rand gezogen werden', 'padma' ),
@@ -270,7 +277,7 @@ class PadmaContentSliderBlockOptions extends \PadmaBlockOptionsAPI {
 
 			'nav' => array(
 				'type' 		=> 'checkbox',
-				'default' 	=> false,
+				'default' 	=> true,
 				'name' 		=> 'nav',
 				'label' 	=> __( 'Vor/Zurück-Buttons zeigen', 'padma' ),
 				'tooltip' 	=> __( 'Navigations-Pfeile anzeigen', 'padma' ),
@@ -278,7 +285,7 @@ class PadmaContentSliderBlockOptions extends \PadmaBlockOptionsAPI {
 
 			'rewind' => array(
 				'type' 		=> 'checkbox',
-				'default' 	=> false,
+				'default' 	=> true,
 				'name' 		=> 'rewind',
 				'label' 	=> __( 'Zurückspulen', 'padma' ),
 				'tooltip' 	=> __( 'Spring zurück zum Anfang wenn das Ende erreicht ist', 'padma' ),
@@ -326,7 +333,7 @@ class PadmaContentSliderBlockOptions extends \PadmaBlockOptionsAPI {
 
 			'dots' => array(
 				'type' 		=> 'checkbox',
-				'default' 	=> false,
+				'default' 	=> true,
 				'name' 		=> 'dots',
 				'label' 	=> __( 'Punkte', 'padma' ),
 				'tooltip' 	=> __( 'Zeige Punkt-Navigation', 'padma' ),
