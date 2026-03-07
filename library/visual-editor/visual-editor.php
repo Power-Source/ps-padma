@@ -336,9 +336,17 @@ class PadmaVisualEditor {
 								if ( isset($blocks[$id]['new']) )
 									continue 2;
 
-								PadmaBlocksData::delete_block($id);
+								/* Delete the block with error handling */
+								try {
+									$delete_result = PadmaBlocksData::delete_block($id);
+									error_log('Block ' . $id . ' deleted successfully');
+								} catch (Exception $e) {
+									error_log('Error deleting block ' . $id . ': ' . $e->getMessage());
+									// Continue with next block even if deletion fails
+								}
 
-								break;
+								/* Continue to next block */
+								continue 2;
 
 							case 'dimensions':
 

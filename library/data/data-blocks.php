@@ -57,6 +57,11 @@ class PadmaBlocksData {
 		//Run the query
 		$wpdb->insert($wpdb->pu_blocks, $insert_args);
 
+		/* Clear caches for new block */
+		wp_cache_delete('pu_blocks_by_layout_' . $layout_id);
+		wp_cache_delete('pu_blocks_by_type_' . $args['type']);
+		wp_cache_delete('pu_all_blocks');
+
 		//All done. Spit back ID of newly created block.
 		return $insert_args['id'];
 
@@ -101,6 +106,12 @@ class PadmaBlocksData {
 			'id' => $block_id
 		));
 
+		/* Clear caches for updated block */
+		wp_cache_delete('pu_block_' . $block_id);
+		wp_cache_delete('pu_blocks_by_layout_' . $block_to_be_updated['layout']);
+		wp_cache_delete('pu_blocks_by_type_' . $block_to_be_updated['type']);
+		wp_cache_delete('pu_all_blocks');
+
 		return $query;
 
 	}
@@ -116,11 +127,27 @@ class PadmaBlocksData {
 		if ( !$block_to_be_deleted )
 			return null;
 
+		/* Log deletion for debugging */
+		error_log('DEBUG: Deleting block ID: ' . $block_id . ' from layout: ' . $block_to_be_deleted['layout']);
+
+		/* Store layout and type before deletion for cache clearing */
+		$layout_id = $block_to_be_deleted['layout'];
+		$block_type = $block_to_be_deleted['type'];
+
+		/* Clear caches BEFORE deletion to prevent stale cache reads */
+		wp_cache_delete('pu_block_' . $block_id);
+		wp_cache_delete('pu_blocks_by_layout_' . $layout_id);
+		wp_cache_delete('pu_blocks_by_layout_' . $layout_id . '_wrapper_' . $block_to_be_deleted['wrapper_id']);
+		wp_cache_delete('pu_blocks_by_type_' . $block_type);
+		wp_cache_delete('pu_all_blocks');
+
 		/* Query for deletion */
 		$query = $wpdb->delete( $wpdb->pu_blocks, array(
 			'template' => PadmaOption::$current_skin,
 			'id' => $block_id
 		));
+
+		error_log('DEBUG: Delete query result: ' . ($query !== false ? 'success' : 'failed'));
 
 		/* Unmirror the blocks mirroring this block */
 		$wpdb->update( $wpdb->pu_blocks, array(
@@ -128,9 +155,6 @@ class PadmaBlocksData {
 		), array(
 			'mirror_id' => $block_id
 		));
-
-		/* Get block type */
-		$block_type = $block_to_be_deleted['type'];
 
 		/* Remove design settings and instances for this block */
 		self::delete_block_design_instances($block_id, $block_type);
@@ -239,9 +263,14 @@ class PadmaBlocksData {
 
 		global $wpdb;
 
-		return $wpdb->delete( $wpdb->pu_blocks, array(
+		$result = $wpdb->delete( $wpdb->pu_blocks, array(
 			'template' => $template
 		));
+
+		/* Clear all block caches since we're deleting an entire template */
+		wp_cache_flush();
+
+		return $result;
 
 	}
 
