@@ -22,6 +22,19 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 	function init() {
 		$this->name = __( 'Content Slider', 'padma' );
 	}
+
+	private static function is_visual_editor_context($block = array()) {
+		if ( padma_get('ve-iframe') || padma_get('visual-editor-open') || padma_get('visual-editor') )
+			return true;
+
+		if ( class_exists('\\PadmaRoute') && ( \PadmaRoute::is_visual_editor() || \PadmaRoute::is_visual_editor_iframe() ) )
+			return true;
+
+		if ( !empty($block['ve-live-content-query']) )
+			return true;
+
+		return false;
+	}
     
 			
 	function setup_elements() {
@@ -29,98 +42,98 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		$this->register_block_element(array(
 			'id' => 'slide',
 			'name' => 'Slide',
-			'selector' => '.swiper-slide'
+			'selector' => '.item'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-p',
 			'name' => 'Slide Text',
-			'selector' => '.swiper-slide p'
+			'selector' => '.item p'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-a',
 			'name' => 'Slide Link',
-			'selector' => '.swiper-slide a'
+			'selector' => '.item a'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-h1',
 			'name' => 'Slide H1',
-			'selector' => '.swiper-slide h1'
+			'selector' => '.item h1'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-h2',
 			'name' => 'Slide H2',
-			'selector' => '.swiper-slide h2'
+			'selector' => '.item h2'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-h3',
 			'name' => 'Slide H3',
-			'selector' => '.swiper-slide h3'
+			'selector' => '.item h3'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-h4',
 			'name' => 'Slide H4',
-			'selector' => '.swiper-slide h4'
+			'selector' => '.item h4'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-h5',
 			'name' => 'Slide H5',
-			'selector' => '.swiper-slide h5'
+			'selector' => '.item h5'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-ul',
 			'name' => 'Slide UL',
-			'selector' => '.swiper-slide ul'
+			'selector' => '.item ul'
 		));
 
 
 		$this->register_block_element(array(
 			'id' => 'slide-li',
 			'name' => 'Slide LI',
-			'selector' => '.swiper-slide li'
+			'selector' => '.item li'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'dots',
 			'name' => 'Punkte',
-			'selector' => '.swiper-pagination'
+			'selector' => '.owl-dots'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'dots-item',
 			'name' => 'Punkte Item',
-			'selector' => '.swiper-pagination-bullet'
+			'selector' => '.owl-dot'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'nav',
 			'name' => 'Navigation',
-			'selector' => '.swiper-button-next, .swiper-button-prev'
+			'selector' => '.owl-nav'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'nav-item',
 			'name' => 'Navigation Item',
-			'selector' => '.swiper-button-next, .swiper-button-prev'
+			'selector' => '.owl-nav button'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'nav-item-next',
 			'name' => 'Navigation Weiter',
-			'selector' => '.swiper-button-next'
+			'selector' => '.owl-nav button.owl-next'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'nav-item-prev',
 			'name' => 'Navigation Zurück',
-			'selector' => '.swiper-button-prev'
+			'selector' => '.owl-nav button.owl-prev'
 		));
 
 		
@@ -142,10 +155,47 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		$image_max_height = !empty($block['settings']['image-max-height']) ? intval($block['settings']['image-max-height']) : 400;
 
 		$css = '
+			#content-slider-' . $block_id . ' {
+				overflow: hidden;
+			}
+			#content-slider-' . $block_id . '.content-slider-ve-preview {
+				overflow: visible;
+			}
+			#content-slider-' . $block_id . '.content-slider-ve-preview.owl-carousel {
+				display: flex;
+				flex-wrap: nowrap;
+				overflow-x: auto;
+				overflow-y: hidden;
+				gap: 12px;
+				padding-bottom: 10px;
+			}
+			#content-slider-' . $block_id . '.content-slider-ve-preview .item {
+				min-width: 260px;
+				flex: 0 0 260px;
+			}
+			#content-slider-' . $block_id . '.content-slider-ve-preview .owl-nav,
+			#content-slider-' . $block_id . '.content-slider-ve-preview .owl-dots {
+				display: block;
+				width: 100%;
+			}
+			#content-slider-' . $block_id . '.content-slider-ve-preview .owl-nav {
+				position: static;
+				transform: none;
+				margin-top: 10px;
+				pointer-events: auto;
+				z-index: 1;
+			}
+			#content-slider-' . $block_id . '.content-slider-ve-preview .owl-nav button {
+				pointer-events: auto;
+				display: inline-block;
+			}
 			#content-slider-' . $block_id . ' .item {
 				display: flex;
 				flex-direction: column;
 				align-items: center;
+				justify-content: center;
+				padding: 10px;
+				box-sizing: border-box;
 			}
 			#content-slider-' . $block_id . ' .item img {
 				max-width: 100%;
@@ -155,7 +205,12 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 				object-fit: contain;
 				display: block;
 			}
+			#content-slider-' . $block_id . ' .item h1,
+			#content-slider-' . $block_id . ' .item h2,
 			#content-slider-' . $block_id . ' .item h3,
+			#content-slider-' . $block_id . ' .item h4,
+			#content-slider-' . $block_id . ' .item h5,
+			#content-slider-' . $block_id . ' .item h6,
 			#content-slider-' . $block_id . ' .item p,
 			#content-slider-' . $block_id . ' .item a {
 				margin: 10px 0;
@@ -164,10 +219,52 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 				box-sizing: border-box;
 			}
 			#content-slider-' . $block_id . ' .owl-carousel {
-				margin-bottom: 0;
+				margin: 0;
+				padding: 0;
 			}
 			#content-slider-' . $block_id . ' .owl-stage-outer {
-				padding-bottom: 0;
+				padding: 0;
+				overflow: visible !important;
+			}
+			#content-slider-' . $block_id . ' .owl-stage {
+				display: flex;
+			}
+			#content-slider-' . $block_id . ' .owl-nav {
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				width: 100%;
+				display: flex;
+				justify-content: space-between;
+				pointer-events: none;
+			}
+			#content-slider-' . $block_id . ' .owl-nav button {
+				pointer-events: all;
+				background: rgba(0,0,0,0.3);
+				color: #fff;
+				border: none;
+				padding: 10px 15px;
+				cursor: pointer;
+				font-size: 18px;
+			}
+			#content-slider-' . $block_id . ' .owl-nav button:hover {
+				background: rgba(0,0,0,0.6);
+			}
+			#content-slider-' . $block_id . ' .owl-dots {
+				text-align: center;
+				margin-top: 15px;
+			}
+			#content-slider-' . $block_id . ' .owl-dot {
+				height: 12px;
+				width: 12px;
+				margin: 0 5px;
+				background: #ccc;
+				display: inline-block;
+				border-radius: 50%;
+				cursor: pointer;
+			}
+			#content-slider-' . $block_id . ' .owl-dot.active {
+				background: #333;
 			}
 		';
 
@@ -213,7 +310,10 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 			return;
 		}
 
-		$result = '<div id="content-slider-'.$block['id'].'" class="owl-carousel owl-theme">';
+		$in_visual_editor = self::is_visual_editor_context($block);
+		$slider_classes = 'owl-carousel owl-theme' . ( $in_visual_editor ? ' content-slider-ve-preview' : '' );
+
+		$result = '<div id="content-slider-'.$block['id'].'" class="'.$slider_classes.'">';
 
 		while ( $content_slider_query->have_posts() ) : $content_slider_query->the_post();			
 
@@ -291,6 +391,19 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 
 		endwhile;
 		wp_reset_postdata();
+
+		if ( $in_visual_editor ) {
+			$result .= '<div class="owl-nav">';
+			$result .= '<button type="button" class="owl-prev" aria-label="Previous">‹</button>';
+			$result .= '<button type="button" class="owl-next" aria-label="Next">›</button>';
+			$result .= '</div>';
+
+			$result .= '<div class="owl-dots">';
+			$result .= '<button type="button" class="owl-dot active" aria-label="Dot 1"></button>';
+			$result .= '<button type="button" class="owl-dot" aria-label="Dot 2"></button>';
+			$result .= '<button type="button" class="owl-dot" aria-label="Dot 3"></button>';
+			$result .= '</div>';
+		}
 
 		$result .= '</div>';
 
