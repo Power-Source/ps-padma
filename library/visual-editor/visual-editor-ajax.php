@@ -1111,7 +1111,11 @@ class PadmaVisualEditorAJAX {
 			
 			foreach ( $allowed_fields as $field ) {
 				if ( isset($meta_data[$field]) ) {
-					$template_meta[$field] = sanitize_text_field($meta_data[$field]);
+					if ( in_array($field, array('documentation-url', 'image-url')) ) {
+						$template_meta[$field] = esc_url_raw($meta_data[$field]);
+					} else {
+						$template_meta[$field] = sanitize_text_field($meta_data[$field]);
+					}
 				}
 			}
 
@@ -1182,7 +1186,7 @@ class PadmaVisualEditorAJAX {
 			$result = PadmaDataPortability::install_skin($template_data);
 
 			// Cleanup temp directory
-			$this->delete_directory_recursive($temp_dir);
+			self::delete_directory_recursive($temp_dir);
 
 			// Delete uploaded ZIP
 			@unlink($zip_file);

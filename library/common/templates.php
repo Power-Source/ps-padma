@@ -37,6 +37,7 @@ class PadmaTemplates {
 				$skin = array_merge(array(
 					'id' => $installed_skin_id, 
 					'description' => null,
+					'documentation-url' => null,
 					'version' => null,
 					'author' => null
 				), $installed_skin);
@@ -51,7 +52,8 @@ class PadmaTemplates {
 							'author',
 							'version',
 							'image-url',
-							'description'
+							'description',
+							'documentation-url'
 						);
 
 						if ( !in_array($skin_key, $keys_allowed) ) {

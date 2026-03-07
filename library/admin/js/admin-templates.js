@@ -27,6 +27,66 @@ jQuery(document).ready(function($) {
 				myTemplates: ko.observableArray(myTemplates),
 				standardTemplates: ko.observableArray(standardTemplates),
 				active: ko.observable(Padma.templateActive),
+				editTemplateMeta: function() {
+
+					var skin = this;
+
+					$('#edit-template-meta-form').data('template-id', skin.id);
+					$('#edit-template-name').val(skin.name || '');
+					$('#edit-template-author').val(skin.author || '');
+					$('#edit-template-version').val(skin.version || '');
+					$('#edit-template-description').val(skin.description || '');
+					$('#edit-template-doc-url').val(skin['documentation-url'] || '');
+					$('#edit-template-image').val(skin['image-url'] || '');
+
+					if ( skin['image-url'] ) {
+						$('#edit-template-image-preview').attr('src', skin['image-url']).show();
+					} else {
+						$('#edit-template-image-preview').hide();
+					}
+
+				},
+				downloadTemplate: function() {
+
+					var skin = this;
+
+					if ( !skin.id || skin.id === 'base' )
+						return;
+
+					$.post(Padma.ajaxURL, {
+						security: Padma.security,
+						action: 'padma_visual_editor',
+						method: 'download_template',
+						template_id: skin.id
+					}, function(response) {
+
+						if ( response && response.download_url ) {
+							window.location = response.download_url;
+
+							if ( response.file_path ) {
+								setTimeout(function() {
+									$.post(Padma.ajaxURL, {
+										security: Padma.security,
+										action: 'padma_visual_editor',
+										method: 'cleanup_download',
+										file_path: response.file_path
+									});
+								}, 2000);
+							}
+
+						} else {
+							showNotification({
+								id: 'template-download-error',
+								message: (response && response.error) ? response.error : 'Could not download template.',
+								closable: true,
+								closeTimer: 6000,
+								error: true
+							});
+						}
+
+					}, 'json');
+
+				},
 				activateSkin: function() {
 
 					var skin = this;
@@ -497,6 +557,83 @@ jQuery(document).ready(function($) {
 
 					}, 'json');
 
+			});
+
+		/* Edit Template Meta */
+			$('#edit-template-meta-submit').on('click', function(event) {
+
+				event.preventDefault();
+
+				var templateID = $('#edit-template-meta-form').data('template-id');
+
+				if ( !templateID )
+					return;
+
+				var metaData = {
+					name: $('#edit-template-name').val(),
+					author: $('#edit-template-author').val(),
+					version: $('#edit-template-version').val(),
+					description: $('#edit-template-description').val(),
+					'documentation-url': $('#edit-template-doc-url').val(),
+					'image-url': $('#edit-template-image').val()
+				};
+
+				$.post(Padma.ajaxURL, {
+					security: Padma.security,
+					action: 'padma_visual_editor',
+					method: 'update_template_meta',
+					template_id: templateID,
+					meta_data: JSON.stringify(metaData)
+				}, function(response) {
+
+					if ( response && response.success ) {
+						window.location.reload();
+					} else {
+						showNotification({
+							id: 'template-update-error',
+							message: (response && response.error) ? response.error : 'Could not update template.',
+							closable: true,
+							closeTimer: 6000,
+							error: true
+						});
+					}
+
+				}, 'json');
+
+			});
+
+		/* Edit Template Image */
+			var BTTemplateEditImageFrame;
+
+			$('#edit-template-image-button').on('click', function (event) {
+
+				event.preventDefault();
+
+				if (BTTemplateEditImageFrame) {
+					BTTemplateEditImageFrame.open();
+					return;
+				}
+
+				BTTemplateEditImageFrame = wp.media.frames.file_frame = wp.media({
+					title: 'Select Image for Template',
+					button: {
+						text: 'Select Image',
+					},
+					multiple: false
+				});
+
+				BTTemplateEditImageFrame.on('select', function () {
+					attachment = BTTemplateEditImageFrame.state().get('selection').first().toJSON();
+
+					$('input#edit-template-image').val(attachment.url);
+
+					$('img#edit-template-image-preview')
+						.attr('src', attachment.url)
+						.show();
+
+				});
+
+				BTTemplateEditImageFrame.open();
 			});
 
 		}
