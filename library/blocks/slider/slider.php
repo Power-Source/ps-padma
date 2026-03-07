@@ -47,8 +47,10 @@ class PadmaSliderBlock extends PadmaBlockAPI {
 			return false;
 
 		return '
-jQuery(window).load(function(){
-	jQuery(\'#block-' . $block['id'] . ' .flexslider\').flexslider({
+if(document.readyState === "loading") {
+	document.addEventListener("DOMContentLoaded", function(){
+		if(document.querySelector(\'#block-' . $block['id'] . ' .flexslider\')) {
+			jQuery(\'#block-' . $block['id'] . ' .flexslider\').flexslider({
 	   animation: "' . (parent::get_setting($block, 'animation', 'slide-horizontal') == 'fade' ? 'fade' : 'slide') . '",
 	   direction: "' . (parent::get_setting($block, 'animation', 'slide-horizontal') == 'slide-vertical' ? 'vertical' : 'horizontal') . '",
 	   slideshow: ' . (parent::get_setting($block, 'slideshow', true) ? 'true' : 'false') . ',
@@ -58,8 +60,24 @@ jQuery(window).load(function(){
 	   controlNav: ' . (parent::get_setting($block, 'show-pager-nav', true) ? 'true' : 'false') . ',
 	   directionNav: ' . (parent::get_setting($block, 'show-direction-nav', true) ? 'true' : 'false') . ',
 	   randomize: ' . (parent::get_setting($block, 'randomize-order', false) ? 'true' : 'false') . '
+			});
+		}
 	});
-});' . "\n";
+} else {
+	if(document.querySelector(\'#block-' . $block['id'] . ' .flexslider\')) {
+		jQuery(\'#block-' . $block['id'] . ' .flexslider\').flexslider({
+		   animation: "' . (parent::get_setting($block, 'animation', 'slide-horizontal') == 'fade' ? 'fade' : 'slide') . '",
+		   direction: "' . (parent::get_setting($block, 'animation', 'slide-horizontal') == 'slide-vertical' ? 'vertical' : 'horizontal') . '",
+		   slideshow: ' . (parent::get_setting($block, 'slideshow', true) ? 'true' : 'false') . ',
+		   slideshowSpeed: ' . (parent::get_setting($block, 'animation-timeout', 6) * 1000) . ',
+		   animationSpeed: ' . (parent::get_setting($block, 'animation-speed', 500)) . ', 
+		   randomize: false,     
+		   controlNav: ' . (parent::get_setting($block, 'show-pager-nav', true) ? 'true' : 'false') . ',
+		   directionNav: ' . (parent::get_setting($block, 'show-direction-nav', true) ? 'true' : 'false') . ',
+		   randomize: ' . (parent::get_setting($block, 'randomize-order', false) ? 'true' : 'false') . '
+		});
+	}
+}' . "\n";
 
 	}
 

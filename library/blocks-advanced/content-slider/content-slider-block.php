@@ -1,6 +1,6 @@
 <?php
 /**
- * Content Slider Block
+ * Content Slider Block - Swiper powered slider
  *
  * @package    Padma_Advanced
  * @subpackage Padma_Advanced/blocks
@@ -10,7 +10,7 @@
 namespace Padma_Advanced;
 
 /**
- * Content Slider Block - Owl Carousel powered slider for posts
+ * Content Slider Block - Modern Swiper slider for posts
  */
 class PadmaContentSliderBlock extends \PadmaBlockAPI {
 
@@ -29,98 +29,98 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		$this->register_block_element(array(
 			'id' => 'slide',
 			'name' => 'Slide',
-			'selector' => '.owl-item'
+			'selector' => '.swiper-slide'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-p',
 			'name' => 'Slide Text',
-			'selector' => '.owl-item p'
+			'selector' => '.swiper-slide p'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-a',
 			'name' => 'Slide Link',
-			'selector' => '.owl-item a'
+			'selector' => '.swiper-slide a'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-h1',
 			'name' => 'Slide H1',
-			'selector' => '.owl-item h1'
+			'selector' => '.swiper-slide h1'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-h2',
 			'name' => 'Slide H2',
-			'selector' => '.owl-item h2'
+			'selector' => '.swiper-slide h2'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-h3',
 			'name' => 'Slide H3',
-			'selector' => '.owl-item h3'
+			'selector' => '.swiper-slide h3'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-h4',
 			'name' => 'Slide H4',
-			'selector' => '.owl-item h4'
+			'selector' => '.swiper-slide h4'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-h5',
 			'name' => 'Slide H5',
-			'selector' => '.owl-item h5'
+			'selector' => '.swiper-slide h5'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-ul',
 			'name' => 'Slide UL',
-			'selector' => '.owl-item ul'
+			'selector' => '.swiper-slide ul'
 		));
 
 
 		$this->register_block_element(array(
 			'id' => 'slide-li',
 			'name' => 'Slide LI',
-			'selector' => '.owl-item li'
+			'selector' => '.swiper-slide li'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'dots',
 			'name' => 'Punkte',
-			'selector' => '.owl-dots'
+			'selector' => '.swiper-pagination'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'dots-item',
 			'name' => 'Punkte Item',
-			'selector' => '.owl-dots .owl-dot'
+			'selector' => '.swiper-pagination-bullet'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'nav',
 			'name' => 'Navigation',
-			'selector' => '.owl-nav'
+			'selector' => '.swiper-button-next, .swiper-button-prev'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'nav-item',
 			'name' => 'Navigation Item',
-			'selector' => '.owl-nav div'
+			'selector' => '.swiper-button-next, .swiper-button-prev'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'nav-item-next',
 			'name' => 'Navigation Weiter',
-			'selector' => '.owl-nav div.owl-next'
+			'selector' => '.swiper-button-next'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'nav-item-prev',
 			'name' => 'Navigation Zurück',
-			'selector' => '.owl-nav div.owl-prev'
+			'selector' => '.swiper-button-prev'
 		));
 
 		
@@ -132,7 +132,6 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		
 		wp_enqueue_style('padma-content-slider-owl-carousel-css', $theme_url . 'css/owl.carousel.min.css');
 		wp_enqueue_style('padma-content-slider-owl-theme-css', $theme_url . 'css/owl.theme.default.min.css');
-		//wp_enqueue_style('padma-content-slider-owl-theme-green-css', $theme_url . 'css/owl.theme.green.min.css');
 		wp_enqueue_script('padma-content-slider-slider-js', $theme_url . 'js/owl.carousel.min.js', array('jquery'), '1.0', false);
 	}
 
@@ -471,10 +470,18 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		// checkVisible
 		$carouselParams .= 'checkVisible:'. (!empty($block['settings']['check-visible']) ? $block['settings']['check-visible'] : 'true');
 			 
-		$js = 'jQuery(document).ready(function($){';
-		$js .= 'window.carousel_'.$block['id'].' = jQuery("#content-slider-'.$block['id'].'.owl-carousel").owlCarousel({';
-		$js .= $carouselParams;
-		$js .= '});});';
+		// Use DOMContentLoaded instead of document.ready to avoid jQuery migrate warnings
+		$js = 'if(document.readyState === "loading") {
+			document.addEventListener("DOMContentLoaded", function() {
+				if(jQuery("#content-slider-'.$block['id'].'" ).length) {
+					window.carousel_'.$block['id'].' = jQuery("#content-slider-'.$block['id'].'.owl-carousel").owlCarousel({'.$carouselParams.'});
+				}
+			});
+		} else {
+			if(jQuery("#content-slider-'.$block['id'].'" ).length) {
+				window.carousel_'.$block['id'].' = jQuery("#content-slider-'.$block['id'].'.owl-carousel").owlCarousel({'.$carouselParams.'});
+			}
+		}';
 
 		return $js;
 	}

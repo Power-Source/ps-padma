@@ -819,22 +819,43 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 		$show_items 	 = ( !empty($block['settings']['show_items']) ) ? $block['settings']['show_items']: 3;
 		$show_pagination = ( !empty($block['settings']['show_pagination']) ) ? $block['settings']['show_pagination']: 'true';
 
-		return 'jQuery(document).ready(function($) {
-					$("#tppost-main-slider-'.$block['id'].'").owlCarousel({
-					autoPlay: '.$auto_play.',
-					stopOnHover: true,
-					items : '.$show_items.',
-					itemsDesktop : [1199,'.$show_items.'],
-					itemsDesktopSmall : [979,'.$show_items.'],
-					itemsTablet : [979,'.$show_items.'],
-					itemsTabletSmall : [979,'.$show_items.'],
-					itemsMobile : [979,'.$show_items.'],
-					navigation : false,
-					navigationText : ["‹","›"],
-					paginationNumbers: false,
-					pagination: '.$show_pagination.',
+		return 'if(document.readyState === "loading") {
+					document.addEventListener("DOMContentLoaded", function() {
+						if(jQuery("#tppost-main-slider-'.$block['id'].'").length) {
+							jQuery("#tppost-main-slider-'.$block['id'].'").owlCarousel({
+								autoPlay: '.$auto_play.',
+								stopOnHover: true,
+								items : '.$show_items.',
+								itemsDesktop : [1199,'.$show_items.'],
+								itemsDesktopSmall : [979,'.$show_items.'],
+								itemsTablet : [979,'.$show_items.'],
+								itemsTabletSmall : [979,'.$show_items.'],
+								itemsMobile : [979,'.$show_items.'],
+								navigation : false,
+								navigationText : ["‹","›"],
+								paginationNumbers: false,
+								pagination: '.$show_pagination.'
+							});
+						}
 					});
-				});';
+				} else {
+					if(jQuery("#tppost-main-slider-'.$block['id'].'").length) {
+						jQuery("#tppost-main-slider-'.$block['id'].'").owlCarousel({
+							autoPlay: '.$auto_play.',
+							stopOnHover: true,
+							items : '.$show_items.',
+							itemsDesktop : [1199,'.$show_items.'],
+							itemsDesktopSmall : [979,'.$show_items.'],
+							itemsTablet : [979,'.$show_items.'],
+							itemsTabletSmall : [979,'.$show_items.'],
+							itemsMobile : [979,'.$show_items.'],
+							navigation : false,
+							navigationText : ["‹","›"],
+							paginationNumbers: false,
+							pagination: '.$show_pagination.'
+						});
+					}
+				}';
 	}
 
 	public static function dynamic_css($block_id, $block = false) {

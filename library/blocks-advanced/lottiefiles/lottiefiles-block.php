@@ -98,15 +98,29 @@ class PadmaVisualElementsBlockLottieFiles extends \PadmaBlockAPI {
 
 		$container = 'svgContainer-' . $block['id'];
 
-		$js = "jQuery(document).ready(function() {";		
+		$js = "if(document.readyState === 'loading') {";
+		$js .= "document.addEventListener('DOMContentLoaded', function() {";
 		$js .= "var svgContainer = document.getElementById('".$container."');";
+		$js .= "if(svgContainer) {";
 		$js .= "var animItem = bodymovin.loadAnimation({";
-		$js .= "	wrapper: svgContainer,";
-		$js .= "	animType: 'svg',";
-		$js .= "	loop: ".$loop.",";
-		$js .= "	" . $origin . ": '". $source ."'";
+		$js .= "wrapper: svgContainer,";
+		$js .= "animType: 'svg',";
+		$js .= "loop: ".$loop.",";
+		$js .= $origin . ": '" . $source . "'";
 		$js .= "});";
+		$js .= "}";
 		$js .= "});";
+		$js .= "} else {";
+		$js .= "var svgContainer = document.getElementById('".$container."');";
+		$js .= "if(svgContainer) {";
+		$js .= "var animItem = bodymovin.loadAnimation({";
+		$js .= "wrapper: svgContainer,";
+		$js .= "animType: 'svg',";
+		$js .= "loop: ".$loop.",";
+		$js .= $origin . ": '" . $source . "'";
+		$js .= "});";
+		$js .= "}";
+		$js .= "}";
 
 		return $js;*/
 		

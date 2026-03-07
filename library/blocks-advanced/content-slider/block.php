@@ -182,11 +182,13 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 			}
 
 			if($onlyShowTitle){
+				$result .= $itemTag;
 				if($linkTitle){
 					$result .= '<h3><a href="'.get_permalink().'">'.get_the_title().'</a></h3>';
 				}else{
 					$result .= '<h3>'.get_the_title().'</h3>';
 				}
+				$result .= '</div>';
 			}else{
 
 				if($onlyShowFeatured && has_post_thumbnail()){
@@ -246,6 +248,7 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 
 		endwhile;
 		wp_reset_postdata();
+		$result .= '</div>';
 
 		echo $result;
 	}
@@ -418,10 +421,17 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		// checkVisible
 		$carouselParams .= 'checkVisible:'. (!empty($block['settings']['check-visible']) ? $block['settings']['check-visible'] : 'true');
 			 
-		$js = 'jQuery(document).ready(function($){';
-		$js .= 'window.carousel_'.$block['id'].' = jQuery("#content-slider-'.$block['id'].'.owl-carousel").owlCarousel({';
-		$js .= $carouselParams;
-		$js .= '});});';
+		$js = 'if(document.readyState === "loading") {
+			document.addEventListener("DOMContentLoaded", function() {
+				if(jQuery("#content-slider-'.$block['id'].'").length) {
+					window.carousel_'.$block['id'].' = jQuery("#content-slider-'.$block['id'].'.owl-carousel").owlCarousel({'.$carouselParams.'});
+				}
+			});
+		} else {
+			if(jQuery("#content-slider-'.$block['id'].'").length) {
+				window.carousel_'.$block['id'].' = jQuery("#content-slider-'.$block['id'].'.owl-carousel").owlCarousel({'.$carouselParams.'});
+			}
+		}';
 
 		return $js;
 	}
