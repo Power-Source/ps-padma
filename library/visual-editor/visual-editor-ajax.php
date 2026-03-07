@@ -1001,7 +1001,12 @@ class PadmaVisualEditorAJAX {
 		}
 
 		/* Template Download - ZIP with metadata */
-		public static function method_download_template() {
+		public static function secure_method_download_template() {
+
+			// CSRF nonce verification
+			if ( !isset($_POST['security']) || !wp_verify_nonce($_POST['security'], 'padma-visual-editor-ajax') ) {
+				wp_die('Security check failed', 403);
+			}
 
 			Padma::load('data/data-portability');
 
@@ -1086,7 +1091,12 @@ class PadmaVisualEditorAJAX {
 		}
 
 		/* Template Metadata Update */
-		public static function method_update_template_meta() {
+		public static function secure_method_update_template_meta() {
+
+			// CSRF nonce verification
+			if ( !isset($_POST['security']) || !wp_verify_nonce($_POST['security'], 'padma-visual-editor-ajax') ) {
+				wp_die('Security check failed', 403);
+			}
 
 			$template_id = padma_post('template_id');
 			$meta_data = json_decode(stripslashes(padma_post('meta_data')), true);
@@ -1130,7 +1140,12 @@ class PadmaVisualEditorAJAX {
 		}
 
 		/* Import Template from ZIP */
-		public static function method_import_template_zip() {
+		public static function secure_method_import_template_zip() {
+
+			// CSRF nonce verification
+			if ( !isset($_POST['security']) || !wp_verify_nonce($_POST['security'], 'padma-visual-editor-ajax') ) {
+				wp_die('Security check failed', 403);
+			}
 
 			Padma::load('data/data-portability');
 
@@ -1226,7 +1241,12 @@ class PadmaVisualEditorAJAX {
 		}
 
 		/* Cleanup downloaded ZIP file */
-		public static function method_cleanup_download() {
+		public static function secure_method_cleanup_download() {
+
+			// CSRF nonce verification
+			if ( !isset($_POST['security']) || !wp_verify_nonce($_POST['security'], 'padma-visual-editor-ajax') ) {
+				wp_die('Security check failed', 403);
+			}
 
 			$file_path = padma_post('file_path');
 

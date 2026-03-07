@@ -32,7 +32,7 @@
 			<tr valign="top">
 				<th scope="row"><label for="template-export-image"><?php _e('Vorlagenbild','padma'); ?></label></th>
 				<td>
-					<button id="template-export-image-button" class="button-secondary">
+					<button id="template-export-image-button" type="button" class="button-secondary">
 						<span class="wp-media-buttons-icon"></span>
 					<?php _e('Bild auswählen','padma'); ?>
 					</button>
@@ -115,7 +115,7 @@
 				<div class="theme padma-template" tabindex="0" data-bind="attr: { 'data-template-id': id }, css: { 'active': $parent.active().id == id, 'missing-image': !$data['image-url'] }">
 
 					<div class="theme-screenshot">
-						<img src="" alt="" data-bind="attr: { 'src': ($data['image-url'] ? $data['image-url'] : '<?php echo esc_js(padma_url() . '/screenshot.png'); ?>') }" />
+						<img src="" alt="" data-bind="visible: $data['image-url'], attr: { 'src': $data['image-url'] }" />
 					</div>
 
 					<div class="theme-author" data-bind="text: 'von ' + author, visible: author"></div>
@@ -128,8 +128,8 @@
 					<p class="theme-description" data-bind="text: description, visible: description" style="font-size: 12px; margin: 5px 0;"></p>
 
 					<div class="theme-actions">
-						<a href="#edit-template-meta" class="button button-secondary template-sub-action ps-modal-trigger edit-template-meta" data-modal-target="edit-template-meta" data-bind="click: $parent.editTemplateMeta"><?php _e('Bearbeiten','padma'); ?></a>
-						<a href="#" class="button button-secondary template-sub-action download-template" data-bind="click: $parent.downloadTemplate"><?php _e('Herunterladen','padma'); ?></a>
+						<a href="#edit-template-meta" class="button button-secondary ps-modal-trigger edit-template-meta" data-modal-target="edit-template-meta" data-bind="click: $parent.editTemplateMeta"><?php _e('Bearbeiten','padma'); ?></a>
+						<a href="#" class="button button-secondary download-template" data-bind="click: $parent.downloadTemplate"><?php _e('Herunterladen','padma'); ?></a>
 						<a href="#" class="button button-secondary delete-template" data-bind="click: $parent.deleteSkin, visible: (id != $parent.active().id && id != 'base')"><?php _e('Löschen','padma'); ?></a>
 						<a class="button button-primary" href="#" data-bind="click: $parent.activateSkin, visible: id != $parent.active().id"><?php _e('Aktivieren','padma'); ?></a>
 					</div>
@@ -157,7 +157,7 @@
 
 				<div class="theme-screenshot">
 					<span class="template-loading-indicator" data-bind="visible: (typeof $data['installing'] != 'undefined' && $data['installing'])"></span>
-					<img src="" alt="" data-bind="attr: { 'src': ($data['image-url'] ? $data['image-url'] : '<?php echo esc_js(padma_url() . '/screenshot.png'); ?>') }" />
+					<img src="" alt="" data-bind="visible: $data['image-url'], attr: { 'src': $data['image-url'] }" />
 				</div>
 
 				<div class="theme-author" data-bind="text: 'von ' + author, visible: author"></div>

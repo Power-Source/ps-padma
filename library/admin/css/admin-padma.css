@@ -231,20 +231,6 @@ form#upload-skin {
 	background: rgba(0, 0, 0, 0);
 }
 
-.padma-templates .padma-template .theme-actions .template-sub-action {
-	color: #444444;
-	text-decoration: none;
-	border-color: rgba(0, 0, 0, 0);
-	box-shadow: none;
-	background: rgba(0, 0, 0, 0);
-}
-
-.padma-templates .padma-template .theme-actions .template-sub-action:hover {
-	background: #444444;
-	color: #FFFFFF;
-	border-color: #444444;
-}
-
 .padma-templates .padma-template .theme-actions .delete-template:hover {
 	background: #D54E21;
 	color: #FFFFFF;

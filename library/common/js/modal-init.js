@@ -10,9 +10,8 @@
 				var targetId = trigger.getAttribute('data-modal-target');
 				var content = document.getElementById(targetId);
 				if(content) {
-					var clone = content.cloneNode(true);
-					clone.style.display = 'block';
-					window.PSModal.open(clone);
+					// Originales Element verwenden, nicht klonen - damit jQuery Event Handler funktionieren
+					window.PSModal.open(content);
 				}
 			}
 		});

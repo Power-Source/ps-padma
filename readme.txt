@@ -82,6 +82,16 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 * Alle Shortcodes direkt im Theme integriert (keine externen Plugins erforderlich)
 * PHP 8.0+ Kompatibilität für Image-Resizer verbessert
 * Block-Registrierung und Init-Prozess für alle Advanced Blocks optimiert
+* NEU: Erweitertes Template-Management-System mit Metadaten-Bearbeitung
+* Template-Export als ZIP-Datei mit vollständigen Metadaten und Manifest
+* Template-Import aus ZIP mit automatischer Metadaten-Wiederherstellung
+* Template-Metadaten erweitert: Beschreibung, Dokumentations-URL, Bild-URL
+* Admin-UI: Separate Ansicht für "Meine Vorlagen" vs "Standard Vorlagen"
+* WordPress Media Library Integration für Template-Bilder
+* Native Modal-Lösung implementiert (jQuery UI komplett entfernt)
+* Knockout.js ViewModel für Template-Arrays mit bidirektionaler Synchronisation
+* Sicherheits-Checks für alle neuen AJAX-Handler implementiert
+* Deutsche Lokalisierung für alle Template-Management-Features
 
 = 1.0.7 =
 * Branding vereinheitlicht auf "PS Padma"

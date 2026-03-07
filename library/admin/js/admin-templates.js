@@ -560,7 +560,7 @@ jQuery(document).ready(function($) {
 			});
 
 		/* Edit Template Meta */
-			$('#edit-template-meta-submit').on('click', function(event) {
+			$('#edit-template-meta-form').on('submit', function(event) {
 
 				event.preventDefault();
 
@@ -599,6 +599,13 @@ jQuery(document).ready(function($) {
 					}
 
 				}, 'json');
+
+			});
+
+			$('#edit-template-meta-submit').on('click', function(event) {
+
+				event.preventDefault();
+				$('#edit-template-meta-form').submit();
 
 			});
 
