@@ -1,20 +1,20 @@
 <?php
 
 /**
- * Google Map Blocks
+ * PS Maps Block
  *
- * @link       https://padmaunlimited.com
- * @since      1.0.0
+ * @link       https://github.com/cp-psource/ps-maps
+ * @since      1.0.8
  *
  * @package    Padma_Advanced
  * @subpackage Padma_Advanced/public
- * @author     Padma Team <support@padmaunlimited.com>
+ * @author     PSOURCE <support@psource.io>
  */
 
 namespace Padma_Advanced;
 
 /**
- * Google Map Block
+ * PS Maps Block - Integration mit PS Maps Plugin
  */
 class PadmaVisualElementsBlockGmap extends \PadmaBlockAPI {
 
@@ -58,18 +58,17 @@ class PadmaVisualElementsBlockGmap extends \PadmaBlockAPI {
 	 */
 	public function __construct() {
 		$this->id            = 'visual-elements-gmap';
-		$this->name          = __( 'Google Map', 'padma-advanced' );
+		$this->name          = __( 'PS Maps', 'padma-advanced' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockGmapOptions';
-		$this->description   = __( 'Will help you to display Google maps, easily . ', 'padma-advanced' );
+		$this->description   = __( 'Zeige Google Maps mit vollständiger Integration in PS Maps Plugin', 'padma-advanced' );
 		$this->categories    = array( 'media' );
 	}
 
 	/**
-	 * Init
+	 * Init - Prüft ob PS Maps Plugin aktiv ist
 	 */
 	public function init() {
-		// Shortcodes are registered in library/shortcode-functions/register.php
-		return function_exists( 'padma_render_gmap' );
+		return class_exists( 'AgmMapModel' );
 	}
 
 	/**
@@ -78,9 +77,9 @@ class PadmaVisualElementsBlockGmap extends \PadmaBlockAPI {
 	public function setup_elements() {
 		$this->register_block_element(
 			array(
-				'id'       => 'gmap',
-				'name'     => 'Gmap',
-				'selector' => 'div.su-gmap',
+				'id'       => 'ps-maps',
+				'name'     => 'PS Maps',
+				'selector' => 'div.agm_google_maps',
 			)
 		);
 	}
@@ -93,46 +92,62 @@ class PadmaVisualElementsBlockGmap extends \PadmaBlockAPI {
 	 */
 	public function content( $block ) {
 
-		$address    = parent::get_setting( $block, 'address' );
-		$responsive = parent::get_setting( $block, 'responsive' );
-		$zoom       = parent::get_setting( $block, 'zoom' );
-		$width      = parent::get_setting( $block, 'width' );
-		$height     = parent::get_setting( $block, 'height' );
-
-		if ( ! $address ) {
-			$address = 'San José, Costa Rica';
+		if ( ! class_exists( 'AgmMapModel' ) ) {
+			echo '<div class="alert alert-red"><p>' . __( 'PS Maps Plugin ist nicht aktiv. Bitte aktiviere das PS Maps Plugin um Karten anzuzeigen.', 'padma-advanced' ) . '</p></div>';
+			return;
 		}
 
-		if ( ! $responsive ) {
-			$responsive = 'yes';
+		$map_id = parent::get_setting( $block, 'map_id' );
+		
+		// Wenn keine Map ausgewählt, zeige Hinweis
+		if ( ! $map_id || $map_id === '' ) {
+			echo '<div class="alert alert-yellow"><p>' . __( 'Bitte wähle eine Map aus oder erstelle eine neue Map im PS Maps Backend.', 'padma-advanced' ) . '</p></div>';
+			return;
 		}
 
-		if ( $zoom < 0 ) {
-			$zoom = 0;
+		// Hole Override-Einstellungen
+		$width  = parent::get_setting( $block, 'width' );
+		$height = parent::get_setting( $block, 'height' );
+		$zoom   = parent::get_setting( $block, 'zoom' );
+		$map_type = parent::get_setting( $block, 'map_type' );
+
+		// Baue Shortcode-Parameter
+		$shortcode_atts = array( 'id' => $map_id );
+		
+		if ( ! empty( $width ) ) {
+			$shortcode_atts['width'] = intval( $width );
+		}
+		
+		if ( ! empty( $height ) ) {
+			$shortcode_atts['height'] = intval( $height );
+		}
+		
+		if ( ! empty( $zoom ) && $zoom > 0 ) {
+			$shortcode_atts['zoom'] = intval( $zoom );
+		}
+		
+		if ( ! empty( $map_type ) ) {
+			$shortcode_atts['map_type'] = strtoupper( $map_type );
 		}
 
-		if ( $zoom > 21 ) {
-			$zoom = 21;
+		// Erstelle Shortcode-String
+		$shortcode_parts = array();
+		foreach ( $shortcode_atts as $key => $value ) {
+			$shortcode_parts[] = $key . '="' . esc_attr( $value ) . '"';
 		}
-
-		if ( $width < 200 ) {
-			$width = 200;
+		
+		// Bestimme welcher Shortcode zu verwenden ist
+		$shortcode_tag = 'agm_map';
+		if ( class_exists( 'AgmMapModel' ) ) {
+			$config = \AgmMapModel::get_config( 'shortcode_map' );
+			if ( $config === 'map' ) {
+				$shortcode_tag = 'map';
+			}
 		}
-
-		if ( $width > 1600 ) {
-			$width = 1600;
-		}
-
-		if ( $height < 200 ) {
-			$height = 200;
-		}
-
-		if ( $height > 1600 ) {
-			$height = 1600;
-		}
-
-		echo do_shortcode( '[su_gmap address="' . $address . '" responsive="' . $responsive . '" zoom="' . $zoom . '" width="' . $width . '" height="' . $height . '" ]' );
-
+		
+		$shortcode = '[' . $shortcode_tag . ' ' . implode( ' ', $shortcode_parts ) . ']';
+		
+		echo do_shortcode( $shortcode );
 	}
 
 }

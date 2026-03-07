@@ -92,6 +92,11 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 * Knockout.js ViewModel für Template-Arrays mit bidirektionaler Synchronisation
 * Sicherheits-Checks für alle neuen AJAX-Handler implementiert
 * Deutsche Lokalisierung für alle Template-Management-Features
+* GMap-Block zu PS Maps Block umgewandelt mit vollständiger PS Maps Plugin Integration
+* PS Maps Block: Dropdown-Auswahl für alle existierenden Maps aus dem Backend
+* PS Maps Block: Optional Override-Parameter für Breite, Höhe, Zoom und Kartentyp
+* PS Maps Block: Nutzt zentrale Google Maps API-Key Verwaltung aus PS Maps Plugin
+* PS Maps Block: Zugriff auf alle PS Maps Features (Marker, Routen, KML, Places, etc.)
 
 = 1.0.7 =
 * Branding vereinheitlicht auf "PS Padma"

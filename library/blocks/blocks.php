@@ -52,7 +52,7 @@ class PadmaBlocks {
 		'dummy-text' => 'Padma_Advanced\\PadmaVisualElementsBlockDummyText',
 		'excerpts-plus' => 'Padma_Advanced\\PadmaVisualElementsBlockExcerptsPlus',
 		'fontawesome' => 'Padma_Advanced\\PadmaVisualElementsFontAwesomeBlock',
-		// 'gmap' => 'Padma_Advanced\\PadmaVisualElementsBlockGoogleMaps', // Class doesn't exist
+		'gmap' => 'Padma_Advanced\\PadmaVisualElementsBlockGmap',
 		'heading' => 'Padma_Advanced\\PadmaVisualElementsBlockHeading',
 		'label' => 'Padma_Advanced\\PadmaVisualElementsBlockLabel',
 		'lightbox' => 'Padma_Advanced\\PadmaVisualElementsBlockLightbox',
