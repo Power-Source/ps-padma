@@ -41,6 +41,7 @@ class PadmaVisualElementsBlockGmapOptions extends \PadmaBlockOptionsAPI {
 		$this->tabs = array(
 			'general'   => __( 'Map Auswahl', 'padma-advanced' ),
 			'overrides' => __( 'Anpassungen', 'padma-advanced' ),
+			'create'    => __( 'Neue Map erstellen', 'padma-advanced' ),
 		);
 
 		$this->sets = array();
@@ -104,6 +105,52 @@ class PadmaVisualElementsBlockGmapOptions extends \PadmaBlockOptionsAPI {
 						'TERRAIN'   => __( 'Gelände', 'padma-advanced' ),
 					),
 					'tooltip' => __( 'Überschreibt den Kartentyp. Leer lassen für Standard-Einstellung.', 'padma-advanced' ),
+				),
+			),
+
+			'create' => array(
+				'create_notice' => array(
+					'name'    => 'create_notice',
+					'type'    => 'notice',
+					'notice'  => __( '<strong>Quick-Create Map:</strong> Gib eine Adresse ein, um schnell eine neue einfache Map zu erstellen. Die Map wird beim ersten Anzeigen der Seite automatisch im PS Maps Plugin angelegt. <br><br><strong>Wichtig:</strong> Die Map wird nur erstellt, wenn <em>keine Map im Tab "Map Auswahl" ausgewählt ist</em>. Wenn du eine existierende Map ausgewählt hast, wird diese verwendet und die Quick-Create-Felder ignoriert.<br><br>Für erweiterte Features (mehrere Marker, Routen, KML, etc.) nutze die Map-Auswahl Tab und erstelle Maps im PS Maps Backend.', 'padma-advanced' ),
+				),
+
+				'create_address' => array(
+					'name'    => 'create_address',
+					'type'    => 'text',
+					'label'   => __( 'Adresse', 'padma-advanced' ),
+					'default' => '',
+					'tooltip' => __( 'Vollständige Adresse (z.B. "Musterstraße 123, 12345 Musterstadt, Deutschland"). Diese wird automatisch geocodiert.', 'padma-advanced' ),
+				),
+
+				'create_map_name' => array(
+					'name'    => 'create_map_name',
+					'type'    => 'text',
+					'label'   => __( 'Map-Name (optional)', 'padma-advanced' ),
+					'default' => '',
+					'tooltip' => __( 'Name für die neue Map. Wenn leer, wird die Adresse als Name verwendet.', 'padma-advanced' ),
+				),
+
+				'create_zoom' => array(
+					'name'    => 'create_zoom',
+					'type'    => 'integer',
+					'label'   => __( 'Zoom-Stufe (optional)', 'padma-advanced' ),
+					'default' => 15,
+					'tooltip' => __( 'Zoom-Stufe für die neue Map. Werte von 1 (Welt) bis 21 (Gebäude). Standard: 15 (Straßenniveau)', 'padma-advanced' ),
+				),
+
+				'create_map_type' => array(
+					'name'    => 'create_map_type',
+					'type'    => 'select',
+					'label'   => __( 'Kartentyp (optional)', 'padma-advanced' ),
+					'default' => 'ROADMAP',
+					'options' => array(
+						'ROADMAP'   => __( 'Straßenkarte', 'padma-advanced' ),
+						'SATELLITE' => __( 'Satellit', 'padma-advanced' ),
+						'HYBRID'    => __( 'Hybrid', 'padma-advanced' ),
+						'TERRAIN'   => __( 'Gelände', 'padma-advanced' ),
+					),
+					'tooltip' => __( 'Kartentyp für die neue Map.', 'padma-advanced' ),
 				),
 			),
 		);

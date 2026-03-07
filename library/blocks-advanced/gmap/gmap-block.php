@@ -99,9 +99,26 @@ class PadmaVisualElementsBlockGmap extends \PadmaBlockAPI {
 
 		$map_id = parent::get_setting( $block, 'map_id' );
 		
-		// Wenn keine Map ausgewählt, zeige Hinweis
+		// Prüfe ob Quick-Create verwendet wird (nur wenn keine map_id vorhanden)
+		$create_address = parent::get_setting( $block, 'create_address' );
+		
+		if ( empty( $map_id ) && ! empty( $create_address ) ) {
+			// Quick-Create: Erstelle neue Map aus Adresse (nur wenn keine existierende Map ausgewählt)
+			$created_map_id = $this->create_map_from_address( $block, $create_address );
+			
+			if ( $created_map_id ) {
+				// Verwende die neu erstellte Map
+				$map_id = $created_map_id;
+			} else {
+				// Geocodierung fehlgeschlagen
+				echo '<div class="alert alert-red"><p>' . __( 'Die Adresse konnte nicht geocodiert werden. Bitte überprüfe die Adresse und versuche es erneut.', 'padma-advanced' ) . '</p></div>';
+				return;
+			}
+		}
+		
+		// Wenn keine Map ausgewählt oder erstellt, zeige Hinweis
 		if ( ! $map_id || $map_id === '' ) {
-			echo '<div class="alert alert-yellow"><p>' . __( 'Bitte wähle eine Map aus oder erstelle eine neue Map im PS Maps Backend.', 'padma-advanced' ) . '</p></div>';
+			echo '<div class="alert alert-yellow"><p>' . __( 'Bitte wähle eine Map aus oder erstelle eine neue Map im Tab "Neue Map erstellen".', 'padma-advanced' ) . '</p></div>';
 			return;
 		}
 
@@ -148,6 +165,75 @@ class PadmaVisualElementsBlockGmap extends \PadmaBlockAPI {
 		$shortcode = '[' . $shortcode_tag . ' ' . implode( ' ', $shortcode_parts ) . ']';
 		
 		echo do_shortcode( $shortcode );
+	}
+
+	/**
+	 * Erstellt eine neue Map aus Adresse mit PS Maps autocreate_map
+	 *
+	 * @param object $block Block-Einstellungen
+	 * @param string $address Adresse für die Map
+	 * @return int|false Map-ID bei Erfolg, false bei Fehler
+	 */
+	private function create_map_from_address( $block, $address ) {
+		if ( ! class_exists( 'AgmMapModel' ) ) {
+			return false;
+		}
+
+		$model = new \AgmMapModel();
+		
+		// Hole optionale Create-Parameter
+		$map_name = parent::get_setting( $block, 'create_map_name' );
+		$zoom = parent::get_setting( $block, 'create_zoom' );
+		$map_type = parent::get_setting( $block, 'create_map_type' );
+		
+		// Setze Defaults
+		if ( empty( $zoom ) ) {
+			$zoom = 15; // Standard Zoom für Straßenniveau
+		}
+		if ( empty( $map_type ) ) {
+			$map_type = 'ROADMAP';
+		}
+		
+		// Erstelle Map mit PS Maps autocreate_map
+		// Parameter: $post_id, $lat, $lon, $address, $associated_post_id, $args
+		$args = array(
+			'show_posts' => false,
+		);
+		
+		// autocreate_map wird lat/lon selbst aus address geocodieren
+		$map_id = $model->autocreate_map( 
+			null,       // post_id - nicht benötigt für standalone maps
+			null,       // lat - wird aus address geocodiert
+			null,       // lon - wird aus address geocodiert
+			$address,   // address
+			null,       // associated_post_id
+			$args       // zusätzliche args
+		);
+		
+		if ( ! $map_id ) {
+			return false; // Geocodierung fehlgeschlagen
+		}
+		
+		// Hole die erstellte Map und aktualisiere sie mit custom Parametern
+		$map = $model->get_map( $map_id );
+		
+		if ( $map && is_array( $map ) ) {
+			// Aktualisiere Map-Name wenn angegeben
+			if ( ! empty( $map_name ) ) {
+				$map['title'] = sanitize_text_field( $map_name );
+			}
+			
+			// Aktualisiere Zoom
+			$map['zoom'] = intval( $zoom );
+			
+			// Aktualisiere Map-Type
+			$map['map_type'] = strtoupper( $map_type );
+			
+			// Speichere aktualisierte Map
+			$model->save_map( $map );
+		}
+		
+		return $map_id;
 	}
 
 }
