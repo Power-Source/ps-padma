@@ -1,0 +1,45 @@
+TODO: Removed Featured Images still being used. :S Is this a WP problem?
+TODO: [...] Showing when excerpt length longer than excerpt
+TODO: BUG: Mirroed blocks on category archives still show catgeory instead of original
+TODO: Option for HW inheritance of styles or not.
+TODO: Add meta-box option to select image to use with E+
+TODO: Make it identify when there's a More tag used and have an option for how to handle it - break like excerpt, or ignore.
+CHECK: Make images in image behind link to permalink
+TODO: Make images behind link work when align bottom. Probb with height:100%. Overflow visible fixes, but causes problems with cell padding. Maybe have to pad more stuff.
+CHECK: Is using first image when no featured image
+FIX: Image in title not aligning when full width
+CHECK: Vertical image alignment when in title
+TODO: Add optional default image if no featured image. Ticket #567
+TODO: Fix image behind not clickable when overlay aligned bottom #566
+TODO: make excerpt+ be able to display single posts on a media page #657
+TODO: Add oder by specified IDs - do this when changing pagination.
+MAYBE: Build an array of post id,name,date etc results, and use it to control the ordering.
+FIX: Block title marginally too wide
+FIX: Continue Reading appearing on posts shorter than the cut off
+
+TODO: Sprite as much as possible. http://support.Padmathemes.com/discussion/14932/sprites-for-ep-and-all-pizazz-plugins
+TODO Add support for archives - tags etc
+
+TODO: Check IE8 and Opera issues. http://support.Padmathemes.com/discussion/15159/exerptplus-browser-ie-8-opera-11-62
+
+- (A) FIX: Cell 4 weird height. http://support.Padmathemes.com/discussion/15323/more-link-does-not-work-when-cell-row-4-used, http://support.Padmathemes.com/discussion/15160/issue-with-3-2-4-and-e-new-layout#latest
+
+TRY: using img src images as featured. http://support.Padmathemes.com/discussion/15184/using-external-images#latest
+
+FIX: LoopBuddy conflict - making VE fail
+FIX: Foreign characters as last character in excerpt gives black question mark. http://chrilles.dk/
+
+This might work for lotsa things!
+#block-18 .ep-cell
+{ height:auto!important;
+ overflow:visible;}
+
+ Ugh! it's got overflow:hidden in the css :S Wy?!
+
+ Ugh! Time to rewrite the cells creation
+
+ WISH: Allow multiple content type selections.
+
+ WISH: Display category grids, not posts. so, like category as a content type. Hmmmm :/
+
+ TODO: Add option to use all text before the more. http://codex.wordpress.org/Function_Reference/get_extended
