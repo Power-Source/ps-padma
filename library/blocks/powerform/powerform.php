@@ -31,85 +31,109 @@ class PadmaPowerformBlock extends PadmaBlockAPI {
 		$this->register_block_element(array(
 			'id' => 'powerform-container',
 			'name' => __('Formular-Container','padma'),
-			'selector' => '.forminator-ui',
+			'selector' => '.powerform-ui',
 		));
 
 		$this->register_block_element(array(
-			'id' => 'form-paragraph',
-			'name' => __('Formular-Absatz','padma'),
-			'selector' => '.forminator-ui p',
+			'id' => 'form-row',
+			'name' => __('Formular-Zeile','padma'),
+			'selector' => '.powerform-ui .powerform-row',
 		));
 
 		$this->register_block_element(array(
-			'id' => 'form-h1',
-			'name' => __('Formular H1','padma'),
-			'selector' => '.forminator-ui h1',
+			'id' => 'form-col',
+			'name' => __('Formular-Spalte','padma'),
+			'selector' => '.powerform-ui .powerform-col',
 		));
 
 		$this->register_block_element(array(
-			'id' => 'form-h2',
-			'name' => __('Formular H2','padma'),
-			'selector' => '.forminator-ui h2',
-		));
-
-		$this->register_block_element(array(
-			'id' => 'form-h3',
-			'name' => __('Formular H3','padma'),
-			'selector' => '.forminator-ui h3',
-		));
-
-		$this->register_block_element(array(
-			'id' => 'form-h4',
-			'name' => __('Formular H4','padma'),
-			'selector' => '.forminator-ui h4',
-		));
-
-		$this->register_block_element(array(
-			'id' => 'form-h5',
-			'name' => __('Formular H5','padma'),
-			'selector' => '.forminator-ui h5',
-		));
-
-		$this->register_block_element(array(
-			'id' => 'form-h6',
-			'name' => __('Formular H6','padma'),
-			'selector' => '.forminator-ui h6',
+			'id' => 'form-field',
+			'name' => __('Feld-Container','padma'),
+			'selector' => '.powerform-ui .powerform-field',
 		));
 
 		$this->register_block_element(array(
 			'id' => 'form-label',
-			'name' => __('Formular-Label','padma'),
-			'selector' => '.forminator-ui label',
+			'name' => __('Label','padma'),
+			'selector' => '.powerform-ui .powerform-label',
+		));
+
+		$this->register_block_element(array(
+			'id' => 'form-description',
+			'name' => __('Beschreibung','padma'),
+			'selector' => '.powerform-ui .powerform-description',
 		));
 
 		$this->register_block_element(array(
 			'id' => 'form-input',
-			'name' => __('Formular-Eingabefeld','padma'),
-			'selector' => '.forminator-ui input',
+			'name' => __('Eingabefeld','padma'),
+			'selector' => '.powerform-ui .powerform-input',
 		));
 
 		$this->register_block_element(array(
 			'id' => 'form-select',
-			'name' => __('Formular-Auswahl','padma'),
-			'selector' => '.forminator-ui select',
+			'name' => __('Auswahlfeld','padma'),
+			'selector' => '.powerform-ui .powerform-select',
 		));
 
 		$this->register_block_element(array(
 			'id' => 'form-textarea',
-			'name' => __('Formular-Textfeld','padma'),
-			'selector' => '.forminator-ui textarea',
+			'name' => __('Textfeld','padma'),
+			'selector' => '.powerform-ui .powerform-textarea',
+		));
+
+		$this->register_block_element(array(
+			'id' => 'form-radio',
+			'name' => __('Radio-Buttons','padma'),
+			'selector' => '.powerform-ui .powerform-radio',
+		));
+
+		$this->register_block_element(array(
+			'id' => 'form-checkbox',
+			'name' => __('Checkboxen','padma'),
+			'selector' => '.powerform-ui .powerform-checkbox',
 		));
 
 		$this->register_block_element(array(
 			'id' => 'form-button',
-			'name' => __('Formular-Button','padma'),
-			'selector' => '.forminator-ui button',
+			'name' => __('Button','padma'),
+			'selector' => '.powerform-ui .powerform-button',
 		));
 
 		$this->register_block_element(array(
-			'id' => 'form-submit',
-			'name' => __('Formular-Absenden','padma'),
-			'selector' => '.forminator-ui button[type="submit"]',
+			'id' => 'form-button-submit',
+			'name' => __('Submit-Button','padma'),
+			'selector' => '.powerform-ui .powerform-button-submit',
+		));
+
+		$this->register_block_element(array(
+			'id' => 'form-error-message',
+			'name' => __('Fehlermeldung','padma'),
+			'selector' => '.powerform-ui .powerform-error-message',
+		));
+
+		$this->register_block_element(array(
+			'id' => 'form-response-message',
+			'name' => __('Erfolgsmeldung','padma'),
+			'selector' => '.powerform-ui .powerform-response-message',
+		));
+
+		$this->register_block_element(array(
+			'id' => 'form-pagination',
+			'name' => __('Seitenwechsel-Container','padma'),
+			'selector' => '.powerform-ui .powerform-pagination',
+		));
+
+		$this->register_block_element(array(
+			'id' => 'form-button-text',
+			'name' => __('Button-Text','padma'),
+			'selector' => '.powerform-ui .powerform-button--text',
+		));
+
+		$this->register_block_element(array(
+			'id' => 'form-field-with-error',
+			'name' => __('Feld mit Fehler','padma'),
+			'selector' => '.powerform-ui .powerform-has_error',
 		));
 	}
 

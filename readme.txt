@@ -64,6 +64,7 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 * Slider-Darstellung in Normal- und Night-Mode vereinheitlicht
 * Veraltete jQuery-UI-Slider-Altlasten im Visual-Editor-Code bereinigt
 * Neuer PowerForm-Block für ClassicPress-Kompatibilität hinzugefügt
+* PowerForm-Block: Styling-Elemente für alle Formular-Komponenten im Design-Editor
 * Contact-Form-7-Block entfernt (funktioniert nicht mit ClassicPress)
 
 = 1.0.7 =
