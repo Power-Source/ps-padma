@@ -1,4 +1,16 @@
 <?php
+/**
+ * HINWEIS: Diese Datei wird nicht mehr verwendet!
+ * 
+ * Der Content-Slider Block ist jetzt direkt im PS Padma Theme integriert
+ * und wird automatisch über library/blocks/blocks.php geladen.
+ * 
+ * Diese Datei wurde als Referenz beibehalten, ist aber nicht mehr aktiv.
+ * 
+ * @deprecated Seit PS Padma 1.0.8
+ */
+
+return; // Verhindere weitere Ausführung
 
 /*
 Plugin Name:	Padma Content Slider

@@ -58,9 +58,9 @@ class PadmaVisualElementsBlockDummyText extends \PadmaBlockAPI {
 	 */
 	public function __construct() {
 		$this->id            = 'visual-elements-dummy-text';
-		$this->name          = __( 'Dummy Text', 'padma-advanced' );
+		$this->name          = __( 'Dummy Text', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockDummyTextOptions';
-		$this->description   = __( 'This shortcode allows you to display “lorem ipsum” text. You can choose how much paragraphs or words will be generated . ', 'padma-advanced' );
+		$this->description   = __( 'This shortcode allows you to display “lorem ipsum” text. You can choose how much paragraphs or words will be generated . ', 'padma' );
 		$this->categories    = array( 'content' );
 	}
 

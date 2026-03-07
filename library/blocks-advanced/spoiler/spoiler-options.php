@@ -39,7 +39,7 @@ class PadmaVisualElementsBlockSpoilerOptions extends \PadmaBlockOptionsAPI {
 	public function __construct() {
 
 		$this->tabs = array(
-			'general' => __( 'Allgemein', 'padma-advanced' ),
+			'general' => __( 'Allgemein', 'padma' ),
 		);
 
 		$this->sets = array();
@@ -50,24 +50,24 @@ class PadmaVisualElementsBlockSpoilerOptions extends \PadmaBlockOptionsAPI {
 				'spoilers' => array(
 					'type'     => 'repeater',
 					'name'     => 'spoilers',
-					'label'    => __( 'Spoiler', 'padma-advanced' ),
-					'tooltip'  => __( 'Spoiler mit verstecktem Inhalt', 'padma-advanced' ),
+					'label'    => __( 'Spoiler', 'padma' ),
+					'tooltip'  => __( 'Spoiler mit verstecktem Inhalt', 'padma' ),
 					'sortable' => true,
 					'limit'    => 100,
 					'inputs'   => array(
 						array(
 							'type'  => 'text',
 							'name'  => 'title',
-							'label' => __( 'Titel', 'padma-advanced' ),
+							'label' => __( 'Titel', 'padma' ),
 						),
 
 						array(
 							'type'    => 'select',
 							'name'    => 'open',
-							'label'   => __( 'Geöffnet', 'padma-advanced' ),
+							'label'   => __( 'Geöffnet', 'padma' ),
 							'options' => array(
-								'yes' => __( 'Ja', 'padma-advanced' ),
-								'no'  => __( 'Nein', 'padma-advanced' ),
+								'yes' => __( 'Ja', 'padma' ),
+								'no'  => __( 'Nein', 'padma' ),
 							),
 							'default' => 'no',
 						),
@@ -75,20 +75,20 @@ class PadmaVisualElementsBlockSpoilerOptions extends \PadmaBlockOptionsAPI {
 						array(
 							'name'    => 'style',
 							'type'    => 'select',
-							'label'   => __( 'Stil', 'padma-advanced' ),
+							'label'   => __( 'Stil', 'padma' ),
 							'default' => 'default',
 							'options' => array(
-								'default' => __( 'Standard', 'padma-advanced' ),
-								'fancy'   => __( 'Schick', 'padma-advanced' ),
-								'simple'  => __( 'Einfach', 'padma-advanced' ),
+								'default' => __( 'Standard', 'padma' ),
+								'fancy'   => __( 'Schick', 'padma' ),
+								'simple'  => __( 'Einfach', 'padma' ),
 							),
-							'tooltip' => __( 'Wähle den Stil für diesen Spoiler', 'padma-advanced' ),
+							'tooltip' => __( 'Wähle den Stil für diesen Spoiler', 'padma' ),
 						),
 
 						array(
 							'name'    => 'icon',
 							'type'    => 'select',
-							'label'   => __( 'Symbol', 'padma-advanced' ),
+							'label'   => __( 'Symbol', 'padma' ),
 							'default' => 'plus',
 							'options' => array(
 								'plus'           => 'Plus',
@@ -105,20 +105,20 @@ class PadmaVisualElementsBlockSpoilerOptions extends \PadmaBlockOptionsAPI {
 								'folder-1'       => 'Folder-1',
 								'folder-2'       => 'Folder-2',
 							),
-							'tooltip' => __( 'Wähle das Symbol für diesen Spoiler', 'padma-advanced' ),
+							'tooltip' => __( 'Wähle das Symbol für diesen Spoiler', 'padma' ),
 						),
 
 						array(
 							'type'    => 'text',
 							'name'    => 'anchor',
-							'label'   => __( 'Anker', 'padma-advanced' ),
-							'tooltip' => __( 'Du kannst einen einzigartigen Anker für diesen Spoiler verwenden, um ihn mit einem Hash in der Seiten-URL aufzurufen. Beispiel: verwende Hallo und navigiere dann zu einer URL wie http://beispiel.de/seiten-url#Hallo. Dieser Spoiler wird aktiviert und gescrollt.', 'padma-advanced' ),
+							'label'   => __( 'Anker', 'padma' ),
+							'tooltip' => __( 'Du kannst einen einzigartigen Anker für diesen Spoiler verwenden, um ihn mit einem Hash in der Seiten-URL aufzurufen. Beispiel: verwende Hallo und navigiere dann zu einer URL wie http://beispiel.de/seiten-url#Hallo. Dieser Spoiler wird aktiviert und gescrollt.', 'padma' ),
 						),
 
 						array(
 							'type'    => 'wysiwyg',
 							'name'    => 'content',
-							'label'   => __( 'Inhalt', 'padma-advanced' ),
+							'label'   => __( 'Inhalt', 'padma' ),
 							'default' => null,
 						),
 					),

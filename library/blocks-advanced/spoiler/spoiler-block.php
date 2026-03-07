@@ -57,9 +57,9 @@ class PadmaVisualElementsBlockSpoiler extends \PadmaBlockAPI {
 	 */
 	public function __construct() {
 		$this->id            = 'visual-elements-spoiler';	
-		$this->name          = __( 'Spoiler', 'padma-advanced' );
+		$this->name          = __( 'Spoiler', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockSpoilerOptions';
-		$this->description   = __( 'Allows you to create blocks with hidden content – spoilers (toggles). Hidden content will be shown when block title will be clicked. You can specify different icons or even use different styles for each spoiler . ', 'padma-advanced' );
+		$this->description   = __( 'Allows you to create blocks with hidden content – spoilers (toggles). Hidden content will be shown when block title will be clicked. You can specify different icons or even use different styles for each spoiler . ', 'padma' );
 		$this->categories    = array( 'box' );
 	}
 
@@ -79,7 +79,7 @@ class PadmaVisualElementsBlockSpoiler extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'spoiler',
-				'name'     => __( 'spoiler', 'padma-advanced' ),
+				'name'     => __( 'spoiler', 'padma' ),
 				'selector' => '.su-spoiler',
 			)
 		);

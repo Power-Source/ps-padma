@@ -51,8 +51,8 @@ class PadmaVisualElementsBlockContentToCardsOptions extends \PadmaBlockOptionsAP
 				'scroll-text' => array(
 					'name'    => 'scroll-text',
 					'type'    => 'text',
-					'label'   => __( 'Scroll text', 'padma-advanced' ),
-					'tooltip' => __( 'Scroll text', 'padma-advanced' ),
+					'label'   => __( 'Scroll text', 'padma' ),
+					'tooltip' => __( 'Scroll text', 'padma' ),
 					'default' => 'Scroll down',
 				),
 			),
@@ -62,7 +62,7 @@ class PadmaVisualElementsBlockContentToCardsOptions extends \PadmaBlockOptionsAP
 				'categories'      => array(
 					'type'    => 'multi-select',
 					'name'    => 'categories',
-					'label'   => __( 'Categories', 'padma-advanced' ),
+					'label'   => __( 'Categories', 'padma' ),
 					'tooltip' => '',
 					'options' => 'get_categories()',
 				),
@@ -70,7 +70,7 @@ class PadmaVisualElementsBlockContentToCardsOptions extends \PadmaBlockOptionsAP
 				'categories-mode' => array(
 					'type'    => 'select',
 					'name'    => 'categories-mode',
-					'label'   => __( 'Categories Mode', 'padma-advanced' ),
+					'label'   => __( 'Categories Mode', 'padma' ),
 					'tooltip' => '',
 					'options' => array(
 						'include' => 'Include',
@@ -81,8 +81,8 @@ class PadmaVisualElementsBlockContentToCardsOptions extends \PadmaBlockOptionsAP
 				'enable-tags'     => array(
 					'type'    => 'checkbox',
 					'name'    => 'tags-filter',
-					'label'   => __( 'Tags Filter', 'padma-advanced' ),
-					'tooltip' => __( 'Check this to allow the tags filter show . ', 'padma-advanced' ),
+					'label'   => __( 'Tags Filter', 'padma' ),
+					'tooltip' => __( 'Check this to allow the tags filter show . ', 'padma' ),
 					'default' => false,
 					'toggle'  => array(
 						'false' => array(
@@ -101,7 +101,7 @@ class PadmaVisualElementsBlockContentToCardsOptions extends \PadmaBlockOptionsAP
 				'tags'            => array(
 					'type'    => 'multi-select',
 					'name'    => 'tags',
-					'label'   => __( 'Tags', 'padma-advanced' ),
+					'label'   => __( 'Tags', 'padma' ),
 					'tooltip' => '',
 					'options' => 'get_tags()',
 				),
@@ -109,7 +109,7 @@ class PadmaVisualElementsBlockContentToCardsOptions extends \PadmaBlockOptionsAP
 				'post-type'       => array(
 					'type'     => 'multi-select',
 					'name'     => 'post-type',
-					'label'    => __( 'Post Type', 'padma-advanced' ),
+					'label'    => __( 'Post Type', 'padma' ),
 					'tooltip'  => '',
 					'options'  => 'get_post_types()',
 					'callback' => 'reloadBlockOptions()',
@@ -118,7 +118,7 @@ class PadmaVisualElementsBlockContentToCardsOptions extends \PadmaBlockOptionsAP
 				'post-status'     => array(
 					'type'    => 'multi-select',
 					'name'    => 'post-status',
-					'label'   => __( 'Post Status', 'padma-advanced' ),
+					'label'   => __( 'Post Status', 'padma' ),
 					'tooltip' => '',
 					'options' => 'get_post_status()',
 				),
@@ -126,7 +126,7 @@ class PadmaVisualElementsBlockContentToCardsOptions extends \PadmaBlockOptionsAP
 				'author'          => array(
 					'type'    => 'multi-select',
 					'name'    => 'author',
-					'label'   => __( 'Author', 'padma-advanced' ),
+					'label'   => __( 'Author', 'padma' ),
 					'tooltip' => '',
 					'options' => 'get_authors()',
 				),
@@ -134,7 +134,7 @@ class PadmaVisualElementsBlockContentToCardsOptions extends \PadmaBlockOptionsAP
 				'number-of-posts' => array(
 					'type'    => 'integer',
 					'name'    => 'number-of-posts',
-					'label'   => __( 'Number of Posts', 'padma-advanced' ),
+					'label'   => __( 'Number of Posts', 'padma' ),
 					'tooltip' => '',
 					'default' => 10,
 				),
@@ -142,51 +142,51 @@ class PadmaVisualElementsBlockContentToCardsOptions extends \PadmaBlockOptionsAP
 				'offset'          => array(
 					'type'    => 'integer',
 					'name'    => 'offset',
-					'label'   => __( 'Offset', 'padma-advanced' ),
-					'tooltip' => __( 'The offset is the number of entries or posts you would like to skip.  If the offset is 1, then the first post will be skipped . ', 'padma-advanced' ),
+					'label'   => __( 'Offset', 'padma' ),
+					'tooltip' => __( 'The offset is the number of entries or posts you would like to skip.  If the offset is 1, then the first post will be skipped . ', 'padma' ),
 					'default' => 0,
 				),
 
 				'order-by'        => array(
 					'type'    => 'select',
 					'name'    => 'order-by',
-					'label'   => __( 'Order By', 'padma-advanced' ),
-					'tooltip' => __( 'Order By', 'padma-advanced' ),
+					'label'   => __( 'Order By', 'padma' ),
+					'tooltip' => __( 'Order By', 'padma' ),
 					'options' => array(
-						'date'          => __( 'Date', 'padma-advanced' ),
-						'title'         => __( 'Title', 'padma-advanced' ),
-						'rand'          => __( 'Random', 'padma-advanced' ),
-						'comment_count' => __( 'Comment Count', 'padma-advanced' ),
-						'ID'            => __( 'ID', 'padma-advanced' ),
-						'author'        => __( 'Author', 'padma-advanced' ),
-						'type'          => __( 'Post Type', 'padma-advanced' ),
-						'menu_order'    => __( 'Custom Order', 'padma-advanced' ),
+						'date'          => __( 'Date', 'padma' ),
+						'title'         => __( 'Title', 'padma' ),
+						'rand'          => __( 'Random', 'padma' ),
+						'comment_count' => __( 'Comment Count', 'padma' ),
+						'ID'            => __( 'ID', 'padma' ),
+						'author'        => __( 'Author', 'padma' ),
+						'type'          => __( 'Post Type', 'padma' ),
+						'menu_order'    => __( 'Custom Order', 'padma' ),
 					),
 				),
 
 				'order'           => array(
 					'type'    => 'select',
 					'name'    => 'order',
-					'label'   => __( 'Order', 'padma-advanced' ),
+					'label'   => __( 'Order', 'padma' ),
 					'tooltip' => '',
 					'options' => array(
-						'desc' => __( 'Descending', 'padma-advanced' ),
-						'asc'  => __( 'Ascending', 'padma-advanced' ),
+						'desc' => __( 'Descending', 'padma' ),
+						'asc'  => __( 'Ascending', 'padma' ),
 					),
 				),
 
 				'byid-include'    => array(
 					'type'    => 'text',
 					'name'    => 'byid-include',
-					'label'   => __( 'Include by ID', 'padma-advanced' ),
-					'tooltip' => __( 'In both Include and Exclude by ID, you use a comma separated list of IDs of your post type . ', 'padma-advanced' ),
+					'label'   => __( 'Include by ID', 'padma' ),
+					'tooltip' => __( 'In both Include and Exclude by ID, you use a comma separated list of IDs of your post type . ', 'padma' ),
 				),
 
 				'byid-exclude'    => array(
 					'type'    => 'text',
 					'name'    => 'byid-exclude',
-					'label'   => __( 'Exclude by ID', 'padma-advanced' ),
-					'tooltip' => __( 'In both Include and Exclude by ID, you use a comma separated list of IDs of your post type . ', 'padma-advanced' ),
+					'label'   => __( 'Exclude by ID', 'padma' ),
+					'tooltip' => __( 'In both Include and Exclude by ID, you use a comma separated list of IDs of your post type . ', 'padma' ),
 				),
 			),
 		);

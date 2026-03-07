@@ -43,6 +43,7 @@ class PadmaBlocks {
 		'box' => 'Padma_Advanced\\PadmaVisualElementsBlockBox',
 		'button' => 'Padma_Advanced\\PadmaVisualElementsBlockButton',
 		'columns' => 'Padma_Advanced\\PadmaVisualElementsBlockColumns',
+		'content-slider' => 'Padma_Advanced\\PadmaContentSliderBlock',
 		'content-to-accordion' => 'Padma_Advanced\\PadmaVisualElementsBlockContentToAccordion',
 		'content-to-cards' => 'Padma_Advanced\\PadmaVisualElementsBlockContentToCards',
 		'content-to-tabs' => 'Padma_Advanced\\PadmaVisualElementsBlockContentToTabs',

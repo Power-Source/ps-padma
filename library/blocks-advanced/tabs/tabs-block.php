@@ -57,9 +57,9 @@ class PadmaVisualElementsBlockTabs extends \PadmaBlockAPI {
 	 */
 	public function __construct() {
 		$this->id            = 'visual-elements-tabs';
-		$this->name          = __( 'Tabs', 'padma-advanced' );
+		$this->name          = __( 'Tabs', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockTabsOptions';
-		$this->description   = __( 'Allows you to create tabbed content with multiple tabs', 'padma-advanced' );
+		$this->description   = __( 'Allows you to create tabbed content with multiple tabs', 'padma' );
 		$this->categories    = array( 'box' );
 	}
 
@@ -79,21 +79,21 @@ class PadmaVisualElementsBlockTabs extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'tabs',
-				'name'     => __( 'Tabs', 'padma-advanced' ),
+				'name'     => __( 'Tabs', 'padma' ),
 				'selector' => '.su-tabs',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'tabs-nav',
-				'name'     => __( 'Tabs Navigation', 'padma-advanced' ),
+				'name'     => __( 'Tabs Navigation', 'padma' ),
 				'selector' => '.su-tabs-nav',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'tabs-panes',
-				'name'     => __( 'Tabs Panes', 'padma-advanced' ),
+				'name'     => __( 'Tabs Panes', 'padma' ),
 				'selector' => '.su-tabs-panes',
 			)
 		);
@@ -134,7 +134,7 @@ class PadmaVisualElementsBlockTabs extends \PadmaBlockAPI {
 		$tab_items = array();
 		foreach ( $tabs_list as $tab => $params ) {
 			$tab_items[] = array(
-				'title'    => isset( $params['title'] ) ? $params['title'] : __( 'Tab', 'padma-advanced' ),
+				'title'    => isset( $params['title'] ) ? $params['title'] : __( 'Tab', 'padma' ),
 				'disabled' => isset( $params['disabled'] ) ? $params['disabled'] : 'no',
 				'anchor'   => isset( $params['anchor'] ) ? $params['anchor'] : '',
 				'url'      => isset( $params['url'] ) ? $params['url'] : '',

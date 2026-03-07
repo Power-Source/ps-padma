@@ -58,9 +58,9 @@ class PadmaMDIBlock extends \PadmaBlockAPI {
 	 */
 	public function __construct() {
 		$this->id            = 'mdi';
-		$this->name          = __( 'MaterialDesign Icons', 'padma-advanced' );
+		$this->name          = __( 'MaterialDesign Icons', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaMDIBlockOptions';
-		$this->description   = __( 'Add MaterialDesign Icons to the visual editor . ', 'padma-advanced' );
+		$this->description   = __( 'Add MaterialDesign Icons to the visual editor . ', 'padma' );
 		$this->categories    = array( 'content' );
 	}
 
@@ -78,21 +78,21 @@ class PadmaMDIBlock extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content',
-				'name'     => __( 'Block Content', 'padma-advanced' ),
+				'name'     => __( 'Block Content', 'padma' ),
 				'selector' => '.block-content',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'link',
-				'name'     => __( 'Link', 'padma-advanced' ),
+				'name'     => __( 'Link', 'padma' ),
 				'selector' => 'a',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'Icon',
-				'name'     => __( 'Icon', 'padma-advanced' ),
+				'name'     => __( 'Icon', 'padma' ),
 				'selector' => 'img',
 			)
 		);

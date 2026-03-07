@@ -72,9 +72,9 @@ class PadmaVisualElementsBlockLightbox extends \PadmaBlockAPI {
 	 */
 	public function __construct() {
 		$this->id            = 've-lightbox';
-		$this->name          = __( 'Lightbox', 'padma-advanced' );
+		$this->name          = __( 'Lightbox', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockLightboxOptions';	
-		$this->description   = __( 'Allows you to display various elements in a pop-up window. You can display an image, a web page, or any HTML content . ', 'padma-advanced' );
+		$this->description   = __( 'Allows you to display various elements in a pop-up window. You can display an image, a web page, or any HTML content . ', 'padma' );
 		$this->categories    = array( 'content' );
 
 		$this->inline_editable = array( 'block-title', 'block-subtitle', 'su-lightbox' );	
@@ -99,7 +99,7 @@ class PadmaVisualElementsBlockLightbox extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'title',
-				'name'     => __( 'Title', 'padma-advanced' ),
+				'name'     => __( 'Title', 'padma' ),
 				'selector' => '.su-lightbox',
 			)
 		);
@@ -107,7 +107,7 @@ class PadmaVisualElementsBlockLightbox extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'title',
-				'name'     => __( 'Title', 'padma-advanced' ),
+				'name'     => __( 'Title', 'padma' ),
 				'selector' => '.su-lightbox',
 			)
 		);
@@ -115,7 +115,7 @@ class PadmaVisualElementsBlockLightbox extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content',
-				'name'     => __( 'Content', 'padma-advanced' ),
+				'name'     => __( 'Content', 'padma' ),
 				'selector' => 'div.su-lightbox-content',
 			)
 		);
@@ -123,7 +123,7 @@ class PadmaVisualElementsBlockLightbox extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-text',
-				'name'     => __( 'Content text', 'padma-advanced' ),
+				'name'     => __( 'Content text', 'padma' ),
 				'selector' => '.su-lightbox-content p',
 			)
 		);
@@ -131,7 +131,7 @@ class PadmaVisualElementsBlockLightbox extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-h1',
-				'name'     => __( 'Content h1', 'padma-advanced' ),
+				'name'     => __( 'Content h1', 'padma' ),
 				'selector' => '.su-lightbox-content h1',
 			)
 		);
@@ -139,7 +139,7 @@ class PadmaVisualElementsBlockLightbox extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-h2',
-				'name'     => __( 'Content h2', 'padma-advanced' ),
+				'name'     => __( 'Content h2', 'padma' ),
 				'selector' => '.su-lightbox-content h2',
 			)
 		);
@@ -147,7 +147,7 @@ class PadmaVisualElementsBlockLightbox extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-h3',
-				'name'     => __( 'Content h3', 'padma-advanced' ),
+				'name'     => __( 'Content h3', 'padma' ),
 				'selector' => '.su-lightbox-content h3',
 			)
 		);
@@ -155,7 +155,7 @@ class PadmaVisualElementsBlockLightbox extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-h4',
-				'name'     => __( 'Content h4', 'padma-advanced' ),
+				'name'     => __( 'Content h4', 'padma' ),
 				'selector' => '.su-lightbox-content h4',
 			)
 		);
@@ -163,7 +163,7 @@ class PadmaVisualElementsBlockLightbox extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-h5',
-				'name'     => __( 'Content h5', 'padma-advanced' ),
+				'name'     => __( 'Content h5', 'padma' ),
 				'selector' => '.su-lightbox-content h5',
 			)
 		);
@@ -171,7 +171,7 @@ class PadmaVisualElementsBlockLightbox extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-h6',
-				'name'     => __( 'Content h6', 'padma-advanced' ),
+				'name'     => __( 'Content h6', 'padma' ),
 				'selector' => '.su-lightbox-content h6',
 			)
 		);
@@ -179,7 +179,7 @@ class PadmaVisualElementsBlockLightbox extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-li',
-				'name'     => __( 'Content li', 'padma-advanced' ),
+				'name'     => __( 'Content li', 'padma' ),
 				'selector' => '.su-lightbox-content li',
 			)
 		);
@@ -187,7 +187,7 @@ class PadmaVisualElementsBlockLightbox extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-a',
-				'name'     => __( 'Content link', 'padma-advanced' ),
+				'name'     => __( 'Content link', 'padma' ),
 				'selector' => '.su-lightbox-content a',
 			)
 		);

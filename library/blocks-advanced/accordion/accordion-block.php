@@ -58,9 +58,9 @@ public $categories;
 public function __construct() {
 
 $this->id            = 'visual-elements-accordion';
-$this->name          = __( 'Accordion', 'padma-advanced' );
+$this->name          = __( 'Accordion', 'padma' );
 $this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockAccordionOptions';
-$this->description   = __( 'Allows you to create blocks with hidden content – spoilers (toggles). Hidden content will be shown when block title will be clicked. You can specify different icons or even use different styles for each spoiler . ', 'padma-advanced' );
+$this->description   = __( 'Allows you to create blocks with hidden content – spoilers (toggles). Hidden content will be shown when block title will be clicked. You can specify different icons or even use different styles for each spoiler . ', 'padma' );
 $this->categories    = array( 'box' );
 
 }
@@ -79,35 +79,35 @@ public function setup_elements() {
 $this->register_block_element(
 array(
 'id'       => 'spoiler',
-'name'     => __( 'Spoiler', 'padma-advanced' ),
+'name'     => __( 'Spoiler', 'padma' ),
 'selector' => '.su-spoiler',
 )
 );
 $this->register_block_element(
 array(
 'id'       => 'spoiler-title',
-'name'     => __( 'Spoiler Title', 'padma-advanced' ),
+'name'     => __( 'Spoiler Title', 'padma' ),
 'selector' => '.su-accordion .su-spoiler-title',
 )
 );
 $this->register_block_element(
 array(
 'id'       => 'spoiler-icon',
-'name'     => __( 'Spoiler icon', 'padma-advanced' ),
+'name'     => __( 'Spoiler icon', 'padma' ),
 'selector' => '.su-accordion .su-spoiler-icon',
 )
 );
 $this->register_block_element(
 array(
 'id'       => 'spoiler-content',
-'name'     => __( 'Spoiler content', 'padma-advanced' ),
+'name'     => __( 'Spoiler content', 'padma' ),
 'selector' => '.su-accordion .su-spoiler-content',
 )
 );
 $this->register_block_element(
 array(
 'id'       => 'spoiler-content-p',
-'name'     => __( 'Spoiler content paragraph', 'padma-advanced' ),
+'name'     => __( 'Spoiler content paragraph', 'padma' ),
 'selector' => '.su-accordion .su-spoiler-content p',
 )
 );
@@ -154,7 +154,7 @@ $accordion_args = array(
 $spoiler_items = array();
 foreach ( $spoilers as $spoiler => $params ) {
 $spoiler_items[] = array(
-'title'   => isset( $params['title'] ) ? $params['title'] : __( 'Title', 'padma-advanced' ),
+'title'   => isset( $params['title'] ) ? $params['title'] : __( 'Title', 'padma' ),
 'open'    => isset( $params['open'] ) ? $params['open'] : 'no',
 'style'   => isset( $params['style'] ) ? $params['style'] : 'default',
 'icon'    => isset( $params['icon'] ) ? $params['icon'] : 'plus',

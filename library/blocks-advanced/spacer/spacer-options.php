@@ -39,7 +39,7 @@ class PadmaVisualElementsBlockSpacerOptions extends \PadmaBlockOptionsAPI {
 	public function __construct() {
 
 		$this->tabs = array(
-			'general' => __( 'Allgemein', 'padma-advanced' ),
+			'general' => __( 'Allgemein', 'padma' ),
 		);
 
 		$this->sets = array();
@@ -48,9 +48,9 @@ class PadmaVisualElementsBlockSpacerOptions extends \PadmaBlockOptionsAPI {
 			'general' => array(
 				'size' => array(
 					'name'    => 'size',
-					'label'   => __( 'Größe', 'padma-advanced' ),
+					'label'   => __( 'Größe', 'padma' ),
 					'type'    => 'integer',
-					'tooltip' => __( 'Höhe des Abstandshalters in Pixeln', 'padma-advanced' ),
+					'tooltip' => __( 'Höhe des Abstandshalters in Pixeln', 'padma' ),
 					'default' => 20,
 				),
 			),

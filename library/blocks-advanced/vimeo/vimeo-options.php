@@ -39,7 +39,7 @@ class PadmaVisualElementsBlockVimeoOptions extends \PadmaBlockOptionsAPI {
 	public function __construct() {
 
 		$this->tabs = array(
-			'general' => __( 'Allgemein', 'padma-advanced' ),
+			'general' => __( 'Allgemein', 'padma' ),
 		);
 
 		$this->sets = array();
@@ -49,62 +49,62 @@ class PadmaVisualElementsBlockVimeoOptions extends \PadmaBlockOptionsAPI {
 
 				'url'        => array(
 					'name'    => 'url',
-					'label'   => __( 'URL', 'padma-advanced' ),
+					'label'   => __( 'URL', 'padma' ),
 					'type'    => 'text',
 					'default' => '',
-					'tooltip' => __( 'URL der Vimeo Seite mit Video. Beispiel: http://vimeo.com/watch?v=XXXXXX', 'padma-advanced' ),
+					'tooltip' => __( 'URL der Vimeo Seite mit Video. Beispiel: http://vimeo.com/watch?v=XXXXXX', 'padma' ),
 				),
 
 				'width'      => array(
 					'name'    => 'width',
 					'type'    => 'integer',
-					'label'   => __( 'Breite', 'padma-advanced' ),
+					'label'   => __( 'Breite', 'padma' ),
 					'default' => 600,
-					'tooltip' => __( 'Breite', 'padma-advanced' ),
+					'tooltip' => __( 'Breite', 'padma' ),
 				),
 
 				'height'     => array(
 					'name'    => 'height',
 					'type'    => 'integer',
-					'label'   => __( 'Höhe', 'padma-advanced' ),
+					'label'   => __( 'Höhe', 'padma' ),
 					'default' => 400,
-					'tooltip' => __( 'Höhe', 'padma-advanced' ),
+					'tooltip' => __( 'Höhe', 'padma' ),
 				),
 
 				'responsive' => array(
 					'name'    => 'responsive',
 					'type'    => 'select',
-					'label'   => __( 'Responsiv', 'padma-advanced' ),
+					'label'   => __( 'Responsiv', 'padma' ),
 					'default' => 'yes',
 					'options' => array(
-						'yes' => __( 'Ja', 'padma-advanced' ),
-						'no'  => __( 'Nein', 'padma-advanced' ),
+						'yes' => __( 'Ja', 'padma' ),
+						'no'  => __( 'Nein', 'padma' ),
 					),
-					'tooltip' => __( 'Breite und Höhe Parameter ignorieren und Player responsiv machen', 'padma-advanced' ),
+					'tooltip' => __( 'Breite und Höhe Parameter ignorieren und Player responsiv machen', 'padma' ),
 				),
 
 				'autoplay'   => array(
 					'name'    => 'autoplay',
 					'type'    => 'select',
-					'label'   => __( 'Autoplay', 'padma-advanced' ),
+					'label'   => __( 'Autoplay', 'padma' ),
 					'default' => 'yes',
 					'options' => array(
-						'yes' => __( 'Ja', 'padma-advanced' ),
-						'no'  => __( 'Nein', 'padma-advanced' ),
+						'yes' => __( 'Ja', 'padma' ),
+						'no'  => __( 'Nein', 'padma' ),
 					),
-					'tooltip' => __( 'Video automatisch abspielen wenn die Seite geladen wird.', 'padma-advanced' ),
+					'tooltip' => __( 'Video automatisch abspielen wenn die Seite geladen wird.', 'padma' ),
 				),
 
 				'dnt'        => array(
 					'name'    => 'dnt',
 					'type'    => 'select',
-					'label'   => __( 'DNT', 'padma-advanced' ),
+					'label'   => __( 'DNT', 'padma' ),
 					'default' => 'no',
 					'options' => array(
-						'yes' => __( 'Ja', 'padma-advanced' ),
-						'no'  => __( 'Nein', 'padma-advanced' ),
+						'yes' => __( 'Ja', 'padma' ),
+						'no'  => __( 'Nein', 'padma' ),
 					),
-					'tooltip' => __( 'Wenn du diesen Parameter auf JA setzt, wird der Player daran gehindert, Wiedergabesitzungsdaten zu verfolgen. Hat den gleichen Effekt wie das Aktivieren eines Do Not Track Headers in deinem Browser', 'padma-advanced' ),
+					'tooltip' => __( 'Wenn du diesen Parameter auf JA setzt, wird der Player daran gehindert, Wiedergabesitzungsdaten zu verfolgen. Hat den gleichen Effekt wie das Aktivieren eines Do Not Track Headers in deinem Browser', 'padma' ),
 				),
 			),
 		);

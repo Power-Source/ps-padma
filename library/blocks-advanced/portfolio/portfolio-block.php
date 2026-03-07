@@ -57,9 +57,9 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 	 */
 	public function __construct() {
 		$this->id            = 've-portfolio';
-		$this->name          = __( 'Portfolio', 'padma-advanced' );
+		$this->name          = __( 'Portfolio', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockPortfolioOptions';
-		$this->description   = __( 'Allows you to create blocks with hidden posts content. Hidden content will be shown when block title will be clicked. You can specify different icons or even use different styles for each spoiler. ', 'padma-advanced' );
+		$this->description   = __( 'Allows you to create blocks with hidden posts content. Hidden content will be shown when block title will be clicked. You can specify different icons or even use different styles for each spoiler. ', 'padma' );
 		$this->categories    = array( 'box', 'content', 'dynamic-content' );
 	}
 
@@ -98,7 +98,7 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'portfolio-filter',
-				'name'     => __( 'Filter', 'padma-advanced' ),
+				'name'     => __( 'Filter', 'padma' ),
 				'selector' => '.portfolio-filter',
 			)
 		);
@@ -107,7 +107,7 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 			array(
 				'id'       => 'portfolio-filter-item',
 				'parent'   => 'portfolio-filter',
-				'name'     => __( 'Filter item', 'padma-advanced' ),
+				'name'     => __( 'Filter item', 'padma' ),
 				'selector' => '.portfolio-filter li',
 			)
 		);
@@ -116,7 +116,7 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 			array(
 				'id'       => 'portfolio-filter-link',
 				'parent'   => 'portfolio-filter',
-				'name'     => __( 'Filter link', 'padma-advanced' ),
+				'name'     => __( 'Filter link', 'padma' ),
 				'selector' => '.portfolio-filter li a',
 				'states'   => array(
 					'Hover'   => '.portfolio-filter li a:hover',
@@ -129,7 +129,7 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 			array(
 				'id'       => 'portfolio-active-item',
 				'parent'   => 'portfolio-filter',
-				'name'     => __( 'Active item', 'padma-advanced' ),
+				'name'     => __( 'Active item', 'padma' ),
 				'selector' => '.portfolio-filter li.activeFilter a',			
 			)
 		);
@@ -137,7 +137,7 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'portfolio',
-				'name'     => __( 'Portfolio', 'padma-advanced' ),
+				'name'     => __( 'Portfolio', 'padma' ),
 				'selector' => '.portfolio',
 			)
 		);
@@ -146,7 +146,7 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 			array(
 				'id'       => 'article',
 				'parent'   => 'portfolio',
-				'name'     => __( 'Article', 'padma-advanced' ),
+				'name'     => __( 'Article', 'padma' ),
 				'selector' => '.portfolio article.portfolio-item',
 			)
 		);
@@ -155,7 +155,7 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 			array(
 				'id'       => 'image',
 				'parent'   => 'portfolio',
-				'name'     => __( 'Image', 'padma-advanced' ),
+				'name'     => __( 'Image', 'padma' ),
 				'selector' => '.portfolio .portfolio-image',
 			)
 		);
@@ -164,7 +164,7 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 			array(
 				'id'       => 'left-icon',
 				'parent'   => 'portfolio',
-				'name'     => __( 'Left icon', 'padma-advanced' ),
+				'name'     => __( 'Left icon', 'padma' ),
 				'selector' => '.portfolio .portfolio-image .left-icon',
 			)
 		);
@@ -173,7 +173,7 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 			array(
 				'id'       => 'right-icon',
 				'parent'   => 'portfolio',
-				'name'     => __( 'Right icon', 'padma-advanced' ),
+				'name'     => __( 'Right icon', 'padma' ),
 				'selector' => '.portfolio .portfolio-image .right-icon',
 			)
 		);
@@ -182,7 +182,7 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 			array(
 				'id'       => 'portfolio-desc',
 				'parent'   => 'portfolio',
-				'name'     => __( 'Description container', 'padma-advanced' ),
+				'name'     => __( 'Description container', 'padma' ),
 				'selector' => '.portfolio .portfolio-desc',
 			)
 		);
@@ -191,7 +191,7 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 			array(
 				'id'       => 'title',
 				'parent'   => 'portfolio',
-				'name'     => __( 'Article title', 'padma-advanced' ),
+				'name'     => __( 'Article title', 'padma' ),
 				'selector' => '.portfolio .portfolio-desc h3',
 			)
 		);
@@ -200,7 +200,7 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 			array(
 				'id'       => 'content',
 				'parent'   => 'portfolio',
-				'name'     => __( 'Content', 'padma-advanced' ),
+				'name'     => __( 'Content', 'padma' ),
 				'selector' => '.portfolio .portfolio-desc .description',
 			)
 		);
@@ -209,7 +209,7 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 			array(
 				'id'       => 'content-h1',
 				'parent'   => 'portfolio',
-				'name'     => __( 'Content H1', 'padma-advanced' ),
+				'name'     => __( 'Content H1', 'padma' ),
 				'selector' => '.portfolio .portfolio-desc .description h1',
 			)
 		);
@@ -218,7 +218,7 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 			array(
 				'id'       => 'content-h2',
 				'parent'   => 'portfolio',
-				'name'     => __( 'Content H2', 'padma-advanced' ),
+				'name'     => __( 'Content H2', 'padma' ),
 				'selector' => '.portfolio .portfolio-desc .description h2',
 			)
 		);
@@ -227,7 +227,7 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 			array(
 				'id'       => 'content-h3',
 				'parent'   => 'portfolio',
-				'name'     => __( 'Content H3', 'padma-advanced' ),
+				'name'     => __( 'Content H3', 'padma' ),
 				'selector' => '.portfolio .portfolio-desc .description h3',
 			)
 		);
@@ -236,7 +236,7 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 			array(
 				'id'       => 'content-h4',
 				'parent'   => 'portfolio',
-				'name'     => __( 'Content H4', 'padma-advanced' ),
+				'name'     => __( 'Content H4', 'padma' ),
 				'selector' => '.portfolio .portfolio-desc .description h4',
 			)
 		);
@@ -245,7 +245,7 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 			array(
 				'id'       => 'content-h5',
 				'parent'   => 'portfolio',
-				'name'     => __( 'Content H5', 'padma-advanced' ),
+				'name'     => __( 'Content H5', 'padma' ),
 				'selector' => '.portfolio .portfolio-desc .description h5',
 			)
 		);
@@ -254,7 +254,7 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 			array(
 				'id'       => 'content-h6',
 				'parent'   => 'portfolio',
-				'name'     => __( 'Content H6', 'padma-advanced' ),
+				'name'     => __( 'Content H6', 'padma' ),
 				'selector' => '.portfolio .portfolio-desc .description h6',
 			)
 		);
@@ -263,7 +263,7 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 			array(
 				'id'       => 'content-p',
 				'parent'   => 'portfolio',
-				'name'     => __( 'Content p', 'padma-advanced' ),
+				'name'     => __( 'Content p', 'padma' ),
 				'selector' => '.portfolio .portfolio-desc .description p',
 			)
 		);
@@ -272,7 +272,7 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 			array(
 				'id'       => 'content-a',
 				'parent'   => 'portfolio',
-				'name'     => __( 'Content a', 'padma-advanced' ),
+				'name'     => __( 'Content a', 'padma' ),
 				'selector' => '.portfolio .portfolio-desc .description a',
 			)
 		);
@@ -281,7 +281,7 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 			array(
 				'id'       => 'content-ul',
 				'parent'   => 'portfolio',
-				'name'     => __( 'Content ul', 'padma-advanced' ),
+				'name'     => __( 'Content ul', 'padma' ),
 				'selector' => '.portfolio .portfolio-desc .description ul',
 			)
 		);
@@ -290,7 +290,7 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 			array(
 				'id'       => 'content-ul-li',
 				'parent'   => 'portfolio',
-				'name'     => __( 'Content ul li', 'padma-advanced' ),
+				'name'     => __( 'Content ul li', 'padma' ),
 				'selector' => '.portfolio .portfolio-desc .description ul li',
 			)
 		);
@@ -299,7 +299,7 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 			array(
 				'id'       => 'button',
 				'parent'   => 'portfolio',
-				'name'     => __( 'Button', 'padma-advanced' ),
+				'name'     => __( 'Button', 'padma' ),
 				'selector' => '.portfolio .portfolio-desc .button',
 				'states'   => array(
 					'Hover'   => '.portfolio .portfolio-desc .button:hover',

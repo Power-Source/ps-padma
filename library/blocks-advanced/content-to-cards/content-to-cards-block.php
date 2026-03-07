@@ -57,9 +57,9 @@ class PadmaVisualElementsBlockContentToCards extends \PadmaBlockAPI {
 	 */
 	public function __construct() {
 		$this->id            = 've-content-to-cards';
-		$this->name          = __( 'Content to Cards', 'padma-advanced' );
+		$this->name          = __( 'Content to Cards', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockContentToCardsOptions';
-		$this->description   = __( 'Allows you to display expandable posts . ', 'padma-advanced' );
+		$this->description   = __( 'Allows you to display expandable posts . ', 'padma' );
 		$this->categories    = array( 'box', 'content', 'dynamic-content' );
 	}
 
@@ -79,7 +79,7 @@ class PadmaVisualElementsBlockContentToCards extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => '.ve-card-posts-container',
-				'name'     => __( 'Container', 'padma-advanced' ),
+				'name'     => __( 'Container', 'padma' ),
 				'selector' => '.ve-card-posts-container',
 			)
 		);
@@ -87,7 +87,7 @@ class PadmaVisualElementsBlockContentToCards extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => '.ve-card-posts-container-item',
-				'name'     => __( 'item', 'padma-advanced' ),
+				'name'     => __( 'item', 'padma' ),
 				'selector' => '.ve-card-posts-container li',
 			)
 		);
@@ -95,7 +95,7 @@ class PadmaVisualElementsBlockContentToCards extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => '.content-wrapper',
-				'name'     => __( 'Content', 'padma-advanced' ),
+				'name'     => __( 'Content', 'padma' ),
 				'selector' => '.ve-card-posts-container .content-wrapper',
 			)
 		);
@@ -103,7 +103,7 @@ class PadmaVisualElementsBlockContentToCards extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => '.cd-title',
-				'name'     => __( 'Title', 'padma-advanced' ),
+				'name'     => __( 'Title', 'padma' ),
 				'selector' => '.ve-card-posts-container .cd-title h2',
 			)
 		);

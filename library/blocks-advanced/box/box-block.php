@@ -57,9 +57,9 @@ public $categories;
  */
 public function __construct() {
 $this->id            = 'visual-elements-box';
-$this->name          = __( 'Box', 'padma-advanced' );
+$this->name          = __( 'Box', 'padma' );
 $this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockBoxOptions';
-$this->description   = __( 'Allows you to create customizable boxes with title and custom colors', 'padma-advanced' );
+$this->description   = __( 'Allows you to create customizable boxes with title and custom colors', 'padma' );
 $this->categories    = array( 'box' );
 }
 
@@ -76,21 +76,21 @@ public function setup_elements() {
 $this->register_block_element(
 array(
 'id'       => 'box',
-'name'     => __( 'Box', 'padma-advanced' ),
+'name'     => __( 'Box', 'padma' ),
 'selector' => '.su-box',
 )
 );
 $this->register_block_element(
 array(
 'id'       => 'box-title',
-'name'     => __( 'Box Title', 'padma-advanced' ),
+'name'     => __( 'Box Title', 'padma' ),
 'selector' => '.su-box-title',
 )
 );
 $this->register_block_element(
 array(
 'id'       => 'box-content',
-'name'     => __( 'Box Content', 'padma-advanced' ),
+'name'     => __( 'Box Content', 'padma' ),
 'selector' => '.su-box-content',
 )
 );

@@ -39,8 +39,8 @@ class PadmaVisualElementsBlockContentToTabsOptions extends \PadmaBlockOptionsAPI
 	public function __construct() {
 
 		$this->tabs = array(
-			'general'       => __( 'General', 'padma-advanced' ),
-			'query-filters' => __( 'Query Filters', 'padma-advanced' ),
+			'general'       => __( 'General', 'padma' ),
+			'query-filters' => __( 'Query Filters', 'padma' ),
 		);
 
 		$this->sets = array();
@@ -50,27 +50,27 @@ class PadmaVisualElementsBlockContentToTabsOptions extends \PadmaBlockOptionsAPI
 			'general'       => array(
 				'vertical'    => array(
 					'name'    => 'vertical',
-					'label'   => __( 'Vertical', 'padma-advanced' ),
+					'label'   => __( 'Vertical', 'padma' ),
 					'type'    => 'select',
 					'default' => 'no',
 					'options' => array(
-						'yes' => __( 'Yes', 'padma-advanced' ),
-						'no'  => __( 'No', 'padma-advanced' ),
+						'yes' => __( 'Yes', 'padma' ),
+						'no'  => __( 'No', 'padma' ),
 					),
-					'tooltip' => __( 'Align tabs vertically', 'padma-advanced' ),
+					'tooltip' => __( 'Align tabs vertically', 'padma' ),
 				),
 
 				'tabs-class'  => array(
 					'name'    => 'tabs-class',
 					'type'    => 'text',
-					'label'   => __( 'CSS Class', 'padma-advanced' ),
-					'tooltip' => __( 'Additional CSS class name(s) separated by space(s)', 'padma-advanced' ),
+					'label'   => __( 'CSS Class', 'padma' ),
+					'tooltip' => __( 'Additional CSS class name(s) separated by space(s)', 'padma' ),
 				),
 
 				'style'       => array(
 					'name'    => 'style',
 					'type'    => 'select',
-					'label'   => __( 'Style', 'padma-advanced' ),
+					'label'   => __( 'Style', 'padma' ),
 					'default' => 'default',
 					'options' => array(
 						'default'       => 'Default',
@@ -88,22 +88,22 @@ class PadmaVisualElementsBlockContentToTabsOptions extends \PadmaBlockOptionsAPI
 						'flat-blue'     => 'Flat: Blue',
 						'flat-green'    => 'Flat: Green',
 					),
-					'tooltip' => __( 'Choose style for this tabs', 'padma-advanced' ),
+					'tooltip' => __( 'Choose style for this tabs', 'padma' ),
 				),
 
 				'active'      => array(
 					'name'    => 'active',
 					'type'    => 'integer',
-					'label'   => __( 'Active (1-100)', 'padma-advanced' ),
+					'label'   => __( 'Active (1-100)', 'padma' ),
 					'default' => 1,
-					'tooltip' => __( 'Select which tab is open by default', 'padma-advanced' ),
+					'tooltip' => __( 'Select which tab is open by default', 'padma' ),
 				),
 
 				'post-link'   => array(
 					'type'    => 'checkbox',
 					'name'    => 'url',
-					'label'   => __( 'Enable post link', 'padma-advanced' ),
-					'tooltip' => __( 'Link tab to any webpage. Use full URL to turn the tab title into link', 'padma-advanced' ),
+					'label'   => __( 'Enable post link', 'padma' ),
+					'tooltip' => __( 'Link tab to any webpage. Use full URL to turn the tab title into link', 'padma' ),
 					'default' => false,
 				),
 				'item-target' => array(
@@ -111,18 +111,18 @@ class PadmaVisualElementsBlockContentToTabsOptions extends \PadmaBlockOptionsAPI
 					'type'    => 'select',
 					'default' => 'self',
 					'options' => array(
-						'self'  => __( 'Open in same tab', 'padma-advanced' ),
-						'blank' => __( 'Open in new tab', 'padma-advanced' ),
+						'self'  => __( 'Open in same tab', 'padma' ),
+						'blank' => __( 'Open in new tab', 'padma' ),
 					),
-					'label'   => __( 'Target', 'padma-advanced' ),
-					'tooltip' => __( 'Choose how to open the custom tab link', 'padma-advanced' ),
+					'label'   => __( 'Target', 'padma' ),
+					'tooltip' => __( 'Choose how to open the custom tab link', 'padma' ),
 				),
 
 				'item-class'  => array(
 					'name'    => 'item-class',
 					'type'    => 'text',
-					'label'   => __( 'CSS Class for the items', 'padma-advanced' ),
-					'tooltip' => __( 'Additional CSS class name(s) separated by space(s)', 'padma-advanced' ),
+					'label'   => __( 'CSS Class for the items', 'padma' ),
+					'tooltip' => __( 'Additional CSS class name(s) separated by space(s)', 'padma' ),
 				),
 
 			),
@@ -132,7 +132,7 @@ class PadmaVisualElementsBlockContentToTabsOptions extends \PadmaBlockOptionsAPI
 				'categories'      => array(
 					'type'    => 'multi-select',
 					'name'    => 'categories',
-					'label'   => __( 'Categories', 'padma-advanced' ),
+					'label'   => __( 'Categories', 'padma' ),
 					'tooltip' => '',
 					'options' => 'get_categories()',
 				),
@@ -140,19 +140,19 @@ class PadmaVisualElementsBlockContentToTabsOptions extends \PadmaBlockOptionsAPI
 				'categories-mode' => array(
 					'type'    => 'select',
 					'name'    => 'categories-mode',
-					'label'   => __( 'Categories Mode', 'padma-advanced' ),
+					'label'   => __( 'Categories Mode', 'padma' ),
 					'tooltip' => '',
 					'options' => array(
-						'include' => __( 'Include', 'padma-advanced' ),
-						'exclude' => __( 'Exclude', 'padma-advanced' ),
+						'include' => __( 'Include', 'padma' ),
+						'exclude' => __( 'Exclude', 'padma' ),
 					),
 				),
 
 				'enable-tags'     => array(
 					'type'    => 'checkbox',
 					'name'    => 'tags-filter',
-					'label'   => __( 'Tags Filter', 'padma-advanced' ),
-					'tooltip' => __( 'Check this to allow the tags filter show . ', 'padma-advanced' ),
+					'label'   => __( 'Tags Filter', 'padma' ),
+					'tooltip' => __( 'Check this to allow the tags filter show . ', 'padma' ),
 					'default' => false,
 					'toggle'  => array(
 						'false' => array(
@@ -171,7 +171,7 @@ class PadmaVisualElementsBlockContentToTabsOptions extends \PadmaBlockOptionsAPI
 				'tags'            => array(
 					'type'    => 'multi-select',
 					'name'    => 'tags',
-					'label'   => __( 'Tags', 'padma-advanced' ),
+					'label'   => __( 'Tags', 'padma' ),
 					'tooltip' => '',
 					'options' => 'get_tags()',
 				),
@@ -179,7 +179,7 @@ class PadmaVisualElementsBlockContentToTabsOptions extends \PadmaBlockOptionsAPI
 				'post-type'       => array(
 					'type'     => 'multi-select',
 					'name'     => 'post-type',
-					'label'    => __( 'Post Type', 'padma-advanced' ),
+					'label'    => __( 'Post Type', 'padma' ),
 					'tooltip'  => '',
 					'options'  => 'get_post_types()',
 					'callback' => 'reloadBlockOptions()',
@@ -188,7 +188,7 @@ class PadmaVisualElementsBlockContentToTabsOptions extends \PadmaBlockOptionsAPI
 				'post-status'     => array(
 					'type'    => 'multi-select',
 					'name'    => 'post-status',
-					'label'   => __( 'Post Status', 'padma-advanced' ),
+					'label'   => __( 'Post Status', 'padma' ),
 					'tooltip' => '',
 					'options' => 'get_post_status()',
 				),
@@ -196,7 +196,7 @@ class PadmaVisualElementsBlockContentToTabsOptions extends \PadmaBlockOptionsAPI
 				'author'          => array(
 					'type'    => 'multi-select',
 					'name'    => 'author',
-					'label'   => __( 'Author', 'padma-advanced' ),
+					'label'   => __( 'Author', 'padma' ),
 					'tooltip' => '',
 					'options' => 'get_authors()',
 				),
@@ -204,7 +204,7 @@ class PadmaVisualElementsBlockContentToTabsOptions extends \PadmaBlockOptionsAPI
 				'number-of-posts' => array(
 					'type'    => 'integer',
 					'name'    => 'number-of-posts',
-					'label'   => __( 'Number of Posts', 'padma-advanced' ),
+					'label'   => __( 'Number of Posts', 'padma' ),
 					'tooltip' => '',
 					'default' => 10,
 				),
@@ -212,51 +212,51 @@ class PadmaVisualElementsBlockContentToTabsOptions extends \PadmaBlockOptionsAPI
 				'offset'          => array(
 					'type'    => 'integer',
 					'name'    => 'offset',
-					'label'   => __( 'Offset', 'padma-advanced' ),
-					'tooltip' => __( 'The offset is the number of entries or posts you would like to skip.  If the offset is 1, then the first post will be skipped . ', 'padma-advanced' ),
+					'label'   => __( 'Offset', 'padma' ),
+					'tooltip' => __( 'The offset is the number of entries or posts you would like to skip.  If the offset is 1, then the first post will be skipped . ', 'padma' ),
 					'default' => 0,
 				),
 
 				'order-by'        => array(
 					'type'    => 'select',
 					'name'    => 'order-by',
-					'label'   => __( 'Order By', 'padma-advanced' ),
-					'tooltip' => __( 'Order By', 'padma-advanced' ),
+					'label'   => __( 'Order By', 'padma' ),
+					'tooltip' => __( 'Order By', 'padma' ),
 					'options' => array(
-						'date'          => __( 'Date', 'padma-advanced' ),
-						'title'         => __( 'Title', 'padma-advanced' ),
-						'rand'          => __( 'Random', 'padma-advanced' ),
-						'comment_count' => __( 'Comment Count', 'padma-advanced' ),
-						'ID'            => __( 'ID', 'padma-advanced' ),
-						'author'        => __( 'Author', 'padma-advanced' ),
-						'type'          => __( 'Post Type', 'padma-advanced' ),
-						'menu_order'    => __( 'Custom Order', 'padma-advanced' ),
+						'date'          => __( 'Date', 'padma' ),
+						'title'         => __( 'Title', 'padma' ),
+						'rand'          => __( 'Random', 'padma' ),
+						'comment_count' => __( 'Comment Count', 'padma' ),
+						'ID'            => __( 'ID', 'padma' ),
+						'author'        => __( 'Author', 'padma' ),
+						'type'          => __( 'Post Type', 'padma' ),
+						'menu_order'    => __( 'Custom Order', 'padma' ),
 					),
 				),
 
 				'order'           => array(
 					'type'    => 'select',
 					'name'    => 'order',
-					'label'   => __( 'Order', 'padma-advanced' ),
+					'label'   => __( 'Order', 'padma' ),
 					'tooltip' => '',
 					'options' => array(
-						'desc' => __( 'Descending', 'padma-advanced' ),
-						'asc'  => __( 'Ascending', 'padma-advanced' ),
+						'desc' => __( 'Descending', 'padma' ),
+						'asc'  => __( 'Ascending', 'padma' ),
 					),
 				),
 
 				'byid-include'    => array(
 					'type'    => 'text',
 					'name'    => 'byid-include',
-					'label'   => __( 'Include by ID', 'padma-advanced' ),
-					'tooltip' => __( 'In both Include and Exclude by ID, you use a comma separated list of IDs of your post type . ', 'padma-advanced' ),
+					'label'   => __( 'Include by ID', 'padma' ),
+					'tooltip' => __( 'In both Include and Exclude by ID, you use a comma separated list of IDs of your post type . ', 'padma' ),
 				),
 
 				'byid-exclude'    => array(
 					'type'    => 'text',
 					'name'    => 'byid-exclude',
-					'label'   => __( 'Exclude by ID', 'padma-advanced' ),
-					'tooltip' => __( 'In both Include and Exclude by ID, you use a comma separated list of IDs of your post type . ', 'padma-advanced' ),
+					'label'   => __( 'Exclude by ID', 'padma' ),
+					'tooltip' => __( 'In both Include and Exclude by ID, you use a comma separated list of IDs of your post type . ', 'padma' ),
 				),
 			),
 

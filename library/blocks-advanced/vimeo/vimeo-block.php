@@ -57,9 +57,9 @@ class PadmaVisualElementsBlockVimeo extends \PadmaBlockAPI {
 	 */
 	public function __construct() {
 		$this->id            = 'visual-elements-vimeo';
-		$this->name          = __( 'Vimeo', 'padma-advanced' );
+		$this->name          = __( 'Vimeo', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockVimeoOptions';
-		$this->description   = __( 'Allows you to insert responsive Vimeo videos . ', 'padma-advanced' );
+		$this->description   = __( 'Allows you to insert responsive Vimeo videos . ', 'padma' );
 		$this->categories    = array( 'media' );
 	}
 

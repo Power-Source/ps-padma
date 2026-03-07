@@ -14,26 +14,38 @@ namespace Padma_Advanced;
  */
 class PadmaContentSliderBlockOptions extends \PadmaBlockOptionsAPI {
 
-	public $tabs = array(
-		'content-tab' 	=> 'Content',
-		'slider-tab' 	=> 'Settings',
-	);
+	/**
+	 * Block tabs for options.
+	 *
+	 * @var array $tabs
+	 */
+	public $tabs;
+
+	/**
+	 * Inputs for each tab.
+	 *
+	 * @var array $inputs
+	 */
+	public $inputs;
+
+	/**
+	 * Init block options
+	 */
+	public function __construct() {
+
+		$this->tabs = array(
+			'content-tab' 	=> __( 'Inhalt', 'padma' ),
+			'slider-tab' 	=> __( 'Einstellungen', 'padma' ),
+		);
 
 
-	public $inputs = array(
+		$this->inputs = array(
 
 		'content-tab' => array(
 			'post-type' => array(
 				'type' => 'select',
 				'name' => 'post-type',
-				'label' => 'Which Product',
-				'options' => array(
-					'none' 		=> 'Choose your product',
-					'woo' 		=> 'WooCommerce',
-					'cf7' 		=> 'Contact Form 7',
-					'gravity' 	=> 'Gravity Forms',
-					'price' 	=> 'Price Tables'
-				),
+				'label' => __( 'Post-Type', 'padma' ),
 				'default' => 'post',
 				'tooltip' => '',		
 				'options' => 'get_post_types()',
@@ -43,7 +55,7 @@ class PadmaContentSliderBlockOptions extends \PadmaBlockOptionsAPI {
 			'categories' => array(
 				'type' => 'multi-select',
 				'name' => 'categories',
-				'label' => 'Categories',
+				'label' => __( 'Kategorien', 'padma' ),
 				'tooltip' => '',
 				'options' => 'get_categories()'
 			),
@@ -51,28 +63,28 @@ class PadmaContentSliderBlockOptions extends \PadmaBlockOptionsAPI {
 			'order-by' => array(
 				'type' => 'select',
 				'name' => 'order-by',
-				'label' => 'Order By',
+				'label' => __( 'Sortieren nach', 'padma' ),
 				'tooltip' => '',
 				'options' => array(
-					'date' => 'Date',
-					'title' => 'Title',
-					'rand' => 'Random',
-					'comment_count' => 'Comment Count',
+					'date' => __( 'Datum', 'padma' ),
+					'title' => __( 'Titel', 'padma' ),
+					'rand' => __( 'Zufällig', 'padma' ),
+					'comment_count' => __( 'Kommentar-Anzahl', 'padma' ),
 					'ID' => 'ID',
-					'author' => 'Author',
-					'type' => 'Post Type',
-					'menu_order' => 'Custom Order'
+					'author' => __( 'Autor', 'padma' ),
+					'type' => __( 'Post Type', 'padma' ),
+					'menu_order' => __( 'Benutzerdefinierte Reihenfolge', 'padma' )
 				)
 			),
 			
 			'order' => array(
 				'type' => 'select',
 				'name' => 'order',
-				'label' => 'Order',
+				'label' => __( 'Reihenfolge', 'padma' ),
 				'tooltip' => '',
 				'options' => array(
-					'desc' => 'Descending',
-					'asc' => 'Ascending',
+					'desc' => __( 'Absteigend', 'padma' ),
+					'asc' => __( 'Aufsteigend', 'padma' ),
 				)
 			),
 
@@ -80,8 +92,8 @@ class PadmaContentSliderBlockOptions extends \PadmaBlockOptionsAPI {
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'only-title',
-				'label' 	=> 'Only show Title',
-				'tooltip' 	=> 'Only show Title',
+				'label' 	=> __( 'Nur Titel anzeigen', 'padma' ),
+				'tooltip' 	=> __( 'Zeigt nur den Titel an', 'padma' ),
 				'toggle'    => array(
 					'false' => array(
 						'hide' => array(
@@ -100,38 +112,38 @@ class PadmaContentSliderBlockOptions extends \PadmaBlockOptionsAPI {
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'link-title',
-				'label' 	=> 'Title as Link',
-				'tooltip' 	=> 'Title as Link',				
+				'label' 	=> __( 'Titel als Link', 'padma' ),
+				'tooltip' 	=> __( 'Macht den Titel zu einem anklickbaren Link', 'padma' ),				
 			),
 
 			'only-featured' => array(
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'only-featured',
-				'label' 	=> 'Only show featured image',
-				'tooltip' 	=> 'Only show featured image',
+				'label' 	=> __( 'Nur Beitragsbild anzeigen', 'padma' ),
+				'tooltip' 	=> __( 'Zeigt nur das Beitragsbild an', 'padma' ),
 			),
 
 			'only-excerpt' => array(
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'only-excerpt',
-				'label' 	=> 'Only show excerpt',
-				'tooltip' 	=> 'Only show excerpt',
+				'label' 	=> __( 'Nur Auszug anzeigen', 'padma' ),
+				'tooltip' 	=> __( 'Zeigt nur den Beitrags-Auszug an', 'padma' ),
 			),
 			'show-link' => array(
 				'type' 		=> 'checkbox',
 				'default' 	=> true,
 				'name' 		=> 'show-link',
-				'label' 	=> 'Show link',
-				'tooltip' 	=> 'Show content link',
+				'label' 	=> __( 'Link anzeigen', 'padma' ),
+				'tooltip' 	=> __( 'Zeigt einen Link zum vollständigen Beitrag an', 'padma' ),
 			),
 			'show-link-text' => array(
 				'type' 		=> 'text',
-				'default' 	=> 'Show more',
+				'default' 	=> 'Mehr anzeigen',
 				'name' 		=> 'show-link-text',
-				'label' 	=> 'Link text',
-				'tooltip' 	=> 'Text for link ',
+				'label' 	=> __( 'Link-Text', 'padma' ),
+				'tooltip' 	=> __( 'Text für den Link zum vollständigen Beitrag', 'padma' ),
 			),
 		),
 		'slider-tab' => array(
@@ -140,247 +152,247 @@ class PadmaContentSliderBlockOptions extends \PadmaBlockOptionsAPI {
 				'type' 		=> 'integer',
 				'default' 	=> 3,
 				'name' 		=> 'items',
-				'label' 	=> 'Items to show',
-				'tooltip' 	=> 'The number of items you want to see on the screen.',				
+				'label' 	=> __( 'Anzahl Elemente', 'padma' ),
+				'tooltip' 	=> __( 'Wie viele Elemente sollen gleichzeitig angezeigt werden?', 'padma' ),				
 			),
 
 			'margin' => array(
 				'type' 		=> 'integer',
 				'default' 	=> 0,
 				'name' 		=> 'margin',
-				'label' 	=> 'Item right margin',
-				'tooltip' 	=> 'margin-right(px) on item.',
+				'label' 	=> __( 'Abstand rechts', 'padma' ),
+				'tooltip' 	=> __( 'Abstand (margin-right) in Pixel zwischen den Elementen', 'padma' ),
 			),
 
 			'loop' => array(
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'loop',
-				'label' 	=> 'Loop',
-				'tooltip' 	=> 'Infinity loop. Duplicate last and first items to get loop illusion.',
+				'label' 	=> __( 'Endlos-Schleife', 'padma' ),
+				'tooltip' 	=> __( 'Endlos-Schleife aktivieren. Dupliziert erste und letzte Elemente für nahtlose Wiederholung', 'padma' ),
 			),
 
 			'center' => array(
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'center',
-				'label' 	=> 'Center',
-				'tooltip' 	=> 'Center item. Works well with even an odd number of items.',
+				'label' 	=> __( 'Zentrieren', 'padma' ),
+				'tooltip' 	=> __( 'Zentriert das aktive Element. Funktioniert auch bei ungerader Anzahl', 'padma' ),
 			),
 
 			'mouse-drag' => array(
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'mouse-drag',
-				'label' 	=> 'Mouse Drag',
-				'tooltip' 	=> 'Mouse drag enabled.',
+				'label' 	=> __( 'Maus-Drag', 'padma' ),
+				'tooltip' 	=> __( 'Slider mit der Maus ziehen aktivieren', 'padma' ),
 			),
 
 			'touch-drag' => array(
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'touch-drag',
-				'label' 	=> 'Touch Drag',
-				'tooltip' 	=> 'Touch drag enabled.',
+				'label' 	=> __( 'Touch-Drag', 'padma' ),
+				'tooltip' 	=> __( 'Touch-Gesten auf mobilen Geräten aktivieren', 'padma' ),
 			),
 			
 			'pull-drag' => array(
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'pull-drag',
-				'label' 	=> 'Pull Drag',
-				'tooltip' 	=> 'Stage pull to edge.',
+				'label' 	=> __( 'Pull Drag', 'padma' ),
+				'tooltip' 	=> __( 'Slider kann bis zum Rand gezogen werden', 'padma' ),
 			),
 
 			'free-drag' => array(
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'free-drag',
-				'label' 	=> 'Free Drag',
-				'tooltip' 	=> 'Item pull to edge.',
+				'label' 	=> __( 'Freies Ziehen', 'padma' ),
+				'tooltip' 	=> __( 'Elemente können frei bis zum Rand gezogen werden', 'padma' ),
 			),
 
 			'stage-padding' => array(
 				'type' 		=> 'integer',
 				'default' 	=> 0,
 				'name' 		=> 'stage-padding',
-				'label' 	=> 'Stage Padding',
-				'tooltip' 	=> 'Padding left and right on stage (can see neighbours).',
+				'label' 	=> __( 'Bühnen-Abstand', 'padma' ),
+				'tooltip' 	=> __( 'Abstand links und rechts (sichtbare Nachbar-Elemente)', 'padma' ),
 			),
 
 			'merge' => array(
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'merge',
-				'label' 	=> 'Merge',
-				'tooltip' 	=> 'Merge items. Looking for data-merge=\'{number}\' inside item..',
+				'label' 	=> __( 'Elemente verbinden', 'padma' ),
+				'tooltip' 	=> __( 'Elemente verbinden. Sucht nach data-merge="{number}" im Element', 'padma' ),
 			),
 
 			'merge-fit' => array(
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'merge-fit',
-				'label' 	=> 'Merge Fit',
-				'tooltip' 	=> 'Fit merged items if screen is smaller than items value.',
+				'label' 	=> __( 'Verbundene Elemente anpassen', 'padma' ),
+				'tooltip' 	=> __( 'Passt verbundene Elemente an, wenn Bildschirm kleiner ist', 'padma' ),
 			),
 
 			'auto-width' => array(
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'auto-width',
-				'label' 	=> 'Auto Width',
-				'tooltip' 	=> 'Set non grid content. Try using width style on divs.',
+				'label' 	=> __( 'Automatische Breite', 'padma' ),
+				'tooltip' 	=> __( 'Für Inhalte ohne festes Raster. Nutze width-Style auf divs', 'padma' ),
 			),
 
 			'item-width' => array(
 				'type' 		=> 'integer',
 				'default' 	=> 800,
 				'name' 		=> 'item-width',
-				'label' 	=> 'Item Width',
-				'tooltip' 	=> 'Number in px. Require Auto Width',
+				'label' 	=> __( 'Element-Breite', 'padma' ),
+				'tooltip' 	=> __( 'Breite in Pixel. Benötigt "Automatische Breite"', 'padma' ),
 			),
 			
 			'start-position' => array(
 				'type' 		=> 'integer',
 				'default' 	=> 0,
 				'name' 		=> 'start-position',
-				'label' 	=> 'Start Position',
-				'tooltip' 	=> 'Start position',
+				'label' 	=> __( 'Startposition', 'padma' ),
+				'tooltip' 	=> __( 'Bei welchem Slide soll gestartet werden?', 'padma' ),
 			),
 
 			'url-hash-listener' => array(
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'url-hash-listener',
-				'label' 	=> 'URL hash Listener',
-				'tooltip' 	=> 'Listen to url hash changes. data-hash on items is required.',
+				'label' 	=> __( 'URL-Hash Listener', 'padma' ),
+				'tooltip' 	=> __( 'Reagiert auf URL-Hash-Änderungen. Benötigt data-hash bei Elementen', 'padma' ),
 			),
 
 			'nav' => array(
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'nav',
-				'label' 	=> 'Show next/prev buttons.',
-				'tooltip' 	=> 'Show next/prev buttons.',
+				'label' 	=> __( 'Vor/Zurück-Buttons zeigen', 'padma' ),
+				'tooltip' 	=> __( 'Navigations-Pfeile anzeigen', 'padma' ),
 			),
 
 			'rewind' => array(
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'rewind',
-				'label' 	=> 'Rewind',
-				'tooltip' 	=> 'Go backwards when the boundary has reached.',
+				'label' 	=> __( 'Zurückspulen', 'padma' ),
+				'tooltip' 	=> __( 'Spring zurück zum Anfang wenn das Ende erreicht ist', 'padma' ),
 			),
 
 			'nav-text-next' => array(
 				'type' 		=> 'text',
 				'default' 	=> null,
 				'name' 		=> 'nav-text-next',
-				'label' 	=> '"Next" text',
-				'tooltip' 	=> 'HTML allowed.',
+				'label' 	=> __( '"Weiter"-Text', 'padma' ),
+				'tooltip' 	=> __( 'HTML erlaubt', 'padma' ),
 			),
 
 			'nav-text-prev' => array(
 				'type' 		=> 'text',
 				'default' 	=> null,
 				'name' 		=> 'nav-text-prev',
-				'label' 	=> '"Prev" text',
-				'tooltip' 	=> 'HTML allowed.',
+				'label' 	=> __( '"Zurück"-Text', 'padma' ),
+				'tooltip' 	=> __( 'HTML erlaubt', 'padma' ),
 			),
 
 			'nav-element' => array(
 				'type' 		=> 'text',
 				'default' 	=> 'div',
 				'name' 		=> 'nav-element',
-				'label' 	=> 'Nav element',
-				'tooltip' 	=> 'DOM element type for a single directional navigation link.',
+				'label' 	=> __( 'Nav-Element', 'padma' ),
+				'tooltip' 	=> __( 'DOM-Element-Typ für einen einzelnen Navigations-Link', 'padma' ),
 			),
 
 			'slide-by' => array(
 				'type' 		=> 'integer',
 				'default' 	=> 1,
 				'name' 		=> 'slide-by',
-				'label' 	=> 'Slide By',
-				'tooltip' 	=> 'Navigation slide by x. \'page\' string can be set to slide by page.',
+				'label' 	=> __( 'Slide um X', 'padma' ),
+				'tooltip' 	=> __( 'Navigation springt um X Elemente. "page" springt seitenweise', 'padma' ),
 			),
 
 			'slide-transition' => array(
 				'type' 		=> 'text',
 				'default' 	=> null,
 				'name' 		=> 'slide-transition',
-				'label' 	=> 'Slide Transition',
-				'tooltip' 	=> 'You can define the transition for the stage you want to use eg. linear.',
+				'label' 	=> __( 'Slide-Übergang', 'padma' ),
+				'tooltip' 	=> __( 'CSS-Übergang für die Bühne, z.B. "linear"', 'padma' ),
 			),
 
 			'dots' => array(
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'dots',
-				'label' 	=> 'Dots',
-				'tooltip' 	=> 'Show dots navigation.',
+				'label' 	=> __( 'Punkte', 'padma' ),
+				'tooltip' 	=> __( 'Zeige Punkt-Navigation', 'padma' ),
 			),
 
 			'dots-each' => array(
 				'type' 		=> 'integer',
 				'default' 	=> 0,
 				'name' 		=> 'dots-each',
-				'label' 	=> 'Show dots each x item.',
-				'tooltip' 	=> 'Show dots each x item.',
+				'label' 	=> __( 'Punkt alle X Elemente', 'padma' ),
+				'tooltip' 	=> __( 'Zeige einen Punkt für je X Elemente', 'padma' ),
 			),
 
 			'dots-data' => array(
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'dots-data',
-				'label' 	=> 'Dots Data',
-				'tooltip' 	=> 'Used by data-dot content.',
+				'label' 	=> __( 'Punkte-Daten', 'padma' ),
+				'tooltip' 	=> __( 'Verwende data-dot Inhalt', 'padma' ),
 			),
 
 			'lazy-load' => array(
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'lazy-load',
-				'label' 	=> 'Lazy Load',
-				'tooltip' 	=> 'Lazy load images. data-src and data-src-retina for highres. Also load images into background inline style if element is not <img>',
+				'label' 	=> __( 'Lazy Load', 'padma' ),
+				'tooltip' 	=> __( 'Lädt Bilder erst bei Bedarf. Nutze data-src und data-src-retina', 'padma' ),
 			),
 
 			'lazy-load-eager' => array(
 				'type' 		=> 'integer',
 				'default' 	=> 0,
 				'name' 		=> 'lazy-load-eager',
-				'label' 	=> 'Lazy Load Eager',
-				'tooltip' 	=> 'Eagerly pre-loads images to the right (and left when loop is enabled) based on how many items you want to preload.',
+				'label' 	=> __( 'Lazy Load Eager', 'padma' ),
+				'tooltip' 	=> __( 'Lädt X Bilder im Voraus (rechts und bei Loop auch links)', 'padma' ),
 			),
 
 			'autoplay' => array(
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'autoplay',
-				'label' 	=> 'Auto Play',
-				'tooltip' 	=> 'Autoplay',
+				'label' 	=> __( 'Autoplay', 'padma' ),
+				'tooltip' 	=> __( 'Automatisches Abspielen aktivieren', 'padma' ),
 			),
 
 			'autoplay-timeout' => array(
 				'type' 		=> 'integer',
 				'default' 	=> 5000,
 				'name' 		=> 'autoplay-timeout',
-				'label' 	=> 'Auto Play Timeout',
-				'tooltip' 	=> 'Autoplay interval timeout.',
+				'label' 	=> __( 'Autoplay Timeout', 'padma' ),
+				'tooltip' 	=> __( 'Wartezeit in Millisekunden zwischen Slides', 'padma' ),
 			),
 
 			'autoplay-hover-pause' => array(
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'autoplay-hover-pause',
-				'label' 	=> 'Pause on Hover',
-				'tooltip' 	=> 'Pause on mouse hover.',
+				'label' 	=> __( 'Pause bei Hover', 'padma' ),
+				'tooltip' 	=> __( 'Pausiert bei Maus-Hover', 'padma' ),
 			),
 			'autoplay-speed' => array(
 				'type' 		=> 'integer',
 				'default' 	=> 5000,
 				'name' 		=> 'autoplay-speed',
-				'label' 	=> 'Autoplay Speed.',
-				'tooltip' 	=> 'Autoplay speed.',
+				'label' 	=> __( 'Autoplay Geschwindigkeit', 'padma' ),
+				'tooltip' 	=> __( 'Geschwindigkeit des Autoplay', 'padma' ),
 			),
 			/*
 			'smartSpeed' => array(
@@ -436,8 +448,8 @@ class PadmaContentSliderBlockOptions extends \PadmaBlockOptionsAPI {
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'callbacks',
-				'label' 	=> 'Callback.',
-				'tooltip' 	=> 'Enable callback events.',
+				'label' 	=> __( 'Callbacks', 'padma' ),
+				'tooltip' 	=> __( 'Callback-Events aktivieren', 'padma' ),
 			),
 
 			/*
@@ -454,8 +466,8 @@ class PadmaContentSliderBlockOptions extends \PadmaBlockOptionsAPI {
 				'type' 		=> 'integer',
 				'default' 	=> 200,
 				'name' 		=> 'responsive-refresh-rate',
-				'label' 	=> 'Responsive Refresh Rate',
-				'tooltip' 	=> 'Responsive refresh rate.',
+				'label' 	=> __( 'Responsive Refresh Rate', 'padma' ),
+				'tooltip' 	=> __( 'Aktualisierungsrate für responsive Anpassungen', 'padma' ),
 			),
 			/*
 				To Do
@@ -473,48 +485,48 @@ class PadmaContentSliderBlockOptions extends \PadmaBlockOptionsAPI {
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'video',
-				'label' 	=> 'Video.',
-				'tooltip' 	=> 'Enable fetching YouTube/Vimeo/Vzaar videos.',
+				'label' 	=> __( 'Video', 'padma' ),
+				'tooltip' 	=> __( 'YouTube/Vimeo/Vzaar Videos laden aktivieren', 'padma' ),
 			),
 
 			'video-height' => array(
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'video-height',
-				'label' 	=> 'Video height.',
-				'tooltip' 	=> 'Set height for videos.',
+				'label' 	=> __( 'Video-Höhe', 'padma' ),
+				'tooltip' 	=> __( 'Höhe für Videos festlegen', 'padma' ),
 			),
 
 			'video-width' => array(
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'video-width',
-				'label' 	=> 'Video width.',
-				'tooltip' 	=> 'Set width for videos.',
+				'label' 	=> __( 'Video-Breite', 'padma' ),
+				'tooltip' 	=> __( 'Breite für Videos festlegen', 'padma' ),
 			),
 
 			'animate-out' => array(
 				'type' 		=> 'text',
 				'default' 	=> null,
 				'name' 		=> 'animate-out',
-				'label' 	=> 'AnimateOut Class',
-				'tooltip' 	=> 'Class for CSS3 animation out.',
+				'label' 	=> __( 'AnimateOut Class', 'padma' ),
+				'tooltip' 	=> __( 'CSS3-Animations-Klasse für Ausblenden', 'padma' ),
 			),
 
 			'animate-in' => array(
 				'type' 		=> 'text',
 				'default' 	=> null,
 				'name' 		=> 'animate-in',
-				'label' 	=> 'AnimateIn Class',
-				'tooltip' 	=> 'Class for CSS3 animation in.',
+				'label' 	=> __( 'AnimateIn Class', 'padma' ),
+				'tooltip' 	=> __( 'CSS3-Animations-Klasse für Einblenden', 'padma' ),
 			),
 
 			'fallback-easing' => array(
 				'type' 		=> 'text',
 				'default' 	=> null,
 				'name' 		=> 'fallback-easing',
-				'label' 	=> 'Fallback Easing',
-				'tooltip' 	=> 'Easing for CSS2 $.animate.',
+				'label' 	=> __( 'Fallback Easing', 'padma' ),
+				'tooltip' 	=> __( 'Easing für CSS2 $.animate', 'padma' ),
 			),
 			/*
 
@@ -532,52 +544,53 @@ class PadmaContentSliderBlockOptions extends \PadmaBlockOptionsAPI {
 				'type' 		=> 'text',
 				'default' 	=> null,
 				'name' 		=> 'nested-item-selector',
-				'label' 	=> 'Nested Item Selector',
-				'tooltip' 	=> 'Use it if owl items are deep nested inside some generated content. E.g \'youritem\'. Dont use dot before class name.',
+				'label' 	=> __( 'Verschachtelter Item-Selektor', 'padma' ),
+				'tooltip' 	=> __( 'Nutze dies wenn owl-items tief verschachtelt sind. Z.B. "youritem" (ohne Punkt)', 'padma' ),
 			),
 
 			'item-element' => array(
 				'type' 		=> 'text',
 				'default' 	=> 'div',
 				'name' 		=> 'item-element',
-				'label' 	=> 'Item Element',
-				'tooltip' 	=> 'DOM element type for owl-item.',
+				'label' 	=> __( 'Item-Element', 'padma' ),
+				'tooltip' 	=> __( 'DOM-Element-Typ für owl-item', 'padma' ),
 			),
 
 			'stage-element' => array(
 				'type' 		=> 'text',
 				'default' 	=> 'div',
 				'name' 		=> 'stage-element',
-				'label' 	=> 'Stage Element',
-				'tooltip' 	=> 'DOM element type for owl-stage.',
+				'label' 	=> __( 'Bühnen-Element', 'padma' ),
+				'tooltip' 	=> __( 'DOM-Element-Typ für owl-stage', 'padma' ),
 			),
 
 			'nav-container' => array(
 				'type' 		=> 'text',
 				'default' 	=> null,
 				'name' 		=> 'nav-container',
-				'label' 	=> 'Nav container',
-				'tooltip' 	=> 'Set your own container for nav.',
+				'label' 	=> __( 'Nav-Container', 'padma' ),
+				'tooltip' 	=> __( 'Eigener Container für Navigation', 'padma' ),
 			),
 
 			'dots-container' => array(
 				'type' 		=> 'text',
 				'default' 	=> null,
 				'name' 		=> 'dots-container',
-				'label' 	=> 'Dots container',
-				'tooltip' 	=> 'Set your own container for nav.',
+				'label' 	=> __( 'Punkte-Container', 'padma' ),
+				'tooltip' 	=> __( 'Eigener Container für Punkte-Navigation', 'padma' ),
 			),
 
 			'check-visible' => array(
 				'type' 		=> 'checkbox',
 				'default' 	=> false,
 				'name' 		=> 'check-visible',
-				'label' 	=> 'Check Visible.',
-				'tooltip' 	=> 'If you know the carousel will always be visible you can set `checkVisibility` to `false` to prevent the expensive browser layout forced reflow the $element.is(\':visible\') does.',
+				'label' 	=> __( 'Sichtbarkeit prüfen', 'padma' ),
+				'tooltip' 	=> __( 'Wenn du weißt, dass der Slider immer sichtbar ist, setze dies auf "false" für bessere Performance', 'padma' ),
 			),
 		),
 
 	);
+	}
 
 	function get_categories() {
 		
@@ -596,7 +609,7 @@ class PadmaContentSliderBlockOptions extends \PadmaBlockOptionsAPI {
 		$tags_select_query = get_terms('post_tag');
 		foreach ($tags_select_query as $tag)
 			$tag_options[$tag->term_id] = $tag->name;
-		$tag_options = (count($tag_options) == 0) ? array('text'	 => 'No tags available') : $tag_options;
+		$tag_options = (count($tag_options) == 0) ? array('text'	 => __( 'Keine Tags verfügbar', 'padma' )) : $tag_options;
 		return $tag_options;
 	}
 
@@ -636,7 +649,7 @@ class PadmaContentSliderBlockOptions extends \PadmaBlockOptionsAPI {
 
 	function get_taxonomies() {
 
-		$taxonomy_options = array('&ndash; Default: Category &ndash;');
+		$taxonomy_options = array( __( '&ndash; Standard: Kategorie &ndash;', 'padma' ) );
 
 		$taxonomy_select_query=get_taxonomies(false, 'objects', 'or');
 

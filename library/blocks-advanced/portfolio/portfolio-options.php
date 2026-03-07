@@ -39,8 +39,8 @@ class PadmaVisualElementsBlockPortfolioOptions extends \PadmaBlockOptionsAPI {
 	public function __construct() {
 
 		$this->tabs = array(
-			'general'       => __( 'General', 'padma-advanced' ),
-			'query-filters' => __( 'Query Filters', 'padma-advanced' ),
+			'general'       => __( 'General', 'padma' ),
+			'query-filters' => __( 'Query Filters', 'padma' ),
 		);
 
 		$this->sets = array();
@@ -52,8 +52,8 @@ class PadmaVisualElementsBlockPortfolioOptions extends \PadmaBlockOptionsAPI {
 				'columns'                    => array(
 					'type'       => 'slider',
 					'name'       => 'columns',
-					'label'      => __( 'Columns', 'padma-advanced' ),
-					'tooltip'    => __( 'Amount of portfolio columns . ', 'padma-advanced' ),
+					'label'      => __( 'Columns', 'padma' ),
+					'tooltip'    => __( 'Amount of portfolio columns . ', 'padma' ),
 					'unit'       => null,
 					'default'    => 4,
 					'slider-min' => 1,
@@ -136,14 +136,14 @@ class PadmaVisualElementsBlockPortfolioOptions extends \PadmaBlockOptionsAPI {
 
 				'show-filter'                => array(
 					'name'    => 'show-filter',
-					'label'   => __( 'Show filter', 'padma-advanced' ),
+					'label'   => __( 'Show filter', 'padma' ),
 					'type'    => 'select',
 					'default' => 'no',
 					'options' => array(
-						'yes' => __( 'Yes', 'padma-advanced' ),
-						'no'  => __( 'No', 'padma-advanced' ),
+						'yes' => __( 'Yes', 'padma' ),
+						'no'  => __( 'No', 'padma' ),
 					),
-					'tooltip' => __( 'Show filter', 'padma-advanced' ),
+					'tooltip' => __( 'Show filter', 'padma' ),
 					'toggle'  => array(
 						'yes' => array(
 							'show' => array(
@@ -162,19 +162,19 @@ class PadmaVisualElementsBlockPortfolioOptions extends \PadmaBlockOptionsAPI {
 
 				'only-categories-with-posts' => array(
 					'name'    => 'only-categories-with-posts',
-					'label'   => __( 'Only show categories with posts', 'padma-advanced' ),
+					'label'   => __( 'Only show categories with posts', 'padma' ),
 					'type'    => 'select',
 					'default' => 'no',
 					'options' => array(
-						'yes' => __( 'Yes', 'padma-advanced' ),
-						'no'  => __( 'No', 'padma-advanced' ),
+						'yes' => __( 'Yes', 'padma' ),
+						'no'  => __( 'No', 'padma' ),
 					),
-					'tooltip' => __( 'Select filter style', 'padma-advanced' ),
+					'tooltip' => __( 'Select filter style', 'padma' ),
 				),
 
 				'filter-style'               => array(
 					'name'    => 'filter-style',
-					'label'   => __( 'Filter style', 'padma-advanced' ),
+					'label'   => __( 'Filter style', 'padma' ),
 					'type'    => 'select',
 					'default' => 'style-1',
 					'options' => array(
@@ -183,83 +183,83 @@ class PadmaVisualElementsBlockPortfolioOptions extends \PadmaBlockOptionsAPI {
 						'style-3' => 'Style 3',
 						'style-4' => 'Style 4',
 					),
-					'tooltip' => __( 'Select filter style', 'padma-advanced' ),
+					'tooltip' => __( 'Select filter style', 'padma' ),
 				),
 
 				'show-all-text'              => array(
 					'name'    => 'show-all-text',
-					'label'   => __( 'Show All text', 'padma-advanced' ),
+					'label'   => __( 'Show All text', 'padma' ),
 					'type'    => 'text',
 					'default' => 'Show All',
-					'tooltip' => __( 'Default text for "Show all" button', 'padma-advanced' ),
+					'tooltip' => __( 'Default text for "Show all" button', 'padma' ),
 				),
 
 				'show-margin'                => array(
 					'name'    => 'show-margin',
-					'label'   => __( 'Show margin', 'padma-advanced' ),
+					'label'   => __( 'Show margin', 'padma' ),
 					'type'    => 'select',
 					'default' => 'yes',
 					'options' => array(
-						'yes' => __( 'Yes', 'padma-advanced' ),
-						'no'  => __( 'No', 'padma-advanced' ),
+						'yes' => __( 'Yes', 'padma' ),
+						'no'  => __( 'No', 'padma' ),
 					),
-					'tooltip' => __( 'Show margin', 'padma-advanced' ),
+					'tooltip' => __( 'Show margin', 'padma' ),
 				),
 
 				'alternate-content'          => array(
 					'name'    => 'alternate-content',
-					'label'   => __( 'Alternate content and image', 'padma-advanced' ),
+					'label'   => __( 'Alternate content and image', 'padma' ),
 					'type'    => 'select',
 					'default' => 'no',
 					'options' => array(
-						'yes' => __( 'Yes', 'padma-advanced' ),
-						'no'  => __( 'No', 'padma-advanced' ),
+						'yes' => __( 'Yes', 'padma' ),
+						'no'  => __( 'No', 'padma' ),
 					),
-					'tooltip' => __( 'Alternate content and image', 'padma-advanced' ),
+					'tooltip' => __( 'Alternate content and image', 'padma' ),
 				),
 
 				'full-width-image'           => array(
 					'name'    => 'full-width-image',
-					'label'   => __( 'Show full width image', 'padma-advanced' ),
+					'label'   => __( 'Show full width image', 'padma' ),
 					'type'    => 'select',
 					'default' => 'no',
 					'options' => array(
-						'yes' => __( 'Yes', 'padma-advanced' ),
-						'no'  => __( 'No', 'padma-advanced' ),
+						'yes' => __( 'Yes', 'padma' ),
+						'no'  => __( 'No', 'padma' ),
 					),
-					'tooltip' => __( 'Show full width image', 'padma-advanced' ),
+					'tooltip' => __( 'Show full width image', 'padma' ),
 				),
 
 				'title-overlay'              => array(
 					'name'    => 'title-overlay',
-					'label'   => __( 'Title overlay', 'padma-advanced' ),
+					'label'   => __( 'Title overlay', 'padma' ),
 					'type'    => 'select',
 					'default' => 'no',
 					'options' => array(
-						'yes' => __( 'Yes', 'padma-advanced' ),
-						'no'  => __( 'No', 'padma-advanced' ),
+						'yes' => __( 'Yes', 'padma' ),
+						'no'  => __( 'No', 'padma' ),
 					),
-					'tooltip' => __( 'Show title over the image', 'padma-advanced' ),
+					'tooltip' => __( 'Show title over the image', 'padma' ),
 				),
 
 				'show-open-button'           => array(
 					'name'    => 'show-open-button',
-					'label'   => __( 'Show open button', 'padma-advanced' ),
+					'label'   => __( 'Show open button', 'padma' ),
 					'type'    => 'select',
 					'default' => 'no',
 					'options' => array(
-						'yes' => __( 'Yes', 'padma-advanced' ),
-						'no'  => __( 'No', 'padma-advanced' ),
+						'yes' => __( 'Yes', 'padma' ),
+						'no'  => __( 'No', 'padma' ),
 					),
-					'tooltip' => __( 'Show open button', 'padma-advanced' ),
+					'tooltip' => __( 'Show open button', 'padma' ),
 				),
 
 				'open-button-text'           => array(
 					'name'    => 'open-button-text',
-					'label'   => __( 'Open button text', 'padma-advanced' ),
+					'label'   => __( 'Open button text', 'padma' ),
 					'type'    => 'text',
 					'default' => 'Open article',
-					'tooltip' => __( 'Default text for open article button', 'padma-advanced' ),
+					'tooltip' => __( 'Default text for open article button', 'padma' ),
 				),
 			),
 
@@ -268,7 +268,7 @@ class PadmaVisualElementsBlockPortfolioOptions extends \PadmaBlockOptionsAPI {
 				'categories'      => array(
 					'type'    => 'multi-select',
 					'name'    => 'categories',
-					'label'   => __( 'Categories', 'padma-advanced' ),
+					'label'   => __( 'Categories', 'padma' ),
 					'tooltip' => '',
 					'options' => 'get_categories()',
 				),
@@ -276,19 +276,19 @@ class PadmaVisualElementsBlockPortfolioOptions extends \PadmaBlockOptionsAPI {
 				'categories-mode' => array(
 					'type'    => 'select',
 					'name'    => 'categories-mode',
-					'label'   => __( 'Categories Mode', 'padma-advanced' ),
+					'label'   => __( 'Categories Mode', 'padma' ),
 					'tooltip' => '',
 					'options' => array(
-						'include' => __( 'Include', 'padma-advanced' ),
-						'exclude' => __( 'Exclude', 'padma-advanced' ),
+						'include' => __( 'Include', 'padma' ),
+						'exclude' => __( 'Exclude', 'padma' ),
 					),
 				),
 
 				'enable-tags'     => array(
 					'type'    => 'checkbox',
 					'name'    => 'tags-filter',
-					'label'   => __( 'Tags Filter', 'padma-advanced' ),
-					'tooltip' => __( 'Check this to allow the tags filter show . ', 'padma-advanced' ),
+					'label'   => __( 'Tags Filter', 'padma' ),
+					'tooltip' => __( 'Check this to allow the tags filter show . ', 'padma' ),
 					'default' => false,
 					'toggle'  => array(
 						'false' => array(
@@ -307,7 +307,7 @@ class PadmaVisualElementsBlockPortfolioOptions extends \PadmaBlockOptionsAPI {
 				'tags'            => array(
 					'type'    => 'multi-select',
 					'name'    => 'tags',
-					'label'   => __( 'Tags', 'padma-advanced' ),
+					'label'   => __( 'Tags', 'padma' ),
 					'tooltip' => '',
 					'options' => 'get_tags()',
 				),
@@ -315,7 +315,7 @@ class PadmaVisualElementsBlockPortfolioOptions extends \PadmaBlockOptionsAPI {
 				'post-type'       => array(
 					'type'     => 'multi-select',
 					'name'     => 'post-type',
-					'label'    => __( 'Post Type', 'padma-advanced' ),
+					'label'    => __( 'Post Type', 'padma' ),
 					'tooltip'  => '',
 					'options'  => 'get_post_types()',
 					'callback' => 'reloadBlockOptions()',
@@ -324,7 +324,7 @@ class PadmaVisualElementsBlockPortfolioOptions extends \PadmaBlockOptionsAPI {
 				'post-status'     => array(
 					'type'    => 'multi-select',
 					'name'    => 'post-status',
-					'label'   => __( 'Post Status', 'padma-advanced' ),
+					'label'   => __( 'Post Status', 'padma' ),
 					'tooltip' => '',
 					'options' => 'get_post_status()',
 				),
@@ -332,7 +332,7 @@ class PadmaVisualElementsBlockPortfolioOptions extends \PadmaBlockOptionsAPI {
 				'author'          => array(
 					'type'    => 'multi-select',
 					'name'    => 'author',
-					'label'   => __( 'Author', 'padma-advanced' ),
+					'label'   => __( 'Author', 'padma' ),
 					'tooltip' => '',
 					'options' => 'get_authors()',
 				),
@@ -340,7 +340,7 @@ class PadmaVisualElementsBlockPortfolioOptions extends \PadmaBlockOptionsAPI {
 				'number-of-posts' => array(
 					'type'    => 'integer',
 					'name'    => 'number-of-posts',
-					'label'   => __( 'Number of Posts', 'padma-advanced' ),
+					'label'   => __( 'Number of Posts', 'padma' ),
 					'tooltip' => '',
 					'default' => 10,
 				),
@@ -348,51 +348,51 @@ class PadmaVisualElementsBlockPortfolioOptions extends \PadmaBlockOptionsAPI {
 				'offset'          => array(
 					'type'    => 'integer',
 					'name'    => 'offset',
-					'label'   => __( 'Offset', 'padma-advanced' ),
-					'tooltip' => __( 'The offset is the number of entries or posts you would like to skip.  If the offset is 1, then the first post will be skipped . ', 'padma-advanced' ),
+					'label'   => __( 'Offset', 'padma' ),
+					'tooltip' => __( 'The offset is the number of entries or posts you would like to skip.  If the offset is 1, then the first post will be skipped . ', 'padma' ),
 					'default' => 0,
 				),
 
 				'order-by'        => array(
 					'type'    => 'select',
 					'name'    => 'order-by',
-					'label'   => __( 'Order By', 'padma-advanced' ),
-					'tooltip' => __( 'Order By', 'padma-advanced' ),
+					'label'   => __( 'Order By', 'padma' ),
+					'tooltip' => __( 'Order By', 'padma' ),
 					'options' => array(
-						'date'          => __( 'Date', 'padma-advanced' ),
-						'title'         => __( 'Title', 'padma-advanced' ),
-						'rand'          => __( 'Random', 'padma-advanced' ),
-						'comment_count' => __( 'Comment Count', 'padma-advanced' ),
-						'ID'            => __( 'ID', 'padma-advanced' ),
-						'author'        => __( 'Author', 'padma-advanced' ),
-						'type'          => __( 'Post Type', 'padma-advanced' ),
-						'menu_order'    => __( 'Custom Order', 'padma-advanced' ),
+						'date'          => __( 'Date', 'padma' ),
+						'title'         => __( 'Title', 'padma' ),
+						'rand'          => __( 'Random', 'padma' ),
+						'comment_count' => __( 'Comment Count', 'padma' ),
+						'ID'            => __( 'ID', 'padma' ),
+						'author'        => __( 'Author', 'padma' ),
+						'type'          => __( 'Post Type', 'padma' ),
+						'menu_order'    => __( 'Custom Order', 'padma' ),
 					),
 				),
 
 				'order'           => array(
 					'type'    => 'select',
 					'name'    => 'order',
-					'label'   => __( 'Order', 'padma-advanced' ),
+					'label'   => __( 'Order', 'padma' ),
 					'tooltip' => '',
 					'options' => array(
-						'desc' => __( 'Descending', 'padma-advanced' ),
-						'asc'  => __( 'Ascending', 'padma-advanced' ),
+						'desc' => __( 'Descending', 'padma' ),
+						'asc'  => __( 'Ascending', 'padma' ),
 					),
 				),
 
 				'byid-include'    => array(
 					'type'    => 'text',
 					'name'    => 'byid-include',
-					'label'   => __( 'Include by ID', 'padma-advanced' ),
-					'tooltip' => __( 'In both Include and Exclude by ID, you use a comma separated list of IDs of your post type . ', 'padma-advanced' ),
+					'label'   => __( 'Include by ID', 'padma' ),
+					'tooltip' => __( 'In both Include and Exclude by ID, you use a comma separated list of IDs of your post type . ', 'padma' ),
 				),
 
 				'byid-exclude'    => array(
 					'type'    => 'text',
 					'name'    => 'byid-exclude',
-					'label'   => __( 'Exclude by ID', 'padma-advanced' ),
-					'tooltip' => __( 'In both Include and Exclude by ID, you use a comma separated list of IDs of your post type . ', 'padma-advanced' ),
+					'label'   => __( 'Exclude by ID', 'padma' ),
+					'tooltip' => __( 'In both Include and Exclude by ID, you use a comma separated list of IDs of your post type . ', 'padma' ),
 				),
 			),
 		);

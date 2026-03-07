@@ -72,9 +72,9 @@ class PadmaVisualElementsBlockLabel extends \PadmaBlockAPI {
 	 */
 	public function __construct() {
 		$this->id            = 'visual-elements-label';
-		$this->name          = __( 'Label', 'padma-advanced' );
+		$this->name          = __( 'Label', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockLabelOptions';
-		$this->description   = __( 'Will help you to create colourful labels. You can choose among 6 various label colours . ', 'padma-advanced' );
+		$this->description   = __( 'Will help you to create colourful labels. You can choose among 6 various label colours . ', 'padma' );
 		$this->categories    = array( 'content' );
 
 		$this->inline_editable = array( 'block-title', 'block-subtitle', 'su-label' );

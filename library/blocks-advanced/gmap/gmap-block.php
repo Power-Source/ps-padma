@@ -58,9 +58,9 @@ class PadmaVisualElementsBlockGmap extends \PadmaBlockAPI {
 	 */
 	public function __construct() {
 		$this->id            = 'visual-elements-gmap';
-		$this->name          = __( 'PS Maps', 'padma-advanced' );
+		$this->name          = __( 'PS Maps', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockGmapOptions';
-		$this->description   = __( 'Zeige Google Maps mit vollständiger Integration in PS Maps Plugin', 'padma-advanced' );
+		$this->description   = __( 'Zeige Google Maps mit vollständiger Integration in PS Maps Plugin', 'padma' );
 		$this->categories    = array( 'media' );
 	}
 
@@ -93,7 +93,7 @@ class PadmaVisualElementsBlockGmap extends \PadmaBlockAPI {
 	public function content( $block ) {
 
 		if ( ! class_exists( 'AgmMapModel' ) ) {
-			echo '<div class="alert alert-red"><p>' . __( 'PS Maps Plugin ist nicht aktiv. Bitte aktiviere das PS Maps Plugin um Karten anzuzeigen.', 'padma-advanced' ) . '</p></div>';
+			echo '<div class="alert alert-red"><p>' . __( 'PS Maps Plugin ist nicht aktiv. Bitte aktiviere das PS Maps Plugin um Karten anzuzeigen.', 'padma' ) . '</p></div>';
 			return;
 		}
 
@@ -111,14 +111,14 @@ class PadmaVisualElementsBlockGmap extends \PadmaBlockAPI {
 				$map_id = $created_map_id;
 			} else {
 				// Geocodierung fehlgeschlagen
-				echo '<div class="alert alert-red"><p>' . __( 'Die Adresse konnte nicht geocodiert werden. Bitte überprüfe die Adresse und versuche es erneut.', 'padma-advanced' ) . '</p></div>';
+				echo '<div class="alert alert-red"><p>' . __( 'Die Adresse konnte nicht geocodiert werden. Bitte überprüfe die Adresse und versuche es erneut.', 'padma' ) . '</p></div>';
 				return;
 			}
 		}
 		
 		// Wenn keine Map ausgewählt oder erstellt, zeige Hinweis
 		if ( ! $map_id || $map_id === '' ) {
-			echo '<div class="alert alert-yellow"><p>' . __( 'Bitte wähle eine Map aus oder erstelle eine neue Map im Tab "Neue Map erstellen".', 'padma-advanced' ) . '</p></div>';
+			echo '<div class="alert alert-yellow"><p>' . __( 'Bitte wähle eine Map aus oder erstelle eine neue Map im Tab "Neue Map erstellen".', 'padma' ) . '</p></div>';
 			return;
 		}
 

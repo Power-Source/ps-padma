@@ -39,7 +39,7 @@ class PadmaVisualElementsBlockBasicHeadingOptions extends \PadmaBlockOptionsAPI 
 	public function __construct() {
 
 		$this->tabs   = array(
-			'general' => __( 'Allgemein', 'padma-advanced' ),
+			'general' => __( 'Allgemein', 'padma' ),
 		);
 		$this->sets   = array();
 		$this->inputs = array(
@@ -47,7 +47,7 @@ class PadmaVisualElementsBlockBasicHeadingOptions extends \PadmaBlockOptionsAPI 
 				'basic-heading' => array(
 					'name'  => 'basic-heading',
 					'type'  => 'text',
-					'label' => __( 'Überschrift Text', 'padma-advanced' ),
+					'label' => __( 'Überschrift Text', 'padma' ),
 				),
 				'tag'           => array(
 					'name'    => 'tag',
@@ -60,8 +60,8 @@ class PadmaVisualElementsBlockBasicHeadingOptions extends \PadmaBlockOptionsAPI 
 						'h5' => 'H5',
 						'h6' => 'H6',
 					),
-					'label'   => __( 'Tag', 'padma-advanced' ),
-					'tooltip' => __( 'HTML Tag der verwendet werden soll', 'padma-advanced' ),
+					'label'   => __( 'Tag', 'padma' ),
+					'tooltip' => __( 'HTML Tag der verwendet werden soll', 'padma' ),
 				),
 			),
 		);

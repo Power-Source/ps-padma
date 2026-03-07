@@ -38,7 +38,7 @@ class PadmaVisualElementsBlockDummyTextOptions extends \PadmaBlockOptionsAPI {
 	 */
 	public function __construct() {
 		$this->tabs = array(
-			'general' => __( 'Allgemein', 'padma-advanced' ),
+			'general' => __( 'Allgemein', 'padma' ),
 		);
 
 		$this->sets = array();
@@ -48,32 +48,32 @@ class PadmaVisualElementsBlockDummyTextOptions extends \PadmaBlockOptionsAPI {
 				'what'   => array(
 					'name'    => 'what',
 					'type'    => 'select',
-					'label'   => __( 'Was', 'padma-advanced' ),
-					'tooltip' => __( 'Was generiert werden soll', 'padma-advanced' ),
+					'label'   => __( 'Was', 'padma' ),
+					'tooltip' => __( 'Was generiert werden soll', 'padma' ),
 					'default' => 'paras',
 					'options' => array(
-						'paras' => __( 'Absätze', 'padma-advanced' ),
-						'words' => __( 'Wörter', 'padma-advanced' ),
-						'bytes' => __( 'Bytes', 'padma-advanced' ),
+						'paras' => __( 'Absätze', 'padma' ),
+						'words' => __( 'Wörter', 'padma' ),
+						'bytes' => __( 'Bytes', 'padma' ),
 					),
 				),
 
 				'amount' => array(
 					'name'    => 'amount',
 					'type'    => 'integer',
-					'label'   => __( 'Menge', 'padma-advanced' ),
-					'tooltip' => __( 'Wie viele Elemente (Absätze oder Wörter) generiert werden sollen. Minimale Anzahl Wörter ist 5', 'padma-advanced' ),
+					'label'   => __( 'Menge', 'padma' ),
+					'tooltip' => __( 'Wie viele Elemente (Absätze oder Wörter) generiert werden sollen. Minimale Anzahl Wörter ist 5', 'padma' ),
 					'default' => 1,
 				),
 
 				'cache'  => array(
 					'name'    => 'cache ',
 					'type'    => 'select',
-					'label'   => __( 'Cache ', 'padma-advanced' ),
+					'label'   => __( 'Cache ', 'padma' ),
 					'default' => 'yes',
 					'options' => array(
-						'yes' => __( 'Ja', 'padma-advanced' ),
-						'no'  => __( 'Nein', 'padma-advanced' ),
+						'yes' => __( 'Ja', 'padma' ),
+						'no'  => __( 'Nein', 'padma' ),
 					),
 				),
 			),

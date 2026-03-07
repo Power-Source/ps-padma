@@ -58,9 +58,9 @@ public $categories;
  */
 public function __construct() {
 $this->id            = 'visual-elements-button';
-$this->name          = __( 'Button', 'padma-advanced' );
+$this->name          = __( 'Button', 'padma' );
 $this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockButtonOptions';
-$this->description   = __( 'Allows create highly customizable buttons. You can change button style, colors, size, add an icon or description . ', 'padma-advanced' );
+$this->description   = __( 'Allows create highly customizable buttons. You can change button style, colors, size, add an icon or description . ', 'padma' );
 $this->categories    = array( 'content' );
 }
 
@@ -78,7 +78,7 @@ public function setup_elements() {
 $this->register_block_element(
 array(
 'id'       => 'button',
-'name'     => __( 'Button', 'padma-advanced' ),
+'name'     => __( 'Button', 'padma' ),
 'selector' => 'a.su-button',
 'states'   => array(
 'Hover'   => 'a.su-button:hover',
@@ -90,7 +90,7 @@ array(
 $this->register_block_element(
 array(
 'id'       => 'icon',
-'name'     => __( 'Icon', 'padma-advanced' ),
+'name'     => __( 'Icon', 'padma' ),
 'selector' => 'a.su-button span i',
 )
 );
@@ -98,7 +98,7 @@ array(
 $this->register_block_element(
 array(
 'id'       => 'text',
-'name'     => __( 'Text', 'padma-advanced' ),
+'name'     => __( 'Text', 'padma' ),
 'selector' => 'a.su-button span small',
 'states'   => array(
 'Hover'   => 'a.su-button span small:hover',

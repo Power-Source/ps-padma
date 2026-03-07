@@ -39,7 +39,7 @@ class PadmaVisualElementsBlockQuoteOptions extends \PadmaBlockOptionsAPI {
 	public function __construct() {
 
 		$this->tabs = array(
-			'general' => __( 'Allgemein', 'padma-advanced' ),
+			'general' => __( 'Allgemein', 'padma' ),
 		);
 
 		$this->sets = array();
@@ -50,22 +50,22 @@ class PadmaVisualElementsBlockQuoteOptions extends \PadmaBlockOptionsAPI {
 				'quote' => array(
 					'name'    => 'quote',
 					'type'    => 'wysiwyg',
-					'label'   => __( 'Zitat', 'padma-advanced' ),
-					'tooltip' => __( 'Zitat Text', 'padma-advanced' ),
+					'label'   => __( 'Zitat', 'padma' ),
+					'tooltip' => __( 'Zitat Text', 'padma' ),
 				),
 
 				'cite'  => array(
 					'name'    => 'cite',
 					'type'    => 'text',
-					'label'   => __( 'Zitiert', 'padma-advanced' ),
-					'tooltip' => __( 'Name des Zitatautors', 'padma-advanced' ),
+					'label'   => __( 'Zitiert', 'padma' ),
+					'tooltip' => __( 'Name des Zitatautors', 'padma' ),
 				),
 
 				'url'   => array(
 					'name'    => 'url',
 					'type'    => 'text',
-					'label'   => __( 'Autor URL', 'padma-advanced' ),
-					'tooltip' => __( 'URL des Zitatautors. Leer lassen um Link zu deaktivieren', 'padma-advanced' ),
+					'label'   => __( 'Autor URL', 'padma' ),
+					'tooltip' => __( 'URL des Zitatautors. Leer lassen um Link zu deaktivieren', 'padma' ),
 				),
 			),
 		);

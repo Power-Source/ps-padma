@@ -59,9 +59,9 @@ class PadmaVisualElementsBlockContentToAccordion extends \PadmaBlockAPI {
 	public function __construct() {
 
 		$this->id            = 've-content-to-accordion';
-		$this->name          = __( 'Content to Accordion', 'padma-advanced' );
+		$this->name          = __( 'Content to Accordion', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockContentToAccordionOptions';
-		$this->description   = __( 'Allows you to create blocks with hidden posts content. Hidden content will be shown when block title will be clicked. You can specify different icons or even use different styles for each spoiler . ', 'padma-advanced' );
+		$this->description   = __( 'Allows you to create blocks with hidden posts content. Hidden content will be shown when block title will be clicked. You can specify different icons or even use different styles for each spoiler . ', 'padma' );
 		$this->categories    = array( 'box', 'content', 'dynamic-content' );
 
 	}
@@ -82,7 +82,7 @@ class PadmaVisualElementsBlockContentToAccordion extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'accordion',
-				'name'     => __( 'Accordion', 'padma-advanced' ),
+				'name'     => __( 'Accordion', 'padma' ),
 				'selector' => '.su-accordion',
 			)
 		);
@@ -90,7 +90,7 @@ class PadmaVisualElementsBlockContentToAccordion extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'spoiler',
-				'name'     => __( 'Spoiler', 'padma-advanced' ),
+				'name'     => __( 'Spoiler', 'padma' ),
 				'selector' => '.su-accordion .su-spoiler',
 			)
 		);
@@ -98,7 +98,7 @@ class PadmaVisualElementsBlockContentToAccordion extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'spoiler-title',
-				'name'     => __( 'Spoiler Title', 'padma-advanced' ),
+				'name'     => __( 'Spoiler Title', 'padma' ),
 				'selector' => '.su-accordion .su-spoiler-title',
 			)
 		);
@@ -106,7 +106,7 @@ class PadmaVisualElementsBlockContentToAccordion extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'spoiler-icon',
-				'name'     => __( 'Spoiler icon', 'padma-advanced' ),
+				'name'     => __( 'Spoiler icon', 'padma' ),
 				'selector' => '.su-accordion .su-spoiler-icon',
 			)
 		);		
@@ -114,7 +114,7 @@ class PadmaVisualElementsBlockContentToAccordion extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'spoiler-title',
-				'name'     => __( 'Spoiler Title', 'padma-advanced' ),
+				'name'     => __( 'Spoiler Title', 'padma' ),
 				'selector' => '.su-accordion .su-spoiler-title',
 			)
 		);
@@ -122,7 +122,7 @@ class PadmaVisualElementsBlockContentToAccordion extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'spoiler-content',
-				'name'     => __( 'Spoiler content', 'padma-advanced' ),
+				'name'     => __( 'Spoiler content', 'padma' ),
 				'selector' => '.su-accordion .su-spoiler-content',
 			)
 		);
@@ -130,7 +130,7 @@ class PadmaVisualElementsBlockContentToAccordion extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'spoiler-content-p',
-				'name'     => __( 'Spoiler content paragraph', 'padma-advanced' ),
+				'name'     => __( 'Spoiler content paragraph', 'padma' ),
 				'selector' => '.su-accordion .su-spoiler-content p',
 			)
 		);
@@ -138,7 +138,7 @@ class PadmaVisualElementsBlockContentToAccordion extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'spoiler-h1',
-				'name'     => __( 'Spoiler h1', 'padma-advanced' ),
+				'name'     => __( 'Spoiler h1', 'padma' ),
 				'selector' => '.su-accordion .su-spoiler-content h1',
 			)
 		);
@@ -146,7 +146,7 @@ class PadmaVisualElementsBlockContentToAccordion extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'spoiler-h2',
-				'name'     => __( 'Spoiler h2', 'padma-advanced' ),
+				'name'     => __( 'Spoiler h2', 'padma' ),
 				'selector' => '.su-accordion .su-spoiler-content h2',
 			)
 		);
@@ -154,7 +154,7 @@ class PadmaVisualElementsBlockContentToAccordion extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'spoiler-h3',
-				'name'     => __( 'Spoiler h3', 'padma-advanced' ),
+				'name'     => __( 'Spoiler h3', 'padma' ),
 				'selector' => '.su-accordion .su-spoiler-content h3',
 			)
 		);
@@ -162,7 +162,7 @@ class PadmaVisualElementsBlockContentToAccordion extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'spoiler-h2',
-				'name'     => __( 'Spoiler h2', 'padma-advanced' ),
+				'name'     => __( 'Spoiler h2', 'padma' ),
 				'selector' => '.su-accordion .su-spoiler-content h2',
 			)
 		);
@@ -170,7 +170,7 @@ class PadmaVisualElementsBlockContentToAccordion extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'spoiler-h4',
-				'name'     => __( 'Spoiler h4', 'padma-advanced' ),
+				'name'     => __( 'Spoiler h4', 'padma' ),
 				'selector' => '.su-accordion .su-spoiler-content h4',
 			)
 		);
@@ -178,7 +178,7 @@ class PadmaVisualElementsBlockContentToAccordion extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'spoiler-h5',
-				'name'     => __( 'Spoiler h5', 'padma-advanced' ),
+				'name'     => __( 'Spoiler h5', 'padma' ),
 				'selector' => '.su-accordion .su-spoiler-content h5',
 			)
 		);
@@ -186,7 +186,7 @@ class PadmaVisualElementsBlockContentToAccordion extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'spoiler-h6',
-				'name'     => __( 'Spoiler h6', 'padma-advanced' ),
+				'name'     => __( 'Spoiler h6', 'padma' ),
 				'selector' => '.su-accordion .su-spoiler-content h6',
 			)
 		);
@@ -194,7 +194,7 @@ class PadmaVisualElementsBlockContentToAccordion extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'spoiler-ul',
-				'name'     => __( 'Spoiler list', 'padma-advanced' ),
+				'name'     => __( 'Spoiler list', 'padma' ),
 				'selector' => '.su-accordion .su-spoiler-content ul',
 			)
 		);

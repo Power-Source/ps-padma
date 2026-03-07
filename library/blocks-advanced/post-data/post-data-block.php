@@ -57,9 +57,9 @@ class PadmaVisualElementsBlockPostData extends \PadmaBlockAPI {
 	 */
 	public function __construct() {
 		$this->id            = 've-postdata';
-		$this->name          = __( 'Post Data', 'padma-advanced' );
+		$this->name          = __( 'Post Data', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockPostDataOptions';
-		$this->description   = __( 'Allows to display various post fields, including post title, post content, modified date etc . ', 'padma-advanced' );
+		$this->description   = __( 'Allows to display various post fields, including post title, post content, modified date etc . ', 'padma' );
 		$this->categories    = array( 'content' );
 	}
 
@@ -89,7 +89,7 @@ class PadmaVisualElementsBlockPostData extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content',
-				'name'     => __( 'Content', 'padma-advanced' ),
+				'name'     => __( 'Content', 'padma' ),
 				'selector' => '.ve-postdata',			
 			)
 		);
@@ -97,7 +97,7 @@ class PadmaVisualElementsBlockPostData extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'text',
-				'name'     => __( 'Text', 'padma-advanced' ),
+				'name'     => __( 'Text', 'padma' ),
 				'selector' => '.ve-postdata p',
 			)
 		);
@@ -105,7 +105,7 @@ class PadmaVisualElementsBlockPostData extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-h1',
-				'name'     => __( 'Content h1', 'padma-advanced' ),
+				'name'     => __( 'Content h1', 'padma' ),
 				'selector' => '.ve-postdata h1',
 			)
 		);
@@ -113,7 +113,7 @@ class PadmaVisualElementsBlockPostData extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-h2',
-				'name'     => __( 'Content h2', 'padma-advanced' ),
+				'name'     => __( 'Content h2', 'padma' ),
 				'selector' => '.ve-postdata h2',
 			)
 		);
@@ -121,7 +121,7 @@ class PadmaVisualElementsBlockPostData extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-h3',
-				'name'     => __( 'Content h3', 'padma-advanced' ),
+				'name'     => __( 'Content h3', 'padma' ),
 				'selector' => '.ve-postdata h3',
 			)
 		);
@@ -129,7 +129,7 @@ class PadmaVisualElementsBlockPostData extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-h4',
-				'name'     => __( 'Content h4', 'padma-advanced' ),
+				'name'     => __( 'Content h4', 'padma' ),
 				'selector' => '.ve-postdata h4',
 			)
 		);
@@ -137,7 +137,7 @@ class PadmaVisualElementsBlockPostData extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-h5',
-				'name'     => __( 'Content h5', 'padma-advanced' ),
+				'name'     => __( 'Content h5', 'padma' ),
 				'selector' => '.ve-postdata h5',
 			)
 		);
@@ -145,7 +145,7 @@ class PadmaVisualElementsBlockPostData extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-h6',
-				'name'     => __( 'Content h6', 'padma-advanced' ),
+				'name'     => __( 'Content h6', 'padma' ),
 				'selector' => '.ve-postdata h6',
 			)
 		);
@@ -153,7 +153,7 @@ class PadmaVisualElementsBlockPostData extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-li',
-				'name'     => __( 'Content li', 'padma-advanced' ),
+				'name'     => __( 'Content li', 'padma' ),
 				'selector' => '.ve-postdata li',
 			)
 		);
@@ -161,7 +161,7 @@ class PadmaVisualElementsBlockPostData extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-a',
-				'name'     => __( 'Content link', 'padma-advanced' ),
+				'name'     => __( 'Content link', 'padma' ),
 				'selector' => '.ve-postdata a',
 			)
 		);
@@ -169,7 +169,7 @@ class PadmaVisualElementsBlockPostData extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-image',
-				'name'     => __( 'Content image', 'padma-advanced' ),
+				'name'     => __( 'Content image', 'padma' ),
 				'selector' => '.ve-postdata image',
 			)
 		);
@@ -177,7 +177,7 @@ class PadmaVisualElementsBlockPostData extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-figure',
-				'name'     => __( 'Content figure', 'padma-advanced' ),
+				'name'     => __( 'Content figure', 'padma' ),
 				'selector' => '.ve-postdata figure',
 			)
 		);

@@ -58,9 +58,9 @@ class PadmaVisualElementsBlockColumns extends \PadmaBlockAPI {
 	public function __construct() {
 
 		$this->id            = 'visual-elements-columns';
-		$this->name          = __( 'Columns', 'padma-advanced' );
+		$this->name          = __( 'Columns', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockColumnsOptions';
-		$this->description   = __( 'Will help you to divide page content into columns . ', 'padma-advanced' );
+		$this->description   = __( 'Will help you to divide page content into columns . ', 'padma' );
 		$this->categories    = array( 'box' );
 
 	}
@@ -80,7 +80,7 @@ class PadmaVisualElementsBlockColumns extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'columns',
-				'name'     => __( 'Columns', 'padma-advanced' ),
+				'name'     => __( 'Columns', 'padma' ),
 				'selector' => 'span.su-columns',
 			)
 		);

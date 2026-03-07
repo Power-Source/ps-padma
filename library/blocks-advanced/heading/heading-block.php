@@ -72,9 +72,9 @@ class PadmaVisualElementsBlockHeading extends \PadmaBlockAPI {
 	 */
 	public function __construct() {
 		$this->id            = 'visual-elements-heading';
-		$this->name          = __( 'Heading', 'padma-advanced' );
+		$this->name          = __( 'Heading', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockHeadingOptions';
-		$this->description   = __( 'Allows you to create styled headings with customisable size and margin . ', 'padma-advanced' );
+		$this->description   = __( 'Allows you to create styled headings with customisable size and margin . ', 'padma' );
 		$this->categories    = array( 'content' );
 
 		$this->inline_editable = array( 'block-title', 'block-subtitle', 'su-heading-inner' );

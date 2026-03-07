@@ -57,9 +57,9 @@ class PadmaVisualElementsBlockDummyImage extends \PadmaBlockAPI {
 	 */
 	public function __construct() {
 		$this->id            = 'visual-elements-dummy-image';
-		$this->name          = __( 'Dummy Image', 'padma-advanced' );
+		$this->name          = __( 'Dummy Image', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockDummyImageOptions';
-		$this->description   = __( 'Allows you to display a dummy image. You can change the image theme and size . ', 'padma-advanced' );
+		$this->description   = __( 'Allows you to display a dummy image. You can change the image theme and size . ', 'padma' );
 		$this->categories    = array( 'media' );
 	}
 

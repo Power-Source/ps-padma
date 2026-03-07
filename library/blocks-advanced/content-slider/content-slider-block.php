@@ -18,6 +18,10 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
     public $name 			= 'Content Slider';
     public $options_class 	= 'Padma_Advanced\\PadmaContentSliderBlockOptions';
     public $categories 		= array('content','gallery');
+
+	function init() {
+		$this->name = __( 'Content Slider', 'padma' );
+	}
     
 			
 	function setup_elements() {
@@ -30,13 +34,13 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 
 		$this->register_block_element(array(
 			'id' => 'slide-p',
-			'name' => 'Slide text',
+			'name' => 'Slide Text',
 			'selector' => '.owl-item p'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-a',
-			'name' => 'Slide link',
+			'name' => 'Slide Link',
 			'selector' => '.owl-item a'
 		));
 
@@ -85,13 +89,13 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 
 		$this->register_block_element(array(
 			'id' => 'dots',
-			'name' => 'Dots',
+			'name' => 'Punkte',
 			'selector' => '.owl-dots'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'dots-item',
-			'name' => 'Dots Item',
+			'name' => 'Punkte Item',
 			'selector' => '.owl-dots .owl-dot'
 		));
 
@@ -103,19 +107,19 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 
 		$this->register_block_element(array(
 			'id' => 'nav-item',
-			'name' => 'Navigation item',
+			'name' => 'Navigation Item',
 			'selector' => '.owl-nav div'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'nav-item-next',
-			'name' => 'Navigation Next',
+			'name' => 'Navigation Weiter',
 			'selector' => '.owl-nav div.owl-next'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'nav-item-prev',
-			'name' => 'Navigation Prev',
+			'name' => 'Navigation Zurück',
 			'selector' => '.owl-nav div.owl-prev'
 		));
 
@@ -144,7 +148,7 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		$onlyShowFeatured 	= ( !empty($block['settings']['only-featured']) ) ? true: false;
 		$onlyShowExcerpt 	= ( !empty($block['settings']['only-excerpt']) ) ? true: false;
 		$showLink 			= ( !empty($block['settings']['show-link']) ) ? true: false;
-		$showLinkText		= ( !empty($block['settings']['show-link-text']) ) ? $block['settings']['show-link-text']: 'Show more';
+		$showLinkText		= ( !empty($block['settings']['show-link-text']) ) ? $block['settings']['show-link-text']: __( 'Mehr anzeigen', 'padma' );
 
 		
 		global $post;

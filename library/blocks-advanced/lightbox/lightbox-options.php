@@ -39,10 +39,10 @@ class PadmaVisualElementsBlockLightboxOptions extends \PadmaBlockOptionsAPI {
 	public function __construct() {
 
 		$this->tabs = array(
-			'general' => __( 'Allgemein', 'padma-advanced' ),
-			'image'   => __( 'Bild', 'padma-advanced' ),
-			'iframe'  => __( 'Iframe', 'padma-advanced' ),
-			'inline'  => __( 'Inline', 'padma-advanced' ),
+			'general' => __( 'Allgemein', 'padma' ),
+			'image'   => __( 'Bild', 'padma' ),
+			'iframe'  => __( 'Iframe', 'padma' ),
+			'inline'  => __( 'Inline', 'padma' ),
 		);
 
 		$this->sets = array();
@@ -53,12 +53,12 @@ class PadmaVisualElementsBlockLightboxOptions extends \PadmaBlockOptionsAPI {
 				'type'  => array(
 					'name'    => 'type',
 					'type'    => 'select',
-					'label'   => __( 'Typ', 'padma-advanced' ),
+					'label'   => __( 'Typ', 'padma' ),
 					'default' => 'image',
 					'options' => array(
-						'image'  => __( 'Bild', 'padma-advanced' ),
-						'iframe' => __( 'Iframe', 'padma-advanced' ),
-						'inline' => __( 'Inline', 'padma-advanced' ),
+						'image'  => __( 'Bild', 'padma' ),
+						'iframe' => __( 'Iframe', 'padma' ),
+						'inline' => __( 'Inline', 'padma' ),
 					),
 					'toggle'  => array(
 						'image'  => array(
@@ -89,14 +89,14 @@ class PadmaVisualElementsBlockLightboxOptions extends \PadmaBlockOptionsAPI {
 							),
 						),
 					),
-					'tooltip' => __( 'Wähle den Typ des Lightbox Fenster Inhalts', 'padma-advanced' ),
+					'tooltip' => __( 'Wähle den Typ des Lightbox Fenster Inhalts', 'padma' ),
 				),
 
 				'title' => array(
 					'name'    => 'title',
 					'type'    => 'text',
-					'label'   => __( 'Titel', 'padma-advanced' ),
-					'tooltip' => __( 'Text für den Titel', 'padma-advanced' ),
+					'label'   => __( 'Titel', 'padma' ),
+					'tooltip' => __( 'Text für den Titel', 'padma' ),
 				),
 			),
 
@@ -104,8 +104,8 @@ class PadmaVisualElementsBlockLightboxOptions extends \PadmaBlockOptionsAPI {
 				'image' => array(
 					'name'    => 'image',
 					'type'    => 'image',
-					'label'   => __( 'Bild', 'padma-advanced' ),
-					'tooltip' => __( 'Wähle das Bild das angezeigt werden soll', 'padma-advanced' ),
+					'label'   => __( 'Bild', 'padma' ),
+					'tooltip' => __( 'Wähle das Bild das angezeigt werden soll', 'padma' ),
 				),
 			),
 
@@ -113,8 +113,8 @@ class PadmaVisualElementsBlockLightboxOptions extends \PadmaBlockOptionsAPI {
 				'iframe' => array(
 					'name'    => 'iframe',
 					'type'    => 'text',
-					'label'   => __( 'URL', 'padma-advanced' ),
-					'tooltip' => __( 'URL die angezeigt werden soll', 'padma-advanced' ),
+					'label'   => __( 'URL', 'padma' ),
+					'tooltip' => __( 'URL die angezeigt werden soll', 'padma' ),
 				),
 			),
 
@@ -122,8 +122,8 @@ class PadmaVisualElementsBlockLightboxOptions extends \PadmaBlockOptionsAPI {
 				'inline' => array(
 					'name'    => 'inline',
 					'type'    => 'wysiwyg',
-					'label'   => __( 'Inhalt', 'padma-advanced' ),
-					'tooltip' => __( 'Inhalt der angezeigt werden soll', 'padma-advanced' ),
+					'label'   => __( 'Inhalt', 'padma' ),
+					'tooltip' => __( 'Inhalt der angezeigt werden soll', 'padma' ),
 				),
 			),
 		);
