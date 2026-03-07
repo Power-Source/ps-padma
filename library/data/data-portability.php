@@ -16,6 +16,8 @@ class PadmaDataPortability {
 			'author' 				=> padma_get('author', $info),
 			'image-url' 			=> padma_get('image-url', $info),
 			'version' 				=> padma_get('version', $info),
+			'description' 			=> padma_get('description', $info),
+			'documentation-url' 	=> padma_get('documentation-url', $info),
 			'data_wp_options' 		=> $wpdb->get_results($wpdb->prepare("SELECT * FROM $wpdb->options WHERE option_name LIKE '%s'", $wp_options_prefix . '%'), ARRAY_A),
 			'data_wp_postmeta' 		=> $wpdb->get_results($wpdb->prepare("SELECT * FROM $wpdb->postmeta WHERE meta_key LIKE '%s'", '_pu_|template=' . PadmaOption::$current_skin . '|_%'), ARRAY_A),
 			'data_pu_layout_meta' 	=> $wpdb->get_results($wpdb->prepare("SELECT * FROM $wpdb->pu_layout_meta WHERE template = '%s'", PadmaOption::$current_skin), ARRAY_A),

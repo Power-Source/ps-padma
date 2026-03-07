@@ -10,8 +10,22 @@ jQuery(document).ready(function($) {
 
 		setupViewModel: function() {
 
+			var allTemplates = Padma.templates || [];
+			var myTemplates = [];
+			var standardTemplates = [];
+
+			for (var i = 0; i < allTemplates.length; i++) {
+				if (allTemplates[i].id === 'base') {
+					standardTemplates.push(allTemplates[i]);
+				} else {
+					myTemplates.push(allTemplates[i]);
+				}
+			}
+
 			Padma.viewModels.templates = {
 				templates: ko.observableArray(Padma.templates),
+				myTemplates: ko.observableArray(myTemplates),
+				standardTemplates: ko.observableArray(standardTemplates),
 				active: ko.observable(Padma.templateActive),
 				activateSkin: function() {
 
@@ -76,13 +90,17 @@ jQuery(document).ready(function($) {
 							}
 
 							Padma.viewModels.templates.templates.remove(skin);
+							Padma.viewModels.templates.myTemplates.remove(skin);
+							Padma.viewModels.templates.standardTemplates.remove(skin);
 
 						});
 
 				}
 			}
 
-			ko.applyBindings(Padma.viewModels.templates, $('.padma-templates').get(0));
+			$('.padma-templates').each(function() {
+				ko.applyBindings(Padma.viewModels.templates, this);
+			});
 
 		},
 
@@ -131,7 +149,7 @@ jQuery(document).ready(function($) {
 								closable: false
 							});
 
-							Padma.viewModels.templates.templates.push({
+							var tempSkin = {
 								description: null,
 								name: 'Installing ' + skin['name'] + '...',
 								installing: true,
@@ -139,7 +157,10 @@ jQuery(document).ready(function($) {
 								author: null,
 								active: false,
 								version: null
-							});
+							};
+
+							Padma.viewModels.templates.templates.push(tempSkin);
+							Padma.viewModels.templates.myTemplates.push(tempSkin);
 
 							installSkin(skin);
 
@@ -185,7 +206,7 @@ jQuery(document).ready(function($) {
 								closable: false
 							});
 
-							Padma.viewModels.templates.templates.push({
+							var tempSkin = {
 								description: null,
 								name: 'Installing ' + skin['name'] + '...',
 								installing: true,
@@ -193,7 +214,10 @@ jQuery(document).ready(function($) {
 								author: null,
 								active: false,
 								version: null
-							});
+							};
+
+							Padma.viewModels.templates.templates.push(tempSkin);
+							Padma.viewModels.templates.myTemplates.push(tempSkin);
 
 							installSkin(skin);
 
@@ -326,6 +350,7 @@ jQuery(document).ready(function($) {
 									skin['error'] = 'Could not install template.';
 
 								Padma.viewModels.templates.templates.pop();
+								Padma.viewModels.templates.myTemplates.pop();
 								$('#install-template').removeAttr('disabled');
 
 								return showNotification({
@@ -349,7 +374,16 @@ jQuery(document).ready(function($) {
 
 							/* Pop off the last skin which is going to be the loader */
 							Padma.viewModels.templates.templates.pop();
-							Padma.viewModels.templates.templates.push($.extend({}, {description: null}, skin));
+							Padma.viewModels.templates.myTemplates.pop();
+
+							var installedSkin = $.extend({}, {description: null}, skin);
+							Padma.viewModels.templates.templates.push(installedSkin);
+
+							if ( installedSkin.id === 'base' ) {
+								Padma.viewModels.templates.standardTemplates.push(installedSkin);
+							} else {
+								Padma.viewModels.templates.myTemplates.push(installedSkin);
+							}
 
 							/* Reactive install template button */
 							$('#install-template').removeAttr('disabled');
@@ -450,13 +484,16 @@ jQuery(document).ready(function($) {
 							success: true
 						});
 
-						Padma.viewModels.templates.templates.push({
+						var newTemplate = {
 							id: skinID,
 							name: skinName,
 							version: null,
 							author: null,
 							description: null
-						});
+						};
+
+						Padma.viewModels.templates.templates.push(newTemplate);
+						Padma.viewModels.templates.myTemplates.push(newTemplate);
 
 					}, 'json');
 

@@ -1000,6 +1000,241 @@ class PadmaVisualEditorAJAX {
 
 		}
 
+		/* Template Download - ZIP with metadata */
+		public static function method_download_template() {
+
+			Padma::load('data/data-portability');
+
+			$template_id = padma_post('template_id');
+			
+			if ( empty($template_id) ) {
+				return self::json_encode(array(
+					'error' => __('Template ID fehlt', 'padma')
+				));
+			}
+
+			// Get template metadata
+			$template_meta = PadmaOption::get($template_id, 'skins');
+			
+			if ( !$template_meta ) {
+				return self::json_encode(array(
+					'error' => __('Vorlage nicht gefunden', 'padma')
+				));
+			}
+
+			// Set current skin for export
+			PadmaOption::$current_skin = $template_id;
+
+			// Export skin data
+			$skin_data = PadmaDataPortability::export_skin($template_meta, true);
+
+			if ( is_array($skin_data) && isset($skin_data['error']) ) {
+				return self::json_encode($skin_data);
+			}
+
+			// Create manifest file with metadata
+			$manifest = array(
+				'name' => $template_meta['name'] ?? 'Unnamed',
+				'author' => $template_meta['author'] ?? '',
+				'version' => $template_meta['version'] ?? '',
+				'description' => $template_meta['description'] ?? '',
+				'documentation-url' => $template_meta['documentation-url'] ?? '',
+				'image-url' => $template_meta['image-url'] ?? '',
+				'created' => current_time('mysql', true)
+			);
+
+			// Generate ZIP file
+			$upload_dir = wp_upload_dir();
+			$zip_filename = sanitize_file_name($template_meta['name'] ?? 'template') . '-' . time() . '.zip';
+			$zip_path = $upload_dir['basedir'] . '/' . $zip_filename;
+
+			// WP_Filesystem
+			global $wp_filesystem;
+			if ( !$wp_filesystem ) {
+				require_once(ABSPATH . 'wp-admin/includes/file.php');
+				WP_Filesystem();
+			}
+
+			// Create ZIP
+			require_once(ABSPATH . 'wp-admin/includes/class-pclzip.php');
+			$archive = new PclZip($zip_path);
+
+			// Add skin data JSON
+			$skin_json = json_encode($skin_data);
+			$archive->addString($skin_json, 'template-data.json');
+
+			// Add manifest JSON
+			$manifest_json = json_encode($manifest);
+			$archive->addString($manifest_json, 'template-manifest.json');
+
+			// Prepare download
+			if ( file_exists($zip_path) ) {
+				$download_url = $upload_dir['baseurl'] . '/' . $zip_filename;
+				
+				return self::json_encode(array(
+					'success' => true,
+					'download_url' => $download_url,
+					'filename' => $zip_filename,
+					'file_path' => $zip_path
+				));
+			} else {
+				return self::json_encode(array(
+					'error' => __('ZIP-Datei konnte nicht erstellt werden', 'padma')
+				));
+			}
+
+		}
+
+		/* Template Metadata Update */
+		public static function method_update_template_meta() {
+
+			$template_id = padma_post('template_id');
+			$meta_data = json_decode(stripslashes(padma_post('meta_data')), true);
+
+			if ( empty($template_id) || !is_array($meta_data) ) {
+				return self::json_encode(array(
+					'error' => __('Ungültige Parameter', 'padma')
+				));
+			}
+
+			// Get existing template
+			$template_meta = PadmaOption::get($template_id, 'skins');
+			
+			if ( !$template_meta ) {
+				return self::json_encode(array(
+					'error' => __('Vorlage nicht gefunden', 'padma')
+				));
+			}
+
+			// Update metadata fields
+			$allowed_fields = array('name', 'author', 'version', 'description', 'documentation-url', 'image-url');
+			
+			foreach ( $allowed_fields as $field ) {
+				if ( isset($meta_data[$field]) ) {
+					$template_meta[$field] = sanitize_text_field($meta_data[$field]);
+				}
+			}
+
+			// Save updated metadata
+			PadmaOption::set($template_id, $template_meta, 'skins');
+
+			return self::json_encode(array(
+				'success' => true,
+				'message' => __('Vorlage aktualisiert', 'padma')
+			));
+
+		}
+
+		/* Import Template from ZIP */
+		public static function method_import_template_zip() {
+
+			Padma::load('data/data-portability');
+
+			if ( !isset($_FILES['zip_file']) || $_FILES['zip_file']['error'] !== UPLOAD_ERR_OK ) {
+				return self::json_encode(array(
+					'error' => __('Datei konnte nicht hochgeladen werden', 'padma')
+				));
+			}
+
+			$zip_file = $_FILES['zip_file']['tmp_name'];
+
+			// Extract ZIP
+			require_once(ABSPATH . 'wp-admin/includes/class-pclzip.php');
+			$archive = new PclZip($zip_file);
+
+			// Extract to temporary directory
+			$temp_dir = PADMA_CACHE_DIR . '/template-import-' . uniqid();
+			wp_mkdir_p($temp_dir);
+
+			$archive->extract(PCLZIP_OPT_PATH, $temp_dir);
+
+			// Read template data
+			$template_data_file = $temp_dir . '/template-data.json';
+			$manifest_file = $temp_dir . '/template-manifest.json';
+
+			if ( !file_exists($template_data_file) ) {
+				return self::json_encode(array(
+					'error' => __('Ungültige Vorlagendatei: template-data.json nicht found', 'padma')
+				));
+			}
+
+			global $wp_filesystem;
+			if ( !$wp_filesystem ) {
+				require_once(ABSPATH . 'wp-admin/includes/file.php');
+				WP_Filesystem();
+			}
+
+			$template_data = json_decode($wp_filesystem->get_contents($template_data_file), true);
+
+			// Load manifest if exists
+			if ( file_exists($manifest_file) ) {
+				$manifest = json_decode($wp_filesystem->get_contents($manifest_file), true);
+				
+				// Merge manifest into template data
+				foreach ( $manifest as $key => $value ) {
+					if ( !isset($template_data[$key]) ) {
+						$template_data[$key] = $value;
+					}
+				}
+			}
+
+			// Install skin
+			$result = PadmaDataPortability::install_skin($template_data);
+
+			// Cleanup temp directory
+			$this->delete_directory_recursive($temp_dir);
+
+			// Delete uploaded ZIP
+			@unlink($zip_file);
+
+			if ( isset($result['error']) ) {
+				return self::json_encode($result);
+			}
+
+			return self::json_encode(array(
+				'success' => true,
+				'message' => __('Vorlage erfolgreich importiert', 'padma')
+			));
+
+		}
+
+		/* Helper function to delete directory recursively */
+		private static function delete_directory_recursive($dir) {
+
+			if ( !is_dir($dir) ) return false;
+
+			$files = scandir($dir);
+
+			foreach ( $files as $file ) {
+				if ( $file === '.' || $file === '..' ) continue;
+
+				$file_path = $dir . '/' . $file;
+
+				if ( is_dir($file_path) ) {
+					self::delete_directory_recursive($file_path);
+				} else {
+					@unlink($file_path);
+				}
+			}
+
+			return @rmdir($dir);
+
+		}
+
+		/* Cleanup downloaded ZIP file */
+		public static function method_cleanup_download() {
+
+			$file_path = padma_post('file_path');
+
+			if ( !empty($file_path) && file_exists($file_path) ) {
+				@unlink($file_path);
+				return self::json_encode(array('success' => true));
+			}
+
+			return self::json_encode(array('success' => false));
+
+		}
+
 
 
 }
