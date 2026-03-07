@@ -1,8 +1,17 @@
 <?php
+/**
+ * ExcerptsPlus Block Options
+ *
+ * @package Padma_Advanced
+ * @subpackage ExcerptsPlus
+ */
+
+namespace Padma_Advanced;
+
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 // Setup all block options
-  class PadmaExcerptsPBlockOptions extends PadmaBlockOptionsAPI
-  {
+class PadmaVisualElementsBlockExcerptsPlusOptions extends \PadmaBlockOptionsAPI {
 
     public $pzep_custom_fields = array();
     public $inputs = array();

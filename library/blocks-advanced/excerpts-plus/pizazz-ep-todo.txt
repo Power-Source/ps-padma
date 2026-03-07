@@ -1,0 +1,158 @@
+# ExcerptsPlus - Entwicklungs-Roadmap
+
+## ✅ ABGESCHLOSSEN (März 2026)
+
+### Phase 1: Modulare Architektur ✅
+- [x] Helpers.php Modul erstellt (~400 Zeilen)
+- [x] ImageProcessor.php Modul erstellt (~350 Zeilen)
+- [x] MetaHandler.php Modul erstellt (~300 Zeilen)
+- [x] QueryBuilder.php Modul erstellt (~450 Zeilen)
+- [x] Hauptblock-Datei mit Namespace Padma_Advanced
+- [x] Options-Datei angepasst
+- [x] Block in blocks.php registriert
+- [x] Legacy-Kompatibilität sichergestellt
+- [x] Dokumentation (README.md, INTEGRATION.md)
+
+---
+
+## 🎯 NÄCHSTE SCHRITTE (Optional)
+
+### Phase 2: Renderer-Modul (Priorität: Mittel)
+Ziel: HTML-Ausgabe aus Legacy-Code extrahieren
+
+- [ ] classes/Renderer.php erstellen
+- [ ] Template-System implementieren
+- [ ] Loop-Logik modularisieren
+- [ ] Cell-Building abstrahieren
+- [ ] Slider-Rendering trennen
+- [ ] Pagination-Rendering trennen
+
+**Vorteile:**
+- Noch bessere Wartbarkeit
+- Template-Overrides möglich
+- Einfacheres Theming
+
+**Aufwand:** ~8-12 Stunden
+
+---
+
+### Phase 3: Cache-System Modernisierung (Priorität: Niedrig)
+Ziel: WordPress Transients API nutzen
+
+- [ ] Cache-Manager Klasse erstellen
+- [ ] Transients API integrieren
+- [ ] Object Caching Support
+- [ ] Cache-Warming implementieren
+- [ ] Admin-Seite für Cache-Verwaltung
+
+**Vorteile:**
+- Bessere Performance
+- Shared Hosting kompatibel
+- Redis/Memcached Support
+
+**Aufwand:** ~4-6 Stunden
+
+---
+
+### Phase 4: Testing (Priorität: Niedrig)
+Ziel: Automatisierte Tests
+
+- [ ] PHPUnit Setup
+- [ ] Unit Tests für Helpers
+- [ ] Unit Tests für ImageProcessor
+- [ ] Unit Tests für MetaHandler
+- [ ] Unit Tests für QueryBuilder
+- [ ] Integration Tests
+- [ ] E2E Tests (Selenium)
+
+**Aufwand:** ~12-16 Stunden
+
+---
+
+### Phase 5: Performance-Optimierung (Priorität: Niedrig)
+Ziel: Schnellere Ladezeiten
+
+- [ ] Query-Optimierung analysieren
+- [ ] Lazy Loading für Bilder
+- [ ] Asset-Minification
+- [ ] Critical CSS inline
+- [ ] Defer non-critical JS
+- [ ] Database-Indices prüfen
+
+**Aufwand:** ~4-6 Stunden
+
+---
+
+## 🐛 BEKANNTE ISSUES (aus altem Plugin)
+
+### Zu prüfen:
+- [ ] Gelöschte Featured Images werden noch verwendet
+- [ ] [...]  zeigt bei zu langen Excerpts
+- [ ] Gespiegelte Blocks auf Category Archives zeigen falsche Category
+- [ ] Image behind nicht clickable bei overlay bottom
+- [ ] Cell 4 hat seltsame Höhe in manchen Fällen
+- [ ] Continue Reading erscheint bei zu kurzen Posts
+- [ ] Foreign characters als letztes Zeichen ergeben schwarzes Fragezeichen
+
+**Note:** Viele dieser Bugs könnten bereits durch die Modernisierung behoben sein.
+
+---
+
+## 💡 FEATURE-IDEEN
+
+### Kurzfristig machbar:
+- [ ] Default-Bild wenn kein Featured Image vorhanden
+- [ ] Meta-Box für Bild-Auswahl in Posts
+- [ ] More-Tag Detection und Handling
+- [ ] Sortierung nach spezifizierten IDs
+- [ ] get_extended() Support (alles vor <!--more-->)
+
+### Mittelfristig:
+- [ ] Archive-Support (Tags, Categories als Anzeige)
+- [ ] Multiple Content Type Selections
+- [ ] Category Grids (statt Posts)
+- [ ] Single Post Display auf Media Pages
+
+### Langfristig:
+- [ ] Gutenberg-Block Variant
+- [ ] REST API Endpoint
+- [ ] JSON Export/Import von Konfigurationen
+- [ ] Live Preview im Block Editor
+
+---
+
+## 📝 NOTIZEN
+
+### Legacy-Code Removal Timeline:
+- **2026 Q2:** Renderer-Modul fertig → Legacy Display kann optional bleiben
+- **2026 Q3:** Prüfen ob Legacy-Code noch benötigt wird
+- **2026 Q4:** Eventuell vollständige Migration zu Modulen
+
+### Browser-Support:
+- Modern Browsers (Chrome, Firefox, Safari, Edge)
+- IE11 wird NICHT mehr unterstützt (2022 End-of-Life)
+
+### Kompatibilität:
+- WordPress: 5.0+
+- ClassicPress: 1.0+
+- PHP: 7.4+ (8.0+ empfohlen)
+- MySQL: 5.6+
+
+---
+
+## 🎉 CHANGELOG
+
+### v1.0.0 (7. März 2026)
+- **MAJOR:** Modulare Architektur implementiert
+- **MAJOR:** Namespace auf Padma_Advanced umgestellt
+- **MAJOR:** 4 Core-Module erstellt (Helpers, ImageProcessor, MetaHandler, QueryBuilder)
+- **FIX:** Code-Qualität massiv verbessert
+- **FIX:** Wartbarkeit erhöht
+- **FEAT:** Vollständige Rückwärtskompatibilität
+- **DOCS:** README.md und INTEGRATION.md hinzugefügt
+
+---
+
+**Status:** Production Ready ✅  
+**Letztes Update:** 7. März 2026  
+**Maintainer:** PS Padma Team

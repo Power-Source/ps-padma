@@ -50,6 +50,7 @@ class PadmaBlocks {
 		'divider' => 'Padma_Advanced\\PadmaVisualElementsBlockDivider',
 		'dummy-image' => 'Padma_Advanced\\PadmaVisualElementsBlockDummyImage',
 		'dummy-text' => 'Padma_Advanced\\PadmaVisualElementsBlockDummyText',
+		'excerpts-plus' => 'Padma_Advanced\\PadmaVisualElementsBlockExcerptsPlus',
 		'fontawesome' => 'Padma_Advanced\\PadmaVisualElementsFontAwesomeBlock',
 		// 'gmap' => 'Padma_Advanced\\PadmaVisualElementsBlockGoogleMaps', // Class doesn't exist
 		'heading' => 'Padma_Advanced\\PadmaVisualElementsBlockHeading',
