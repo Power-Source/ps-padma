@@ -63,6 +63,8 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 * Positionsmarker der Slider im Visual Editor wieder sichtbar gemacht
 * Slider-Darstellung in Normal- und Night-Mode vereinheitlicht
 * Veraltete jQuery-UI-Slider-Altlasten im Visual-Editor-Code bereinigt
+* Neuer PowerForm-Block für ClassicPress-Kompatibilität hinzugefügt
+* Contact-Form-7-Block entfernt (funktioniert nicht mit ClassicPress)
 
 = 1.0.7 =
 * Branding vereinheitlicht auf "PS Padma"

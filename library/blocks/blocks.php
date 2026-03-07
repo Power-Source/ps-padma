@@ -13,7 +13,6 @@ class PadmaBlocks {
 	public static $core_blocks = array(
 		'audio',		
 		'breadcrumbs',
-		'contact-form-7',
 		'content',
 		'custom-code',
 		'divider',
@@ -28,6 +27,7 @@ class PadmaBlocks {
 		'navigation',
 		'onepage-navigation',
 		'pin-board',
+		'powerform',
 		'search',
 		'slidedeck',
 		'slider',
