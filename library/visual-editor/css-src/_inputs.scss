@@ -523,38 +523,38 @@ div.colorpicker-color {
 /* Slider */
 div.input-slider-bar {
 	@include rounded-corners(3px);
+	--slider-percent: 0%;
+	--slider-track-color: #eee;
+	--slider-handle-color: #2ea2cc;
 	width: 200px;
 	height: 10px;
 	border: 1px solid #dfdfdf;
 	display: block;
 	float: left;
 	margin: 6px 7px 0 8px;
-	position: relative; 
+	position: relative;
+	background: linear-gradient(to right, var(--slider-track-color) 0, var(--slider-track-color) var(--slider-percent), transparent var(--slider-percent), transparent 100%);
 }
+
+	div.input-slider-bar:before {
+		content: '';
+		background: var(--slider-handle-color);
+		@include rounded-corners(8px);
+		display: block;
+		height: 16px;
+		width: 16px;
+		position: absolute;
+		top: 50%;
+		left: var(--slider-percent);
+		margin-left: -8px;
+		margin-top: -8px;
+		cursor: pointer;
+	}
 
 	.input-slider-bar-input {
 		width: 40px;
 		margin: 0;
 	}
-
-	div.input-slider-bar div.ui-slider-range { 
-		background: #eee; 
-		height: 10px; 
-		@include rounded-corners(2px);
-	}
-	
-	div.input-slider-bar a.ui-slider-handle { 
-		background: #2ea2cc;
-		@include rounded-corners(8px);
-	    display: block;
-	    height: 16px;
-		width: 16px;
-	    margin: -13px 0 0 -8px;
-	    position: absolute; 
-	    cursor: pointer; 
-	}
-	
-	div.input-slider-bar a.ui-slider-handle.ui-state-active { background: #1E8CBE; }
 
 div.input-slider-bar-text { 
 	font-size: 11px; 

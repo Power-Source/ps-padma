@@ -990,10 +990,9 @@ define(['jquery', 'vanilla-draggable', 'helper.codeMirror', 'deps/chosen.jquery'
 			if ( typeof context === 'undefined' )
 				var context = 'div#panel';
 
-			/* Sliders - Vanilla implementation (replaces jQuery UI slider) */
+			/* Sliders - Vanilla implementation */
 				$('div.input-slider div.input-slider-bar', context).each(function() {
 					
-					var self = this;
 					var sliderBar = $(this);
 					var sliderContainer = $(this).parents('.input-slider');
 
@@ -1028,26 +1027,16 @@ define(['jquery', 'vanilla-draggable', 'helper.codeMirror', 'deps/chosen.jquery'
 					var updateSliderPosition = function(val) {
 						var percent = ((val - min) / (max - min)) * 100;
 						sliderBar.css('background-size', percent + '% 100%');
+						sliderBar.css('--slider-percent', percent + '%');
+						sliderBar.attr('data-slider-value', val);
+						value = val;
 					};
 
 					// Initialize slider position
 					updateSliderPosition(value);
 
-					// Create slider using HTML5 input range
-					var rangeInput = $('<input type="range" class="vanilla-slider-range" style="display:none;">');
-					rangeInput.attr({
-						'min': min,
-						'max': max,
-						'value': value,
-						'step': interval
-					});
-
-					sliderBar.attr('data-slider-value', value);
-
 					// Mouse events for clicking on the bar
 					sliderBar.on('click', function(e) {
-						if ($(e.target).hasClass('vanilla-slider-range')) return;
-						
 						var rect = this.getBoundingClientRect();
 						var percent = (e.clientX - rect.left) / rect.width;
 						var newValue = Math.round(min + percent * (max - min) / interval) * interval;
@@ -1209,11 +1198,25 @@ define(['jquery', 'vanilla-draggable', 'helper.codeMirror', 'deps/chosen.jquery'
 					var $drop = $(params.chosen.dropdown);
 					var dropRect = $drop.get(0).getBoundingClientRect();
 					var diff = $(window).height() - dropRect.bottom;
+					var $results = $drop.find('.chosen-results');
+
+					$drop.css({
+						height: '',
+						'max-height': ''
+					});
+
+					$results.css({
+						height: '',
+						'max-height': ''
+					});
 
 					if ( diff < 0 ) {
 
-						$drop.css('height', '-=' + (Math.abs(diff) + 10));
-						$drop.find('.chosen-results').css('height', '-=' + (Math.abs(diff) + 10));
+						var maxDropHeight = Math.max(120, dropRect.height - Math.abs(diff) - 10);
+						var maxResultsHeight = Math.max(80, maxDropHeight - 10);
+
+						$drop.css('max-height', maxDropHeight + 'px');
+						$results.css('max-height', maxResultsHeight + 'px');
 
 					}
 

@@ -2,7 +2,7 @@
 Contributors: PSOURCE
 Requires at least: 5.0
 Tested up to: WordPress 8.6, ClassicPress 2.6.0
-Version: 1.0.7
+Version: 1.0.8
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -58,6 +58,11 @@ Hier entlang: https://power-source.github.io/ps-padma/
 Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 
 == Changelog ==
+
+= 1.0.8 =
+* Positionsmarker der Slider im Visual Editor wieder sichtbar gemacht
+* Slider-Darstellung in Normal- und Night-Mode vereinheitlicht
+* Veraltete jQuery-UI-Slider-Altlasten im Visual-Editor-Code bereinigt
 
 = 1.0.7 =
 * Branding vereinheitlicht auf "PS Padma"
