@@ -11,11 +11,25 @@
 // ============================================================================
 
 function padma_render_youtube( $args = array(), $content = '' ) {
+	if ( function_exists( 'padma_query_asset' ) ) {
+		padma_query_asset( 'css', 'media-shortcodes' );
+	} elseif ( function_exists( 'su_query_asset' ) ) {
+		su_query_asset( 'css', 'media-shortcodes' );
+	} else {
+		wp_enqueue_style(
+			'padma-media-shortcodes-css',
+			get_template_directory_uri() . '/assets/css/psource-shortcodes/media-shortcodes.css',
+			array(),
+			'1.0'
+		);
+	}
+
 	$defaults = array(
 		'url'        => '',
 		'width'      => 600,
 		'height'     => 400,
 		'autoplay'   => 'no',
+		'mute'       => 'no',
 		'responsive' => 'yes',
 		'class'      => ''
 	);
@@ -38,10 +52,25 @@ function padma_render_youtube( $args = array(), $content = '' ) {
 		return '<p class="su-error">' . esc_html__( 'YouTube: please specify correct url', 'ps-padma' ) . '</p>';
 	}
 	
-	$autoplay = ( $args['autoplay'] === 'yes' ) ? '?autoplay=1' : '';
+	$args['responsive'] = ( $args['responsive'] === 'no' ) ? 'no' : 'yes';
+	$args['autoplay']   = ( $args['autoplay'] === 'yes' ) ? 'yes' : 'no';
+	$args['mute']       = ( $args['mute'] === 'yes' ) ? 'yes' : 'no';
+
+	$params = array();
+	if ( $args['autoplay'] === 'yes' ) {
+		$params['autoplay'] = '1';
+	}
+	if ( $args['mute'] === 'yes' ) {
+		$params['mute'] = '1';
+	}
+
+	$embed_url = 'https://www.youtube.com/embed/' . $id;
+	if ( ! empty( $params ) ) {
+		$embed_url .= '?' . http_build_query( $params, '', '&' );
+	}
 	
 	return '<div class="su-youtube su-responsive-media-' . esc_attr( $args['responsive'] ) . padma_ecssc( $args ) . '">'
-		. '<iframe width="' . intval( $args['width'] ) . '" height="' . intval( $args['height'] ) . '" src="https://www.youtube.com/embed/' . esc_attr( $id ) . $autoplay . '" frameborder="0" allowfullscreen="true"></iframe>'
+		. '<iframe width="' . intval( $args['width'] ) . '" height="' . intval( $args['height'] ) . '" src="' . esc_url( $embed_url ) . '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="true"></iframe>'
 		. '</div>';
 }
 
@@ -50,6 +79,19 @@ function padma_render_youtube( $args = array(), $content = '' ) {
 // ============================================================================
 
 function padma_render_youtube_advanced( $args = array(), $content = '' ) {
+	if ( function_exists( 'padma_query_asset' ) ) {
+		padma_query_asset( 'css', 'media-shortcodes' );
+	} elseif ( function_exists( 'su_query_asset' ) ) {
+		su_query_asset( 'css', 'media-shortcodes' );
+	} else {
+		wp_enqueue_style(
+			'padma-media-shortcodes-css',
+			get_template_directory_uri() . '/assets/css/psource-shortcodes/media-shortcodes.css',
+			array(),
+			'1.0'
+		);
+	}
+
 	$defaults = array(
 		'url'            => '',
 		'width'          => 600,
@@ -65,7 +107,7 @@ function padma_render_youtube_advanced( $args = array(), $content = '' ) {
 		'rel'            => 'yes',
 		'showinfo'       => 'yes',
 		'theme'          => 'dark',
-		'https'          => 'no',
+		'https'          => 'yes',
 		'wmode'          => '',
 		'playsinline'    => 'no',
 		'class'          => ''
@@ -88,6 +130,8 @@ function padma_render_youtube_advanced( $args = array(), $content = '' ) {
 	if ( empty( $id ) ) {
 		return '<p class="su-error">' . esc_html__( 'YouTube Advanced: please specify correct url', 'ps-padma' ) . '</p>';
 	}
+
+	$args['responsive'] = ( $args['responsive'] === 'no' ) ? 'no' : 'yes';
 	
 	// Build params
 	$params = array();
@@ -104,7 +148,7 @@ function padma_render_youtube_advanced( $args = array(), $content = '' ) {
 	$params_str = http_build_query( $params );
 	
 	return '<div class="su-youtube su-responsive-media-' . esc_attr( $args['responsive'] ) . padma_ecssc( $args ) . '">'
-		. '<iframe width="' . intval( $args['width'] ) . '" height="' . intval( $args['height'] ) . '" src="' . esc_attr( $protocol . '://www.youtube.com/embed/' . $id . '?' . $params_str ) . '" frameborder="0" allowfullscreen="true"></iframe>'
+		. '<iframe width="' . intval( $args['width'] ) . '" height="' . intval( $args['height'] ) . '" src="' . esc_url( $protocol . '://www.youtube.com/embed/' . $id . '?' . $params_str ) . '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="true"></iframe>'
 		. '</div>';
 }
 
@@ -113,11 +157,25 @@ function padma_render_youtube_advanced( $args = array(), $content = '' ) {
 // ============================================================================
 
 function padma_render_vimeo( $args = array(), $content = '' ) {
+	if ( function_exists( 'padma_query_asset' ) ) {
+		padma_query_asset( 'css', 'media-shortcodes' );
+	} elseif ( function_exists( 'su_query_asset' ) ) {
+		su_query_asset( 'css', 'media-shortcodes' );
+	} else {
+		wp_enqueue_style(
+			'padma-media-shortcodes-css',
+			get_template_directory_uri() . '/assets/css/psource-shortcodes/media-shortcodes.css',
+			array(),
+			'1.0'
+		);
+	}
+
 	$defaults = array(
 		'url'        => '',
 		'width'      => 600,
 		'height'     => 400,
 		'autoplay'   => 'no',
+		'dnt'        => 'no',
 		'responsive' => 'yes',
 		'class'      => ''
 	);
@@ -140,10 +198,28 @@ function padma_render_vimeo( $args = array(), $content = '' ) {
 		return '<p class="su-error">' . esc_html__( 'Vimeo: please specify correct url', 'ps-padma' ) . '</p>';
 	}
 	
-	$autoplay = ( $args['autoplay'] === 'yes' ) ? '&amp;autoplay=1' : '';
+	$args['responsive'] = ( $args['responsive'] === 'no' ) ? 'no' : 'yes';
+	$args['autoplay']   = ( $args['autoplay'] === 'yes' ) ? 'yes' : 'no';
+	$args['dnt']        = ( $args['dnt'] === 'yes' ) ? 'yes' : 'no';
+
+	$params = array(
+		'title'    => '0',
+		'byline'   => '0',
+		'portrait' => '0',
+		'color'    => 'ffffff',
+	);
+
+	if ( $args['autoplay'] === 'yes' ) {
+		$params['autoplay'] = '1';
+	}
+	if ( $args['dnt'] === 'yes' ) {
+		$params['dnt'] = '1';
+	}
+
+	$embed_url = 'https://player.vimeo.com/video/' . $id . '?' . http_build_query( $params, '', '&' );
 	
 	return '<div class="su-vimeo su-responsive-media-' . esc_attr( $args['responsive'] ) . padma_ecssc( $args ) . '">'
-		. '<iframe width="' . intval( $args['width'] ) . '" height="' . intval( $args['height'] ) . '" src="//player.vimeo.com/video/' . esc_attr( $id ) . '?title=0&amp;byline=0&amp;portrait=0&amp;color=ffffff' . $autoplay . '" frameborder="0" allowfullscreen="true"></iframe>'
+		. '<iframe width="' . intval( $args['width'] ) . '" height="' . intval( $args['height'] ) . '" src="' . esc_url( $embed_url ) . '" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="true"></iframe>'
 		. '</div>';
 }
 
@@ -246,6 +322,19 @@ function padma_render_video( $args = array(), $content = '' ) {
 // ============================================================================
 
 function padma_render_dailymotion( $args = array(), $content = '' ) {
+	if ( function_exists( 'padma_query_asset' ) ) {
+		padma_query_asset( 'css', 'media-shortcodes' );
+	} elseif ( function_exists( 'su_query_asset' ) ) {
+		su_query_asset( 'css', 'media-shortcodes' );
+	} else {
+		wp_enqueue_style(
+			'padma-media-shortcodes-css',
+			get_template_directory_uri() . '/assets/css/psource-shortcodes/media-shortcodes.css',
+			array(),
+			'1.0'
+		);
+	}
+
 	$defaults = array(
 		'url'        => '',
 		'width'      => 600,
@@ -274,6 +363,12 @@ function padma_render_dailymotion( $args = array(), $content = '' ) {
 	if ( empty( $id ) ) {
 		return '<p class="su-error">' . esc_html__( 'Dailymotion: please specify correct url', 'ps-padma' ) . '</p>';
 	}
+
+	$args['responsive'] = ( $args['responsive'] === 'no' ) ? 'no' : 'yes';
+	$args['autoplay']   = ( $args['autoplay'] === 'yes' ) ? 'yes' : 'no';
+	$args['logo']       = ( $args['logo'] === 'no' ) ? 'no' : 'yes';
+	$args['related']    = ( $args['related'] === 'no' ) ? 'no' : 'yes';
+	$args['info']       = ( $args['info'] === 'no' ) ? 'no' : 'yes';
 	
 	// Build params
 	$params = array();
@@ -282,7 +377,7 @@ function padma_render_dailymotion( $args = array(), $content = '' ) {
 	}
 	
 	return '<div class="su-dailymotion su-responsive-media-' . esc_attr( $args['responsive'] ) . padma_ecssc( $args ) . '">'
-		. '<iframe width="' . intval( $args['width'] ) . '" height="' . intval( $args['height'] ) . '" src="http://www.dailymotion.com/embed/video/' . esc_attr( $id ) . '?' . implode( '&', $params ) . '" frameborder="0" allowfullscreen="true"></iframe>'
+		. '<iframe width="' . intval( $args['width'] ) . '" height="' . intval( $args['height'] ) . '" src="https://www.dailymotion.com/embed/video/' . esc_attr( $id ) . '?' . implode( '&', $params ) . '" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen="true"></iframe>'
 		. '</div>';
 }
 
@@ -291,6 +386,19 @@ function padma_render_dailymotion( $args = array(), $content = '' ) {
 // ============================================================================
 
 function padma_render_screenr( $args = array(), $content = '' ) {
+	if ( function_exists( 'padma_query_asset' ) ) {
+		padma_query_asset( 'css', 'media-shortcodes' );
+	} elseif ( function_exists( 'su_query_asset' ) ) {
+		su_query_asset( 'css', 'media-shortcodes' );
+	} else {
+		wp_enqueue_style(
+			'padma-media-shortcodes-css',
+			get_template_directory_uri() . '/assets/css/psource-shortcodes/media-shortcodes.css',
+			array(),
+			'1.0'
+		);
+	}
+
 	$defaults = array(
 		'url'        => '',
 		'width'      => 600,
@@ -316,9 +424,11 @@ function padma_render_screenr( $args = array(), $content = '' ) {
 	if ( empty( $id ) ) {
 		return '<p class="su-error">' . esc_html__( 'Screenr: please specify correct url', 'ps-padma' ) . '</p>';
 	}
+
+	$args['responsive'] = ( $args['responsive'] === 'no' ) ? 'no' : 'yes';
 	
 	return '<div class="su-screenr su-responsive-media-' . esc_attr( $args['responsive'] ) . padma_ecssc( $args ) . '">'
-		. '<iframe width="' . intval( $args['width'] ) . '" height="' . intval( $args['height'] ) . '" src="http://screenr.com/embed/' . esc_attr( $id ) . '" frameborder="0" allowfullscreen="true"></iframe>'
+		. '<iframe width="' . intval( $args['width'] ) . '" height="' . intval( $args['height'] ) . '" src="' . esc_url( 'https://screenr.com/embed/' . $id ) . '" frameborder="0" allow="fullscreen" allowfullscreen="true"></iframe>'
 		. '</div>';
 }
 

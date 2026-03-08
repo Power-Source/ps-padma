@@ -85,6 +85,28 @@ class PadmaVisualElementsBlockDailymotion extends \PadmaBlockAPI {
 	}
 
 	/**
+	 * Ensure media shortcode styles are available in frontend and VE iframe.
+	 */
+	public function enqueue_action( $block_id ) {
+		if ( function_exists( 'padma_query_asset' ) ) {
+			padma_query_asset( 'css', 'media-shortcodes' );
+			return;
+		}
+
+		if ( function_exists( 'su_query_asset' ) ) {
+			su_query_asset( 'css', 'media-shortcodes' );
+			return;
+		}
+
+		wp_enqueue_style(
+			'padma-media-shortcodes-css',
+			get_template_directory_uri() . '/assets/css/psource-shortcodes/media-shortcodes.css',
+			array(),
+			'1.0'
+		);
+	}
+
+	/**
 	 * Padma Content Method
 	 *
 	 * @param object $block Block.
@@ -121,11 +143,11 @@ class PadmaVisualElementsBlockDailymotion extends \PadmaBlockAPI {
 			$height = 1600;
 		}
 
-		if ( ! $responsive ) {
+		if ( ! in_array( $responsive, array( 'yes', 'no' ), true ) ) {
 			$responsive = 'yes';
 		}
 
-		if ( ! $autoplay ) {
+		if ( ! in_array( $autoplay, array( 'yes', 'no' ), true ) ) {
 			$autoplay = 'no';
 		}
 
