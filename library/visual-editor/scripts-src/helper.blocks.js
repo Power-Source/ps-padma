@@ -1350,6 +1350,25 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 		//Update content overlay
 		updateBlockContentCover(block);
 
+		//Update mirror status
+		updateBlockMirrorStatus(false, block, '', false);
+
+		//Allow saving
+		allowSaving();
+
+		/* Hide all tooltips that way the tooltip doesn't continue showing for the hovered block type */
+		$('.qtip').qtip('hide');
+
+		return temporaryID;
+
+	}
+
+
+	duplicateBlock = function(originalBlock) {
+
+		if ( !$(originalBlock).length )
+			return false;
+
 		var wrapper = getBlockWrapper(originalBlock);
 
 		var blockPosition = getBlockPosition(originalBlock);
