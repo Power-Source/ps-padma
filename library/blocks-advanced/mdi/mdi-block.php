@@ -85,9 +85,16 @@ class PadmaMDIBlock extends \PadmaBlockAPI {
 		);
 		$this->register_block_element(
 			array(
+				'id'       => 'mdi-wrap',
+				'name'     => __( 'MDI Wrapper', 'padma' ),
+				'selector' => '.mdi-inline-wrap',
+			)
+		);
+		$this->register_block_element(
+			array(
 				'id'       => 'link',
 				'name'     => __( 'Link', 'padma' ),
-				'selector' => 'a',
+				'selector' => '.mdi-icon-link',
 			)
 		);
 		$this->register_block_element(
@@ -97,6 +104,56 @@ class PadmaMDIBlock extends \PadmaBlockAPI {
 				'selector' => 'i.mdi',
 			)
 		);
+		$this->register_block_element(
+			array(
+				'id'       => 'before-icon',
+				'name'     => __( 'Before Icon', 'padma' ),
+				'selector' => '.before-icon',
+			)
+		);
+		$this->register_block_element(
+			array(
+				'id'       => 'after-icon',
+				'name'     => __( 'After Icon', 'padma' ),
+				'selector' => '.after-icon',
+			)
+		);
+	}
+
+	/**
+	 * Dynamic CSS for inline before/icon/after layout
+	 *
+	 * @param string  $block_id Block ID.
+	 * @param boolean $block Block Object.
+	 * @return string
+	 */
+	public static function dynamic_css( $block_id, $block = false ) {
+
+		if ( ! $block ) {
+			$block = \PadmaBlocksData::get_block( $block_id );
+		}
+
+		return '
+		#block-' . $block_id . ' .mdi-inline-wrap {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			flex-wrap: wrap;
+		}
+
+		#block-' . $block_id . ' .mdi-inline-wrap .before-icon,
+		#block-' . $block_id . ' .mdi-inline-wrap .after-icon {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+		}
+
+		#block-' . $block_id . ' .mdi-inline-wrap .before-icon > *,
+		#block-' . $block_id . ' .mdi-inline-wrap .after-icon > * {
+			display: inline;
+			margin: 0;
+		}
+		';
 	}
 
 	/**
@@ -146,10 +203,12 @@ class PadmaMDIBlock extends \PadmaBlockAPI {
 
 		if ( ! empty( $icon ) ) {
 
+			echo '<span class="mdi-inline-wrap">';
+
 			if ( ! empty( $before_icon ) ) {
-				echo '<div class="before-icon">';
+				echo '<span class="before-icon">';
 				echo $before_icon;
-				echo '</div>';
+				echo '</span>';
 			}
 
 			if ( empty( $width ) ) {
@@ -166,16 +225,18 @@ class PadmaMDIBlock extends \PadmaBlockAPI {
 			$icon_html  = sprintf( '<i class="mdi mdi-%s" style="%s" aria-hidden="true"></i>', esc_attr( $icon_name ), esc_attr( $icon_style ) );
 
 			if ( ! empty( $url ) ) {
-				echo sprintf( '<a href="%s">%s</a>', esc_url( $url ), $icon_html );
+				echo sprintf( '<a href="%s" class="mdi-icon-link">%s</a>', esc_url( $url ), $icon_html );
 			} else {
 				echo $icon_html;
 			}
 
 			if ( ! empty( $after_icon ) ) {
-				echo '<div class="after-icon">';
+				echo '<span class="after-icon">';
 				echo $after_icon;
-				echo '</div>';
+				echo '</span>';
 			}
+
+			echo '</span>';
 		}
 
 	}
