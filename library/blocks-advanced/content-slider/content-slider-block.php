@@ -160,17 +160,47 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		$in_visual_editor = self::is_visual_editor_context($block);
 		$show_navigate = self::should_show_navigate_mode($block);
 
-		$css = '
+		$css = '';
+		
+		// Im VE: Owl Carousel CSS direkt laden (falls nicht via enqueue verfügbar)
+		if ($in_visual_editor) {
+			$theme_url = get_template_directory_uri() . '/library/blocks-advanced/content-slider/';
+			$css .= '@import url("' . $theme_url . 'css/owl.carousel.min.css");';
+			$css .= '@import url("' . $theme_url . 'css/owl.theme.default.min.css");';
+		}
+		
+		$css .= '
 			#content-slider-' . $block_id . ' {
 				overflow: hidden;
 				position: relative;
 			}';
 
-		// Im VE ohne Navigate-Mode: zeige nur ersten Slide
+		// Im VE ohne Navigate-Mode: zeige nur ersten Slide und deaktiviere Navigation visuell
 		if ( $in_visual_editor && !$show_navigate ) {
 			$css .= '
 			#content-slider-' . $block_id . ' .item:nth-child(n+2) {
 				display: none;
+			}
+			#content-slider-' . $block_id . ' .owl-nav,
+			#content-slider-' . $block_id . ' .owl-dots {
+				pointer-events: none !important;
+				opacity: 0.3 !important;
+				position: relative;
+			}
+			#content-slider-' . $block_id . ' .owl-nav::after {
+				content: "Navigation - nur zum Stylen (Navigate Mode aktivieren für Funktion)";
+				position: absolute;
+				top: -25px;
+				left: 50%;
+				transform: translateX(-50%);
+				background: rgba(255,255,0,0.9);
+				padding: 5px 10px;
+				color: #000;
+				font-size: 11px;
+				white-space: nowrap;
+				z-index: 1000;
+				pointer-events: none;
+				border-radius: 3px;
 			}';
 		}
 
@@ -217,14 +247,18 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 			}
 			#content-slider-' . $block_id . ' .owl-nav {
 				position: absolute;
-				top: 50%;
-				transform: translateY(-50%);
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
 				width: 100%;
 				display: flex;
 				justify-content: space-between;
+				align-items: center;
 				pointer-events: none;
+				z-index: 10;
 			}
-			#content-slider-' . $block_id . ' .owl-nav button {
+			#content-slider-' . $block_id . ' .owl-nav > * {
 				pointer-events: all;
 				background: rgba(0,0,0,0.3);
 				color: #fff;
@@ -232,25 +266,34 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 				padding: 10px 15px;
 				cursor: pointer;
 				font-size: 18px;
+				z-index: 10;
 			}
-			#content-slider-' . $block_id . ' .owl-nav button:hover {
+			#content-slider-' . $block_id . ' .owl-nav > *:hover {
 				background: rgba(0,0,0,0.6);
 			}
 			#content-slider-' . $block_id . ' .owl-dots {
 				text-align: center;
 				margin-top: 15px;
+				display: block;
+				line-height: 0;
 			}
 			#content-slider-' . $block_id . ' .owl-dot {
-				height: 12px;
-				width: 12px;
-				margin: 0 5px;
-				background: #ccc;
-				display: inline-block;
-				border-radius: 50%;
-				cursor: pointer;
+				height: 12px !important;
+				width: 12px !important;
+				margin: 0 5px !important;
+				background: #ccc !important;
+				display: inline-block !important;
+				border-radius: 50% !important;
+				cursor: pointer !important;
+				border: none !important;
+				padding: 0 !important;
+				vertical-align: middle;
 			}
 			#content-slider-' . $block_id . ' .owl-dot.active {
-				background: #333;
+				background: #333 !important;
+			}
+			#content-slider-' . $block_id . ' .owl-dot span {
+				display: none;
 			}
 		';
 
@@ -377,19 +420,16 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		endwhile;
 		wp_reset_postdata();
 
-		// Always render carousel navigation and dots
-		$result .= '<div class="owl-nav">';
-		$result .= '<button type="button" class="owl-prev" aria-label="Previous">‹</button>';
-		$result .= '<button type="button" class="owl-next" aria-label="Next">›</button>';
-		$result .= '</div>';
+		// Bestimme ob Interaktionen deaktiviert werden sollen
+		$in_visual_editor = self::is_visual_editor_context($block);
+		$show_navigate = self::should_show_navigate_mode($block);
+		$disable_interactions = $in_visual_editor && !$show_navigate;
 
-		$result .= '<div class="owl-dots">';
-		$post_count = $content_slider_query->post_count;
-		for ( $i = 0; $i < $post_count; $i++ ) {
-			$active_class = ( $i === 0 ) ? ' active' : '';
-			$result .= '<button type="button" class="owl-dot' . $active_class . '" aria-label="Dot ' . ( $i + 1 ) . '"></button>';
-		}
-		$result .= '</div>';
+		// Bestimme ob Buttons SICHTBAR sind (Settings)
+		$show_nav_setting = ( isset($block['settings']['nav']) && $block['settings']['nav'] === 'false' ) ? false : true;
+		$show_dots_setting = ( isset($block['settings']['dots']) && $block['settings']['dots'] === 'false' ) ? false : true;
+
+		// Owl Carousel generiert Navigation/Dots selbst - keine manuellen Buttons nötig
 
 		$result .= '</div>';
 
@@ -401,8 +441,23 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		if ( !$block )
 			$block = \PadmaBlocksData::get_block($block_id);
 
+		// Prüfe ob wir im VE sind und Navigate-Mode deaktiviert
+		$in_visual_editor = self::is_visual_editor_context($block);
+		$show_navigate = self::should_show_navigate_mode($block);
+		$disable_interactions = $in_visual_editor && !$show_navigate;
+
+		// Lese nav/dots Settings (müssen in dynamic_js verfügbar sein!)
+		$show_nav_setting = ( isset($block['settings']['nav']) && $block['settings']['nav'] === 'false' ) ? false : true;
+		$show_dots_setting = ( isset($block['settings']['dots']) && $block['settings']['dots'] === 'false' ) ? false : true;
+
+		// Debug-Ausgabe für Settings
+		error_log("Content Slider {$block['id']}: in_ve=" . ($in_visual_editor?'yes':'no') . ", nav_setting=" . ($show_nav_setting?'true':'false') . ", dots_setting=" . ($show_dots_setting?'true':'false') . ", navigate=" . ($show_navigate?'yes':'no') . ", disable=" . ($disable_interactions?'yes':'no'));
+
 		// Settings
 		$carouselParams = '';
+		
+		// Debug JS-Ausgabe
+		$carouselParams .= '/* VE: ' . ($in_visual_editor?'yes':'no') . ', Nav Setting: ' . ($show_nav_setting?'true':'false') . ', Navigate: ' . ($show_navigate?'yes':'no') . ' */ ';
 
 		// Items
 		$carouselParams .= 'items:' . ( !empty($block['settings']['items']) && $block['settings']['items'] > 0 ? $block['settings']['items'] : '1' ) . ', ';
@@ -417,16 +472,20 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		$carouselParams .= 'center:' . ( !empty($block['settings']['center']) ? $block['settings']['center'] : 'false' ) . ', ';
 
 		// mouse-drag
-		$carouselParams .= 'mouseDrag:' . ( !empty($block['settings']['mouse-drag']) ? $block['settings']['mouse-drag'] : 'true' ) . ', ';
+		$mouseDrag = $disable_interactions ? 'false' : ( !empty($block['settings']['mouse-drag']) ? $block['settings']['mouse-drag'] : 'true' );
+		$carouselParams .= 'mouseDrag:' . $mouseDrag . ', ';
 
 		// touch-drag
-		$carouselParams .= 'touchDrag:' . ( !empty($block['settings']['touch-drag']) ? $block['settings']['touch-drag'] : 'true' ) . ', ';
+		$touchDrag = $disable_interactions ? 'false' : ( !empty($block['settings']['touch-drag']) ? $block['settings']['touch-drag'] : 'true' );
+		$carouselParams .= 'touchDrag:' . $touchDrag . ', ';
 
 		// pull-drag
-		$carouselParams .= 'pullDrag:' . ( !empty($block['settings']['pull-drag']) ? $block['settings']['pull-drag'] : 'true' ) . ', ';
+		$pullDrag = $disable_interactions ? 'false' : ( !empty($block['settings']['pull-drag']) ? $block['settings']['pull-drag'] : 'true' );
+		$carouselParams .= 'pullDrag:' . $pullDrag . ', ';
 
-		// pull-drag
-		$carouselParams .= 'freeDrag:' . ( !empty($block['settings']['free-drag']) ? $block['settings']['free-drag'] : 'false' ) . ', ';
+		// free-drag
+		$freeDrag = $disable_interactions ? 'false' : ( !empty($block['settings']['free-drag']) ? $block['settings']['free-drag'] : 'false' );
+		$carouselParams .= 'freeDrag:' . $freeDrag . ', ';
 
 		// stagePadding
 		$carouselParams .= 'stagePadding:' . ( !empty($block['settings']['stage-padding']) ? $block['settings']['stage-padding'] : '0' ) . ', ';
@@ -446,8 +505,10 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		// startPosition
 		$carouselParams .= 'URLhashListener:'. ( !empty($block['settings']['url-hash-listener']) ? $block['settings']['url-hash-listener']: '0' ) . ', ';
 		
-		// nav
-		$carouselParams .= 'nav:'. ( !empty($block['settings']['nav']) ? $block['settings']['nav']: 'true' ) . ', ';
+		// nav - Im VE immer generieren wenn Setting aktiv (für Styling), Interaktivität per CSS gesteuert
+		// Im Frontend: nur wenn Setting aktiv
+		$show_nav_final = $in_visual_editor ? $show_nav_setting : ($show_nav_setting && !$disable_interactions);
+		$carouselParams .= 'nav:' . ( $show_nav_final ? 'true' : 'false' ) . ', ';
 
 		// rewind
 		$carouselParams .= 'rewind:'. ( !empty($block['settings']['rewind']) ? $block['settings']['rewind']: 'true' ) . ', ';
@@ -462,8 +523,8 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 			$carouselParams .= 'navText:["Prev","Next"],';			
 		}
 
-		// navElement
-		$carouselParams .= 'navElement:'. ( !empty($block['settings']['nav-element']) ? $block['settings']['nav-element']: '"div"' ) . ', ';
+		// navElement - default button für bessere Kompatibilität
+		$carouselParams .= 'navElement:'. ( !empty($block['settings']['nav-element']) ? $block['settings']['nav-element']: '"button"' ) . ', ';
 
 		// slideBy
 		$carouselParams .= 'slideBy:'. ( !empty($block['settings']['slide-by']) ? $block['settings']['slide-by']: '1' ) . ', ';
@@ -471,8 +532,10 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		// slideTransition
 		$carouselParams .= 'slideTransition:'. ( !empty($block['settings']['slide-transition']) ? $block['settings']['slide-transition']: '``' ) . ', ';
 
-		// dots
-		$carouselParams .= 'dots:'. (!empty($block['settings']['dots']) ? $block['settings']['dots'] : 'true') . ', ';
+		// dots - Im VE immer generieren wenn Setting aktiv (für Styling), Interaktivität per CSS gesteuert
+		// Im Frontend: nur wenn Setting aktiv
+		$show_dots_final = $in_visual_editor ? $show_dots_setting : ($show_dots_setting && !$disable_interactions);
+		$carouselParams .= 'dots:' . ( $show_dots_final ? 'true' : 'false' ) . ', ';
 		
 		// dotsEach
 		$carouselParams .= 'dotsEach:'. (!empty($block['settings']['dots-each']) ? $block['settings']['dots-each'] : 'false') . ', ';
@@ -486,40 +549,36 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		// lazyLoadEager
 		$carouselParams .= 'lazyLoadEager:'. (!empty($block['settings']['lazy-load-eager']) ? $block['settings']['lazy-load-eager'] : '0') . ', ';
 		
-		// autoPlay
-		$carouselParams .= 'autoPlay:'. (!empty($block['settings']['autoplay']) ? 'true' : 'false') . ', ';
+		// autoplay - deaktiviert wenn Interaktionen gesperrt sind (lowercase!)
+		$autoPlay = $disable_interactions ? 'false' : ( !empty($block['settings']['autoplay']) ? 'true' : 'false' );
+		$carouselParams .= 'autoplay:'. $autoPlay . ', ';
 		
 		// autoplayTimeout
 		$carouselParams .= 'autoplayTimeout:'. (!empty($block['settings']['autoplay-timeout']) ? $block['settings']['autoplay-timeout'] : '5000') . ', ';
 		
 		// autoplayHoverPause
-		$carouselParams 	.= 'autoplayHoverPause:'. (!empty($block['settings']['autoplay-hover-pause']) ? $block['settings']['autoplay-hover-pause'] : 'false') . ', ';
+		$carouselParams .= 'autoplayHoverPause:'. (!empty($block['settings']['autoplay-hover-pause']) ? $block['settings']['autoplay-hover-pause'] : 'false') . ', ';
 
 		// smartSpeed
-		$carouselParams 	.= 'smartSpeed:'. (!empty($block['settings']['smart-speed']) ? $block['settings']['smart-speed'] : '250') . ', ';		
+		$carouselParams .= 'smartSpeed:'. (!empty($block['settings']['smart-speed']) ? $block['settings']['smart-speed'] : '250') . ', ';		
 
 		// fluidSpeed
-		$carouselParams 	.= 'fluidSpeed:'. (!empty($block['settings']['fluid-speed']) ? $block['settings']['fluid-speed'] : 'Number') . ', ';		
+		$carouselParams .= 'fluidSpeed:'. (!empty($block['settings']['fluid-speed']) ? $block['settings']['fluid-speed'] : 'false') . ', ';		
 
 		// autoplaySpeed
-		$carouselParams 	.= 'autoplaySpeed:'. (!empty($block['settings']['autoplay-speed']) ? $block['settings']['autoplay-speed'] : 'false') . ', ';
+		$carouselParams .= 'autoplaySpeed:'. (!empty($block['settings']['autoplay-speed']) ? $block['settings']['autoplay-speed'] : 'false') . ', ';
 
 		// navSpeed
-		$carouselParams 	.= 'navSpeed:'. (!empty($block['settings']['nav-speed']) ? $block['settings']['nav-speed'] : 'false') . ', ';		
+		$carouselParams .= 'navSpeed:'. (!empty($block['settings']['nav-speed']) ? $block['settings']['nav-speed'] : 'false') . ', ';		
 
 		// dotsSpeed
-		$carouselParams 	.= 'dotsSpeed:'. (!empty($block['settings']['dots-speed']) ? $block['settings']['dots-speed'] : 'false') . ', ';		
+		$carouselParams .= 'dotsSpeed:'. (!empty($block['settings']['dots-speed']) ? $block['settings']['dots-speed'] : 'false') . ', ';		
 
 		// dragEndSpeed
-		$carouselParams 	.= 'dragEndSpeed:'. (!empty($block['settings']['dragend-speed']) ? $block['settings']['dragend-speed'] : 'false') . ', ';	
+		$carouselParams .= 'dragEndSpeed:'. (!empty($block['settings']['dragend-speed']) ? $block['settings']['dragend-speed'] : 'false') . ', ';	
 
 		// callbacks
-		$carouselParams 	.= 'callbacks:'. (!empty($block['settings']['callbacks']) ? $block['settings']['callbacks'] : 'false') . ', ';
-		
-		// Autoplay
-		$carouselParams .= 'autoplay:'. ( !empty($block['settings']['autoplay']) ? $block['settings']['autoplay'] : 'false' ) . ', ';
-		$carouselParams .= 'autoplayTimeout:'. ( !empty($block['settings']['autoplay-timeout']) ? $block['settings']['autoplay-timeout'] : '5000' ) . ', ';
-		$carouselParams .= 'autoplayHoverPause:'. ( !empty($block['settings']['autoplay-hover-pause']) ? $block['settings']['autoplay-hover-pause'] : 'true' ) . ', ';
+		$carouselParams .= 'callbacks:'. (!empty($block['settings']['callbacks']) ? $block['settings']['callbacks'] : 'false') . ', ';
 		
 		// responsive
 		$carouselParams 	.= 'responsive:{ 0:{ items: 1 }, 768:{ items: ' . ( !empty($block['settings']['items']) ? $block['settings']['items'] : '1' ) . ' } }, ';
@@ -560,27 +619,47 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		// stageElement
 		$carouselParams .= 'stageElement:'. (!empty($block['settings']['stage-element']) ? $block['settings']['stage-element'] : '"div"') . ', ';
 		
-		// navContainer
-		$carouselParams .= 'navContainer:'. (!empty($block['settings']['nav-container']) ? $block['settings']['nav-container'] : 'false') . ', ';
-		
-		// dotsContainer
-		$carouselParams .= 'dotsContainer:'. (!empty($block['settings']['dots-container']) ? $block['settings']['dots-container'] : 'false') . ', ';
-		
 		// checkVisible
 		$carouselParams .= 'checkVisible:'. (!empty($block['settings']['check-visible']) ? $block['settings']['check-visible'] : 'true');
+		
+		// Theme URL für Script-Loading
+		$theme_url = get_template_directory_uri() . '/library/blocks-advanced/content-slider/';
 			 
-		// Use DOMContentLoaded instead of document.ready to avoid jQuery migrate warnings
-		$js = 'if(document.readyState === "loading") {
-			document.addEventListener("DOMContentLoaded", function() {
+		// Im VE: Owl Carousel Library ggf. dynamisch nachladen
+		$js = '(function() {
+			function initCarousel() {
 				if(jQuery("#content-slider-'.$block['id'].'" ).length) {
+					console.log("Initializing Owl Carousel '.$block['id'].' with params:", {'.$carouselParams.'});
 					window.carousel_'.$block['id'].' = jQuery("#content-slider-'.$block['id'].'.owl-carousel").owlCarousel({'.$carouselParams.'});
+					console.log("Owl Carousel '.$block['id'].' initialized:", window.carousel_'.$block['id'].');
 				}
-			});
-		} else {
-			if(jQuery("#content-slider-'.$block['id'].'" ).length) {
-				window.carousel_'.$block['id'].' = jQuery("#content-slider-'.$block['id'].'.owl-carousel").owlCarousel({'.$carouselParams.'});
 			}
-		}';
+			
+			function loadOwlCarousel() {
+				if (typeof jQuery !== "undefined" && typeof jQuery.fn.owlCarousel !== "undefined") {
+					// Owl bereits geladen
+					initCarousel();
+				} else if (typeof jQuery !== "undefined") {
+					// jQuery vorhanden, aber Owl fehlt - nachladen
+					console.log("Loading Owl Carousel library for VE...");
+					var script = document.createElement("script");
+					script.src = "'.$theme_url.'js/owl.carousel.min.js";
+					script.onload = function() {
+						console.log("Owl Carousel loaded, initializing...");
+						initCarousel();
+					};
+					document.head.appendChild(script);
+				} else {
+					console.error("jQuery not available for Owl Carousel");
+				}
+			}
+			
+			if(document.readyState === "loading") {
+				document.addEventListener("DOMContentLoaded", loadOwlCarousel);
+			} else {
+				loadOwlCarousel();
+			}
+		})();';
 
 		return $js;
 	}
