@@ -121,99 +121,61 @@ class PadmaVisualElementsBlockTabs extends \PadmaBlockAPI {
 	}
 
 	/**
-	 * Dynamic_js function - Tab switching fallback (Vanilla JS, no jQuery required)
+	 * Dynamic_js function - Trigger tab initialization
 	 *
 	 * @param string  $block_id Block ID.
 	 * @param boolean $block Block Object.
 	 * @return string
 	 */
 	public static function dynamic_js( $block_id, $block = false ) {
-		return '(function(){
-			function activateTab(tabElement) {
-				if (!tabElement || tabElement.classList.contains("su-tabs-disabled")) return;
+		return '(function($) {
+			if (typeof $ === "undefined") return;
+			
+			$(document).ready(function() {
+				// Trigger tab initialization from other-shortcodes.js manually
+				var tabBlocks = $(".block-type-visual-elements-tabs .su-tabs");
 				
-				var nav = tabElement.parentElement;
-				if (!nav) return;
-				
-				var tabs = nav.closest(".su-tabs");
-				if (!tabs) return;
-				
-				var headers = Array.prototype.slice.call(nav.querySelectorAll("span"));
-				var panes = Array.prototype.slice.call(tabs.querySelectorAll(".su-tabs-panes > .su-tabs-pane"));
-				var index = headers.indexOf(tabElement);
-				
-				if (index < 0) return;
-				
-				// Remove active class from all headers
-				headers.forEach(function(header) {
-					header.classList.remove("su-tabs-current");
-				});
-				
-				// Add active class to clicked header
-				tabElement.classList.add("su-tabs-current");
-				
-				// Hide all panes, show active pane
-				panes.forEach(function(pane, paneIndex) {
-					pane.style.display = (paneIndex === index) ? "" : "none";
-				});
-				
-				// Set height for vertical tabs
-				var verticalTabs = tabs.querySelectorAll(".su-tabs-vertical");
-				verticalTabs.forEach(function(vTab) {
-					var nav = vTab.querySelector(".su-tabs-nav");
-					var panes = vTab.querySelectorAll(".su-tabs-pane");
-					if (nav && panes.length > 0) {
-						panes.forEach(function(pane) {
-							pane.style.minHeight = nav.offsetHeight + "px";
+				if (tabBlocks.length > 0) {
+					tabBlocks.each(function() {
+						var $this = $(this);
+						var active = parseInt($this.data("active")) - 1;
+						if (active < 0) active = 0;
+						
+						// Get tab headers
+						var $headers = $this.find(".su-tabs-nav span");
+						var $panes = $this.find(".su-tabs-pane");
+						
+						// Hide all panes
+						$panes.hide();
+						
+						// Remove current class from all headers
+						$headers.removeClass("su-tabs-current");
+						
+						// Activate selected tab
+						if (active < $headers.length) {
+							$headers.eq(active).addClass("su-tabs-current");
+							$panes.eq(active).show();
+						}
+						
+						// Attach click handlers
+						$headers.off("click").on("click", function(e) {
+							e.preventDefault();
+							var $tab = $(this);
+							var index = $tab.index();
+							var $tabs = $tab.parents(".su-tabs");
+							var $allHeaders = $tabs.find(".su-tabs-nav span");
+							var $allPanes = $tabs.find(".su-tabs-pane");
+							
+							// Hide all, show this
+							$allPanes.hide();
+							$allHeaders.removeClass("su-tabs-current");
+							$allHeaders.eq(index).addClass("su-tabs-current");
+							$allPanes.eq(index).show();
 						});
-					}
-				});
-			}
-			
-			function initTabs(tabsContainer) {
-				var nav = tabsContainer.querySelector(".su-tabs-nav");
-				if (!nav) return;
-				
-				var headers = Array.prototype.slice.call(nav.querySelectorAll("span"));
-				if (!headers.length) return;
-				
-				headers.forEach(function(header) {
-					// Prevent double binding
-					if (header.getAttribute("data-padma-tabs-bound") === "1") return;
-					
-					header.addEventListener("click", function(e) {
-						e.preventDefault();
-						activateTab(header);
 					});
-					
-					header.setAttribute("data-padma-tabs-bound", "1");
-				});
-				
-				// Activate initial tab
-				var active = parseInt(tabsContainer.getAttribute("data-active") || "1", 10);
-				if (!isFinite(active) || active < 1) active = 1;
-				if (active > headers.length) active = headers.length;
-				
-				activateTab(headers[active - 1]);
-			}
-			
-			function bootTabs() {
-				var allTabs = document.querySelectorAll(".su-tabs");
-				for (var i = 0; i < allTabs.length; i++) {
-					initTabs(allTabs[i]);
 				}
-			}
-			
-			// Run when DOM is ready
-			if (document.readyState === "loading") {
-				document.addEventListener("DOMContentLoaded", bootTabs);
-			} else {
-				bootTabs();
-			}
-			
-			// Run again after short delay for VE iframe safety
-			setTimeout(bootTabs, 250);
-		})();';
+			});
+		})(jQuery);';
 	}
 
 	/**
