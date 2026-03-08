@@ -81,7 +81,25 @@ class PadmaVisualElementsBlockColumns extends \PadmaBlockAPI {
 			array(
 				'id'       => 'columns',
 				'name'     => __( 'Columns', 'padma' ),
-				'selector' => 'span.su-columns',
+				'selector' => '.su-row',
+			)
+		);
+
+		$this->register_block_element(
+			array(
+				'id'       => 'column',
+				'parent'   => 'columns',
+				'name'     => __( 'Column', 'padma' ),
+				'selector' => '.su-column',
+			)
+		);
+
+		$this->register_block_element(
+			array(
+				'id'       => 'column-inner',
+				'parent'   => 'column',
+				'name'     => __( 'Column inner', 'padma' ),
+				'selector' => '.su-column-inner',
 			)
 		);
 	}
@@ -112,6 +130,20 @@ class PadmaVisualElementsBlockColumns extends \PadmaBlockAPI {
 
 		$columns   = parent::get_setting( $block, 'columns', array() );
 		$shortcode = '[su_row class=""]';
+		$size_map  = array(
+			'full-width'   => '1/1',
+			'one-half'     => '1/2',
+			'one-third'    => '1/3',
+			'two-third'    => '2/3',
+			'one-fourth'   => '1/4',
+			'three-fourth' => '3/4',
+			'one-fifth'    => '1/5',
+			'two-fifth'    => '2/5',
+			'three-fifth'  => '3/5',
+			'four-fifth'   => '4/5',
+			'one-sixth'    => '1/6',
+			'five-sixth'   => '5/6',
+		);
 
 		foreach ( $columns as $column => $params ) {
 
@@ -119,6 +151,14 @@ class PadmaVisualElementsBlockColumns extends \PadmaBlockAPI {
 			$center  = isset( $params['center'] ) ? $params['center'] : '';
 			$class   = isset( $params['class'] ) ? $params['class'] : '';
 			$content = isset( $params['content'] ) ? $params['content'] : '';
+
+			if ( isset( $size_map[ $size ] ) ) {
+				$size = $size_map[ $size ];
+			}
+
+			if ( empty( $size ) ) {
+				$size = '1/2';
+			}
 
 			$shortcode .= '[su_column ';
 			$shortcode .= 'size="' . $size . '" ';

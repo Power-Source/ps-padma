@@ -68,6 +68,43 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 	 */
 	public function init() {}
 
+	/**
+	 * Dynamic JS - Asset loading for VE context
+	 *
+	 * @param string  $block_id Block ID.
+	 * @param boolean $block Block Object.
+	 * @return string
+	 */
+	public static function dynamic_js( $block_id, $block ) {
+
+		if ( ! $block ) {
+			$block = \PadmaBlocksData::get_block( $block_id );
+		}
+
+		$path = padma_url() . '/library/blocks-advanced/portfolio/';
+
+		// Direct asset injection for VE iframe context
+		// This runs even when enqueue_action is blocked in VE
+		return "
+		(function() {
+			var basePath = '" . $path . "';
+			
+			function ensureStyle(href) {
+				var links = document.getElementsByTagName('link');
+				for (var i = 0; i < links.length; i++) {
+					if (links[i].href === href) return;
+				}
+				var link = document.createElement('link');
+				link.rel = 'stylesheet';
+				link.href = href;
+				document.head.appendChild(link);
+			}
+			
+			// Load portfolio styles
+			ensureStyle(basePath + 'portfolio.css');
+		})();
+		";
+	}
 
 	/**
 	 * Add scripts to admin

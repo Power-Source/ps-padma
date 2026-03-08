@@ -276,13 +276,13 @@ add_action('admin_bar_menu', function($wp_admin_bar) {
         'href' => '#'
     ));
 
-    $wp_admin_bar->add_submenu(array(
+    $wp_admin_bar->add_menu(array(
         'parent' => 'padma-performance',
         'id' => 'padma-cache-hits',
         'title' => 'Cache Hits: ' . $stats['hits']
     ));
 
-    $wp_admin_bar->add_submenu(array(
+    $wp_admin_bar->add_menu(array(
         'parent' => 'padma-performance',
         'id' => 'padma-cache-misses',
         'title' => 'Cache Misses: ' . $stats['misses']
