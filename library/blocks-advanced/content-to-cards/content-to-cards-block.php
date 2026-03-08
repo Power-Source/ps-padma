@@ -157,6 +157,55 @@ class PadmaVisualElementsBlockContentToCards extends \PadmaBlockAPI {
 	}
 
 	/**
+	 * Dynamic JS - Asset loading for VE context
+	 *
+	 * @param string  $block_id Block ID.
+	 * @param boolean $block Block Object.
+	 * @return string
+	 */
+	public static function dynamic_js( $block_id, $block ) {
+
+		if ( ! $block ) {
+			$block = \PadmaBlocksData::get_block( $block_id );
+		}
+
+		$path = padma_url() . '/library/blocks-advanced/content-to-cards/';
+
+		// Direct asset injection for VE iframe context
+		// This runs even when enqueue_action is blocked in VE
+		return "
+		(function() {
+			var basePath = '" . $path . "';
+			
+			function ensureStyle(href) {
+				var links = document.getElementsByTagName('link');
+				for (var i = 0; i < links.length; i++) {
+					if (links[i].href === href) return;
+				}
+				var link = document.createElement('link');
+				link.rel = 'stylesheet';
+				link.href = href;
+				document.head.appendChild(link);
+			}
+			
+			function ensureScript(src) {
+				var scripts = document.getElementsByTagName('script');
+				for (var i = 0; i < scripts.length; i++) {
+					if (scripts[i].src === src) return;
+				}
+				var script = document.createElement('script');
+				script.src = src;
+				document.head.appendChild(script);
+			}
+			
+			// Load assets
+			ensureStyle(basePath + 'content-to-cards.css');
+			ensureScript(basePath + 'content-to-cards.js');
+		})();
+		";
+	}
+
+	/**
 	 * Padma Content Method
 	 *
 	 * @param object $block Block.
@@ -222,11 +271,9 @@ class PadmaVisualElementsBlockContentToCards extends \PadmaBlockAPI {
 
 		// CSS.
 		wp_enqueue_style( 'padma-ve-content-to-cards', $path . 'content-to-cards.css', array(), PADMA_VERSION );
-		echo '<link rel="stylesheet" href="' . $path . 'content-to-cards.css">';
 
 		/* JS */
 		wp_enqueue_script( 'padma-ve-content-to-cards', $path . 'content-to-cards.js', array( 'jquery' ), PADMA_VERSION, true );
-		echo '<script src="' . $path . 'content-to-cards.js"></script>';
 	}
 
 }

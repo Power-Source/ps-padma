@@ -206,13 +206,11 @@ class PadmaVisualElementsBlockPortfolioCards extends \PadmaBlockAPI {
 		/* JS */
 		if ( file_exists($script_path) ) {
 			wp_enqueue_script( 'padma-ve-portfolio-cards', $script_url, array( 'jquery' ), PADMA_VERSION, true );
-			echo '<script src="' . $script_url . '"></script>';
 		}
 
 		/* CSS */
 		if ( file_exists($style_path) ) {
 			wp_enqueue_style( 'padma-ve-portfolio-cards', $style_url, array(), PADMA_VERSION, 'all' );
-			echo '<link rel="stylesheet" href="' . $style_url . '">';
 		}
 	}
 

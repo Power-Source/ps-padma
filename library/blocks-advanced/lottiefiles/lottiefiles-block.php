@@ -172,9 +172,6 @@ class PadmaVisualElementsBlockLottieFiles extends \PadmaBlockAPI {
 
 		/* JS */		
 		wp_enqueue_script( 'padma-lottiefiles', $path . 'js/lottie.min.js', array(), PADMA_VERSION, true );
-
-		// Fallback direct injection for VE context
-		echo '<script src="' . $path . 'js/lottie.min.js"></script>';
 	}
 
 	public static function add_json_upload_mime($mimes) {

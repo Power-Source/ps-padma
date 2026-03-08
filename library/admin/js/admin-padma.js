@@ -394,7 +394,7 @@ $(document).ready(function() {
 
 				showNotification({
 					id: 'cache-cleared',
-					message: 'The cache was successfully cleared!',
+					message: 'Der Cache wurde erfolgreich geleert!',
 					success: true
 				});
 
@@ -402,7 +402,7 @@ $(document).ready(function() {
 
 				showErrorNotification({
 					id: 'error-could-not-clear-cache',
-					message: 'Error: Could not clear cache.'
+					message: 'Fehler: Der Cache konnte nicht geleert werden.'
 				});
 
 			}

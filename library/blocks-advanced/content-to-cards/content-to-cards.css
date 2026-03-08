@@ -20,7 +20,7 @@
   white-space: nowrap;
   color: transparent;
 }
-.cd-nav-trigger]:hover{
+.cd-nav-trigger:hover{
   color: transparent;
   background: rgba(0, 0, 0, 0.6);
 }
@@ -540,4 +540,36 @@
 }
 .no-js .ve-card-post-info .content-wrapper {
   margin-top: 0;
+}
+
+/* -------------------------------- 
+
+ Visual Editor Specific Adjustments
+
+-------------------------------- */
+
+/* VE: Fix viewport height issues in iframe context */
+.padma-visual-editor-iframe .ve-card-posts-container,
+body.visual-editor .ve-card-posts-container {
+  min-height: 600px; /* Fallback for VE */
+  height: auto;
+}
+
+/* VE: Ensure proper z-index layering */
+.padma-visual-editor-iframe .block-type-ve-content-to-cards,
+body.visual-editor .block-type-ve-content-to-cards {
+  position: relative;
+  min-height: 600px;
+}
+
+/* VE: Cards should be visible and selectable */
+.padma-visual-editor-iframe .ve-card-posts-container .single-post,
+body.visual-editor .ve-card-posts-container .single-post {
+  pointer-events: auto;
+}
+
+/* VE: Make trigger button more visible */
+.padma-visual-editor-iframe .cd-nav-trigger,
+body.visual-editor .cd-nav-trigger {
+  z-index: 999;
 }

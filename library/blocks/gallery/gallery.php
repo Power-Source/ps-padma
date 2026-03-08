@@ -37,10 +37,6 @@ class PadmaGalleryBlock extends PadmaBlockAPI {
 		wp_enqueue_style('padma-gallery-css', $block_url . '/assets/css/gallery.css');
 		wp_enqueue_script('padma-gallery-js', $block_url . '/assets/js/gallery.min.js', array('jquery'));
 
-		// Fallback direct injection for VE context
-		echo '<link rel="stylesheet" href="' . $block_url . '/assets/css/gallery.css">';
-		echo '<script src="' . $block_url . '/assets/js/gallery.min.js"></script>';
-
 		wp_add_inline_script('padma-gallery-js', "if(window.jQuery&&jQuery.fn&&jQuery.fn.on){jQuery.fn.bind=jQuery.fn.on;}", 'before');
 		wp_add_inline_script('padma-gallery-js', "if(window.jQuery&&jQuery.easing){jQuery.easing.def='easeOutQuad';jQuery.easing.easeOutQuad=function(p){return 1-((1-p)*(1-p));};jQuery.easing.swing=function(p){return jQuery.easing.easeOutQuad(p);};jQuery.easing.jswing=jQuery.easing.swing;}", 'after');
 

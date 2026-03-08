@@ -150,11 +150,6 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		wp_enqueue_style('padma-content-slider-owl-carousel-css', $theme_url . 'css/owl.carousel.min.css');
 		wp_enqueue_style('padma-content-slider-owl-theme-css', $theme_url . 'css/owl.theme.default.min.css');
 		wp_enqueue_script('padma-content-slider-slider-js', $theme_url . 'js/owl.carousel.min.js', array('jquery'), '1.0', false);
-
-		// Fallback direct injection for VE context
-		echo '<link rel="stylesheet" href="' . $theme_url . 'css/owl.carousel.min.css">';
-		echo '<link rel="stylesheet" href="' . $theme_url . 'css/owl.theme.default.min.css">';
-		echo '<script src="' . $theme_url . 'js/owl.carousel.min.js"></script>';
 	}
 
 	public static function dynamic_css($block_id, $block = false) {
@@ -166,13 +161,6 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		$show_navigate = self::should_show_navigate_mode($block);
 
 		$css = '';
-		
-		// Im VE: Owl Carousel CSS direkt laden (falls nicht via enqueue verfügbar)
-		if ($in_visual_editor) {
-			$theme_url = get_template_directory_uri() . '/library/blocks-advanced/content-slider/';
-			$css .= '@import url("' . $theme_url . 'css/owl.carousel.min.css");';
-			$css .= '@import url("' . $theme_url . 'css/owl.theme.default.min.css");';
-		}
 		
 		$css .= '
 			#content-slider-' . $block_id . ' {

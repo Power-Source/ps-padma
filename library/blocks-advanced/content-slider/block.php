@@ -126,10 +126,6 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 	public static function enqueue_action($block_id, $block) {
 		wp_enqueue_style('swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css');
 		wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', array(), '11.0', false);
-
-		// Fallback direct injection for VE context
-		echo '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">';
-		echo '<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>';
 	}
 
 	function content($block) {
