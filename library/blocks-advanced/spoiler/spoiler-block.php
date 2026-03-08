@@ -113,20 +113,14 @@ class PadmaVisualElementsBlockSpoiler extends \PadmaBlockAPI {
 	 * Ensure spoiler styles and scripts are available in frontend and VE iframe.
 	 */
 	public function enqueue_action( $block_id ) {
-		if ( function_exists( 'padma_query_asset' ) ) {
-			padma_query_asset( 'css', 'box-shortcodes' );
-			padma_query_asset( 'css', 'other-shortcodes' );
-			padma_query_asset( 'js', 'other-shortcodes' );
-			return;
+		// Load FontAwesome for icons
+		$fontawesome_css_path = PADMA_LIBRARY_DIR . '/blocks-advanced/portfolio/fontawesome.css';
+		if ( file_exists( $fontawesome_css_path ) ) {
+			$fontawesome_css_url = padma_url() . '/library/blocks-advanced/portfolio/fontawesome.css';
+			wp_enqueue_style( 'padma-ve-fontawesome', $fontawesome_css_url, array(), PADMA_VERSION, 'all' );
 		}
 
-		if ( function_exists( 'su_query_asset' ) ) {
-			su_query_asset( 'css', 'su-box-shortcodes' );
-			su_query_asset( 'css', 'su-other-shortcodes' );
-			su_query_asset( 'js', 'su-other-shortcodes' );
-			return;
-		}
-
+		// Load box-shortcodes CSS
 		wp_enqueue_style(
 			'padma-box-shortcodes-css',
 			get_template_directory_uri() . '/assets/css/psource-shortcodes/box-shortcodes.css',
@@ -134,6 +128,7 @@ class PadmaVisualElementsBlockSpoiler extends \PadmaBlockAPI {
 			'1.0'
 		);
 
+		// Load other-shortcodes CSS and JS
 		wp_enqueue_style(
 			'padma-other-shortcodes-css',
 			get_template_directory_uri() . '/assets/css/psource-shortcodes/other-shortcodes.css',
@@ -151,7 +146,182 @@ class PadmaVisualElementsBlockSpoiler extends \PadmaBlockAPI {
 	}
 
 	/**
-	 * Padma Content Method
+	 * Inject spoiler CSS directly for Visual Editor
+	 */
+	public static function dynamic_css( $block_id, $block = false ) {
+		if ( ! $block ) {
+			$block = \PadmaBlocksData::get_block( $block_id );
+		}
+
+		$css = '
+/* FontAwesome for spoiler icons */
+@font-face {
+	font-family: "FontAwesome";
+	src: url("' . padma_url() . '/library/blocks-advanced/post-slider/fonts/fontawesome-webfont.woff2") format("woff2"),
+		 url("' . padma_url() . '/library/blocks-advanced/post-slider/fonts/fontawesome-webfont.woff") format("woff"),
+		 url("' . padma_url() . '/library/blocks-advanced/post-slider/fonts/fontawesome-webfont.ttf") format("truetype"),
+		 url("' . padma_url() . '/library/blocks-advanced/post-slider/fonts/fontawesome-webfont.eot?#iefix") format("embedded-opentype");
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* Spoiler/Accordion Base Styles */
+.su-spoiler { 
+	margin-bottom: 1.5em; 
+}
+.su-spoiler .su-spoiler:last-child { 
+	margin-bottom: 0; 
+}
+.su-accordion { 
+	margin-bottom: 1.5em; 
+}
+.su-accordion .su-spoiler { 
+	margin-bottom: 0.5em; 
+}
+.su-spoiler-title {
+	position: relative;
+	cursor: pointer;
+	min-height: 20px;
+	line-height: 20px;
+	padding: 7px 7px 7px 34px;
+	font-weight: bold;
+	font-size: 13px;
+}
+.su-spoiler-icon {
+	position: absolute;
+	left: 7px;
+	top: 7px;
+	display: block;
+	width: 20px;
+	height: 20px;
+	line-height: 21px;
+	text-align: center;
+	font-size: 14px;
+	font-family: FontAwesome;
+	font-weight: normal;
+	font-style: normal;
+	-webkit-font-smoothing: antialiased;
+}
+.su-spoiler-content {
+	padding: 14px;
+	-webkit-transition: padding-top .2s;
+	-moz-transition: padding-top .2s;
+	-o-transition: padding-top .2s;
+	transition: padding-top .2s;
+}
+.su-spoiler.su-spoiler-closed > .su-spoiler-content {
+	height: 0;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	border: none;
+	opacity: 0;
+}
+
+/* Spoiler Icons */
+.su-spoiler-icon-plus .su-spoiler-icon:before { 
+	content: "\\f068"; 
+}
+.su-spoiler-icon-plus.su-spoiler-closed .su-spoiler-icon:before { 
+	content: "\\f067"; 
+}
+.su-spoiler-icon-plus-circle .su-spoiler-icon:before { 
+	content: "\\f056"; 
+}
+.su-spoiler-icon-plus-circle.su-spoiler-closed .su-spoiler-icon:before { 
+	content: "\\f055"; 
+}
+.su-spoiler-icon-plus-square-1 .su-spoiler-icon:before { 
+	content: "\\f146"; 
+}
+.su-spoiler-icon-plus-square-1.su-spoiler-closed .su-spoiler-icon:before { 
+	content: "\\f0fe"; 
+}
+.su-spoiler-icon-plus-square-2 .su-spoiler-icon:before { 
+	content: "\\f117"; 
+}
+.su-spoiler-icon-plus-square-2.su-spoiler-closed .su-spoiler-icon:before { 
+	content: "\\f116"; 
+}
+.su-spoiler-icon-arrow .su-spoiler-icon:before { 
+	content: "\\f063"; 
+}
+.su-spoiler-icon-arrow.su-spoiler-closed .su-spoiler-icon:before { 
+	content: "\\f061"; 
+}
+.su-spoiler-icon-arrow-circle-1 .su-spoiler-icon:before { 
+	content: "\\f0ab"; 
+}
+.su-spoiler-icon-arrow-circle-1.su-spoiler-closed .su-spoiler-icon:before { 
+	content: "\\f0aa"; 
+}
+.su-spoiler-icon-arrow-circle-2 .su-spoiler-icon:before { 
+	content: "\\f01a"; 
+}
+.su-spoiler-icon-arrow-circle-2.su-spoiler-closed .su-spoiler-icon:before { 
+	content: "\\f019"; 
+}
+.su-spoiler-icon-angle .su-spoiler-icon:before { 
+	content: "\\f107"; 
+}
+.su-spoiler-icon-angle.su-spoiler-closed .su-spoiler-icon:before { 
+	content: "\\f105"; 
+}
+.su-spoiler-icon-angle-circle-down .su-spoiler-icon:before { 
+	content: "\\f0a8"; 
+}
+.su-spoiler-icon-angle-circle-down.su-spoiler-closed .su-spoiler-icon:before { 
+	content: "\\f0a9"; 
+}
+.su-spoiler-icon-angle-circle-right .su-spoiler-icon:before { 
+	content: "\\f0da"; 
+}
+.su-spoiler-icon-angle-circle-right.su-spoiler-closed .su-spoiler-icon:before { 
+	content: "\\f0d9"; 
+}
+.su-spoiler-icon-chevron .su-spoiler-icon:before { 
+	content: "\\f078"; 
+}
+.su-spoiler-icon-chevron.su-spoiler-closed .su-spoiler-icon:before { 
+	content: "\\f077"; 
+}
+.su-spoiler-icon-chevron-circle-down .su-spoiler-icon:before { 
+	content: "\\f13a"; 
+}
+.su-spoiler-icon-chevron-circle-down.su-spoiler-closed .su-spoiler-icon:before { 
+	content: "\\f139"; 
+}
+.su-spoiler-icon-chevron-circle-right .su-spoiler-icon:before { 
+	content: "\\f138"; 
+}
+.su-spoiler-icon-chevron-circle-right.su-spoiler-closed .su-spoiler-icon:before { 
+	content: "\\f137"; 
+}
+.su-spoiler-icon-caret .su-spoiler-icon:before { 
+	content: "\\f0d7"; 
+}
+.su-spoiler-icon-caret.su-spoiler-closed .su-spoiler-icon:before { 
+	content: "\\f0d6"; 
+}
+.su-spoiler-icon-caret-circle-down .su-spoiler-icon:before { 
+	content: "\\f0a2"; 
+}
+.su-spoiler-icon-caret-circle-down.su-spoiler-closed .su-spoiler-icon:before { 
+	content: "\\f0a3"; 
+}
+.su-spoiler-icon-caret-circle-right .su-spoiler-icon:before { 
+	content: "\\f0a4"; 
+}
+.su-spoiler-icon-caret-circle-right.su-spoiler-closed .su-spoiler-icon:before { 
+	content: "\\f0a5"; 
+}
+';
+
+		return $css;
+	}
+
+	/**
+	 * Dynamic_css placeholder
 	 *
 	 * @param object $block Block.
 	 * @return void

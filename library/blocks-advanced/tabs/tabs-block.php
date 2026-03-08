@@ -179,17 +179,110 @@ class PadmaVisualElementsBlockTabs extends \PadmaBlockAPI {
 	}
 
 	/**
-	 * Dynamic_css function
-	 *
-	 * @param string  $block_id Block ID.
-	 * @param boolean $block Block Object.
-	 * @return string
+	 * Inject tabs CSS directly for Visual Editor
 	 */
 	public static function dynamic_css( $block_id, $block = false ) {
 		if ( ! $block ) {
 			$block = \PadmaBlocksData::get_block( $block_id );
 		}
-		return '';
+
+		$css = '
+/* Tabs Base Styles */
+.su-tabs {
+	margin: 0 0 1.5em 0;
+	padding: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	background: #eee;
+}
+.su-tabs-nav span {
+	display: inline-block;
+	margin-right: 3px;
+	padding: 10px 15px;
+	font-size: 13px;
+	min-height: 40px;
+	line-height: 20px;
+	-webkit-border-top-left-radius: 3px;
+	-moz-border-radius-topleft: 3px;
+	border-top-left-radius: 3px;
+	-webkit-border-top-right-radius: 3px;
+	-moz-border-radius-topright: 3px;
+	border-top-right-radius: 3px;
+	color: #333;
+	cursor: pointer;
+	-webkit-transition: all .2s;
+	-moz-transition: all .2s;
+	-o-transition: all .2s;
+	transition: all .2s;
+}
+.su-tabs-nav span:hover { 
+	background: #f5f5f5; 
+}
+.su-tabs-nav span.su-tabs-current { 
+	background: #fff; 
+	cursor: default; 
+}
+.su-tabs-nav span.su-tabs-disabled {
+	opacity: 0.5;
+	filter: alpha(opacity=50);
+	cursor: default;
+}
+.su-tabs-pane {
+	padding: 15px;
+	font-size: 13px;
+	-webkit-border-bottom-right-radius: 3px;
+	-moz-border-radius-bottomright: 3px;
+	border-bottom-right-radius: 3px;
+	-webkit-border-bottom-left-radius: 3px;
+	-moz-border-radius-bottomleft: 3px;
+	border-bottom-left-radius: 3px;
+	background: #fff;
+	color: #333;
+}
+.su-tabs-vertical:before,
+.su-tabs-vertical:after {
+	content: " ";
+	display: table;
+}
+.su-tabs-vertical:after { 
+	clear: both; 
+}
+.su-tabs-vertical .su-tabs-nav {
+	float: left;
+	width: 30%;
+}
+.su-tabs-vertical .su-tabs-nav span {
+	display: block;
+	margin-right: 0;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	-webkit-border-top-left-radius: 3px;
+	-moz-border-radius-topleft: 3px;
+	border-top-left-radius: 3px;
+	-webkit-border-bottom-left-radius: 3px;
+	-moz-border-radius-bottomleft: 3px;
+	border-bottom-left-radius: 3px;
+}
+.su-tabs-vertical .su-tabs-panes {
+	float: left;
+	width: 70%;
+}
+.su-tabs-vertical .su-tabs-pane {
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+	-webkit-border-top-right-radius: 3px;
+	-webkit-border-bottom-right-radius: 3px;
+	-moz-border-radius-topright: 3px;
+	-moz-border-radius-bottomright: 3px;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+}
+';
+
+		return $css;
 	}
 
 	/**
@@ -241,23 +334,14 @@ class PadmaVisualElementsBlockTabs extends \PadmaBlockAPI {
 			$block = \PadmaBlocksData::get_block( $block_id );
 		}
 
-		// Try Padma asset system first
-		if ( function_exists( 'padma_query_asset' ) ) {
-			padma_query_asset( 'css', 'box-shortcodes' );
-			padma_query_asset( 'css', 'other-shortcodes' );
-			padma_query_asset( 'js', 'other-shortcodes' );
-			return;
+		// Load FontAwesome for icons (if needed)
+		$fontawesome_css_path = PADMA_LIBRARY_DIR . '/blocks-advanced/portfolio/fontawesome.css';
+		if ( file_exists( $fontawesome_css_path ) ) {
+			$fontawesome_css_url = padma_url() . '/library/blocks-advanced/portfolio/fontawesome.css';
+			wp_enqueue_style( 'padma-ve-fontawesome', $fontawesome_css_url, array(), PADMA_VERSION, 'all' );
 		}
 
-		// Try plugin asset system second
-		if ( function_exists( 'su_query_asset' ) ) {
-			su_query_asset( 'css', 'su-box-shortcodes' );
-			su_query_asset( 'css', 'su-other-shortcodes' );
-			su_query_asset( 'js', 'su-other-shortcodes' );
-			return;
-		}
-
-		// Fallback to direct enqueue
+		// Load box-shortcodes CSS
 		wp_enqueue_style(
 			'padma-box-shortcodes-css',
 			get_template_directory_uri() . '/assets/css/psource-shortcodes/box-shortcodes.css',
@@ -265,6 +349,7 @@ class PadmaVisualElementsBlockTabs extends \PadmaBlockAPI {
 			'1.0'
 		);
 
+		// Load other-shortcodes CSS and JS
 		wp_enqueue_style(
 			'padma-other-shortcodes-css',
 			get_template_directory_uri() . '/assets/css/psource-shortcodes/other-shortcodes.css',

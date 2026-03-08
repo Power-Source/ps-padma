@@ -1,5 +1,16 @@
 /*** PSOURCE Shortcodes - box elements ***/
 
+/* FontAwesome Font Definition */
+@font-face {
+	font-family: "FontAwesome";
+	src: url("../../../library/blocks-advanced/post-slider/fonts/fontawesome-webfont.woff2") format("woff2"),
+		 url("../../../library/blocks-advanced/post-slider/fonts/fontawesome-webfont.woff") format("woff"),
+		 url("../../../library/blocks-advanced/post-slider/fonts/fontawesome-webfont.ttf") format("truetype"),
+		 url("../../../library/blocks-advanced/post-slider/fonts/fontawesome-webfont.eot?#iefix") format("embedded-opentype");
+	font-weight: normal;
+	font-style: normal;
+}
+
 /*		Common styles
 ---------------------------------------------------------------*/
 
