@@ -594,6 +594,14 @@ class PadmaContentSliderBlockOptions extends \PadmaBlockOptionsAPI {
 				'label' 	=> __( 'Sichtbarkeit prüfen', 'padma' ),
 				'tooltip' 	=> __( 'Wenn du weißt, dass der Slider immer sichtbar ist, setze dies auf "false" für bessere Performance', 'padma' ),
 			),
+
+			'navigate-mode' => array(
+				'type' 		=> 'checkbox',
+				'default' 	=> false,
+				'name' 		=> 'navigate-mode',
+				'label' 	=> __( 'Navigations-Modus im Editor', 'padma' ),
+				'tooltip' 	=> __( 'Im visuellen Editor durch die Slides navigieren um elementweise zu stylen', 'padma' ),
+			),
 		),
 
 	);

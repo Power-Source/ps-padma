@@ -35,6 +35,10 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 
 		return false;
 	}
+
+	private static function should_show_navigate_mode($block = array()) {
+		return !empty($block['settings']['navigate-mode']);
+	}
     
 			
 	function setup_elements() {
@@ -153,42 +157,24 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 			$block = \PadmaBlocksData::get_block($block_id);
 
 		$image_max_height = !empty($block['settings']['image-max-height']) ? intval($block['settings']['image-max-height']) : 400;
+		$in_visual_editor = self::is_visual_editor_context($block);
+		$show_navigate = self::should_show_navigate_mode($block);
 
 		$css = '
 			#content-slider-' . $block_id . ' {
 				overflow: hidden;
-			}
-			#content-slider-' . $block_id . '.content-slider-ve-preview {
-				overflow: visible;
-			}
-			#content-slider-' . $block_id . '.content-slider-ve-preview.owl-carousel {
-				display: flex;
-				flex-wrap: nowrap;
-				overflow-x: auto;
-				overflow-y: hidden;
-				gap: 12px;
-				padding-bottom: 10px;
-			}
-			#content-slider-' . $block_id . '.content-slider-ve-preview .item {
-				min-width: 260px;
-				flex: 0 0 260px;
-			}
-			#content-slider-' . $block_id . '.content-slider-ve-preview .owl-nav,
-			#content-slider-' . $block_id . '.content-slider-ve-preview .owl-dots {
-				display: block;
-				width: 100%;
-			}
-			#content-slider-' . $block_id . '.content-slider-ve-preview .owl-nav {
-				position: static;
-				transform: none;
-				margin-top: 10px;
-				pointer-events: auto;
-				z-index: 1;
-			}
-			#content-slider-' . $block_id . '.content-slider-ve-preview .owl-nav button {
-				pointer-events: auto;
-				display: inline-block;
-			}
+				position: relative;
+			}';
+
+		// Im VE ohne Navigate-Mode: zeige nur ersten Slide
+		if ( $in_visual_editor && !$show_navigate ) {
+			$css .= '
+			#content-slider-' . $block_id . ' .item:nth-child(n+2) {
+				display: none;
+			}';
+		}
+
+		$css .= '
 			#content-slider-' . $block_id . ' .item {
 				display: flex;
 				flex-direction: column;
@@ -310,8 +296,7 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 			return;
 		}
 
-		$in_visual_editor = self::is_visual_editor_context($block);
-		$slider_classes = 'owl-carousel owl-theme' . ( $in_visual_editor ? ' content-slider-ve-preview' : '' );
+		$slider_classes = 'owl-carousel owl-theme';
 
 		$result = '<div id="content-slider-'.$block['id'].'" class="'.$slider_classes.'">';
 
@@ -392,18 +377,19 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		endwhile;
 		wp_reset_postdata();
 
-		if ( $in_visual_editor ) {
-			$result .= '<div class="owl-nav">';
-			$result .= '<button type="button" class="owl-prev" aria-label="Previous">‹</button>';
-			$result .= '<button type="button" class="owl-next" aria-label="Next">›</button>';
-			$result .= '</div>';
+		// Always render carousel navigation and dots
+		$result .= '<div class="owl-nav">';
+		$result .= '<button type="button" class="owl-prev" aria-label="Previous">‹</button>';
+		$result .= '<button type="button" class="owl-next" aria-label="Next">›</button>';
+		$result .= '</div>';
 
-			$result .= '<div class="owl-dots">';
-			$result .= '<button type="button" class="owl-dot active" aria-label="Dot 1"></button>';
-			$result .= '<button type="button" class="owl-dot" aria-label="Dot 2"></button>';
-			$result .= '<button type="button" class="owl-dot" aria-label="Dot 3"></button>';
-			$result .= '</div>';
+		$result .= '<div class="owl-dots">';
+		$post_count = $content_slider_query->post_count;
+		for ( $i = 0; $i < $post_count; $i++ ) {
+			$active_class = ( $i === 0 ) ? ' active' : '';
+			$result .= '<button type="button" class="owl-dot' . $active_class . '" aria-label="Dot ' . ( $i + 1 ) . '"></button>';
 		}
+		$result .= '</div>';
 
 		$result .= '</div>';
 
