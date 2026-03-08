@@ -14,8 +14,8 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 		function __construct(){
 
 			$this->id = 'pin-board';
-			$this->name = __('Pin Board','padma');
-			$this->description = __('Use to display your content in a masonry grid like Pinterest.','padma');
+			$this->name = __('Pinwand','padma');
+			$this->description = __('Zeigt deine Inhalte in einem Masonry-Grid im Pinterest-Stil an.','padma');
 			$this->options_class = 'PadmaPinBoardCoreBlockOptions';
 			$this->categories = array('core','content');
 
@@ -44,6 +44,10 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 			/* JS */
 			wp_enqueue_script('padma-pin-board', padma_url() . '/library/blocks/pin-board/js/pin-board.js', array('jquery'));
 
+			// Fallback direct injection for VE context
+			echo '<link rel="stylesheet" href="' . padma_url() . '/library/blocks/pin-board/css/pin-board.css">';
+			echo '<script src="' . padma_url() . '/library/blocks/pin-board/js/pin-board.js"></script>';
+
 			/* Variables */
 			wp_localize_script('padma-pin-board', 'PadmaPinBoard', array(
 				'ajaxURL' => admin_url('admin-ajax.php'),
@@ -70,18 +74,79 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 			$infinite_scroll = intval(parent::get_setting($block, 'infinite-scroll', true));
 
 			$js = "
-			jQuery(document).ready(function() {
-				setupPinBoardBlock({
-					blockID: '" . $block_id . "',
-					effects: {
-						hoverFocus: " . (parent::get_setting($block, 'hover-focus', false) ? 'true' : 'false') . ",
-						infiniteScroll: " . $infinite_scroll . "
-					},
-					columns: " . parent::get_setting($block, 'columns', 3) . ",
-					columnsSmartphone: " . parent::get_setting($block, 'columns-smartphone', 2) . ",
-					gutterWidth: " . parent::get_setting($block, 'gutter-width', 15) . "
-				});
-			});
+			(function() {
+					var basePath = '" . padma_url() . "/library/blocks/pin-board/';
+
+					window.PadmaPinBoard = window.PadmaPinBoard || {
+						ajaxURL: '" . admin_url('admin-ajax.php') . "',
+						isArchive: false,
+						isSearch: false,
+						wpQueryVars: ''
+					};
+
+					function ensureStyle(href) {
+						var links = document.getElementsByTagName('link');
+						for (var index = 0; index < links.length; index++) {
+							if (links[index].href === href) {
+								return;
+							}
+						}
+						var link = document.createElement('link');
+						link.rel = 'stylesheet';
+						link.href = href;
+						document.head.appendChild(link);
+					}
+
+					function ensureScript(src) {
+						var scripts = document.getElementsByTagName('script');
+						for (var index = 0; index < scripts.length; index++) {
+							if (scripts[index].src === src) {
+								return;
+							}
+						}
+						var script = document.createElement('script');
+						script.src = src;
+						document.head.appendChild(script);
+					}
+
+				function initPinBoard_" . $block_id . "() {
+					if (typeof window.setupPinBoardBlock !== 'function') {
+						return false;
+					}
+
+					window.setupPinBoardBlock({
+						blockID: '" . $block_id . "',
+						effects: {
+							hoverFocus: " . (parent::get_setting($block, 'hover-focus', false) ? 'true' : 'false') . ",
+							infiniteScroll: " . $infinite_scroll . "
+						},
+						columns: " . parent::get_setting($block, 'columns', 3) . ",
+						columnsSmartphone: " . parent::get_setting($block, 'columns-smartphone', 2) . ",
+						gutterWidth: " . parent::get_setting($block, 'gutter-width', 15) . "
+					});
+
+					return true;
+				}
+
+				function bootPinBoard_" . $block_id . "() {
+					ensureStyle(basePath + 'css/pin-board.css');
+					ensureScript(basePath + 'js/pin-board.js');
+
+					if (initPinBoard_" . $block_id . "()) {
+						return;
+					}
+
+					setTimeout(bootPinBoard_" . $block_id . ", 150);
+				}
+
+				if (document.readyState === 'loading') {
+					document.addEventListener('DOMContentLoaded', bootPinBoard_" . $block_id . ");
+				} else {
+					bootPinBoard_" . $block_id . "();
+				}
+
+				setTimeout(bootPinBoard_" . $block_id . ", 350);
+			})();
 			";
 
 			return $js;
@@ -478,7 +543,7 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 									}
 
 									if ( $show_author ) {
-										echo '<em class="author-by">by</em> <a class="author-link fn nickname url" href="' . get_author_posts_url($authordata->ID) . '" title="View all entries by ' . $authordata->display_name . '">' . $authordata->display_name . '</a>';
+										echo '<em class="author-by">von</em> <a class="author-link fn nickname url" href="' . get_author_posts_url($authordata->ID) . '" title="Alle Beiträge von ' . $authordata->display_name . ' anzeigen">' . $authordata->display_name . '</a>';
 									}
 
 									if ( $show_categories ) {
@@ -737,19 +802,19 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 
 			$this->register_block_element(array(
 				'id' 			=> 'pin-board-pin-thumbnail',
-				'name' 			=> __('Pin Thumbnail','padma'),
+				'name' 			=> __('Pin-Vorschaubild','padma'),
 				'selector' 		=> '.pin-board-pin-thumbnail',
 			));
 
 			$this->register_block_element(array(
 				'id' 			=> 'pin-board-pin-thumbnail-link',
-				'name' 			=> __('Pin Thumbnail Link','padma'),
+				'name' 			=> __('Link der Pin-Vorschau','padma'),
 				'selector' 		=> '.pin-board-pin-thumbnail a',
 			));
 
 			$this->register_block_element(array(
 				'id' 			=> 'pin-board-pin-thumbnail-link-img',
-				'name' 			=> __('Pin Thumbnail Image','padma'),
+				'name' 			=> __('Bild der Pin-Vorschau','padma'),
 				'selector' 		=> '.pin-board-pin-thumbnail a img',
 				'states' => array(
 					'Hover' => '.pin-board-pin-thumbnail a img:hover',
@@ -759,13 +824,13 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 
 			$this->register_block_element(array(
 				'id' 			=> 'pin-below-thumb',
-				'name' 			=> __('Pin Below Thumb','padma'),
+				'name' 			=> __('Pin-Bereich unter Vorschaubild','padma'),
 				'selector' 		=> '.pin-board-pin .below-thumb',				
 			));	
 
 			$this->register_block_element(array(
 				'id' 			=> 'pin-title',
-				'name' 			=> __('Pin Title','padma'),
+				'name' 			=> __('Pin-Titel','padma'),
 				'selector'		=> '.pin-board-pin .entry-title',
 				'states' 		=> array(
 						'Hover' => '.pin-board-pin .entry-title a:hover',
@@ -774,7 +839,7 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 
 			$this->register_block_element(array(
 				'id' 			=> 'pin-title link',
-				'name' 			=> __('Pin Title Link','padma'),
+				'name' 			=> __('Pin-Titel-Link','padma'),
 				'selector'		=> '.pin-board-pin .entry-title a',				
 				'states' 		=> array(
 						'Hover' => '.pin-board-pin .entry-title a:hover',
@@ -783,59 +848,59 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 
 			$this->register_block_element(array(
 				'id' 			=> 'pin-meta',
-				'name' 			=> __('Pin Meta','padma'),
+				'name' 			=> __('Pin-Meta','padma'),
 				'selector' 		=> '.pin-board-pin .entry-meta',				
 			));
 
 				$this->register_block_element(array(
 					'parent' 		=> 'pin-meta',
 					'id' 			=> 'pin-meta-author',
-					'name' 			=> __('Author','padma'),
+					'name' 			=> __('Autor','padma'),
 					'selector' 		=> '.pin-board-pin .entry-meta .author-link',					
 				));
 
 				$this->register_block_element(array(
 					'parent' 		=> 'pin-meta',
 					'id' 			=> 'pin-meta-categories',
-					'name' 			=> __('Categories','padma'),
+					'name' 			=> __('Kategorien','padma'),
 					'selector' 		=> '.pin-board-pin .entry-meta .entry-categories',					
 				));
 
 				$this->register_block_element(array(
 					'parent' 		=> 'pin-meta',
 					'id' 			=> 'pin-meta-tags',
-					'name' 			=> __('Tags','padma'),
+					'name' 			=> __('Schlagwörter','padma'),
 					'selector' 		=> '.pin-board-pin .entry-meta .entry-tags',					
 				));
 
 				$this->register_block_element(array(
 					'parent' 		=> 'pin-meta',
 					'id' 			=> 'pin-meta-categories-link',
-					'name' 			=> __('Categories Link','padma'),
+					'name' 			=> __('Kategorien-Link','padma'),
 					'selector' 		=> '.pin-board-pin .entry-meta .entry-categories a',					
 				));
 
 			$this->register_block_element(array(
 				'id' 			=> 'pin-text',
-				'name' 			=> __('Pin Text','padma'),
+				'name' 			=> __('Pin-Text','padma'),
 				'selector' 		=> '.pin-board-pin .entry-content',
 			));
 
 			$this->register_block_element(array(
 				'id' 			=> 'pin-content-a',
-				'name' 			=> __('Pin Content Links','padma'),
+				'name' 			=> __('Pin-Inhaltslinks','padma'),
 				'selector' 		=> '.pin-board-pin .entry-content a',
 			));
 
 			$this->register_block_element(array(
 				'id' 			=> 'pin-content-img',
-				'name' 			=> __('Pin Content Image','padma'),
+				'name' 			=> __('Pin-Inhaltsbild','padma'),
 				'selector' 		=> '.pin-board-pin .entry-content img',
 			));
 
 			$this->register_block_element(array(
 				'id' 			=> 'pagination-button',
-				'name' 			=> __('Pagination Button','padma'),
+				'name' 			=> __('Paginierungsbutton','padma'),
 				'selector' 		=> '.pin-board-pagination a',
 				'states' 		=> array(
 						'Hover' => '.pin-board-pagination a:hover',
@@ -843,7 +908,7 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 			));
 			$this->register_block_element(array(
 				'id' 			=> 'pagination-text',
-				'name' 			=> __('Pagination Current Page','padma'),
+				'name' 			=> __('Aktuelle Seite','padma'),
 				'selector' 		=> '.pin-board-pagination span.page-numbers.current',
 			));
 
@@ -854,78 +919,78 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 			 */
 			$this->register_block_element(array(
 				'id' => 'custom-fields',
-				'name' => __('Custom Fields Container','padma'),
+				'name' => __('Container für benutzerdefinierte Felder','padma'),
 				'selector' => '.custom-fields',			
 			));
 			$this->register_block_element(array(
 				'id' => 'custom-fields-group',
-				'name' => __('Custom Fields Group','padma'),
+				'name' => __('Gruppe benutzerdefinierter Felder','padma'),
 				'selector' => '.custom-fields-group',
 			));
 
 				$this->register_block_element(array(
 					'id' => 'custom-fields-div',
-					'name' => __('Custom Fields Image','padma'),
-					'selector' => '.custom-fields image',			
+					'name' => __('Benutzerdefinierte Felder: Bild','padma'),
+					'selector' => '.custom-fields img',			
 				));
 
 				$this->register_block_element(array(
-					'id' => 'custom-fields-div',
-					'name' => __('Custom Fields Div','padma'),
+					'id' => 'custom-fields-div-element',
+					'name' => __('Benutzerdefinierte Felder: Div','padma'),
 					'selector' => '.custom-fields div',			
 				));
 
 				$this->register_block_element(array(
 					'id' => 'custom-fields-p',
-					'name' => __('Custom Fields text','padma'),
+					'name' => __('Benutzerdefinierte Felder: Text','padma'),
 					'selector' => '.custom-fields p',
 				));
 
 				$this->register_block_element(array(
 					'id' => 'custom-fields-a',
-					'name' => __('Custom Fields Link','padma'),
+					'name' => __('Benutzerdefinierte Felder: Link','padma'),
 					'selector' => '.custom-fields a',
 				));
 
 				$this->register_block_element(array(
 					'id' => 'custom-fields-h1',
-					'name' => __('Custom Fields H1','padma'),
+					'name' => __('Benutzerdefinierte Felder: H1','padma'),
 					'selector' => '.custom-fields h1',
 				));
 
 				$this->register_block_element(array(
 					'id' => 'custom-fields-h2',
-					'name' => __('Custom Fields H2','padma'),
+					'name' => __('Benutzerdefinierte Felder: H2','padma'),
 					'selector' => '.custom-fields h2',
 				));
 
 				$this->register_block_element(array(
 					'id' => 'custom-fields-h3',
-					'name' => __('Custom Fields H3','padma'),
+					'name' => __('Benutzerdefinierte Felder: H3','padma'),
 					'selector' => '.custom-fields h3',
 				));
 
 				$this->register_block_element(array(
 					'id' => 'custom-fields-h4',
-					'name' => __('Custom Fields H4','padma'),
+					'name' => __('Benutzerdefinierte Felder: H4','padma'),
 					'selector' => '.custom-fields h4',
 				));
 
 				$this->register_block_element(array(
 					'id' => 'custom-fields-h5',
-					'name' => __('Custom Fields H5','padma'),
+					'name' => __('Benutzerdefinierte Felder: H5','padma'),
 					'selector' => '.custom-fields h5',
 				));
 
 				$this->register_block_element(array(
 					'id' => 'custom-fields-h6',
-					'name' => __('Custom Fields H6','padma'),
+					'name' => __('Benutzerdefinierte Felder: H6','padma'),
 					'selector' => '.custom-fields h6',
 				));
 
 				$this->register_block_element(array(
 					'id' => 'custom-fields-span',
-					'name' => __('Custom Fields span','padma'),
+					'name' => __('Benutzerdefinierte Felder: Span','padma'),
 					'selector' => '.custom-fields span',
 				));
 
@@ -937,7 +1002,7 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 			if ( !$url || !$image_url )
 				return;
 
-			echo '<a href="http://pinterest.com/pin/create/button/?url=' . rawurlencode($url) . '&media=' . rawurlencode($image_url) . '" class="pin-it-button" count-layout="horizontal"><img border="0" src="" data-src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>';
+			echo '<a href="http://pinterest.com/pin/create/button/?url=' . rawurlencode($url) . '&media=' . rawurlencode($image_url) . '" class="pin-it-button" count-layout="horizontal"><img border="0" src="" data-src="//assets.pinterest.com/images/PinExt.png" title="Bei Pinterest merken" /></a>';
 
 		}
 
@@ -947,7 +1012,7 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 			if ( !$url )
 				return;
 
-			echo '<iframe allowtransparency="true" frameborder="0" scrolling="no" data-src="http://platform.twitter.com/widgets/tweet_button.1340179658.html#_=1343335678535&amp;count=none&amp;hashtags=' . str_replace('#', '', $hashtag) . '&amp;id=twitter-widget-0&amp;lang=en&amp;original_referer=' . rawurlencode($url) . '&amp;related=' . $username . '&amp;size=m&amp;text=' . rawurlencode($title) . '&amp;url=' . rawurlencode($url) . '" class="twitter-share-button" title="Twitter Tweet Button"></iframe>';
+			echo '<iframe allowtransparency="true" frameborder="0" scrolling="no" data-src="http://platform.twitter.com/widgets/tweet_button.1340179658.html#_=1343335678535&amp;count=none&amp;hashtags=' . str_replace('#', '', $hashtag) . '&amp;id=twitter-widget-0&amp;lang=en&amp;original_referer=' . rawurlencode($url) . '&amp;related=' . $username . '&amp;size=m&amp;text=' . rawurlencode($title) . '&amp;url=' . rawurlencode($url) . '" class="twitter-share-button" title="Twitter-Teilen"></iframe>';
 
 		}
 
@@ -974,7 +1039,7 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 				$big = 999999999; // need an unlikely integer
 
 				echo '<span class="nav-previous">';
-					echo get_previous_posts_link( '&larr; Previous' );
+					echo get_previous_posts_link( '&larr; Vorherige' );
 				echo '</span>';
 
 				echo paginate_links( array(
@@ -986,18 +1051,18 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 				) );
 
 				echo '<span class="nav-next">';
-					echo get_next_posts_link( 'Next &rarr;', $query->max_num_pages );
+					echo get_next_posts_link( 'Nächste &rarr;', $query->max_num_pages );
 				echo '</span>';
 
 			} else {
 
 
 				echo '<span class="nav-next">';
-					echo get_next_posts_link( '&larr; Older', $query->max_num_pages );
+					echo get_next_posts_link( '&larr; Ältere', $query->max_num_pages );
 				echo '</span>';
 
 				echo '<span class="nav-previous">';
-					echo get_previous_posts_link( 'Newer &rarr;' );
+					echo get_previous_posts_link( 'Neuere &rarr;' );
 				echo '</span>';
 
 			}
@@ -1015,7 +1080,7 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 				global $paged;
 
 				if ( null === $label )
-					$label = __( '&laquo; Previous Page', 'padma' );
+					$label = __( '&laquo; Vorherige Seite', 'padma' );
 
 				if ( $paged > 1 ) {
 					$attr = apply_filters( 'previous_posts_link_attributes', '' );
@@ -1033,19 +1098,19 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 				$delta = time() - $post_date;
 
 				if ( $delta < 60 ) {
-				    return 'less than a minute ago';
+				    return 'vor weniger als einer Minute';
 
 				} elseif ($delta >= 60 && $delta <= 120){
-				    return 'about a minute ago';
+				    return 'vor etwa einer Minute';
 
 				} elseif ($delta >= 120 && $delta <= (60*60)) {
-				    return strval(round(($delta/60),0)) . ' minutes ago';
+				    return strval(round(($delta/60),0)) . ' Minuten zuvor';
 
 				} elseif ($delta >= (60*60) && $delta <= (120*60)){
-				    return 'about an hour ago';
+				    return 'vor etwa einer Stunde';
 
 				} elseif ($delta >= (120*60) && $delta <= (24*60*60)){
-				    return strval(round(($delta/3600),0)) . ' hours ago';
+				    return strval(round(($delta/3600),0)) . ' Stunden zuvor';
 
 				}
 
@@ -1078,15 +1143,15 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 			parent::__construct($block_type_object);
 
 			$this->tabs = array(
-				'pin-setup' 		=> __('Pin Setup','padma'),
-				'query-filters' 	=> __('Query Filters','padma'),
-				'pagination' 		=> __('Pagination/Infinite Scroll','padma'),
+				'pin-setup' 		=> __('Pin-Einstellungen','padma'),
+				'query-filters' 	=> __('Abfrage-Filter','padma'),
+				'pagination' 		=> __('Paginierung/Endlos-Scrollen','padma'),
 				'text' 				=> __('Text','padma'),
 				'meta' 				=> __('Meta','padma'),
-				'images' 			=> __('Images','padma'),
-				'custom-fields'		=> __('Custom Fields','padma'),
-				'effects' 			=> __('Effects','padma'),
-				'social' 			=> __('Social','padma')
+				'images' 			=> __('Bilder','padma'),
+				'custom-fields'		=> __('Benutzerdefinierte Felder','padma'),
+				'effects' 			=> __('Effekte','padma'),
+				'social' 			=> __('Social Media','padma')
 			);
 
 
@@ -1095,11 +1160,11 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 					'mode' => array(
 						'type' 		=> 'select',
 						'name' 		=> 'mode',
-						'label' 	=> __('Mode','padma'),
-						'tooltip' 	=> __('If you would like to modify the default behaviour, select custom query. <br/><strong>Note:</strong>On archive pages, it\'s not advisable to use a custom query if the block is displaying the archive results.<br/>On search pages, it may be necessary to limit results to only certain content types.','padma'),
+						'label' 	=> __('Modus','padma'),
+						'tooltip' 	=> __('Wenn du das Standardverhalten ändern willst, wähle eine benutzerdefinierte Abfrage. <br/><strong>Hinweis:</strong> Auf Archivseiten ist das meist nicht sinnvoll, wenn der Block bereits Archiv-Ergebnisse zeigt.<br/>Auf Suchseiten kann es hilfreich sein, Ergebnisse auf bestimmte Inhaltstypen zu begrenzen.','padma'),
 						'options' 	=> array(
-								'default' 	=> __('Default behaviour','padma'),
-								'custom' 	=> __('Custom query','padma'),
+								'default' 	=> __('Standardverhalten','padma'),
+								'custom' 	=> __('Benutzerdefinierte Abfrage','padma'),
 							),
 						'toggle' 	=> array(
 							'default' => array(
@@ -1118,47 +1183,47 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 					'columns' => array(
 						'type' 				=> 'slider',
 						'name' 				=> 'columns',
-						'label' 			=> __('Columns','padma'),
+						'label' 			=> __('Spalten','padma'),
 						'slider-min' 		=> 1,
 						'slider-max' 		=> 7,
 						'slider-interval'	=> 1,
 						'default' 			=> 3,
-						'tooltip' 			=> __('Set how many pins to display horizontally','padma')
+						'tooltip' 			=> __('Legt fest, wie viele Pins horizontal angezeigt werden.','padma')
 					),
 
 					'columns-smartphone' => array(
 						'type' 				=> 'slider',
 						'name' 				=> 'columns-smartphone',
-						'label' 			=> __('Columns (iPhone/Smartphone)','padma'),
+						'label' 			=> __('Spalten (iPhone/Smartphone)','padma'),
 						'slider-min' 		=> 1,
 						'slider-max' 		=> 7,
 						'slider-interval' 	=> 1,
 						'default' 			=> 2,
-						'tooltip' 			=> __('Set how many pins to display horizontally for iPhones and smartphones.  <strong>Recommended setting: 1 or 2</strong>','padma')
+						'tooltip' 			=> __('Legt fest, wie viele Pins auf iPhones und Smartphones horizontal angezeigt werden. <strong>Empfehlung: 1 oder 2</strong>','padma')
 					),
 
 					'gutter-width' => array(
 						'type' 				=> 'slider',
 						'name' 				=> 'gutter-width',
-						'label' 			=> __('Gutter Width','padma'),
+						'label' 			=> __('Spaltenabstand','padma'),
 						'slider-min' 		=> 0,
 						'slider-max' 		=> 100,
 						'slider-interval' 	=> 1,
 						'default' 			=> 15,
 						'unit' 				=> 'px',
-						'tooltip' 			=> __('The amount in space between pins horizontally.','padma')
+						'tooltip' 			=> __('Der horizontale Abstand zwischen den Pins.','padma')
 					),
 
 					'pin-bottom-margin' => array(
 						'type' 				=> 'slider',
 						'name' 				=> 'pin-bottom-margin',
-						'label' 			=> __('Pin Bottom Margin','padma'),
+						'label' 			=> __('Pin-Abstand unten','padma'),
 						'slider-min' 		=> 0,
 						'slider-max' 		=> 50,
 						'slider-interval' 	=> 1,
 						'default' 			=> 15,
 						'unit' 				=> 'px',
-						'tooltip' 			=> __('The amount of space on the bottom of each pin.','padma')
+						'tooltip' 			=> __('Der Abstand unter jedem Pin.','padma')
 					)
 				),
 
@@ -1166,30 +1231,30 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 					'pins-per-page' => array(
 						'type' 		=> 'integer',
 						'name' 		=> 'pins-per-page',
-						'label' 	=> __('Pins Per Page','padma'),
+						'label' 	=> __('Pins pro Seite','padma'),
 						'default' 	=> 10,
-						'tooltip' 	=> __('Determines how many pins to load at one time before loading more via pagination or <em>infinite scrolling</em>.','padma')
+						'tooltip' 	=> __('Legt fest, wie viele Pins pro Ladevorgang angezeigt werden, bevor über Paginierung oder <em>Endlos-Scrollen</em> weitere geladen werden.','padma')
 					),
 
 					'offset' => array(
 						'type' 		=> 'integer',
 						'name' 		=> 'offset',
 						'label' 	=> __('Offset','padma'),
-						'tooltip' 	=> __('The offset is the number of entries or posts you would like to skip.  If the offset is 1, then the first post will be skipped.','padma'),
+						'tooltip' 	=> __('Offset ist die Anzahl an Beiträgen, die übersprungen werden. Bei Offset 1 wird der erste Beitrag ausgelassen.','padma'),
 						'default' 	=> 0
 					),
 
 					'filters-heading' => array(
 						'name' 	=> 'filters-heading',
 						'type' 	=> 'heading',
-						'label' => __('Filters','padma'),
+						'label' => __('Filter','padma'),
 					),
 
 					'post-type' => array(
 						'type' 		=> 'multi-select',
 						'name' 		=> 'post-type',
-						'label' 	=> __('Post Type','padma'),
-						'tooltip' 	=> __('Choose a post type to display. If none are selected, it will automatically default to all.','padma'),
+						'label' 	=> __('Beitragstyp','padma'),
+						'tooltip' 	=> __('Wähle den Beitragstyp, der angezeigt werden soll. Wenn nichts gewählt ist, werden alle verwendet.','padma'),
 						'default' 	=> 'any',
 						'options' 	=> 'get_post_types()',
 						'callback' => 'reloadBlockOptions(block.id)'
@@ -1197,72 +1262,72 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 					'taxonomies' => array(
 						'type' 		=> 'select',
 						'name' 		=> 'taxonomies',
-						'label' 	=> __('Taxonomy','padma'),
+						'label' 	=> __('Taxonomie','padma'),
 						'default' 	=> 'category',
-						'options' 	=> array( 'none' => 'No taxonomies' ),
-						'tooltip' 	=> __('Select the taxonomy to filter pins on .','padma'),
+						'options' 	=> array( 'none' => 'Keine Taxonomien' ),
+						'tooltip' 	=> __('Wähle die Taxonomie, nach der die Pins gefiltert werden sollen.','padma'),
 						'callback' 	=> 'reloadBlockOptions()'
 					),
 					// For simplicity with migrating from categories to all taxonomies, these next two have kept the same names. In the future a function could be written to port them to a correctly named variable
 					'categories' => array(
 						'type' 		=> 'multi-select',
 						'name' 		=> 'categories',
-						'label' 	=> __('Terms','padma'),
+						'label' 	=> __('Begriffe','padma'),
 						'default' 	=> '',
-						'options' 	=> array( 'none' => 'No terms' ),
-						'tooltip' 	=> __('Filter the pins that are shown by the selected taxonomy\'s terms.','padma')
+						'options' 	=> array( 'none' => 'Keine Begriffe' ),
+						'tooltip' 	=> __('Filtert die angezeigten Pins nach den Begriffen der gewählten Taxonomie.','padma')
 					),
 					'categories-mode' => array(
 						'type' 		=> 'select',
 						'name' 		=> 'categories-mode',
-						'label' 	=> __('Terms Mode','padma'),
+						'label' 	=> __('Begriffe-Modus','padma'),
 						'tooltip' 	=> '',
 						'options' 	=> array(
-							'include' => __('Include','padma'),
-							'exclude' => __('Exclude','padma')
+							'include' => __('Einschließen','padma'),
+							'exclude' => __('Ausschließen','padma')
 						),
-						'tooltip' 	=> __('If this is set to <em>include</em>, then only the pins that match the terms filter will be shown.  If set to <em>exclude</em>, all pins that match the selected terms will not be shown.','padma')
+						'tooltip' 	=> __('Bei <em>Einschließen</em> werden nur passende Pins gezeigt. Bei <em>Ausschließen</em> werden passende Pins ausgeblendet.','padma')
 					),
 					'author' => array(
 						'type' 		=> 'multi-select',
 						'name' 		=> 'author',
-						'label' 	=> __('Author','padma'),
+						'label' 	=> __('Autor','padma'),
 						'tooltip' 	=> '',
 						'options' 	=> 'get_authors()'
 					),
 					'exclude-current-post' => array(
 						'type' => 'checkbox',
 						'name' => 'exclude-current-post',
-						'label' => __('Exclude Current Post','padma'),
+						'label' => __('Aktuellen Beitrag ausschließen','padma'),
 						'default' => false,
-						'tooltip' => __('Enabling this option will exclude the current Post from the pinboard, usefull when are creating a "related post" block.','padma')
+						'tooltip' => __('Wenn aktiviert, wird der aktuelle Beitrag aus der Pinwand ausgeschlossen. Praktisch für "Ähnliche Beiträge"-Blöcke.','padma')
 					),
 
 					'order-heading' => array(
 						'name' 	=> 'order-heading',
 						'type' 	=> 'heading',
-						'label' => __('Order','padma'),
+						'label' => __('Sortierung','padma'),
 					),
 					'order-by' => array(
 						'type' 		=> 'select',
 						'name' 		=> 'order-by',
-						'label' 	=> __('Order By','padma'),
+						'label' 	=> __('Sortieren nach','padma'),
 						'tooltip' 	=> '',
 						'options' 	=> array(
-							'date' 	=> __('Date','padma'),
-							'title' => __('Title','padma'),
-							'rand' 	=> __('Random','padma'),
+							'date' 	=> __('Datum','padma'),
+							'title' => __('Titel','padma'),
+							'rand' 	=> __('Zufällig','padma'),
 							'ID' 	=> 'ID'
 						)
 					),
 					'order' => array(
 						'type' => 'select',
 						'name' => 'order',
-						'label' => __('Order','padma'),
+						'label' => __('Reihenfolge','padma'),
 						'tooltip' => '',
 						'options' => array(
-							'desc' => __('Descending','padma'),
-							'asc' => __('Ascending','padma'),
+							'desc' => __('Absteigend','padma'),
+							'asc' => __('Aufsteigend','padma'),
 						)
 					)
 				),
@@ -1271,25 +1336,25 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 					'paginate' => array(
 						'type' => 'checkbox',
 						'name' => 'paginate',
-						'label' => __('Paginate Pins','padma'),
+						'label' => __('Pins paginieren','padma'),
 						'default' => true,
-						'tooltip' => __('Enabling pagination adds buttons to the bottom of the pin board to go to the next/previous page.  <strong>Note:</strong> If infinite scrolling is enabled, pagination will be hidden.','padma')
+						'tooltip' => __('Aktiviert Seiten-Navigation am unteren Rand der Pinwand. <strong>Hinweis:</strong> Bei aktiviertem Endlos-Scrollen wird die Paginierung ausgeblendet.','padma')
 					),
 
 					'enumerate' => array(
 						'type' => 'checkbox',
 						'name' => 'enumerate',
-						'label' => __('Enumerate pagination','padma'),
+						'label' => __('Seitennummern anzeigen','padma'),
 						'default' => false,
-						'tooltip' => __('If pagination is displayed, enabling this will also show page number navigation.','padma')
+						'tooltip' => __('Wenn Paginierung aktiv ist, werden zusätzlich Seitennummern angezeigt.','padma')
 					),
 
 					'infinite-scroll' => array(
 						'type' => 'checkbox',
 						'name' => 'infinite-scroll',
-						'label' => __('Infinite Scrolling','padma'),
+						'label' => __('Endlos-Scrollen','padma'),
 						'default' => true,
-						'tooltip' => __('Infinite scrolling allows your visitors to view all of your pins without the need for them to click a button to continue to the next page.  The pins will be loaded automatically simply by scrolling.','padma')
+						'tooltip' => __('Lädt weitere Pins automatisch beim Scrollen, ohne dass ein Button geklickt werden muss.','padma')
 					)
 				),
 
@@ -1297,45 +1362,45 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 					'show-titles' => array(
 							'type' => 'checkbox',
 							'name' => 'show-titles',
-							'label' => __('Show Titles','padma'),
+							'label' => __('Titel anzeigen','padma'),
 							'default' => true
 						),
 
 					'titles-position' => array(
 							'type' => 'select',
 							'name' => 'titles-position',
-							'label' => __('Titles position','padma'),
+							'label' => __('Titel-Position','padma'),
 							'default' => 'below',
-							'options' => array('above' => __('Above','padma'),'below' => __('Below','padma') )
+							'options' => array('above' => __('Oben','padma'),'below' => __('Unten','padma') )
 						),
 
 					'titles-link-to-post' => array(
 							'type' => 'checkbox',
 							'name' => 'titles-link-to-post',
-							'label' => __('Titles link to post','padma'),
+							'label' => __('Titel mit Beitrag verlinken','padma'),
 							'default' => true,
-							'tooltip' => __('Open the post when the user clicks on the title','padma')
+							'tooltip' => __('Öffnet den Beitrag beim Klick auf den Titel.','padma')
 						),
 
 					'content-to-show' => array(
 							'type' => 'select',
 							'name' => 'content-to-show',
-							'label' => __('Content To Show','padma'),
+							'label' => __('Anzuzeigender Inhalt','padma'),
 							'options' => array(
-								'' => __('&ndash; Do Not Show Content &ndash;','padma'),
-								'excerpt' => __('Excerpts','padma'),
-								'content' => __('Full Content','padma')
+								'' => __('&ndash; Inhalt nicht anzeigen &ndash;','padma'),
+								'excerpt' => __('Auszug','padma'),
+								'content' => __('Vollständiger Inhalt','padma')
 							),
 							'default' => 'excerpt',
-							'tooltip' => __('The content is the written text or HTML for the entry.  This is edited in the WordPress admin panel.','padma')
+							'tooltip' => __('Inhalt ist der geschriebene Text bzw. HTML des Beitrags und wird im WordPress-Backend bearbeitet.','padma')
 						),
 
 					'show-text-if-no-image' => array(
 							'type' => 'checkbox',
 							'name' => 'show-text-if-no-image',
-							'label' => __('Only show content when no featured image','padma'),
+							'label' => __('Inhalt nur ohne Beitragsbild anzeigen','padma'),
 							'default' => false,
-							'tooltip' => __('If enabled, regardless of the content chosen in <em>Content to Show</em> will only show content for pins with no featured image.','padma')
+							'tooltip' => __('Wenn aktiv, wird Inhalt nur bei Pins ohne Beitragsbild gezeigt – unabhängig von <em>Anzuzeigender Inhalt</em>.','padma')
 						),
 
 				),
@@ -1345,45 +1410,45 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 					'show-author' 	=> array(
 							'type' 		=> 'checkbox',
 							'name' 		=> 'show-author',
-							'label' 	=> __('Meta: Show Author "byline"','padma'),
+							'label' 	=> __('Meta: Autorenzeile anzeigen','padma'),
 							'default' 	=> false,
-							'tooltip' 	=> __('<strong>Example:</strong> <em>by</em> Author Name','padma')
+							'tooltip' 	=> __('<strong>Beispiel:</strong> <em>von</em> Autorname','padma')
 						),
 
 					'show-category' => array(
 							'type' 		=> 'checkbox',
 							'name' 		=> 'show-category',
-							'label' 	=> __('Meta: Show Categories','padma'),
+							'label' 	=> __('Meta: Kategorien anzeigen','padma'),
 							'default' 	=> false
 						),
 
 					'show-tags' => array(
 							'type' 		=> 'checkbox',
 							'name' 		=> 'show-tags',
-							'label' 	=> __('Meta: Show Tags','padma'),
+							'label' 	=> __('Meta: Schlagwörter anzeigen','padma'),
 							'default' 	=> false
 						),
 
 					'show-post-type' => array(
 							'type' 		=> 'checkbox',
 							'name' 		=> 'show-post-type',
-							'label' 	=> __('Meta: Show Post Type','padma'),
+							'label' 	=> __('Meta: Beitragstyp anzeigen','padma'),
 							'default' 	=> false
 						),
 
 					'show-datetime' => array(
 							'type' 		=> 'checkbox',
 							'name' 		=> 'show-datetime',
-							'label' 	=> __('Meta: Show Date/Time','padma'),
+							'label' 	=> __('Meta: Datum/Uhrzeit anzeigen','padma'),
 							'default' 	=> false
 						),
 
 					'datetime-verb' => array(
 							'type' 		=> 'text',
 							'name' 		=> 'datetime-verb',
-							'label' 	=> __('Meta: Posted Verb','padma'),
-							'default' 	=> __('Posted','padma'),
-							'tooltip'	=> __('The posted verb will be placed before the time.  For instance, you may want to use "Listed" for real estate rather than "Posted"','padma')
+							'label' 	=> __('Meta: Zeit-Präfix','padma'),
+							'default' 	=> __('Veröffentlicht','padma'),
+							'tooltip'	=> __('Dieses Wort steht vor der Zeitangabe. Du kannst z. B. statt "Veröffentlicht" auch "Gelistet" verwenden.','padma')
 						),
 				),
 
@@ -1391,28 +1456,28 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 					'show-images' => array(
 						'type' => 'checkbox',
 						'name' => 'show-images',
-						'label' => __('Show Images','padma'),
+						'label' => __('Bilder anzeigen','padma'),
 						'default' => true,
 					),
 					'images-click-action' => array(
 						'type' => 'select',
 						'name' => 'image-click-action',
-						'label' => __('Image click action','padma'),
+						'label' => __('Aktion bei Bildklick','padma'),
 						'default' => 'link',
-						'tooltip' => __('Choose the action when user clicks on an image.','padma'),
+						'tooltip' => __('Wähle, was beim Klick auf ein Bild passieren soll.','padma'),
 						'options' => array(
-							'post'  => __('Open post','padma'),
-							'popup' => __('Popup original image','padma'),
-							'none'  => __('Do nothing','padma')
+							'post'  => __('Beitrag öffnen','padma'),
+							'popup' => __('Originalbild im Popup öffnen','padma'),
+							'none'  => __('Nichts tun','padma')
 						)
 					),
 
 					'crop-vertically' => array(
 						'type' => 'checkbox',
 						'name' => 'crop-vertically',
-						'label' => __('Crop Vertically','padma'),
+						'label' => __('Vertikal zuschneiden','padma'),
 						'default' => false,
-						'tooltip' => __('Trim all images to have the same height.  The trimmed/cropped height is roughly 75% of the width.','padma')
+						'tooltip' => __('Schneidet alle Bilder auf gleiche Höhe zu. Die Zielhöhe beträgt ungefähr 75% der Breite.','padma')
 					)
 				),
 
@@ -1422,9 +1487,9 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 					'hover-focus' => array(
 						'type' => 'checkbox',
 						'name' => 'hover-focus',
-						'label' => __('Hover Focus','padma'),
+						'label' => __('Hover-Fokus','padma'),
 						'default' => false,
-						'tooltip' => __('If enabled, the hovered pin will be focused while all others will be faded out.','padma')
+						'tooltip' => __('Wenn aktiv, wird der überfahrene Pin hervorgehoben und die anderen werden abgeblendet.','padma')
 					)
 				),
 
@@ -1432,46 +1497,46 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 					'show-pinterest-button' => array(
 						'type' => 'checkbox',
 						'name' => 'show-pinterest-button',
-						'label' => __('Pinterest: Show "Pin It" Button','padma'),
+						'label' => __('Pinterest: "Pin It"-Button anzeigen','padma'),
 						'default' => false,
-						'tooltip' => __('Show a Pinterest "Pin It" button inside of the images.','padma'),
+						'tooltip' => __('Zeigt einen Pinterest-"Pin It"-Button im Bild an.','padma'),
 					),
 
 					'show-twitter-button' => array(
 						'type' => 'checkbox',
 						'name' => 'show-twitter-button',
-						'label' => __('Twitter: Show Tweet Button','padma'),
+						'label' => __('Twitter: Tweet-Button anzeigen','padma'),
 						'default' => false,
-						'tooltip' => __('Show a tweet button either inside of the post image or by the title.','padma'),
+						'tooltip' => __('Zeigt einen Tweet-Button im Beitragsbild oder beim Titel an.','padma'),
 					),
 
 					'twitter-username' => array(
 						'type' => 'text',
 						'name' => 'twitter-username',
-						'label' => __('Twitter: Your Username','padma')
+						'label' => __('Twitter: Dein Benutzername','padma')
 					),
 
 					'twitter-hashtag' => array(
 						'type' => 'text',
 						'name' => 'twitter-hashtag',
-						'label' => __('Twitter: Hashtag to put in tweets (Optional)','padma')
+						'label' => __('Twitter: Hashtag für Tweets (optional)','padma')
 					),
 
 					'show-facebook-button' => array(
 						'type' => 'checkbox',
 						'name' => 'show-facebook-button',
-						'label' => __('Facebook: Show Like/Share Button','padma'),
+						'label' => __('Facebook: Like/Share-Button anzeigen','padma'),
 						'default' => false,
-						'tooltip' => __('Show a Facebook share/like button either inside of the post image or by the title.','padma'),
+						'tooltip' => __('Zeigt einen Facebook Like/Share-Button im Beitragsbild oder beim Titel an.','padma'),
 					),
 
 					'facebook-button-verb' => array(
 						'type' => 'select',
-						'label' => __('Facebook: Button Verb','padma'),
+						'label' => __('Facebook: Button-Text','padma'),
 						'name' => 'facebook-button-verb',
 						'options' => array(
-							'like' => __('Like','padma'),
-							'recommend' => __('Recommend','padma')
+							'like' => __('Gefällt mir','padma'),
+							'recommend' => __('Empfehlen','padma')
 						),
 						'default' => 'like'
 					)
@@ -1493,10 +1558,10 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 			$this->inputs['query-filters']['categories'] = array(
 				'type' 		=> 'multi-select',
 				'name' 		=> 'categories',
-				'label' 	=> __('Terms','padma'),
+				'label' 	=> __('Begriffe','padma'),
 				'default' 	=> '',
 				'options' 	=> $this->terms_list[$tax_slug],
-				'tooltip' 	=> __('Filter the pins that are shown by the selected taxonomy\'s terms.','padma')
+				'tooltip' 	=> __('Filtert die angezeigten Pins nach den Begriffen der gewählten Taxonomie.','padma')
 			);
 
 			$callback = '
@@ -1551,9 +1616,9 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 			if(count($custom_fields)==0){
 
 				if($this->block['settings']['mode'] == 'custom')
-					$this->tab_notices['custom-fields'] = __('The selected post type does not have custom fields.','padma');
+					$this->tab_notices['custom-fields'] = __('Der gewählte Beitragstyp hat keine benutzerdefinierten Felder.','padma');
 				else
-					$this->tab_notices['custom-fields'] = __('There is not custom fields to show.','padma');
+					$this->tab_notices['custom-fields'] = __('Es gibt keine benutzerdefinierten Felder zum Anzeigen.','padma');
 
 			}else{
 
@@ -1566,7 +1631,7 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 					$inputs[$heading] = array(
 						'name' => $heading,
 						'type' => 'heading',
-						'label' => 'Custom Fields for: "' . $post_type . '".'
+						'label' => 'Benutzerdefinierte Felder für: "' . $post_type . '".'
 					);
 
 					foreach ($fields as $field_name => $posts_total) {
@@ -1584,8 +1649,8 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 						$inputs[$name] = array(
 							'type' => 'checkbox',
 							'name' => $name,
-							'label' => 'Show "' . $field_name .'"',
-							'tooltip' => 'Check this to allow show ' . $field_name,
+							'label' => '"' . $field_name .'" anzeigen',
+							'tooltip' => 'Aktivieren, um "' . $field_name . '" anzuzeigen.',
 							'default' => false,
 							'toggle'    => array(
 								'false' => array(
@@ -1607,7 +1672,7 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 						$inputs[$label] = array(
 							'type' => 'text',
 							'name' => $label,
-							'label' => '"'.$field_name .'" label',
+							'label' => '"'.$field_name .'"-Bezeichnung',
 							'default' => '',
 						);
 
@@ -1615,12 +1680,12 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 						$inputs[$position] = array(
 							'type' => 'select',
 							'name' => $position,
-							'label' => '"'.$field_name .'" position',
+							'label' => '"'.$field_name .'"-Position',
 							'default' => 'below',
 							'options' => array(
-								'above' => 'Above',
-								'before-content' => 'Before content',
-								'below' => 'Below'
+								'above' => 'Oben',
+								'before-content' => 'Vor dem Inhalt',
+								'below' => 'Unten'
 							)
 						);
 
@@ -1724,7 +1789,7 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 				}
 
 				if ( !$keys_only && count($terms[$key]) == 0 ) {
-					$terms[$key]['none'] = __('No terms found for this taxonomy','padma');
+					$terms[$key]['none'] = __('Keine Begriffe für diese Taxonomie gefunden','padma');
 				}
 
 			}
