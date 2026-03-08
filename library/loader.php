@@ -147,3 +147,8 @@ spl_autoload_register(function ($class) {
 
 
 });
+
+// OPTIMIERUNG: Lade optimierte Media-Uploader und Image-Resizing
+if ( file_exists( dirname( __FILE__ ) . '/common/init-uploader-optimizations.php' ) ) {
+	require_once dirname( __FILE__ ) . '/common/init-uploader-optimizations.php';
+}

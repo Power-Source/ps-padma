@@ -1326,45 +1326,29 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 			oldBlockID = blockID;
 			var temporaryID = Math.ceil(Math.random() * 1000000000);
 
-			//Update the ID on the block
-			block
-				.attr('id', 'block-' + temporaryID)
-				.attr('data-id', temporaryID)
-				.attr('data-temp-id', temporaryID)
-				.data('id', temporaryID)
-				.data('temp-id', temporaryID);
+		//Delete the old block options tab if it exists
+		removePanelTab('block-' + oldBlockID);
 
-			//Delete the old block optiosn tab if it exists
-			removePanelTab('block-' + oldBlockID);
+		//Add hiddens to delete old block BEFORE changing IDs
+		dataDeleteBlock(oldBlockID);
 
-			//Add hiddens to delete old block and add new block in its place
-			dataDeleteBlock(oldBlockID);
-			dataAddBlock(block);
-			dataSetBlockPosition(temporaryID, getBlockPosition(block));
-			dataSetBlockDimensions(temporaryID, getBlockDimensions(block));
-			dataSetBlockWrapper(temporaryID, getBlockWrapper(block).attr('id'));
+		//Update the ID on the block AFTER deleting old block
+		block
+			.attr('id', 'block-' + temporaryID)
+			.attr('data-id', temporaryID)
+			.attr('data-temp-id', temporaryID)
+			.data('id', temporaryID)
+			.data('temp-id', temporaryID)
+			.data('desired-id', oldBlockID); // Set desired-id to preserve database ID
 
-			//Update content overlay
-			updateBlockContentCover(block);
+		//Add new block with new ID and type
+		dataAddBlock(block);
+		dataSetBlockPosition(temporaryID, getBlockPosition(block));
+		dataSetBlockDimensions(temporaryID, getBlockDimensions(block));
+		dataSetBlockWrapper(temporaryID, getBlockWrapper(block).attr('id'));
 
-			//Update mirroring status
-			updateBlockMirrorStatus(false, block, '', false);
-			
-			//Allow saving now that the type has been switched
-			allowSaving();
-
-			/* Hide all tooltips that way the tooltip doesn't continue showing for the hovered block type */
-			$('.qtip').qtip('hide');
-			
-			return temporaryID;
-			
-		}
-
-
-	duplicateBlock = function(originalBlock) {
-
-		if ( !$(originalBlock).length )
-			return false;
+		//Update content overlay
+		updateBlockContentCover(block);
 
 		var wrapper = getBlockWrapper(originalBlock);
 

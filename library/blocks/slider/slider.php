@@ -34,13 +34,18 @@ class PadmaSliderBlock extends PadmaBlockAPI {
 			}
 		}
 
-		wp_enqueue_style('flexslider', padma_url() . '/library/blocks/slider/assets/flexslider.css');
+		// Load Swiper CSS/JS
+		wp_enqueue_style('swiper-slider', padma_url() . '/library/blocks/slider/assets/swiper-bundle.min.css');
 
-		//If there are no images or only 1 image, do not load FlexSlider JS.
+		// If there are no images or only 1 image, do not load Swiper JS.
 		if ( $valid_images_count <= 1 )
 			return false;
 
-		wp_enqueue_script('flexslider', padma_url() . '/library/blocks/slider/assets/jquery.flexslider-min.js', array('jquery'));
+		wp_enqueue_script('swiper-slider', padma_url() . '/library/blocks/slider/assets/swiper-bundle.min.js', array());
+		
+		// Fallback direct injection for VE context
+		echo '<link rel="stylesheet" href="' . padma_url() . '/library/blocks/slider/assets/swiper-bundle.min.css">';
+		echo '<script src="' . padma_url() . '/library/blocks/slider/assets/swiper-bundle.min.js"></script>';
 
 	}
 
@@ -56,42 +61,75 @@ class PadmaSliderBlock extends PadmaBlockAPI {
 			}
 		}
 
-		//If there are no images or only 1 image, do not load FlexSlider.
+		// If only 1 image, skip Swiper init
 		if ( $valid_images_count <= 1 )
 			return false;
 
+		$animation = parent::get_setting($block, 'animation', 'slide-horizontal');
+		$effect = ($animation == 'fade') ? 'fade' : 'slide';
+		$direction = ($animation == 'slide-vertical') ? 'vertical' : 'horizontal';
+		$autoplay_enabled = parent::get_setting($block, 'slideshow', true);
+		$autoplay_delay = (int)parent::get_setting($block, 'animation-timeout', 6) * 1000;
+		$animation_speed = (int)parent::get_setting($block, 'animation-speed', 500);
+		$show_pagination = parent::get_setting($block, 'show-pager-nav', true);
+		$show_nav = parent::get_setting($block, 'show-direction-nav', true);
+
 		return '
-if(document.readyState === "loading") {
-	document.addEventListener("DOMContentLoaded", function(){
-		if(document.querySelector(\'#block-' . $block['id'] . ' .flexslider\')) {
-			jQuery(\'#block-' . $block['id'] . ' .flexslider\').flexslider({
-	   animation: "' . (parent::get_setting($block, 'animation', 'slide-horizontal') == 'fade' ? 'fade' : 'slide') . '",
-	   direction: "' . (parent::get_setting($block, 'animation', 'slide-horizontal') == 'slide-vertical' ? 'vertical' : 'horizontal') . '",
-	   slideshow: ' . (parent::get_setting($block, 'slideshow', true) ? 'true' : 'false') . ',
-	   slideshowSpeed: ' . (parent::get_setting($block, 'animation-timeout', 6) * 1000) . ',
-	   animationSpeed: ' . (parent::get_setting($block, 'animation-speed', 500)) . ', 
-	   randomize: false,     
-	   controlNav: ' . (parent::get_setting($block, 'show-pager-nav', true) ? 'true' : 'false') . ',
-	   directionNav: ' . (parent::get_setting($block, 'show-direction-nav', true) ? 'true' : 'false') . ',
-	   randomize: ' . (parent::get_setting($block, 'randomize-order', false) ? 'true' : 'false') . '
-			});
-		}
-	});
-} else {
-	if(document.querySelector(\'#block-' . $block['id'] . ' .flexslider\')) {
-		jQuery(\'#block-' . $block['id'] . ' .flexslider\').flexslider({
-		   animation: "' . (parent::get_setting($block, 'animation', 'slide-horizontal') == 'fade' ? 'fade' : 'slide') . '",
-		   direction: "' . (parent::get_setting($block, 'animation', 'slide-horizontal') == 'slide-vertical' ? 'vertical' : 'horizontal') . '",
-		   slideshow: ' . (parent::get_setting($block, 'slideshow', true) ? 'true' : 'false') . ',
-		   slideshowSpeed: ' . (parent::get_setting($block, 'animation-timeout', 6) * 1000) . ',
-		   animationSpeed: ' . (parent::get_setting($block, 'animation-speed', 500)) . ', 
-		   randomize: false,     
-		   controlNav: ' . (parent::get_setting($block, 'show-pager-nav', true) ? 'true' : 'false') . ',
-		   directionNav: ' . (parent::get_setting($block, 'show-direction-nav', true) ? 'true' : 'false') . ',
-		   randomize: ' . (parent::get_setting($block, 'randomize-order', false) ? 'true' : 'false') . '
-		});
+(function() {
+	var sliderSelector = "#block-' . $block['id'] . ' .swiper";
+	var basePath = "' . padma_url() . '/library/blocks/slider/assets/";
+	
+	function ensureStyle(id, href) {
+		if (document.querySelector("link[href=\"" + href + "\"]")) return;
+		var link = document.createElement("link");
+		link.rel = "stylesheet";
+		link.href = href;
+		document.head.appendChild(link);
 	}
-}' . "\n";
+	
+	function initSwiper_' . $block['id'] . '() {
+		if (!window.Swiper) return false;
+		var container = document.querySelector(sliderSelector);
+		if (!container) return false;
+		if (container.swiper) container.swiper.destroy();
+		
+		new Swiper(sliderSelector, {
+			effect: "' . $effect . '",
+			direction: "' . $direction . '",
+			speed: ' . $animation_speed . ',
+			autoplay: ' . ($autoplay_enabled ? '{delay: ' . $autoplay_delay . '}' : 'false') . ',
+			pagination: {
+				el: ".swiper-pagination",
+				enabled: ' . ($show_pagination ? 'true' : 'false') . ',
+				type: "bullets",
+				clickable: true
+			},
+			navigation: {
+				nextEl: ".swiper-button-next",
+				prevEl: ".swiper-button-prev",
+				enabled: ' . ($show_nav ? 'true' : 'false') . '
+			},
+			loop: ' . ($valid_images_count > 1 ? 'true' : 'false') . '
+		});
+		return true;
+	}
+	
+	function bootSwiper_' . $block['id'] . '() {
+		ensureStyle("swiper-css", basePath + "swiper-bundle.min.css");
+		if (initSwiper_' . $block['id'] . '()) return;
+		if (!window.Swiper) {
+			setTimeout(bootSwiper_' . $block['id'] . ', 150);
+		}
+	}
+	
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", bootSwiper_' . $block['id'] . ');
+	} else {
+		bootSwiper_' . $block['id'] . '();
+	}
+	setTimeout(bootSwiper_' . $block['id'] . ', 350);
+})();
+' . "\n";
 
 	}
 
@@ -121,61 +159,84 @@ if(document.readyState === "loading") {
 
 		}
 
+		// OPTIMIERUNG: Batch-Resize für alle Bilder statt einzeln
+		$should_resize = parent::get_setting($block, 'crop-resize-images', true);
+		$resized_urls = array();
+		
+		if ( $should_resize ) {
+			$image_urls = array_filter(array_column($images, 'image'));
+			
+			// Lade Caching-Funktion wenn vorhanden
+			if ( function_exists('padma_resize_images_batch') ) {
+				$resized_urls = padma_resize_images_batch($image_urls, $block_width, $block_height);
+			} else {
+				// Fallback zu einzelnem Resize
+				foreach ( $image_urls as $url ) {
+					$resized_urls[] = padma_resize_image($url, $block_width, $block_height);
+				}
+			}
+		}
+
+		$resized_index = 0;
 		$no_slide_class = $valid_images_count === 1 ? ' flexslider-no-slide' : '';
 
-		echo '<div class="flexslider' . $no_slide_class . '">';
+		echo '<div class="swiper">';
 
-			/* Put in viewport div for sliders that only have 1 image and don't slide */
-			if ( $valid_images_count === 1 )
-				echo '<div class="flex-viewport">';
+			echo '<div class="swiper-wrapper">';
 
-			echo '<ul class="slides">';
 
-			  	foreach ( $images as $image ) {
+			foreach ( $images as $image ) {
 
-			  		if ( !$image['image'] )
-			  			continue;
+				if ( !$image['image'] )
+					continue;
 
-			  		$output = array(
-			  			'image' => array(
-			  				'src' => parent::get_setting($block, 'crop-resize-images', true) ? padma_resize_image($image['image'], $block_width, $block_height) : $image['image'],
-			  				'alt' => padma_fix_data_type(padma_get('image-alt', $image)),
-			  				'title' => padma_fix_data_type(padma_get('image-title', $image)),
-			  				'caption' => padma_fix_data_type(padma_get('image-description', $image))
-			  			),
+				// OPTIMIERUNG: Nutze pre-resized URLs statt einzelner Aufrufe
+				$image_src = $image['image'];
+				if ( $should_resize && isset($resized_urls[$resized_index]) ) {
+					$image_src = $resized_urls[$resized_index];
+					$resized_index++;
+				}
 
-			  			'hyperlink' => array(
-			  				'href' => padma_fix_data_type(padma_get('image-hyperlink', $image)),
-			  				'target' => padma_fix_data_type(padma_get('image-open-link-in-new-window', $image, false)) ? ' target="_blank"' : null
-			  			)
-			  		);
+				$output = array(
+					'image' => array(
+						'src' => $image_src,
+						'alt' => padma_fix_data_type(padma_get('image-alt', $image)),
+						'title' => padma_fix_data_type(padma_get('image-title', $image)),
+						'caption' => padma_fix_data_type(padma_get('image-description', $image))
+					),
 
-			  		echo '<li>';
+					'hyperlink' => array(
+						'href' => padma_fix_data_type(padma_get('image-hyperlink', $image)),
+						'target' => padma_fix_data_type(padma_get('image-open-link-in-new-window', $image, false)) ? ' target="_blank"' : null
+					)
+				);
 
-			  			/* Open hyperlink if user added one for image */
-			  			if ( $output['hyperlink']['href'] )
-			  				echo '<a href="' . $output['hyperlink']['href'] . '"' . $output['hyperlink']['target'] . '>';
+				echo '<div class="swiper-slide">';
 
-			  			/* Don't forget to display the ACTUAL IMAGE */
-			  			echo '<img src="' . $output['image']['src'] . '" alt="' . $output['image']['alt'] . '" title="' . $output['image']['title'] . '" />';
+					/* Open hyperlink if user added one for image */
+					if ( $output['hyperlink']['href'] )
+						echo '<a href="' . $output['hyperlink']['href'] . '"' . $output['hyperlink']['target'] . '>';
 
-			  			/* Closing tag for hyperlink */
-			  			if ( $output['hyperlink']['href'] )
-			  				echo '</a>';
+					/* Don't forget to display the ACTUAL IMAGE */
+					echo '<img src="' . $output['image']['src'] . '" alt="' . $output['image']['alt'] . '" title="' . $output['image']['title'] . '" loading="lazy" />';
 
-			  			/* Caption */
-				  		if ( !empty($output['image']['caption']) )
-				  			echo '<p class="flex-caption">' . $output['image']['caption'] . '</p>';
+					/* Closing tag for hyperlink */
+					if ( $output['hyperlink']['href'] )
+						echo '</a>';
 
-			  		echo '</li>';
+					/* Caption */
+					if ( !empty($output['image']['caption']) )
+						echo '<p class="swiper-caption">' . $output['image']['caption'] . '</p>';
 
-			  	}
+				echo '</div>';
 
-		  	echo '</ul>';
+			}
 
-		  	/* Put in viewport div for sliders that only have 1 image and don't slide */
-		  	if ( $valid_images_count === 1 )
-		  		echo '</div>';
+			echo '</div>'; // .swiper-wrapper
+
+			echo '<div class="swiper-button-prev"></div>';
+			echo '<div class="swiper-button-next"></div>';
+			echo '<div class="swiper-pagination"></div>';
 
 		echo '</div>';
 
@@ -187,62 +248,72 @@ if(document.readyState === "loading") {
 		$this->register_block_element(array(
 			'id' => 'slider-container',
 			'name' => __('Slider Container','padma'),
-			'description' => __('Contains Viewport, Paging','padma'),
-			'selector' => '.flexslider',
+			'description' => __('Contains Slides, Navigation, Pagination','padma'),
+			'selector' => '.swiper',
 			'properties' => array('background', 'borders', 'padding', 'corners', 'box-shadow', 'advanced', 'transition', 'outlines')
 		));
 
 		$this->register_block_element(array(
-			'id' => 'slider-viewport',
-			'name' => __('Slider Viewport','padma'),
-			'description' => __('Contains Images','padma'),
-			'selector' => '.flex-viewport',
+			'id' => 'slider-wrapper',
+			'name' => __('Slider Wrapper','padma'),
+			'description' => __('Contains All Slides','padma'),
+			'selector' => '.swiper-wrapper',
 			'properties' => array('background', 'borders', 'padding', 'corners', 'box-shadow', 'overflow', 'advanced', 'transition', 'outlines')
+		));
+
+		$this->register_block_element(array(
+			'id' => 'slider-slide',
+			'name' => __('Slider Slide','padma'),
+			'description' => __('Individual Slide','padma'),
+			'selector' => '.swiper-slide',
+			'properties' => array('background', 'borders', 'padding', 'corners', 'box-shadow', 'advanced', 'transition', 'outlines')
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slider-caption',
 			'name' => __('Slider Caption','padma'),
-			'selector' => '.flex-caption',
+			'selector' => '.swiper-caption',
 			'properties' => array('background', 'padding', 'fonts')
 		));
 
 		$this->register_block_element(array(
-			'id' => 'slider-direction-nav-link',
-			'name' => __('Slider Direction Nav Link','padma'),
-			'selector' => '.flex-direction-nav a',
+			'id' => 'slider-direction-nav-buttons',
+			'name' => __('Slider Direction Nav Buttons','padma'),
+			'description' => __('Prev/Next Navigation Buttons','padma'),
+			'selector' => '.swiper-button-prev, .swiper-button-next',
 			'properties' => array('background', 'borders', 'padding', 'corners', 'box-shadow')
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slider-direction-nav-next',
 			'name' => __('Slider Direction Next','padma'),
-			'selector' => '.flex-direction-nav a.flex-next',
+			'selector' => '.swiper-button-next',
 			'properties' => array('background', 'borders', 'padding', 'corners', 'box-shadow')
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slider-direction-nav-prev',
 			'name' => __('Slider Direction Prev','padma'),
-			'selector' => '.flex-direction-nav a.flex-prev',
+			'selector' => '.swiper-button-prev',
 			'properties' => array('background', 'borders', 'padding', 'corners', 'box-shadow')
 		));
 
 		$this->register_block_element(array(
-			'id' => 'slider-paging',
-			'name' => __('Slider Paging','padma'),
-			'selector' => '.flex-control-nav',
+			'id' => 'slider-pagination',
+			'name' => __('Slider Pagination','padma'),
+			'description' => __('Pagination Dots','padma'),
+			'selector' => '.swiper-pagination',
 			'properties' => array('background', 'borders', 'padding', 'corners', 'box-shadow')
 		));
 
 		$this->register_block_element(array(
-			'id' => 'slider-paging-link',
-			'name' => __('Slider Paging Link','padma'),
-			'selector' => '.flex-control-paging li a',
+			'id' => 'slider-pagination-bullet',
+			'name' => __('Slider Pagination Bullet','padma'),
+			'selector' => '.swiper-pagination-bullet',
 			'properties' => array('background', 'borders', 'padding', 'corners', 'box-shadow'),
 			'states' => array(
-				'Hover' => '.flex-control-paging li a:hover', 
-				'Active' => '.flex-control-paging li a.flex-active'
+				'Hover' => '.swiper-pagination-bullet:hover', 
+				'Active' => '.swiper-pagination-bullet.swiper-pagination-bullet-active'
 			)
 		));
 

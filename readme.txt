@@ -70,6 +70,13 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 * Colorpicker Event Handler für Passive Listener aktualisiert
 * QTip2 Event Handler modernisiert (typeof statt deprecated jQuery.type)
 * require-and-jquery.js: jQuery.isNumeric mit nativen Type-Checks aktualisiert
+* Slider Block komplett von FlexSlider auf Swiper 11.0+ migriert (keine jQuery-Abhängigkeit mehr)
+* Slider Block: Moderne IIFE-basierte Initialisierung mit Retry-Logik implementiert
+* Slider Block: HTML-Struktur modernisiert (.swiper statt .flexslider)
+* Slider Block: CSS-Selektoren für Padma Design-Editor aktualisiert
+* Visual Editor: Kritischen Bug im "Switch Block Type" Feature behoben
+* Visual Editor: Block-Switching behält nun korrekt die Datenbank-ID (desired-id Mechanismus)
+* Visual Editor: Operation-Reihenfolge bei Block-Type-Wechsel korrigiert
 * INFO: Minified Files können nicht direkt editiert werden - nutze SCRIPT_DEBUG=true für Development
 
 = 1.0.8 =
