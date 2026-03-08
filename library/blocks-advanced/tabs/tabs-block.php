@@ -92,11 +92,128 @@ class PadmaVisualElementsBlockTabs extends \PadmaBlockAPI {
 		);
 		$this->register_block_element(
 			array(
+				'id'       => 'tab-item',
+				'name'     => __( 'Tab Item', 'padma' ),
+				'selector' => '.su-tabs-nav > span',
+			)
+		);
+		$this->register_block_element(
+			array(
+				'id'       => 'tab-item-active',
+				'name'     => __( 'Tab Item (Active)', 'padma' ),
+				'selector' => '.su-tabs-nav > span.su-tabs-current',
+			)
+		);
+		$this->register_block_element(
+			array(
+				'id'       => 'tab-item-inactive',
+				'name'     => __( 'Tab Item (Inactive)', 'padma' ),
+				'selector' => '.su-tabs-nav > span:not(.su-tabs-current)',
+			)
+		);
+		$this->register_block_element(
+			array(
 				'id'       => 'tabs-panes',
 				'name'     => __( 'Tabs Panes', 'padma' ),
 				'selector' => '.su-tabs-panes',
 			)
 		);
+	}
+
+	/**
+	 * Dynamic_js function - Tab switching fallback (Vanilla JS, no jQuery required)
+	 *
+	 * @param string  $block_id Block ID.
+	 * @param boolean $block Block Object.
+	 * @return string
+	 */
+	public static function dynamic_js( $block_id, $block = false ) {
+		return '(function(){
+			function activateTab(tabElement) {
+				if (!tabElement || tabElement.classList.contains("su-tabs-disabled")) return;
+				
+				var nav = tabElement.parentElement;
+				if (!nav) return;
+				
+				var tabs = nav.closest(".su-tabs");
+				if (!tabs) return;
+				
+				var headers = Array.prototype.slice.call(nav.querySelectorAll("span"));
+				var panes = Array.prototype.slice.call(tabs.querySelectorAll(".su-tabs-panes > .su-tabs-pane"));
+				var index = headers.indexOf(tabElement);
+				
+				if (index < 0) return;
+				
+				// Remove active class from all headers
+				headers.forEach(function(header) {
+					header.classList.remove("su-tabs-current");
+				});
+				
+				// Add active class to clicked header
+				tabElement.classList.add("su-tabs-current");
+				
+				// Hide all panes, show active pane
+				panes.forEach(function(pane, paneIndex) {
+					pane.style.display = (paneIndex === index) ? "" : "none";
+				});
+				
+				// Set height for vertical tabs
+				var verticalTabs = tabs.querySelectorAll(".su-tabs-vertical");
+				verticalTabs.forEach(function(vTab) {
+					var nav = vTab.querySelector(".su-tabs-nav");
+					var panes = vTab.querySelectorAll(".su-tabs-pane");
+					if (nav && panes.length > 0) {
+						panes.forEach(function(pane) {
+							pane.style.minHeight = nav.offsetHeight + "px";
+						});
+					}
+				});
+			}
+			
+			function initTabs(tabsContainer) {
+				var nav = tabsContainer.querySelector(".su-tabs-nav");
+				if (!nav) return;
+				
+				var headers = Array.prototype.slice.call(nav.querySelectorAll("span"));
+				if (!headers.length) return;
+				
+				headers.forEach(function(header) {
+					// Prevent double binding
+					if (header.getAttribute("data-padma-tabs-bound") === "1") return;
+					
+					header.addEventListener("click", function(e) {
+						e.preventDefault();
+						activateTab(header);
+					});
+					
+					header.setAttribute("data-padma-tabs-bound", "1");
+				});
+				
+				// Activate initial tab
+				var active = parseInt(tabsContainer.getAttribute("data-active") || "1", 10);
+				if (!isFinite(active) || active < 1) active = 1;
+				if (active > headers.length) active = headers.length;
+				
+				activateTab(headers[active - 1]);
+			}
+			
+			function bootTabs() {
+				var allTabs = document.querySelectorAll(".su-tabs");
+				for (var i = 0; i < allTabs.length; i++) {
+					initTabs(allTabs[i]);
+				}
+			}
+			
+			// Run when DOM is ready
+			if (document.readyState === "loading") {
+				document.addEventListener("DOMContentLoaded", bootTabs);
+			} else {
+				bootTabs();
+			}
+			
+			// Run again after short delay for VE iframe safety
+			setTimeout(bootTabs, 250);
+		})();';
 	}
 
 	/**
@@ -161,19 +278,44 @@ class PadmaVisualElementsBlockTabs extends \PadmaBlockAPI {
 		if ( ! $block ) {
 			$block = \PadmaBlocksData::get_block( $block_id );
 		}
-		$style = parent::get_setting( $block, 'style' );
-		if ( 'none' !== $style ) {
-			\PadmaCompiler::register_file(
-				array(
-					'name'         => 've-tabs-css',
-					'format'       => 'css',
-					'fragments'    => array(
-						__DIR__ . '/tabs.css',
-					),
-					'dependencies' => array(),
-					'enqueue'      => true,
-				)
-			);
+
+		// Try Padma asset system first
+		if ( function_exists( 'padma_query_asset' ) ) {
+			padma_query_asset( 'css', 'box-shortcodes' );
+			padma_query_asset( 'css', 'other-shortcodes' );
+			padma_query_asset( 'js', 'other-shortcodes' );
+			return;
 		}
+
+		// Try plugin asset system second
+		if ( function_exists( 'su_query_asset' ) ) {
+			su_query_asset( 'css', 'su-box-shortcodes' );
+			su_query_asset( 'css', 'su-other-shortcodes' );
+			su_query_asset( 'js', 'su-other-shortcodes' );
+			return;
+		}
+
+		// Fallback to direct enqueue
+		wp_enqueue_style(
+			'padma-box-shortcodes-css',
+			get_template_directory_uri() . '/assets/css/psource-shortcodes/box-shortcodes.css',
+			array(),
+			'1.0'
+		);
+
+		wp_enqueue_style(
+			'padma-other-shortcodes-css',
+			get_template_directory_uri() . '/assets/css/psource-shortcodes/other-shortcodes.css',
+			array(),
+			'1.0'
+		);
+
+		wp_enqueue_script(
+			'padma-other-shortcodes-js',
+			get_template_directory_uri() . '/assets/js/psource-shortcodes/other-shortcodes.js',
+			array( 'jquery' ),
+			'1.0',
+			true
+		);
 	}
 }
