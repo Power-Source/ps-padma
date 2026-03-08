@@ -78,10 +78,75 @@ class PadmaVisualElementsBlockSpoiler extends \PadmaBlockAPI {
 	public function setup_elements() {
 		$this->register_block_element(
 			array(
-				'id'       => 'spoiler',
-				'name'     => __( 'spoiler', 'padma' ),
+				'id'       => 'spoiler-item',
+				'name'     => __( 'Spoiler Item', 'padma' ),
 				'selector' => '.su-spoiler',
 			)
+		);
+
+		$this->register_block_element(
+			array(
+				'id'       => 'spoiler-title',
+				'name'     => __( 'Spoiler Titel', 'padma' ),
+				'selector' => '.su-spoiler-title',
+			)
+		);
+
+		$this->register_block_element(
+			array(
+				'id'       => 'spoiler-icon',
+				'name'     => __( 'Spoiler Icon', 'padma' ),
+				'selector' => '.su-spoiler-icon',
+			)
+		);
+
+		$this->register_block_element(
+			array(
+				'id'       => 'spoiler-content',
+				'name'     => __( 'Spoiler Inhalt', 'padma' ),
+				'selector' => '.su-spoiler-content',
+			)
+		);
+	}
+
+	/**
+	 * Ensure spoiler styles and scripts are available in frontend and VE iframe.
+	 */
+	public function enqueue_action( $block_id ) {
+		if ( function_exists( 'padma_query_asset' ) ) {
+			padma_query_asset( 'css', 'box-shortcodes' );
+			padma_query_asset( 'css', 'other-shortcodes' );
+			padma_query_asset( 'js', 'other-shortcodes' );
+			return;
+		}
+
+		if ( function_exists( 'su_query_asset' ) ) {
+			su_query_asset( 'css', 'su-box-shortcodes' );
+			su_query_asset( 'css', 'su-other-shortcodes' );
+			su_query_asset( 'js', 'su-other-shortcodes' );
+			return;
+		}
+
+		wp_enqueue_style(
+			'padma-box-shortcodes-css',
+			get_template_directory_uri() . '/assets/css/psource-shortcodes/box-shortcodes.css',
+			array(),
+			'1.0'
+		);
+
+		wp_enqueue_style(
+			'padma-other-shortcodes-css',
+			get_template_directory_uri() . '/assets/css/psource-shortcodes/other-shortcodes.css',
+			array(),
+			'1.0'
+		);
+
+		wp_enqueue_script(
+			'padma-other-shortcodes-js',
+			get_template_directory_uri() . '/assets/js/psource-shortcodes/other-shortcodes.js',
+			array( 'jquery' ),
+			'1.0',
+			true
 		);
 	}
 
@@ -125,7 +190,21 @@ class PadmaVisualElementsBlockSpoiler extends \PadmaBlockAPI {
 				$anchor = 'none';
 			}
 
-			$html = do_shortcode( '[su_spoiler title="' . $title . '" open="' . $open . '" style="' . $style . '" icon="' . $icon . '" anchor="' . $anchor . '" class=""]' . $content . '[/su_spoiler]' );
+			if ( function_exists( 'padma_render_spoiler' ) ) {
+				$html = padma_render_spoiler(
+					array(
+						'title'   => $title,
+						'open'    => $open,
+						'style'   => $style,
+						'icon'    => $icon,
+						'anchor'  => $anchor,
+						'class'   => '',
+						'content' => $content,
+					)
+				);
+			} else {
+				$html = do_shortcode( '[su_spoiler title="' . $title . '" open="' . $open . '" style="' . $style . '" icon="' . $icon . '" anchor="' . $anchor . '" class=""]' . $content . '[/su_spoiler]' );
+			}
 
 			// remove inline CSS for color.
 			$html = preg_replace( '(style=("|\Z)(.*?)("|\Z))', '', $html );

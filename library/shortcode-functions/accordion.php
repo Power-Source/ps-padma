@@ -54,7 +54,7 @@ function padma_render_accordion( $args = array(), $spoilers = array() ) {
  * @param array $args Spoiler configuration
  * @return string HTML spoiler markup
  */
-function padma_render_spoiler( $args = array() ) {
+function padma_render_spoiler( $args = array(), $content = '' ) {
 	// Merge with defaults
 	$args = wp_parse_args( $args, array(
 		'title'  => __( 'Spoiler title', 'padma-advanced' ),
@@ -66,6 +66,10 @@ function padma_render_spoiler( $args = array() ) {
 		'content' => ''
 	) );
 	
+	if ( ! empty( $content ) && empty( $args['content'] ) ) {
+		$args['content'] = $content;
+	}
+
 	// Sanitize inputs
 	$args['title']   = sanitize_text_field( $args['title'] );
 	$args['style']   = sanitize_text_field( $args['style'] );
@@ -95,11 +99,14 @@ function padma_render_spoiler( $args = array() ) {
 	if ( $args['anchor'] ) {
 		$anchor_attr = ' data-anchor="' . esc_attr( $args['anchor'] ) . '"';
 	}
+
+	$is_open = ( 'yes' === strtolower( (string) $args['open'] ) );
+	$content_style = $is_open ? '' : ' style="display:none"';
 	
 	// Build HTML
 	$html = '<div class="' . implode( ' ', array_filter( $classes ) ) . '"' . $anchor_attr . '>';
 	$html .= '<div class="su-spoiler-title"><span class="su-spoiler-icon"></span>' . esc_html( $args['title'] ) . '</div>';
-	$html .= '<div class="su-spoiler-content su-clearfix" style="display:none">' . do_shortcode( $args['content'] ) . '</div>';
+	$html .= '<div class="su-spoiler-content su-clearfix"' . $content_style . '>' . do_shortcode( $args['content'] ) . '</div>';
 	$html .= '</div>';
 	
 	return $html;
