@@ -15,10 +15,7 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
     }
     
     function init() {
-        // Filter scripts in VE context
-        if ( self::is_in_ve_context() ) {
-            add_filter('script_loader_src', array(__CLASS__, 'filter_scripts'), 10, 2);
-        }
+        // Nichts mehr blockieren - Swiper wird normal geladen
     }
     
     /**
@@ -37,16 +34,11 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
         return false;
     }
     
+    
     /**
      * Filter owl.carousel.js and other conflicting scripts in VE
+     * REMOVED - nicht mehr nötig, Swiper wird normal initialisiert
      */
-    public static function filter_scripts( $src, $handle ) {
-        if ( $handle === 'padma-post-slider-slider-js' ) {
-            error_log('[DEBUG POST-SLIDER] Blocking owl.carousel.js in VE context');
-            return false;
-        }
-        return $src;
-    }
         			
 	function setup_elements() {
 		$this->register_block_element(array(
@@ -126,6 +118,24 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 			'id' => 'dots-item',
 			'name' => 'Dots Item',
 			'selector' => '.swiper-pagination-bullet'
+		));
+
+		$this->register_block_element(array(
+			'id' => 'nav-buttons',
+			'name' => 'Navigation Buttons',
+			'selector' => '.swiper-button-prev, .swiper-button-next'
+		));
+
+		$this->register_block_element(array(
+			'id' => 'nav-button-prev',
+			'name' => 'Back Button',
+			'selector' => '.swiper-button-prev'
+		));
+
+		$this->register_block_element(array(
+			'id' => 'nav-button-next',
+			'name' => 'Next Button',
+			'selector' => '.swiper-button-next'
 		));
 
 		/**
@@ -463,10 +473,16 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 			|| ( class_exists('\\PadmaRoute') && ( \PadmaRoute::is_visual_editor() || \PadmaRoute::is_visual_editor_iframe() ) );
 
 		wp_enqueue_style('padma-post-slider-awesome-css', $path . 'css/font-awesome.css', array(), PADMA_VERSION);
-		wp_enqueue_style('swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css');
-
-		if ( !$in_visual_editor ) {
-			wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', array(), '11.0', false);
+		
+		// Lokale Swiper-Dateien statt CDN
+		wp_enqueue_style('swiper-css', $path . 'css/swiper-bundle.min.css');
+		wp_enqueue_script('swiper-js', $path . 'js/swiper-bundle.min.js', array(), '11.0', false);
+		
+		// Im VE: Scripts direkt laden da enqueue_action evtl nicht greift
+		if ($in_visual_editor) {
+			echo '<link rel="stylesheet" href="' . $path . 'css/swiper-bundle.min.css">';
+			echo '<link rel="stylesheet" href="' . $path . 'css/font-awesome.css">';
+			echo '<script src="' . $path . 'js/swiper-bundle.min.js"></script>';
 		}
 	}
 
@@ -821,74 +837,105 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 
 		$auto_play 		 = ( !empty($block['settings']['auto_play']) ) ? $block['settings']['auto_play']: 'true';
 		$show_items 	 = ( !empty($block['settings']['show_items']) ) ? $block['settings']['show_items']: 3;
-		$show_pagination = ( !empty($block['settings']['show_pagination']) ) ? $block['settings']['show_pagination']: 'true';
 		$autoplay_delay = !empty($block['settings']['autoplay-timeout']) ? intval($block['settings']['autoplay-timeout']) : 5000;
 		$speed = !empty($block['settings']['animation-speed']) ? intval($block['settings']['animation-speed']) : 500;
-		$show_navigation = !empty($block['settings']['show-direction-nav']) ? 'true' : 'false';
-		$show_pagination = !empty($block['settings']['show_pagination']) ? 'true' : 'false';
+		$show_navigation = ( isset($block['settings']['show-direction-nav']) && $block['settings']['show-direction-nav'] === 'false' ) ? 'false' : 'true';
+		$show_pagination = ( isset($block['settings']['show_pagination']) && $block['settings']['show_pagination'] === 'false' ) ? 'false' : 'true';
 		$autoplay = ( !empty($auto_play) && $auto_play !== 'false' )
 			? '{delay: '.$autoplay_delay.', disableOnInteraction: false, pauseOnMouseEnter: true}'
 			: 'false';
+		
+		// Frontend und VE verhalten sich identisch
+		$effective_show_items = $show_items;
+		$effective_autoplay = $autoplay;
+		$effective_navigation = $show_navigation;
+		$effective_pagination = $show_pagination;
+		$path = padma_url() . '/library/blocks-advanced/post-slider/';
 
-		return 'if(document.readyState === "loading") {
-					document.addEventListener("DOMContentLoaded", function() {
-						if(document.querySelector("#tppost-main-slider-'.$block['id'].'")) {
-							if(window.tppostSlider_'.$block['id'].' && typeof window.tppostSlider_'.$block['id'].'.destroy === "function") {
-								window.tppostSlider_'.$block['id'].'.destroy(true, true);
-							}
-							window.tppostSlider_'.$block['id'].' = new Swiper("#tppost-main-slider-'.$block['id'].'", {
-								slidesPerView: '.$show_items.',
-								spaceBetween: 0,
-								loop: document.querySelectorAll("#tppost-main-slider-'.$block['id'].' .swiper-slide").length > 1,
-								watchOverflow: true,
-								speed: '.$speed.',
-								autoplay: document.querySelectorAll("#tppost-main-slider-'.$block['id'].' .swiper-slide").length > 1 ? '.$autoplay.' : false,
-								navigation: ('.$show_navigation.' && document.querySelectorAll("#tppost-main-slider-'.$block['id'].' .swiper-slide").length > 1) ? {
-									nextEl: "#tppost-main-slider-'.$block['id'].' .swiper-button-next",
-									prevEl: "#tppost-main-slider-'.$block['id'].' .swiper-button-prev"
-								} : false,
-								pagination: ('.$show_pagination.' && document.querySelectorAll("#tppost-main-slider-'.$block['id'].' .swiper-slide").length > 1) ? {
-									el: "#tppost-main-slider-'.$block['id'].' .swiper-pagination",
-									clickable: true
-								} : false,
-								breakpoints: {
-									0: {slidesPerView: 1},
-									600: {slidesPerView: 1},
-									979: {slidesPerView: '.$show_items.'},
-									1199: {slidesPerView: '.$show_items.'}
-								}
-							});
+		return '(function() {
+					var sliderSelector = "#tppost-main-slider-'.$block['id'].'";
+					var basePath = "'.$path.'";
+
+					function ensureStyle(id, href) {
+						if (document.getElementById(id)) {
+							return;
 						}
-					});
-				} else {
-					if(document.querySelector("#tppost-main-slider-'.$block['id'].'")) {
-						if(window.tppostSlider_'.$block['id'].' && typeof window.tppostSlider_'.$block['id'].'.destroy === "function") {
+						var link = document.createElement("link");
+						link.id = id;
+						link.rel = "stylesheet";
+						link.href = href;
+						document.head.appendChild(link);
+					}
+
+					function initSwiper_'.$block['id'].'() {
+						var sliderEl = document.querySelector(sliderSelector);
+						if (!sliderEl || typeof Swiper === "undefined") {
+							return false;
+						}
+
+						if (window.tppostSlider_'.$block['id'].' && typeof window.tppostSlider_'.$block['id'].'.destroy === "function") {
 							window.tppostSlider_'.$block['id'].'.destroy(true, true);
 						}
-						window.tppostSlider_'.$block['id'].' = new Swiper("#tppost-main-slider-'.$block['id'].'", {
-							slidesPerView: '.$show_items.',
+
+						window.tppostSlider_'.$block['id'].' = new Swiper(sliderSelector, {
+							slidesPerView: '.$effective_show_items.',
 							spaceBetween: 0,
-							loop: document.querySelectorAll("#tppost-main-slider-'.$block['id'].' .swiper-slide").length > 1,
+							loop: document.querySelectorAll(sliderSelector + " .swiper-slide").length > 1,
 							watchOverflow: true,
 							speed: '.$speed.',
-							autoplay: document.querySelectorAll("#tppost-main-slider-'.$block['id'].' .swiper-slide").length > 1 ? '.$autoplay.' : false,
-							navigation: ('.$show_navigation.' && document.querySelectorAll("#tppost-main-slider-'.$block['id'].' .swiper-slide").length > 1) ? {
-								nextEl: "#tppost-main-slider-'.$block['id'].' .swiper-button-next",
-								prevEl: "#tppost-main-slider-'.$block['id'].' .swiper-button-prev"
+							autoplay: document.querySelectorAll(sliderSelector + " .swiper-slide").length > 1 ? '.$effective_autoplay.' : false,
+							navigation: ('.$effective_navigation.' && document.querySelectorAll(sliderSelector + " .swiper-slide").length > 1) ? {
+								nextEl: sliderSelector + " .swiper-button-next",
+								prevEl: sliderSelector + " .swiper-button-prev"
 							} : false,
-							pagination: ('.$show_pagination.' && document.querySelectorAll("#tppost-main-slider-'.$block['id'].' .swiper-slide").length > 1) ? {
-								el: "#tppost-main-slider-'.$block['id'].' .swiper-pagination",
+							pagination: ('.$effective_pagination.' && document.querySelectorAll(sliderSelector + " .swiper-slide").length > 1) ? {
+								el: sliderSelector + " .swiper-pagination",
 								clickable: true
 							} : false,
 							breakpoints: {
 								0: {slidesPerView: 1},
 								600: {slidesPerView: 1},
-								979: {slidesPerView: '.$show_items.'},
-								1199: {slidesPerView: '.$show_items.'}
+								979: {slidesPerView: '.$effective_show_items.'},
+								1199: {slidesPerView: '.$effective_show_items.'}
 							}
 						});
+
+						return true;
 					}
-				}';
+
+					function bootSwiper_'.$block['id'].'() {
+						ensureStyle("padma-swiper-css", basePath + "css/swiper-bundle.min.css");
+						ensureStyle("padma-post-slider-fa-css", basePath + "css/font-awesome.css");
+
+						if (typeof Swiper !== "undefined") {
+							if (!initSwiper_'.$block['id'].'()) {
+								setTimeout(bootSwiper_'.$block['id'].', 150);
+							}
+							return;
+						}
+
+						var existing = document.getElementById("padma-swiper-js");
+						if (!existing) {
+							var script = document.createElement("script");
+							script.id = "padma-swiper-js";
+							script.src = basePath + "js/swiper-bundle.min.js";
+							script.onload = function() {
+								initSwiper_'.$block['id'].'();
+							};
+							document.head.appendChild(script);
+						} else {
+							setTimeout(bootSwiper_'.$block['id'].', 150);
+						}
+					}
+
+					if (document.readyState === "loading") {
+						document.addEventListener("DOMContentLoaded", bootSwiper_'.$block['id'].');
+					} else {
+						bootSwiper_'.$block['id'].'();
+					}
+
+					setTimeout(bootSwiper_'.$block['id'].', 350);
+				})();';
 	}
 
 	public static function dynamic_css($block_id, $block = false) {
@@ -900,11 +947,55 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 		$focus_effect 		= ( !empty($block['settings']['focus-effect']) ) ? $block['settings']['focus-effect']: 'true';
 		$focus_effect_color 	= ( !empty($block['settings']['focus-effect-color']) ) ? $block['settings']['focus-effect-color']: '#3398db';
 
-		$css = '.post_slider_'.$block['id'] . ' .tps-slider-thumb img{ 
+		$css = '';
+		
+		// Im VE: Swiper CSS direkt laden (falls nicht via enqueue verfügbar)
+		$in_visual_editor = ( function_exists('padma_get') && ( padma_get('ve-iframe') || padma_get('visual-editor-open') ) )
+			|| ( class_exists('\\PadmaRoute') && ( \PadmaRoute::is_visual_editor() || \PadmaRoute::is_visual_editor_iframe() ) );
+		
+		if ($in_visual_editor) {
+			$path = padma_url() . '/library/blocks-advanced/post-slider/';
+			$css .= '@import url("' . $path . 'css/swiper-bundle.min.css");';
+			$css .= '@import url("' . $path . 'css/font-awesome.css");';
+		}
+		
+		// Basis-CSS für Swiper-Container
+		$css .= '.post_slider_'.$block['id'].' .tppost-main-slider.swiper {
+			position: relative;
+			overflow: hidden;
+		}';
+		$css .= '.post_slider_'.$block['id'] . ' .tps-slider-thumb img{ 
 			width: 100%;
 			height: 100%;
 	    	object-fit: contain;
+    	}
+    	
+	    /* Swiper Navigation: nur sichere Basisposition pro Block */
+	    .post_slider_'.$block['id'] . ' .swiper-button-prev,
+	    .post_slider_'.$block['id'] . ' .swiper-button-next {
+	    	z-index: 10;
+	    }
+    	
+    	/* Swiper Pagination (Dots) */
+    	.post_slider_'.$block['id'] . ' .swiper-pagination {
+    		text-align: center;
+    		padding: 15px 0;
+    	}
+    	
+    	.post_slider_'.$block['id'] . ' .swiper-pagination-bullet {
+    		width: 12px !important;
+    		height: 12px !important;
+    		border-radius: 50% !important;
+    		background: #ccc !important;
+    		margin: 0 5px !important;
+    		cursor: pointer;
+    		opacity: 1 !important;
+    	}
+    	
+    	.post_slider_'.$block['id'] . ' .swiper-pagination-bullet-active {
+    		background: #333 !important;
     	}';
+    	
 		switch ($style) {
 
 			case 'style1':

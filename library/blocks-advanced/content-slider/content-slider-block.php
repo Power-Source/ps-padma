@@ -446,18 +446,12 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		$show_navigate = self::should_show_navigate_mode($block);
 		$disable_interactions = $in_visual_editor && !$show_navigate;
 
-		// Lese nav/dots Settings (müssen in dynamic_js verfügbar sein!)
+		// Lese nav/dots Settings
 		$show_nav_setting = ( isset($block['settings']['nav']) && $block['settings']['nav'] === 'false' ) ? false : true;
 		$show_dots_setting = ( isset($block['settings']['dots']) && $block['settings']['dots'] === 'false' ) ? false : true;
 
-		// Debug-Ausgabe für Settings
-		error_log("Content Slider {$block['id']}: in_ve=" . ($in_visual_editor?'yes':'no') . ", nav_setting=" . ($show_nav_setting?'true':'false') . ", dots_setting=" . ($show_dots_setting?'true':'false') . ", navigate=" . ($show_navigate?'yes':'no') . ", disable=" . ($disable_interactions?'yes':'no'));
-
 		// Settings
 		$carouselParams = '';
-		
-		// Debug JS-Ausgabe
-		$carouselParams .= '/* VE: ' . ($in_visual_editor?'yes':'no') . ', Nav Setting: ' . ($show_nav_setting?'true':'false') . ', Navigate: ' . ($show_navigate?'yes':'no') . ' */ ';
 
 		// Items
 		$carouselParams .= 'items:' . ( !empty($block['settings']['items']) && $block['settings']['items'] > 0 ? $block['settings']['items'] : '1' ) . ', ';
@@ -625,32 +619,24 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		// Theme URL für Script-Loading
 		$theme_url = get_template_directory_uri() . '/library/blocks-advanced/content-slider/';
 			 
-		// Im VE: Owl Carousel Library ggf. dynamisch nachladen
+		// Owl Carousel Library ggf. dynamisch nachladen im VE
 		$js = '(function() {
 			function initCarousel() {
 				if(jQuery("#content-slider-'.$block['id'].'" ).length) {
-					console.log("Initializing Owl Carousel '.$block['id'].' with params:", {'.$carouselParams.'});
 					window.carousel_'.$block['id'].' = jQuery("#content-slider-'.$block['id'].'.owl-carousel").owlCarousel({'.$carouselParams.'});
-					console.log("Owl Carousel '.$block['id'].' initialized:", window.carousel_'.$block['id'].');
 				}
 			}
 			
 			function loadOwlCarousel() {
 				if (typeof jQuery !== "undefined" && typeof jQuery.fn.owlCarousel !== "undefined") {
-					// Owl bereits geladen
 					initCarousel();
 				} else if (typeof jQuery !== "undefined") {
-					// jQuery vorhanden, aber Owl fehlt - nachladen
-					console.log("Loading Owl Carousel library for VE...");
 					var script = document.createElement("script");
 					script.src = "'.$theme_url.'js/owl.carousel.min.js";
 					script.onload = function() {
-						console.log("Owl Carousel loaded, initializing...");
 						initCarousel();
 					};
 					document.head.appendChild(script);
-				} else {
-					console.error("jQuery not available for Owl Carousel");
 				}
 			}
 			

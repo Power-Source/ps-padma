@@ -265,6 +265,25 @@ class PadmaVisualElementsBlockPostSliderOptions extends \PadmaBlockOptionsAPI {
 					'label' => 'Focus color',
 					'default' => '#3398db',
 				),
+
+				'show-direction-nav' => array(
+					'type' => 'select',		
+					'name' => 'show-direction-nav',
+					'label' => 'Show navigation arrows',
+					'default' => 'true',
+					'options' => array(
+						'true' => 'Yes',
+						'false' => 'No',
+					)
+				),
+
+				'navigate-mode' => array(
+					'type' => 'checkbox',
+					'default' => false,
+					'name' => 'navigate-mode',
+					'label' => __( 'Navigations-Modus im Editor', 'padma' ),
+					'tooltip' => __( 'Im visuellen Editor durch die Slides navigieren um elementweise zu stylen', 'padma' ),
+				),
 			),
 
 		);
