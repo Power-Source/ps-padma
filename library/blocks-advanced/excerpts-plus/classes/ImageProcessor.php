@@ -111,7 +111,7 @@ class ImageProcessor {
 		
 		// Prüfe ob GD verfügbar ist
 		if (!extension_loaded('gd') || !function_exists('gd_info')) {
-			return '<img src="http://dummyimage.com/150x50/777777/ffffff&text=Missing+GD+Library">';
+			return '<img src="' . esc_url( get_template_directory_uri() . '/library/blocks-advanced/excerpts-plus/img/missing-gd-placeholder.svg' ) . '" alt="Missing GD Library" width="150" height="50">';
 		}
 
 		// Prüfe ob Bild existiert

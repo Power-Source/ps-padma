@@ -124,8 +124,10 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 	}
 
 	public static function enqueue_action($block_id, $block) {
-		wp_enqueue_style('swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css');
-		wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', array(), '11.0', false);
+		$base_url = padma_url() . '/library/blocks-advanced/content-slider/';
+
+		wp_enqueue_style( 'swiper-css', $base_url . 'css/swiper-bundle.min.css', array(), PADMA_VERSION, 'all' );
+		wp_enqueue_script( 'swiper-js', $base_url . 'js/swiper-bundle.min.js', array(), PADMA_VERSION, false );
 	}
 
 	function content($block) {

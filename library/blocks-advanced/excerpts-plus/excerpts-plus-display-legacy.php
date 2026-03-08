@@ -1693,7 +1693,7 @@
                         }
                       }
                     } else {
-                      $image_src = '<img src="http://dummyimage.com/150x50/777777/ffffff&text=Missing+GD+Library">';
+                      $image_src = '<img src="' . esc_url( get_template_directory_uri() . '/library/blocks-advanced/excerpts-plus/img/missing-gd-placeholder.svg' ) . '" alt="Missing GD Library" width="150" height="50">';
                     }
                   }
                 } elseif (!($epv[ 'ep_image_width' ] > 0 && $settings[ 'image-height' ] > 0)) {
