@@ -204,12 +204,16 @@ class PadmaVisualElementsBlockPortfolioCards extends \PadmaBlockAPI {
 		$style_url = padma_url() . '/library/blocks-advanced/portfolio-cards/portfolio-cards.css';
 
 		/* JS */
-		if ( file_exists($script_path) )
+		if ( file_exists($script_path) ) {
 			wp_enqueue_script( 'padma-ve-portfolio-cards', $script_url, array( 'jquery' ), PADMA_VERSION, true );
+			echo '<script src="' . $script_url . '"></script>';
+		}
 
 		/* CSS */
-		if ( file_exists($style_path) )
+		if ( file_exists($style_path) ) {
 			wp_enqueue_style( 'padma-ve-portfolio-cards', $style_url, array(), PADMA_VERSION, 'all' );
+			echo '<link rel="stylesheet" href="' . $style_url . '">';
+		}
 	}
 
 }

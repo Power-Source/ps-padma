@@ -68,6 +68,10 @@ class PadmaNavigationBlock extends PadmaBlockAPI {
 
 		$dependencies = array();
 
+		// Ensure block CSS is available in both frontend and VE iframe contexts
+		wp_enqueue_style('padma-navigation-block', padma_url() . '/library/blocks/navigation/css/navigation.css');
+		echo '<link rel="stylesheet" href="' . padma_url() . '/library/blocks/navigation/css/navigation.css">';
+
 		/* Handle sub menus with super fish */
 		if ( self::does_menu_have_subs( $block ) ) {
 
@@ -78,6 +82,7 @@ class PadmaNavigationBlock extends PadmaBlockAPI {
 			}
 
 			wp_enqueue_script( 'padma-superfish', padma_url() . '/library/blocks/navigation/js/jquery.superfish.js', array_unique( $dependencies ) );
+			echo '<script src="' . padma_url() . '/library/blocks/navigation/js/jquery.superfish.js"></script>';
 
 		}
 
@@ -90,15 +95,20 @@ class PadmaNavigationBlock extends PadmaBlockAPI {
 				case 'vertical':
 					wp_enqueue_script( 'padma-slicknav', padma_url() . '/library/media/js/jquery.slicknav.js', array( 'jquery' ) );
 					wp_enqueue_style( 'padma-slicknav', padma_url() . '/library/media/css/slicknav.css' );
+					echo '<script src="' . padma_url() . '/library/media/js/jquery.slicknav.js"></script>';
+					echo '<link rel="stylesheet" href="' . padma_url() . '/library/media/css/slicknav.css">';
 					break;
 
 				case 'slide-out':
 					wp_enqueue_script( 'padma-pushy', padma_url() . '/library/media/js/pushy.js', array( 'jquery' ) );
 					wp_enqueue_style( 'padma-pushy', padma_url() . '/library/media/css/pushy.css' );
+					echo '<script src="' . padma_url() . '/library/media/js/pushy.js"></script>';
+					echo '<link rel="stylesheet" href="' . padma_url() . '/library/media/css/pushy.css">';
 					break;
 
 				default:
 					wp_enqueue_script( 'padma-selectnav', padma_url() . '/library/blocks/navigation/js/selectnav.js', array( 'jquery' ) );
+					echo '<script src="' . padma_url() . '/library/blocks/navigation/js/selectnav.js"></script>';
 					break;
 			}
 

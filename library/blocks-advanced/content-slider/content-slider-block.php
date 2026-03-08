@@ -150,6 +150,11 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
 		wp_enqueue_style('padma-content-slider-owl-carousel-css', $theme_url . 'css/owl.carousel.min.css');
 		wp_enqueue_style('padma-content-slider-owl-theme-css', $theme_url . 'css/owl.theme.default.min.css');
 		wp_enqueue_script('padma-content-slider-slider-js', $theme_url . 'js/owl.carousel.min.js', array('jquery'), '1.0', false);
+
+		// Fallback direct injection for VE context
+		echo '<link rel="stylesheet" href="' . $theme_url . 'css/owl.carousel.min.css">';
+		echo '<link rel="stylesheet" href="' . $theme_url . 'css/owl.theme.default.min.css">';
+		echo '<script src="' . $theme_url . 'js/owl.carousel.min.js"></script>';
 	}
 
 	public static function dynamic_css($block_id, $block = false) {

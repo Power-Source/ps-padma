@@ -533,23 +533,35 @@ class PadmaVisualElementsBlockPortfolio extends \PadmaBlockAPI {
 		$fontawesome_css_url = padma_url() . '/library/blocks-advanced/portfolio/fontawesome.css';
 
 		/* JS */
-		if ( file_exists($isotope_path) )
+		if ( file_exists($isotope_path) ) {
 			wp_enqueue_script( 'padma-ve-isotope', $isotope_url, array( 'jquery' ), PADMA_VERSION, true );
+			echo '<script src="' . $isotope_url . '"></script>';
+		}
 
-		if ( file_exists($magnific_path) )
+		if ( file_exists($magnific_path) ) {
 			wp_enqueue_script( 'padma-ve-magnific', $magnific_url, array( 'jquery' ), PADMA_VERSION, true );
+			echo '<script src="' . $magnific_url . '"></script>';
+		}
 
-		if ( file_exists($portfolio_script_path) )
+		if ( file_exists($portfolio_script_path) ) {
 			wp_enqueue_script( 'padma-ve-portfolio', $portfolio_script_url, array( 'jquery', 'padma-ve-isotope' ), PADMA_VERSION, true );
+			echo '<script src="' . $portfolio_script_url . '"></script>';
+		}
 
 		/* CSS */
-		if ( file_exists($magnific_css_path) )
+		if ( file_exists($magnific_css_path) ) {
 			wp_enqueue_style( 'padma-ve-magnific', $magnific_css_url, array(), PADMA_VERSION, 'all' );
+			echo '<link rel="stylesheet" href="' . $magnific_css_url . '">';
+		}
 
-		if ( file_exists($portfolio_css_path) )
+		if ( file_exists($portfolio_css_path) ) {
 			wp_enqueue_style( 'padma-ve-portfolio', $portfolio_css_url, array(), PADMA_VERSION, 'all' );
+			echo '<link rel="stylesheet" href="' . $portfolio_css_url . '">';
+		}
 
-		if ( file_exists($fontawesome_css_path) )
+		if ( file_exists($fontawesome_css_path) ) {
 			wp_enqueue_style( 'padma-ve-fontawesome', $fontawesome_css_url, array(), PADMA_VERSION, 'all' );
+			echo '<link rel="stylesheet" href="' . $fontawesome_css_url . '">';
+		}
 	}
 }

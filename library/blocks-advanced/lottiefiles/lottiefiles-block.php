@@ -165,25 +165,16 @@ class PadmaVisualElementsBlockLottieFiles extends \PadmaBlockAPI {
 	
 	public static function enqueue_action($block_id, $block = false) {
 
-		$in_visual_editor = ( function_exists('padma_get') && ( padma_get('ve-iframe') || padma_get('visual-editor-open') ) )
-			|| ( class_exists('\\PadmaRoute') && ( \PadmaRoute::is_visual_editor() || \PadmaRoute::is_visual_editor_iframe() ) );
-
-		error_log('[LOTTIE DEBUG] enqueue_action called. in_visual_editor=' . var_export($in_visual_editor, true) . ' | ve-iframe=' . var_export(padma_get('ve-iframe'), true) . ' | visual-editor=' . var_export(padma_get('visual-editor-open'), true));
-
-		if ( $in_visual_editor ) {
-			error_log('[LOTTIE DEBUG] Skipping enqueue - detected VE context');
-			return;
-		}
-		
 		if ( !$block )
 			$block = \PadmaBlocksData::get_block($block_id);
 				
 		$path = padma_url() . '/library/blocks-advanced/lottiefiles/';
 
-		error_log('[LOTTIE DEBUG] Enqueueing lottie.min.js from: ' . $path . 'js/lottie.min.js');
-
 		/* JS */		
 		wp_enqueue_script( 'padma-lottiefiles', $path . 'js/lottie.min.js', array(), PADMA_VERSION, true );
+
+		// Fallback direct injection for VE context
+		echo '<script src="' . $path . 'js/lottie.min.js"></script>';
 	}
 
 	public static function add_json_upload_mime($mimes) {

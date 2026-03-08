@@ -95,6 +95,33 @@
       wp_enqueue_style('Padma-excerpts-plus-css', EP_BLOCK_URL . 'css/excerpts_plus2.css');
       //jQuery Tools
       //  wp_enqueue_script('jquerytools-js', EP_BLOCK_URL.'/js/jquery.tools.mod.min.js', array('jquery'));
+
+      /* VE Fallback: Direct asset injection for Visual Editor iframe context */
+      if ( function_exists( '\Padma_visual_editor' ) && \Padma_visual_editor() ) {
+        // Core CSS
+        echo '<link rel="stylesheet" href="' . EP_BLOCK_URL . 'css/excerpts_plus2.css">';
+        
+        // jQuery UI (for quickread)
+        if ( $pz_uses_quickread || $pz_meta1 || $pz_meta2 || $pz_meta3 ) {
+          echo '<link rel="stylesheet" href="' . EP_BLOCK_URL . 'css/jquery-ui.custom.css">';
+          echo '<script src="' . EP_BLOCK_URL . 'js/quickread.js"></script>';
+        }
+        
+        // Dotdotdot (ellipses)
+        if ( isset( $settings['ep_use_dotdotdot'] ) && $settings['ep_use_dotdotdot'] ) {
+          echo '<script src="' . EP_BLOCK_URL . 'js/jquery.dotdotdot-1.5.6.js"></script>';
+        }
+        
+        // Slide content
+        if ( isset( $settings['ep-slide-content'] ) && $settings['ep-slide-content'] ) {
+          echo '<script src="' . EP_BLOCK_URL . 'js/slide-content.js"></script>';
+        }
+        
+        // Cycle (slider)
+        if ( isset( $settings['use-slider'] ) && $settings['use-slider'] ) {
+          echo '<script src="' . EP_BLOCK_URL . 'js/jquery.cycle/jquery.cycle.all.mod.js"></script>';
+        }
+      }
     }
 
     static function init_action($block_id, $block, $original_block = null)

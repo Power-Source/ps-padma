@@ -77,6 +77,19 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 * Visual Editor: Kritischen Bug im "Switch Block Type" Feature behoben
 * Visual Editor: Block-Switching behält nun korrekt die Datenbank-ID (desired-id Mechanismus)
 * Visual Editor: Operation-Reihenfolge bei Block-Type-Wechsel korrigiert
+* Pin Board Block: Visual Editor Asset-Loading und Initialisierung mit Retry-Bootstrap verbessert
+* Pin Board Block: jQuery Deprecations behoben (isFunction, bind, delegate → on)
+* Pin Board Block: Design-Editor Selektoren korrigiert (.custom-fields img, ID-Duplikate behoben)
+* Pin Board Block: Vollständige Lokalisierung auf Deutsch Informell (Optionen, Pagination, Metadata)
+* Visual Editor Robustness: 7 Advanced Blocks mit direkten Asset-Fallbacks für VE-Iframe-Kontext gehärtet
+* Content-Slider (Owl+Swiper Varianten): VE-Fallback für externe Carousel-Assets hinzugefügt
+* Portfolio Block: VE-Fallback für Isotope, Magnific Popup und FontAwesome Assets hinzugefügt
+* Portfolio-Cards Block: VE-Fallback für Block-spezifische Scripts und Styles hinzugefügt
+* Content-to-Cards Block: VE-Fallback für Interaktivitäts-Assets hinzugefügt
+* Lottiefiles Block: VE-Skip-Logik entfernt, direkter Script-Fallback für Lottie-Player implementiert
+* Excerpts-Plus Block: VE-Fallback für jQuery UI, Cycle, DotDotDot und Slide-Content Assets hinzugefügt
+* Gallery Block: VE-Asset-Loading mit direkten Fallback-Injections verstärkt
+* Navigation Block: VE-Fallback für Menu-Dependencies (Superfish, SlickNav, Pushy) hinzugefügt
 * INFO: Minified Files können nicht direkt editiert werden - nutze SCRIPT_DEBUG=true für Development
 
 = 1.0.8 =

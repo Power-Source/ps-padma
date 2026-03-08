@@ -222,9 +222,11 @@ class PadmaVisualElementsBlockContentToCards extends \PadmaBlockAPI {
 
 		// CSS.
 		wp_enqueue_style( 'padma-ve-content-to-cards', $path . 'content-to-cards.css', array(), PADMA_VERSION );
+		echo '<link rel="stylesheet" href="' . $path . 'content-to-cards.css">';
 
 		/* JS */
 		wp_enqueue_script( 'padma-ve-content-to-cards', $path . 'content-to-cards.js', array( 'jquery' ), PADMA_VERSION, true );
+		echo '<script src="' . $path . 'content-to-cards.js"></script>';
 	}
 
 }
