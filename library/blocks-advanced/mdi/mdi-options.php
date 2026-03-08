@@ -102,7 +102,7 @@ class PadmaMDIBlockOptions extends \PadmaBlockOptionsAPI {
 		$data = (array) json_decode( file_get_contents( __DIR__ . '/meta.json' ) );
 
 		foreach ( $data as $key => $icon ) {
-			$icons[ $icon->name ] = sprintf( '<img loading=lazy src= "https://cdn.padmaunlimited.com/blocks/mdi/svg/%s.svg" style="width:24px;height:24px" />', $icon->name );
+			$icons[ $icon->name ] = sprintf( '<i class="mdi mdi-%s" style="font-size:24px;line-height:24px;"></i>', esc_attr( $icon->name ) );
 		}
 		return $icons;
 	}
