@@ -124,34 +124,15 @@ class PadmaVisualElementsBlockContentToCards extends \PadmaBlockAPI {
 
 		$posts = \PadmaQuery::get_posts( $block );
 
-		$css    = '';
-		$total  = count( $posts );
-		$offset = 100 / ( $total + 1 );
-
-		$offset_incremental = $offset;
-
-		$counter = 1;
+		$css = '';
 
 		foreach ( $posts as $key => $post ) {
 
 			$image = get_the_post_thumbnail_url( $post->ID );
 			$css  .= '.single-post.post-id-' . $post->ID . ' .cd-title::before { background-image: url(' . $image . '); }';
-
-			if ( $counter > 1 ) {
-				$css .= '.ve-card-posts-container .single-post.post-id-' . $post->ID . '{';
-				$css .= '-webkit-transform: translateY(' . $offset_incremental . '%);';
-				$css .= '-moz-transform: translateY(' . $offset_incremental . '%);';
-				$css .= '-ms-transform: translateY(' . $offset_incremental . '%);';
-				$css .= '-o-transform: translateY(' . $offset_incremental . '%);';
-				$css .= 'transform: translateY(' . $offset_incremental . '%);';
-				$css .= '}';
-			}
-
-			$offset_incremental += $offset;
-			++$counter;
 		}
 
-		$css .= '.cd-title{ height:' . $offset . '%; }';
+		$css .= '.ve-card-posts-container .cd-title{ min-height: 220px; height: auto; }';
 		return $css;
 
 	}

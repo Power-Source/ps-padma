@@ -15,29 +15,41 @@ jQuery(document).ready(function($){
 		}
 		
 		triggerNav.on('click', function(){
-			if( triggerNav.hasClass('project-open') ) {
-				//close project
-				projectsContainer.removeClass('project-open').find('.selected').removeClass('selected').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function(){
-					$(this).children('.ve-card-post-info').scrollTop(0).removeClass('has-boxshadow');
+			projectsContainer.find('.single-post.selected').removeClass('selected').find('.ve-card-post-info').scrollTop(0).removeClass('has-boxshadow');
+			triggerNav.add(logo).removeClass('project-open');
+		});
 
-				});
-				triggerNav.add(logo).removeClass('project-open');
+		projectsContainer.on('click', '.single-post > .cd-title', function(e){
+			e.preventDefault();
+
+			var selectedProject = $(this).closest('.single-post');
+			var alreadyOpen = selectedProject.hasClass('selected');
+
+			projectsContainer.find('.single-post.selected').removeClass('selected').find('.ve-card-post-info').scrollTop(0).removeClass('has-boxshadow');
+
+			if (!alreadyOpen) {
+				selectedProject.addClass('selected');
+				projectsContainer.add(triggerNav).add(logo).addClass('project-open');
+			} else {
+				projectsContainer.add(triggerNav).add(logo).removeClass('project-open');
 			}
 		});
 
-		projectsContainer.on('click', '.single-post', function(){
-			var selectedProject = $(this);		
-			//open project
-			selectedProject.addClass('selected');
-			projectsContainer.add(triggerNav).add(logo).addClass('project-open');
-		});
-
 		projectsContainer.on('click', '.ve-card-scroll', function(){
-			//scroll down when clicking on the .ve-card-scroll arrow
-			var visibleProjectContent =  projectsContainer.find('.selected').children('.ve-card-post-info'),
-				windowHeight = $(window).height();
+			if (!projectsContainer.find('.single-post.selected').length) {
+				return;
+			}
+			
+			var selectedCard = $(this).closest('.single-post');
+			if (!selectedCard.hasClass('selected')) {
+				return;
+			}
 
-			visibleProjectContent.animate({'scrollTop': windowHeight}, 300); 
+			//scroll down when clicking on the .ve-card-scroll arrow
+			var visibleProjectContent = selectedCard.children('.ve-card-post-info'),
+				scrollStep = Math.max(140, Math.round(visibleProjectContent.innerHeight() * 0.65));
+
+			visibleProjectContent.animate({'scrollTop': visibleProjectContent.scrollTop() + scrollStep}, 280); 
 		});
 
 		//add/remove the .has-boxshadow to the project content while scrolling 

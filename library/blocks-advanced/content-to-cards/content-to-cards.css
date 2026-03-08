@@ -141,23 +141,34 @@
 
 -------------------------------- */
 .ve-card-posts-container {
-  height: 100vh;
-  min-height: 100vh;
+  height: auto;
+  min-height: 0;
   width: 100%;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
+}
+
+.ve-card-posts-container ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 18px;
 }
 .ve-card-posts-container .single-post {
-  position: absolute;
+  position: relative;
   z-index: 2;
-  top: 0px;
-  left: 0px;
-  height: 100%;
+  top: auto;
+  left: auto;
+  height: auto;
   width: 100%;
   cursor: pointer;
+  overflow: hidden;
+  border-radius: 8px;
   -webkit-transition: -webkit-transform 0.4s;
   -moz-transition: -moz-transform 0.4s;
-  transition: transform 0.4s;
+  transition: transform 0.25s, box-shadow 0.25s;
   /* Force hardware acceleration */
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -170,6 +181,7 @@
 .ve-card-posts-container .single-post.selected {
   /* selected project */
   cursor: auto;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16);
   -webkit-transform: translateY(0);
   -moz-transform: translateY(0);
   -ms-transform: translateY(0);
@@ -177,12 +189,11 @@
   transform: translateY(0);
 }
 .ve-card-posts-container .single-post.selected ~ li {
-  /* hide siblings projects */
-  -webkit-transform: translateY(100%);
-  -moz-transform: translateY(100%);
-  -ms-transform: translateY(100%);
-  -o-transform: translateY(100%);
-  transform: translateY(100%);
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  -o-transform: none;
+  transform: none;
 }
 
 .cd-title {
@@ -199,7 +210,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  height: 300%;
+  height: 100%;
   width: 100%;
   background-position: center center;
   background-repeat: no-repeat;
@@ -290,12 +301,11 @@
   transform: translateX(-50%) translateY(-50%) scaleX(0);
 }
 .selected .cd-title h2 {
-  /* vertically center h2 in the full-height image*/
-  -webkit-transform: translateY(100%);
-  -moz-transform: translateY(100%);
-  -ms-transform: translateY(100%);
-  -o-transform: translateY(100%);
-  transform: translateY(100%);
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+  transform: translateY(0);
 }
 @media only screen and (min-width: 1170px) {
   .cd-title h2 {
@@ -304,26 +314,22 @@
 }
 
 .ve-card-post-info {
-  position: absolute;
+  position: relative;
   z-index: 2;
-  top: 0;
-  left: 0;
+  top: auto;
+  left: auto;
   width: 100%;
-  height: 100%;
-  overflow: auto;
-  opacity: 0;
-  visibility: hidden;
-  -webkit-transition: opacity 0.4s, visibility 0.4s;
-  -moz-transition: opacity 0.4s, visibility 0.4s;
-  transition: opacity 0.4s, visibility 0.4s;
+  height: auto;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 1;
+  visibility: visible;
+  -webkit-transition: max-height 0.35s ease;
+  -moz-transition: max-height 0.35s ease;
+  transition: max-height 0.35s ease;
 }
 .ve-card-post-info::before {
-  /* use to push the .content-wrapper below the intro project image */
-  content: '';
-  display: block;
-  height: 100%;
-  width: 100%;
-  pointer-events: none;
+  content: none;
 }
 .ve-card-post-info .content-wrapper {
   position: relative;
@@ -342,12 +348,10 @@
   line-height: 2;
 }
 .selected .ve-card-post-info {
+  max-height: 420px;
+  overflow-y: auto;
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  opacity: 1;
-  visibility: visible;
-  -webkit-transition: opacity 0s, visibility 0s;
-  -moz-transition: opacity 0s, visibility 0s;
-  transition: opacity 0s, visibility 0s;
 }
 .ve-card-post-info.has-boxshadow .content-wrapper {
   /* add a box-shadow while scrolling over the background image */
@@ -364,9 +368,9 @@
 
 .ve-card-scroll {
   /* scroll down arrow */
-  position: fixed;
-  z-index: 1;
-  top: calc(100% - 100px);
+  position: sticky;
+  z-index: 3;
+  top: 8px;
   left: 50%;
   right: auto;
   -webkit-transform: translateX(-50%);
@@ -384,19 +388,24 @@
   background: transparent url(data:image/svg;base64,PHN2ZyBjbGFzcz0ibmMtaWNvbiBvdXRsaW5lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjQ4cHgiIGhlaWdodD0iNDhweCIgdmlld0JveD0iMCAwIDQ4IDQ4Ij48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLCAwKSI+Cjxwb2x5bGluZSBmaWxsPSJub25lIiBzdHJva2U9IiNmZmZmZmYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InNxdWFyZSIgc3Ryb2tlLW1pdGVybGltaXQ9IjEwIiBwb2ludHM9IjQsMTQgMjQsMzQgNDQsMTQgCgkiIHN0cm9rZS1saW5lam9pbj0ibWl0ZXIiPjwvcG9seWxpbmU+CjwvZz48L3N2Zz4=) no-repeat center center;
   opacity: 0;
   visibility: hidden;
+  margin: 8px auto 0;
   -webkit-transition: opacity 0.4s, visibility 0.4s;
   -moz-transition: opacity 0.4s, visibility 0.4s;
   transition: opacity 0.4s, visibility 0.4s;
 }
 .project-open .ve-card-scroll {
-  opacity: 1;
-  visibility: visible;
+  opacity: 0;
+  visibility: hidden;
   -webkit-animation: cd-translate 1.2s 0.4s;
   -moz-animation: cd-translate 1.2s 0.4s;
   animation: cd-translate 1.2s 0.4s;
   -webkit-animation-iteration-count: 2;
   -moz-animation-iteration-count: 2;
   animation-iteration-count: 2;
+}
+.single-post.selected .ve-card-scroll {
+  opacity: 1;
+  visibility: visible;
 }
 .project-open .has-boxshadow .ve-card-scroll {
   opacity: 0;
