@@ -31,13 +31,20 @@ https://github.com/imakewebthings/waypoints/blob/master/licenses.txt
 
 	pinLoadSocialIframes = function (context) {
 
-		$(context).find('.facebook-share-button, .twitter-share-button, .pin-it-button img').each(function () {
+		$(context).find('.facebook-share-button, .twitter-share-button, .x-share-button, .pin-it-button, .pin-it-button img').each(function () {
+
+			var dataSrc = $(this).data('src');
+
+			if (!dataSrc) {
+				$(this).animate({opacity: 1}, 300);
+				return;
+			}
 
 			$(this).on('load', function () {
 				$(this).animate({opacity: 1}, 300);
 			});
 
-			$(this).attr('src', $(this).data('src'));
+			$(this).attr('src', dataSrc);
 
 		});
 

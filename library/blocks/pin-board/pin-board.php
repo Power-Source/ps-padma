@@ -44,10 +44,6 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 			/* JS */
 			wp_enqueue_script('padma-pin-board', padma_url() . '/library/blocks/pin-board/js/pin-board.js', array('jquery'));
 
-			// Fallback direct injection for VE context
-			echo '<link rel="stylesheet" href="' . padma_url() . '/library/blocks/pin-board/css/pin-board.css">';
-			echo '<script src="' . padma_url() . '/library/blocks/pin-board/js/pin-board.js"></script>';
-
 			/* Variables */
 			wp_localize_script('padma-pin-board', 'PadmaPinBoard', array(
 				'ajaxURL' => admin_url('admin-ajax.php'),
@@ -75,39 +71,39 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 
 			$js = "
 			(function() {
-					var basePath = '" . padma_url() . "/library/blocks/pin-board/';
+				var basePath = '" . padma_url() . "/library/blocks/pin-board/';
 
-					window.PadmaPinBoard = window.PadmaPinBoard || {
-						ajaxURL: '" . admin_url('admin-ajax.php') . "',
-						isArchive: false,
-						isSearch: false,
-						wpQueryVars: ''
-					};
+				window.PadmaPinBoard = window.PadmaPinBoard || {
+					ajaxURL: '" . admin_url('admin-ajax.php') . "',
+					isArchive: false,
+					isSearch: false,
+					wpQueryVars: ''
+				};
 
-					function ensureStyle(href) {
-						var links = document.getElementsByTagName('link');
-						for (var index = 0; index < links.length; index++) {
-							if (links[index].href === href) {
-								return;
-							}
+				function ensureStyle(href) {
+					var links = document.getElementsByTagName('link');
+					for (var index = 0; index < links.length; index++) {
+						if (links[index].href === href) {
+							return;
 						}
-						var link = document.createElement('link');
-						link.rel = 'stylesheet';
-						link.href = href;
-						document.head.appendChild(link);
 					}
+					var link = document.createElement('link');
+					link.rel = 'stylesheet';
+					link.href = href;
+					document.head.appendChild(link);
+				}
 
-					function ensureScript(src) {
-						var scripts = document.getElementsByTagName('script');
-						for (var index = 0; index < scripts.length; index++) {
-							if (scripts[index].src === src) {
-								return;
-							}
+				function ensureScript(src) {
+					var scripts = document.getElementsByTagName('script');
+					for (var index = 0; index < scripts.length; index++) {
+						if (scripts[index].src === src) {
+							return;
 						}
-						var script = document.createElement('script');
-						script.src = src;
-						document.head.appendChild(script);
 					}
+					var script = document.createElement('script');
+					script.src = src;
+					document.head.appendChild(script);
+				}
 
 				function initPinBoard_" . $block_id . "() {
 					if (typeof window.setupPinBoardBlock !== 'function') {
@@ -129,6 +125,11 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 				}
 
 				function bootPinBoard_" . $block_id . "() {
+					if (typeof window.jQuery === 'undefined') {
+						setTimeout(bootPinBoard_" . $block_id . ", 120);
+						return;
+					}
+
 					ensureStyle(basePath + 'css/pin-board.css');
 					ensureScript(basePath + 'js/pin-board.js');
 
@@ -899,6 +900,57 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 			));
 
 			$this->register_block_element(array(
+				'id' 			=> 'pin-social',
+				'name' 			=> __('Pin Social-Container','padma'),
+				'selector' 		=> '.pin-board-pin-social, .pin-board-pin-thumbnail-social',
+			));
+
+			$this->register_block_element(array(
+				'parent' 		=> 'pin-social',
+				'id' 			=> 'pin-social-button',
+				'name' 			=> __('Social-Button','padma'),
+				'selector' 		=> '.pin-board-social-btn',
+				'states' 		=> array(
+					'Hover' => '.pin-board-social-btn:hover',
+				),
+			));
+
+			$this->register_block_element(array(
+				'parent' 		=> 'pin-social-button',
+				'id' 			=> 'pin-social-logo',
+				'name' 			=> __('Social-Logo','padma'),
+				'selector' 		=> '.pin-board-social-btn .pin-board-social-logo',
+			));
+
+			$this->register_block_element(array(
+				'parent' 		=> 'pin-social-button',
+				'id' 			=> 'pin-social-label',
+				'name' 			=> __('Social-Label','padma'),
+				'selector' 		=> '.pin-board-social-btn .pin-board-social-label',
+			));
+
+			$this->register_block_element(array(
+				'parent' 		=> 'pin-social',
+				'id' 			=> 'pin-social-pinterest',
+				'name' 			=> __('Pinterest Button','padma'),
+				'selector' 		=> '.pin-it-button',
+			));
+
+			$this->register_block_element(array(
+				'parent' 		=> 'pin-social',
+				'id' 			=> 'pin-social-x',
+				'name' 			=> __('X Button','padma'),
+				'selector' 		=> '.x-share-button, .twitter-share-button',
+			));
+
+			$this->register_block_element(array(
+				'parent' 		=> 'pin-social',
+				'id' 			=> 'pin-social-facebook',
+				'name' 			=> __('Facebook Button','padma'),
+				'selector' 		=> '.facebook-share-button',
+			));
+
+			$this->register_block_element(array(
 				'id' 			=> 'pagination-button',
 				'name' 			=> __('Paginierungsbutton','padma'),
 				'selector' 		=> '.pin-board-pagination a',
@@ -1002,7 +1054,7 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 			if ( !$url || !$image_url )
 				return;
 
-			echo '<a href="http://pinterest.com/pin/create/button/?url=' . rawurlencode($url) . '&media=' . rawurlencode($image_url) . '" class="pin-it-button" count-layout="horizontal"><img border="0" src="" data-src="//assets.pinterest.com/images/PinExt.png" title="Bei Pinterest merken" /></a>';
+			echo '<a href="https://pinterest.com/pin/create/button/?url=' . rawurlencode( $url ) . '&media=' . rawurlencode( $image_url ) . '" class="pin-board-social-btn pin-it-button" target="_blank" rel="noopener noreferrer nofollow" title="Bei Pinterest merken"><span class="pin-board-social-logo" aria-hidden="true">P</span><span class="pin-board-social-label">Pinterest</span></a>';
 
 		}
 
@@ -1012,7 +1064,19 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 			if ( !$url )
 				return;
 
-			echo '<iframe allowtransparency="true" frameborder="0" scrolling="no" data-src="http://platform.twitter.com/widgets/tweet_button.1340179658.html#_=1343335678535&amp;count=none&amp;hashtags=' . str_replace('#', '', $hashtag) . '&amp;id=twitter-widget-0&amp;lang=en&amp;original_referer=' . rawurlencode($url) . '&amp;related=' . $username . '&amp;size=m&amp;text=' . rawurlencode($title) . '&amp;url=' . rawurlencode($url) . '" class="twitter-share-button" title="Twitter-Teilen"></iframe>';
+			$share_url = 'https://twitter.com/intent/tweet?text=' . rawurlencode( $title ) . '&url=' . rawurlencode( $url );
+
+			$clean_hashtag = trim( str_replace( '#', '', (string) $hashtag ) );
+			if ( ! empty( $clean_hashtag ) ) {
+				$share_url .= '&hashtags=' . rawurlencode( $clean_hashtag );
+			}
+
+			$clean_username = ltrim( (string) $username, '@' );
+			if ( ! empty( $clean_username ) ) {
+				$share_url .= '&via=' . rawurlencode( $clean_username );
+			}
+
+			echo '<a href="' . esc_url( $share_url ) . '" class="pin-board-social-btn x-share-button twitter-share-button" target="_blank" rel="noopener noreferrer nofollow" title="Auf X teilen"><span class="pin-board-social-logo" aria-hidden="true">X</span><span class="pin-board-social-label">X</span></a>';
 
 		}
 
@@ -1022,7 +1086,7 @@ if ( !class_exists('PadmaPinBoardCoreBlock') ) {
 			if ( !$url )
 				return;
 
-			echo '<iframe class="facebook-share-button facebook-' . $verb . '-button" data-src="//www.facebook.com/plugins/like.php?href=' . rawurlencode($url) . '&amp;send=false&amp;layout=button_count&amp;width=90&amp;show_faces=false&amp;action=' . strtolower($verb) . '&amp;colorscheme=light&amp;font=lucida+grande&amp;height=21" scrolling="no" frameborder="0" allowTransparency="true"></iframe>';
+			echo '<a href="https://www.facebook.com/sharer/sharer.php?u=' . rawurlencode( $url ) . '" class="pin-board-social-btn facebook-share-button facebook-' . $verb . '-button" target="_blank" rel="noopener noreferrer nofollow" title="Auf Facebook teilen"><span class="pin-board-social-logo" aria-hidden="true">f</span><span class="pin-board-social-label">Facebook</span></a>';
 
 		}
 
