@@ -259,33 +259,3 @@ add_action('wp_ajax_padma_reset_performance_stats', function() {
     PadmaSliderOptimizationConfig::reset_stats();
     wp_send_json_success('Stats reset');
 });
-
-/**
- * Admin Bar Menu (für schnellen Zugriff auf Stats)
- */
-add_action('admin_bar_menu', function($wp_admin_bar) {
-    if (!current_user_can('manage_options')) {
-        return;
-    }
-
-    $stats = PadmaSliderOptimizationConfig::get_cache_stats();
-
-    $wp_admin_bar->add_menu(array(
-        'id' => 'padma-performance',
-        'title' => 'Padma: ' . $stats['hit_rate'] . '% Hit Rate',
-        'href' => '#'
-    ));
-
-    $wp_admin_bar->add_menu(array(
-        'parent' => 'padma-performance',
-        'id' => 'padma-cache-hits',
-        'title' => 'Cache Hits: ' . $stats['hits']
-    ));
-
-    $wp_admin_bar->add_menu(array(
-        'parent' => 'padma-performance',
-        'id' => 'padma-cache-misses',
-        'title' => 'Cache Misses: ' . $stats['misses']
-    ));
-
-}, 100);
