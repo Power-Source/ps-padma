@@ -2,7 +2,7 @@
 Contributors: PSOURCE
 Requires at least: 5.0
 Tested up to: WordPress 8.6, ClassicPress 2.6.0
-Version: 1.0.9
+Version: 1.1.0
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -58,6 +58,11 @@ Hier entlang: https://power-source.github.io/ps-padma/
 Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 
 == Changelog ==
+
+= 1.1.0 =
+* Visual Editor: qTip2/jQuery-Offset-Fehler behoben (`elem.getClientRects is not a function`)
+* Designer: Erfassen und Hover/Tooltip-Verhalten für normale Seitenelemente stabilisiert
+* qTip2 Viewport-Berechnung für `window`/`document` robust gemacht (kein fehlerhafter `offset()`-Aufruf mehr)
 
 = 1.0.9 =
 * jQuery Migrate Deprecation Warnings behoben

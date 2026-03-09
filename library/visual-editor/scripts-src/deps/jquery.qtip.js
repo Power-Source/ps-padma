@@ -2627,7 +2627,7 @@ $.extend(TRUE, QTIP.defaults, {
 	viewportWidth = viewport[0] === window ? viewport.width() : viewport.outerWidth(FALSE);
 	viewportHeight = viewport[0] === window ? viewport.height() : viewport.outerHeight(FALSE);
 	viewportScroll = { left: fixed ? 0 : viewport.scrollLeft(), top: fixed ? 0 : viewport.scrollTop() };
-	viewportOffset = viewport.offset() || adjusted;
+	viewportOffset = viewport[0] === window || viewport[0] === document ? adjusted : (viewport.offset() || adjusted);
 
 	// Generic calculation method
 	function calculate(side, otherSide, type, adjust, side1, side2, lengthName, targetLength, elemLength) {
