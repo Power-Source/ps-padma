@@ -197,7 +197,6 @@ class PadmaMetaBoxSEO extends PadmaAdminMetaBoxAPI {
 			'id' => 'nofollow',
 			'group' => 'seo',
 			'name' => __('<code>nofollow</code> Links in diesem Eintrag.','padma'),
-			'type' => 'checkbox',
 				'type' => 'checkbox',
 				'description' => __('Noarchive wird verwendet, um Suchmaschinen daran zu hindern, eine zwischengespeicherte Kopie des Eintrags zu speichern. Standardmäßig behalten die Suchmaschinen sichtbare Kopien aller indexierten Seiten bei, die über den Link "Zwischengespeichert" in den Suchergebnissen für Suchende zugänglich sind. Aktivieren Sie dieses Kästchen, um Suchmaschinen daran zu hindern, zwischengespeicherte Kopien dieses Eintrags zu speichern.','padma')
 			),

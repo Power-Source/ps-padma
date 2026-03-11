@@ -143,6 +143,10 @@ abstract class PadmaAdminMetaBoxAPI {
 
 		foreach ( $this->inputs as $name => $input ) {
 
+			if ( ! is_array( $input ) || empty( $input['type'] ) || empty( $input['id'] ) ) {
+				continue;
+			}
+
 			/**
 			 * Change hyphens to underscores with the input types since methods/functions can't have hyphens
 			 */
