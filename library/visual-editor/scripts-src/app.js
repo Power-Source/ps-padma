@@ -54,7 +54,11 @@ require(['jquery', 'util.loader', 'Sortable', 'sortable-adapter', 'vanilla-tabs'
 	require(['util.tour'], function (tour) {
 
 		if ( Padma.ranTour[Padma.mode] == false && Padma.ranTour.legacy == false ) {
-			tour.start();
+			if ( typeof tour.startWhenReady == 'function' ) {
+				tour.startWhenReady();
+			} else {
+				tour.start();
+			}
 		}
 
 	});

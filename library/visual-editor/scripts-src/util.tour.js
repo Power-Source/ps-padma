@@ -1,5 +1,51 @@
 define(['jquery', 'util.tooltips', 'helper.boxes', 'modules/panel'], function($, tooltips, panel) {
 
+	var resolveStepTarget = function(step) {
+
+		if ( !step )
+			return $(window);
+
+		if ( step.target == 'window' )
+			return $(window);
+
+		if ( typeof step.target == 'string' ) {
+			var domTarget = $(step.target).first();
+			return domTarget.length ? domTarget : $(window);
+		}
+
+		if ( step.target && step.target.jquery )
+			return step.target.length ? step.target.first() : $(window);
+
+		if ( typeof step.iframeTarget == 'string' && typeof $i == 'function' ) {
+			var iframeTarget = $i(step.iframeTarget).first();
+			return iframeTarget.length ? iframeTarget : $(window);
+		}
+
+		return $(window);
+
+	};
+
+	var canStartTourForMode = function() {
+
+		if ( Padma.mode == 'grid' ) {
+			return !!(
+				$('li#mode-grid').length
+				&& $('#layout-selector-select-content').length
+				&& $('div#box-grid-manager').length
+			);
+		}
+
+		if ( Padma.mode == 'design' ) {
+			return !!(
+				$('#side-panel-top').length
+				&& $('#toggle-inspector').length
+			);
+		}
+
+		return false;
+
+	};
+
 	/* Grid */
 	tourStepsGrid = [
 		{
@@ -163,7 +209,39 @@ define(['jquery', 'util.tooltips', 'helper.boxes', 'modules/panel'], function($,
 	];
 
 	return {
+		startWhenReady: function(maxAttempts, delayMs) {
+
+			var self = this;
+
+			var attempts = typeof maxAttempts == 'number' ? maxAttempts : 40;
+			var delay = typeof delayMs == 'number' ? delayMs : 250;
+
+			if ( canStartTourForMode() ) {
+				return self.start();
+			}
+
+			var retries = 0;
+			var waitInterval = setInterval(function() {
+				retries++;
+
+				if ( canStartTourForMode() ) {
+					clearInterval(waitInterval);
+					if ( !$('.qtip-tour').length )
+						self.start();
+					return;
+				}
+
+				if ( retries >= attempts ) {
+					clearInterval(waitInterval);
+				}
+			}, delay);
+
+		},
+
 		start: function () {
+
+			if ( $('.qtip-tour').length )
+				return false;
 
 			if ( Padma.mode == 'grid' ) {
 
@@ -270,13 +348,7 @@ define(['jquery', 'util.tooltips', 'helper.boxes', 'modules/panel'], function($,
 								currentTourStep.callback.apply(api);
 							}
 
-							if ( currentTourStep.target == 'window' ) {
-								currentTourStep.target = $(window);
-							} else if ( typeof currentTourStep.target == 'string' ) {
-								currentTourStep.target = $(currentTourStep.target);
-							} else if ( typeof currentTourStep.iframeTarget == 'string' ) {
-								currentTourStep.target = $i(currentTourStep.iframeTarget).first();
-							}
+							currentTourStep.target = resolveStepTarget(currentTourStep);
 
 							api.set('position.target', currentTourStep.target);
 
@@ -292,16 +364,22 @@ define(['jquery', 'util.tooltips', 'helper.boxes', 'modules/panel'], function($,
 							if ( typeof currentTourStep.buttonText == 'string' )
 								var buttonText = currentTourStep.buttonText;
 
+							var hasNextHandlerTarget = false;
+
+							if ( typeof currentTourStep.nextHandler !== 'undefined' && typeof currentTourStep.nextHandler.clickElement == 'string' ) {
+								hasNextHandlerTarget = $(currentTourStep.nextHandler.clickElement).length > 0;
+							}
+
 							if ( typeof currentTourStep.end !== 'undefined' && currentTourStep.end === true ) {
 								var button = '<div id="tour-next-container"><span id="tour-finish" class="tour-button button button-blue">Tour schließen <span class="arrow">&rsaquo;</span></div>';
-							} else if ( typeof currentTourStep.nextHandler === 'undefined' || currentTourStep.nextHandler.showButton ) {
+							} else if ( typeof currentTourStep.nextHandler === 'undefined' || currentTourStep.nextHandler.showButton || !hasNextHandlerTarget ) {
 								var button = '<div id="tour-next-container"><span id="tour-next" class="tour-button button button-blue">' + buttonText + ' <span class="arrow">&rsaquo;</span></div>';
 							} else {
 								var button = '<div id="tour-next-container"><p>' + currentTourStep.nextHandler.message + '</p></div>';
 							}
 
 							/* Next Handler Callback... Be able to use something other than the button */
-							if ( typeof currentTourStep.nextHandler !== 'undefined' && $(currentTourStep.nextHandler.clickElement) ) {
+							if ( typeof currentTourStep.nextHandler !== 'undefined' && hasNextHandlerTarget ) {
 
 								var nextHandlerCallback = function (event) {
 

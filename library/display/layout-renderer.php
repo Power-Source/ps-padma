@@ -145,20 +145,27 @@ class PadmaLayoutRenderer {
 			echo '<div class="block-type-content">';
 
 				echo '<div class="entry-content">';
+					echo '<div class="padma-empty-layout">';
 
-					echo '<h1 class="entry-title">' . __('No Content to Display', 'padma') . '</h1>';
+						echo '<p class="padma-empty-layout-eyebrow">' . __('Template ist leer', 'padma') . '</p>';
+						echo '<h1 class="entry-title">' . __('Hier gibt es noch nichts zu sehen', 'padma') . '</h1>';
+						echo '<p class="padma-empty-layout-intro">' . __('Dieses neue Template hat noch keine Blöcke. Starte jetzt im visuellen Grid-Editor.', 'padma') . '</p>';
 
 					$visual_editor_url = add_query_arg(array('visual-editor' => 'true', 'visual-editor-mode' => 'grid', 've-layout' => urlencode(PadmaLayout::get_current())), home_url());
 
 					if ( PadmaCapabilities::can_user_visually_edit() ) {
 
-						echo sprintf(__('<p>There are no blocks to display.  Add some by going to the <a href="%s">Padma Grid</a>!</p>', 'padma'), $visual_editor_url);
+						echo '<p class="padma-empty-layout-note">' . __('Mit ein paar Klicks legst du Wrapper und Blöcke an.', 'padma') . '</p>';
+						echo '<p><a class="padma-empty-layout-cta" href="' . esc_url($visual_editor_url) . '">' . __('Starte den PS Padma ContentBuilder', 'padma') . '</a></p>';
 
 					} else {
 
-						echo sprintf(__('<p>There is no content to display.  Please notify the site administrator or <a href="%s">login</a>.</p>', 'padma'), $visual_editor_url);
+						echo sprintf('<p class="padma-empty-layout-note">%s</p>', __('Es sind noch keine Inhalte vorhanden. Gib bitte der Website-Administration Bescheid.', 'padma'));
+						echo '<p><a class="padma-empty-layout-cta" href="' . esc_url(wp_login_url($visual_editor_url)) . '">' . __('Jetzt einloggen und loslegen', 'padma') . '</a></p>';
 
 					}
+
+					echo '</div>';
 
 				echo '</div>';
 
