@@ -1,4 +1,4 @@
-=== PS Padma ===
+=== PS Padma ContentBuilder===
 Contributors: PSOURCE
 Requires at least: 5.0
 Tested up to: WordPress 8.6, ClassicPress 2.6.0
@@ -61,6 +61,9 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 
 = 1.1.0 =
 * Grid Editor: Wrapper-Resize stabilisiert, TypeError bei der Hoehenaenderung behoben (`Cannot read properties of undefined (reading 'height')` in `wrappers.js`)
+* Visual Editor Tour: First-Run-Flow gehaertet (spaeterer Start nach UI-Ready-Checks, Fallbacks fuer fehlende Targets/Next-Handler, keine blockierende Tour mehr)
+* Empty Template UX: Neuer gestalteter Empty-State statt nackter Standardmeldung mit prominentem CTA-Button "Starte den PS Padma ContentBuilder"
+* Empty Template Texte: Auf Deutsch Informell umgestellt (inkl. Login-CTA fuer Nutzer ohne Bearbeitungsrechte)
 * PHP 8: Warning für fehlenden Meta-Box-Input-Schlüssel type im Seiteneditor behoben
 * Visual Editor: qTip2/jQuery-Offset-Fehler behoben (`elem.getClientRects is not a function`)
 * Designer: Erfassen und Hover/Tooltip-Verhalten für normale Seitenelemente stabilisiert
