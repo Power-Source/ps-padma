@@ -4,14 +4,14 @@ define(['jquery', 'util.tooltips', 'helper.boxes', 'modules/panel'], function($,
 	tourStepsGrid = [
 		{
 			beginning: true,
-			title: 'Welcome to the Padma Visual Editor!',
-			content: '<p>If this is your first time in the Padma Visual Editor, <strong>we recommend following this tour so you can get the most out of Padma</strong>.</p><p>Or, if you\'re experienced or want to dive in right away, just click the close button in the top right at any time.</p>'
+			title: 'Willkommen beim PS Padma Visual Editor!',
+			content: '<p>Wenn dies Dein erster Besuch im PS Padma Visual Editor ist, <strong>empfehlen wir, diese Tour zu folgen, um das Beste aus PS Padma herauszuholen</strong>.</p><p>Oder, wenn Du erfahren bist oder sofort loslegen möchtest, klicke einfach jederzeit auf die Schaltfläche zum Schließen oben rechts.</p>'
 		},
 
 		{
 			target: $('li#mode-grid'),
-			title: 'Mode Selector',
-			content: '<p>The Padma Visual Editor is split up into 2 modes.</p><p><ul><li><strong>Grid</strong> &ndash; Build your layouts</li><li><strong>Design</strong> &ndash; Add colors, customize fonts, and more!</li></ul></p>',
+			title: 'Modus-Auswahl',
+			content: '<p>Der PS Padma Visual Editor ist in 2 Modi unterteilt.</p><p><ul><li><strong>Grid</strong> &ndash; Erstelle Deine Layouts</li><li><strong>Design</strong> &ndash; Farben hinzufügen, Schriftarten anpassen und mehr!</li></ul></p>',
 			position: {
 				my: 'top left',
 				at: 'bottom center'
@@ -20,8 +20,8 @@ define(['jquery', 'util.tooltips', 'helper.boxes', 'modules/panel'], function($,
 
 		{
 			target: $('#layout-selector-select-content'),
-			title: 'Layout Selector',
-			content: '<p style="font-size:12px;">Since you may not want every page to be the same, you may use the Layout Selector to select which page, post, or archive to edit.</p><p style="font-size:12px;">The Layout Selector is based off of inheritance.  For example, you can customize the "Page" layout and all pages will follow that layout.  Plus, you can customize a specific page and it\'ll be different than all other pages.</p><p style="font-size:12px;">The layout selector will allow you to be as precise or broad as you wish.  It\'s completely up to you!</p>',
+			title: 'Layout-Auswahl',
+			content: '<p style="font-size:12px;">Da Du möglicherweise nicht möchtest, dass jede Seite gleich ist, kannst Du den Layout-Selector verwenden, um auszuwählen, welche Seite, welchen Beitrag oder welches Archiv Du bearbeiten möchtest.</p><p style="font-size:12px;">Der Layout-Selector basiert auf Vererbung. Zum Beispiel kannst Du das Layout "Seite" anpassen und alle Seiten folgen diesem Layout. Außerdem kannst Du eine bestimmte Seite anpassen, und sie wird sich von allen anderen Seiten unterscheiden.</p><p style="font-size:12px;">Der Layout-Selector ermöglicht es Dir, so präzise oder breit zu sein, wie Du möchtest. Es liegt ganz bei Dir!</p>',
 			position: {
 				my: 'top center',
 				at: 'bottom center'
@@ -30,8 +30,8 @@ define(['jquery', 'util.tooltips', 'helper.boxes', 'modules/panel'], function($,
 
 		{
 			target: $('div#box-grid-manager'),
-			title: 'The Padma Grid',
-			content: '<p>Now we\'re ready to get started with the Padma Grid.  In other words, the good stuff.</p><p>To build your first layout, please select a preset to the right to pre-populate the grid.  Or, you may select "Use Empty Grid" to start with a completely blank grid.</p><p>Once you have a preset selected, click "Finish".</p>',
+			title: 'Das PS Padma Grid',
+			content: '<p>Jetzt sind wir bereit, mit dem PS Padma Grid zu beginnen. Mit anderen Worten, der gute Teil.</p><p>Um Dein erstes Layout zu erstellen, wähle bitte ein Preset rechts aus, um das Grid vorab zu füllen. Oder Du kannst "Leeres Grid verwenden" auswählen, um mit einem komplett leeren Grid zu beginnen.</p><p>Sobald Du ein Preset ausgewählt hast, klicke auf "Fertigstellen".</p>',
 			position: {
 				my: 'right top',
 				at: 'left center'
@@ -39,14 +39,14 @@ define(['jquery', 'util.tooltips', 'helper.boxes', 'modules/panel'], function($,
 			nextHandler: {
 				showButton: false,
 				clickElement: '#grid-manager-button-preset-use-preset, span.grid-manager-use-empty-grid',
-				message: 'Please click <strong>"Finish"</strong> or <strong>"Use Empty Grid"</strong> to continue.'
+				message: 'Bitte klicke auf <strong>"Fertigstellen"</strong> oder <strong>"Leeres Grid verwenden"</strong>, um fortzufahren.'
 			}
 		},
 
 		{
 			iframeTarget: 'div.grid-container',
-			title: 'Adding Blocks',
-			content: '<p>To add a block, simply place your mouse into the grid then click at where you\'d like the top-left point of the block to be.</p><p>Drag your mouse and the block will appear!  Once the block appears, you may choose the block type.</p><p>Hint: Don\'t worry about being precise, you may always move or resize the block.</p>',
+			title: 'Blöcke hinzufügen',
+			content: '<p>Um einen Block hinzuzufügen, platziere einfach Deine Maus in das Grid und klicke an die Stelle, an der der obere linke Punkt des Blocks sein soll.</p><p>Ziehe Deine Maus und der Block wird erscheinen! Sobald der Block erscheint, kannst Du den Blocktyp auswählen.</p><p>Tipp: Keine Sorge, wenn Du nicht genau bist, Du kannst den Block jederzeit verschieben oder die Größe ändern.</p>',
 			position: {
 				my: 'right top',
 				at: 'left top',
@@ -57,14 +57,14 @@ define(['jquery', 'util.tooltips', 'helper.boxes', 'modules/panel'], function($,
 
 		{
 			iframeTarget: 'div.grid-container',
-			title: 'Modifying Blocks',
+			title: 'Blöcke bearbeiten',
 			content: '\
-					<p style="font-size:12px;">After you\'ve added the desired blocks to your layout, you may move, resize, delete, or change the options of the block at any time.</p>\
+					<p style="font-size:12px;">Nachdem Du die gewünschten Blöcke zu Deinem Layout hinzugefügt hast, kannst Du den Block jederzeit verschieben, die Größe ändern, löschen oder die Optionen des Blocks ändern.</p>\
 					<ul style="font-size:12px;">\
-						<li><strong>Moving Blocks</strong> &ndash; Click and drag the block.  If you wish to move multiple blocks simultaneously, double-click on a block to enter <em>Mass Block Selection Mode</em>.</li>\
-						<li><strong>Resizing Blocks</strong> &ndash; Grab the border or corner of the block and drag your mouse.</li>\
-						<li><strong>Block Options (e.g. header image)</strong> &ndash; Hover over the block then click the block options icon in the top-right.</li>\
-						<li><strong>Deleting Blocks</strong> &ndash; Move your mouse over the desired block, then click the <em>X</em> icon in the top-right.</li>\
+						<li><strong>Blöcke verschieben</strong> &ndash; Klicke und ziehe den Block.  Wenn Du mehrere Blöcke gleichzeitig verschieben möchtest, doppelklicke auf einen Block, um den <em>Massenblock-Auswahlmodus</em> zu aktivieren.</li>\
+						<li><strong>Blöcke skalieren</strong> &ndash; Greife den Rand oder die Ecke des Blocks und ziehe Deine Maus.</li>\
+						<li><strong>Block-Optionen (z.B. Header-Bild)</strong> &ndash; Fahre mit der Maus über den Block und klicke dann auf das Symbol für Block-Optionen oben rechts.</li>\
+						<li><strong>Blöcke löschen</strong> &ndash; Bewege Deine Maus über den gewünschten Block und klicke dann auf das <em>X</em>-Symbol oben rechts.</li>\
 					</ul>',
 			position: {
 				my: 'right top',
@@ -76,8 +76,8 @@ define(['jquery', 'util.tooltips', 'helper.boxes', 'modules/panel'], function($,
 
 		{
 			target: $('#save-button-container'),
-			title: 'Saving',
-			content: '<p>Now that you hopefully have a few changes to be saved, you can save using this spiffy Save button.</p><p>For those of you who like hotkeys, use <strong>Ctrl + S</strong> to save.</p>',
+			title: 'Speichern',
+			content: '<p>Jetzt, da Du hoffentlich einige Änderungen vorgenommen hast, kannst Du diese mit diesem schicken Speichern-Button speichern.</p><p>Für diejenigen unter Euch, die Tastenkombinationen mögen, verwendet <strong>Strg + S</strong>, um zu speichern.</p>',
 			position: {
 				my: 'top right',
 				at: 'bottom center'
@@ -87,15 +87,15 @@ define(['jquery', 'util.tooltips', 'helper.boxes', 'modules/panel'], function($,
 
 		{
 			target: $('li#mode-design a'),
-			title: 'Design Mode',
-			content: '<p>Thanks for sticking with us!</p><p>Now that you have an understanding of the Grid Mode, we hope you stick with us and head on over to the Design Mode.</p>',
+			title: 'Design Modus',
+			content: '<p>Danke, dass Du bei uns geblieben bist!</p><p>Jetzt, da Du ein Verständnis für den Grid-Modus hast, hoffen wir, dass Du bei uns bleibst und zum Design-Modus wechselst.</p>',
 			position: {
 				my: 'top left',
 				at: 'bottom center',
 				adjustY: 5
 			},
 			tip: 'top left',
-			buttonText: 'Continue to Design Mode',
+			buttonText: 'Zum Design-Modus wechseln',
 			buttonCallback: function () {
 
 				$.post(Padma.ajaxURL, {
@@ -122,14 +122,14 @@ define(['jquery', 'util.tooltips', 'helper.boxes', 'modules/panel'], function($,
 	tourStepsDesign = [
 		{
 			beginning: true,
-			title: 'Welcome to the Padma Design Editor!',
-			content: "<p>In the <strong>Design Editor</strong>, you can style your elements however you'd like.</p><p>Whether it's fonts, colors, padding, borders, shadows, or rounded corners, you can use the design editor.</p><p>Stick around to learn more!</p>"
+			title: 'Willkommen im Padma Design Editor!',
+			content: "<p>Im <strong>Design Editor</strong> kannst Du Deine Elemente nach Belieben gestalten.</p><p>Ob Schriftarten, Farben, Abstände, Rahmen, Schatten oder abgerundete Ecken, Du kannst den Design Editor verwenden.</p><p>Bleib dran, um mehr zu erfahren!</p>"
 		},
 
 		{
 			target: '#side-panel-top',
-			title: 'Element Selector',
-			content: '<p>The element selector allows you choose which element to edit.</p>',
+			title: 'Elementauswahl',
+			content: '<p>Der Elementauswahl ermöglicht es Dir, auszuwählen, welches Element Du bearbeiten möchtest.</p>',
 			position: {
 				my: 'right top',
 				at: 'left center'
@@ -143,8 +143,8 @@ define(['jquery', 'util.tooltips', 'helper.boxes', 'modules/panel'], function($,
 			target: '#toggle-inspector',
 			title: 'Inspector',
 			content: "\
-					<p>Instead of using the <em>Element Selector</em>, let the Inspector do the work for you.</p>\
-					<p><strong>Try it out!</strong> Point and right-click on the element you wish to edit and it will become selected!</p>\
+					<p>Anstatt den <em>Elementauswahl</em> zu verwenden, lass den Inspector die Arbeit für Dich erledigen.</p>\
+					<p><strong>Probier es aus!</strong> Zeige mit der Maus auf das Element, das Du bearbeiten möchtest, und klicke mit der rechten Maustaste darauf, um es auszuwählen!</p>\
 				",
 			position: {
 				my: 'top right',
@@ -156,8 +156,8 @@ define(['jquery', 'util.tooltips', 'helper.boxes', 'modules/panel'], function($,
 
 		{
 			target: 'window',
-			title: 'Have fun building with Padma!',
-			content: '<p>We hope you find Padma to the most powerful and easy-to-use WordPress framework around.</p><p>If you have any questions, please don\'t hesitate to visit the <a href="https://cp-psource.github.io/ps-padma//community/" target="_blank">Community</a>.</p>',
+			title: 'Viel Spaß beim Bauen mit PS Padma ContentBuilder!',
+			content: '<p>Wir hoffen, dass Du PS Padma ContentBuilder als das leistungsstärkste und benutzerfreundlichste ClassicPress-Framework empfindest.</p><p>Wenn Du Fragen hast, zögere bitte nicht, die <a href="https://psource.eimen.net/wiki/die-ps-padma-contentbuilder-community/" target="_blank">Community</a> zu besuchen.</p>',
 			end: true
 		}
 	];
@@ -201,10 +201,10 @@ define(['jquery', 'util.tooltips', 'helper.boxes', 'modules/panel'], function($,
 			$(document.body).qtip({
 				id: 'tour', // Give it an ID of qtip-tour so we an identify it easily
 				content: {
-					text: steps[0].content + '<div id="tour-next-container"><span id="tour-next" class="tour-button button button-blue">Continue Tour <span class="arrow">&rsaquo;</span></span></div>',
+					text: steps[0].content + '<div id="tour-next-container"><span id="tour-next" class="tour-button button button-blue">Tour fortsetzen <span class="arrow">&rsaquo;</span></span></div>',
 					title: {
 						text: steps[0].title, // ...and title
-						button: 'Skip Tour'
+						button: 'Tour überspringen'
 					}
 				},
 				style: {
@@ -293,7 +293,7 @@ define(['jquery', 'util.tooltips', 'helper.boxes', 'modules/panel'], function($,
 								var buttonText = currentTourStep.buttonText;
 
 							if ( typeof currentTourStep.end !== 'undefined' && currentTourStep.end === true ) {
-								var button = '<div id="tour-next-container"><span id="tour-finish" class="tour-button button button-blue">Close Tour <span class="arrow">&rsaquo;</span></div>';
+								var button = '<div id="tour-next-container"><span id="tour-finish" class="tour-button button button-blue">Tour schließen <span class="arrow">&rsaquo;</span></div>';
 							} else if ( typeof currentTourStep.nextHandler === 'undefined' || currentTourStep.nextHandler.showButton ) {
 								var button = '<div id="tour-next-container"><span id="tour-next" class="tour-button button button-blue">' + buttonText + ' <span class="arrow">&rsaquo;</span></div>';
 							} else {

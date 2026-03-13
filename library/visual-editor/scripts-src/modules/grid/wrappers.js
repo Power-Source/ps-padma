@@ -166,6 +166,12 @@ define(['util.custommouse', 'qtip', 'helper.data', 'modules/grid/wrapper-inputs'
 
 				start: function(event, ui) {
 
+					/* Keep a stable baseline height in case resize callback data is incomplete. */
+					$(this).data(
+						'resize-original-wrapper-height',
+						$(this).find('.grid-container').height() || $(this).height()
+					);
+
 					if ( $(event.toElement).hasClass('ui-resizable-n') ) {
 						$(this).data('resizing-position', 'n');
 					} else {
@@ -212,8 +218,13 @@ define(['util.custommouse', 'qtip', 'helper.data', 'modules/grid/wrapper-inputs'
 				},
 				resize: function(event, ui) {
 
-					var heightChange = ui.originalSize.height - ui.size.height;
-					var wrapperHeight = ui.size.height;
+					var wrapperHeight = ui && ui.size && typeof ui.size.height !== 'undefined'
+						? ui.size.height
+						: $(this).find('.grid-container').height() || $(this).height();
+					var originalHeight = ui && ui.originalSize && typeof ui.originalSize.height !== 'undefined'
+						? ui.originalSize.height
+						: $(this).data('resize-original-wrapper-height') || wrapperHeight;
+					var heightChange = originalHeight - wrapperHeight;
 
 					$(this).find('.grid-container').height(wrapperHeight);
 
@@ -271,6 +282,7 @@ define(['util.custommouse', 'qtip', 'helper.data', 'modules/grid/wrapper-inputs'
 
 
 					$(this).data('resizing-position', null);
+					$(this).data('resize-original-wrapper-height', null);
 
 				}
 			});

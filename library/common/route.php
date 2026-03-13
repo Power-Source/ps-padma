@@ -47,7 +47,7 @@ class PadmaRoute {
 			//If user is logged in and can't visually edit, loop them back to normal template.
 			if ( is_user_logged_in() && !PadmaCapabilities::can_user_visually_edit() ) {
 
-				wp_die('You have insufficient permissions to use the Padma Visual Editor.<br /><br /><a href="' . home_url() . '">Return to Home</a>');			
+				wp_die('Du hast nicht die erforderlichen Berechtigungen, um den PS Padma Visual Editor zu verwenden.<br /><br /><a href="' . home_url() . '">Zurück zur Startseite</a>');			
 
 				return false;
 

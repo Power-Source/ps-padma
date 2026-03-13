@@ -388,14 +388,14 @@ class PadmaVisualEditorDisplay {
 
 				if ( current_theme_supports('padma-design-editor') ) {
 
-					$tooltip = '<strong>' . __('Toggle Inspector','padma') . '</strong><br />
-						<em>' . __('Shortcut:</em> Ctrl + I','padma') . '<br /><br />
-						' . __('<strong>How to use:</strong> <em>Right-click</em> highlighted elements to style them.  Once an element is selected, you may nudge it using your arrow keys.','padma') . '<br /><br />
-						' . __('The faded orange and purple are the margins and padding. These colors are only visible when the inspector is active.','padma');
+					$tooltip = '<strong>' . __('Inspektor umschalten','padma') . '</strong><br />
+						<em>' . __('Shortcut:</em> Strg + I','padma') . '<br /><br />
+						' . __('<strong>Wie zu verwenden:</strong> <em>Rechtsklick</em> auf hervorgehobene Elemente, um sie zu stylen. Sobald ein Element ausgewählt ist, kannst Du es mit den Pfeiltasten verschieben.','padma') . '<br /><br />
+						' . __('Die verblassten orange und lila Farben sind die Ränder und Abstände. Diese Farben sind nur sichtbar, wenn der Inspektor aktiv ist.','padma');
 
 					echo '<div class="menu-mode-buttons">';
 						echo '<span class="menu-mode-button tooltip-bottom-right" id="toggle-inspector" title="' . esc_attr($tooltip) . '"></span>';
-						echo '<span class="menu-mode-button tooltip-bottom-right" id="open-live-css" title="Open CSS Editor"></span>';
+						echo '<span class="menu-mode-button tooltip-bottom-right" id="open-live-css" title="' . __('CSS Editor öffnen','padma') . '"></span>';
 					echo '</div>';
 
 				}
@@ -417,12 +417,12 @@ class PadmaVisualEditorDisplay {
 
 		echo '<div class="block-type-selector-filter">
 				<div class="filter-search">
-					<input type="text" id="block-type-selector-filter-text" placeholder="Filter" title="Filter blocks">
+					<input type="text" id="block-type-selector-filter-text" placeholder="' . __('Filter', 'padma') . '" title="' . __('Filter blocks', 'padma') . '">
 					<a class="block-type-selector-filter-reset"><span>x</span></a>
 				</div>';
 
 		echo '<ul class="block-type-selector-filter-categories">';
-		echo '<li><a class="active" data-filter="all">All</a></li>';
+		echo '<li><a class="active" data-filter="all">' . __('Alle', 'padma') . '</a></li>';
 
 		foreach (PadmaBlocks::get_registered_blocks_categories() as $categorie => $blocks) {
 			// XSS PREVENTION: Escape attributes and text content
@@ -546,9 +546,9 @@ class PadmaVisualEditorDisplay {
 						echo '<li id="tools-grid-manager"><span>' . __('Grid Manager', 'padma') . '</span></li>';
 
 					if ( PadmaCompiler::can_cache() )
-						echo '<li id="tools-clear-cache"><span>' . __('Clear Cache', 'padma') . ' ' . (!PadmaCompiler::caching_enabled() ? ' (' . __('Disabled', 'padma') . ')' : '') . '</span></li>';
+						echo '<li id="tools-clear-cache"><span>' . __('Cache leeren', 'padma') . ' ' . (!PadmaCompiler::caching_enabled() ? ' (' . __('Deaktiviert', 'padma') . ')' : '') . '</span></li>';
 
-					echo '<li id="tools-tour"><span>Tour</span></li>
+					echo '<li id="tools-tour"><span>' . __('Tour', 'padma') . '</span></li>
 				</ul>
 
 			</li>';
@@ -560,20 +560,19 @@ class PadmaVisualEditorDisplay {
 				<ul>
 					<li><a href="' . admin_url()  . '" target="_blank">' . __('Dashboard', 'padma') . '</a></li>
 					<li><a href="' . admin_url('widgets.php')  . '" target="_blank">' . __('Widgets', 'padma') . '</a></li>
-					<li><a href="' . admin_url('nav-menus.php')  . '" target="_blank">' . __('Menus', 'padma') . '</a></li>
-					<li><a href="' . admin_url('admin.php?page=padma-options')  . '" target="_blank">' . __('Padma Options', 'padma') . '</a></li>
-					<li><a href="' . admin_url('admin.php?page=padma-templates')  . '" target="_blank">' . __('Padma Templates', 'padma') . '</a></li>
-					<li><a href="' . admin_url('admin.php?page=padma-tools')  . '" target="_blank">' . __('Padma Tools', 'padma') . '</a></li>
-					<li><a href="https://power-source.github.io/ps-padma/" target="_blank" rel="noopener">' . __('Documentation', 'padma') . '</a></li>
-					<li><a href="mailto:support@padmaunlimited.com" target="_blank">' . __('Support', 'padma') . '</a></li>
-					<li><a href="https://cp-psource.github.io/ps-padma/community/" target="_blank" rel="noopener">' . __('Community', 'padma') . '</a></li>
-					<li><a href="https://cp-psource.github.io/ps-padma/get-started/how-to-collaborate/" target="_blank" rel="noopener">' . __('Get Involved','padma') . '</a></li>
+					<li><a href="' . admin_url('nav-menus.php')  . '" target="_blank">' . __('Menüs', 'padma') . '</a></li>
+					<li><a href="' . admin_url('admin.php?page=padma-options')  . '" target="_blank">' . __('Einstellungen', 'padma') . '</a></li>
+					<li><a href="' . admin_url('admin.php?page=padma-templates')  . '" target="_blank">' . __('Templates', 'padma') . '</a></li>
+					<li><a href="' . admin_url('admin.php?page=padma-tools')  . '" target="_blank">' . __('Werkzeuge', 'padma') . '</a></li>
+					<li><a href="https://psource.eimen.net/wiki/ps-padma-contentbuilder-dokumentation/" target="_blank" rel="noopener">' . __('Dokumentation', 'padma') . '</a></li>
+					<li><a href="mailto:webmaster@nerdservice.eimen.net" target="_blank">' . __('Support', 'padma') . '</a></li>
+					<li><a href="https://psource.eimen.net/wiki/die-ps-padma-contentbuilder-community/" target="_blank" rel="noopener">' . __('Community', 'padma') . '</a></li>
 				</ul>
 
 			</li>';
 
 
-		echo '<li id="menu-link-view-site"><a href="' . home_url() . '" target="_blank">' . __('View Site','padma') . '</a></li>';
+		echo '<li id="menu-link-view-site"><a href="' . home_url() . '" target="_blank">' . __('Webseite anzeigen','padma') . '</a></li>';
 
 	}
 }

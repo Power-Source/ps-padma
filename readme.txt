@@ -60,6 +60,7 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 == Changelog ==
 
 = 1.1.0 =
+* Grid Editor: Wrapper-Resize stabilisiert, TypeError bei der Hoehenaenderung behoben (`Cannot read properties of undefined (reading 'height')` in `wrappers.js`)
 * PHP 8: Warning für fehlenden Meta-Box-Input-Schlüssel type im Seiteneditor behoben
 * Visual Editor: qTip2/jQuery-Offset-Fehler behoben (`elem.getClientRects is not a function`)
 * Designer: Erfassen und Hover/Tooltip-Verhalten für normale Seitenelemente stabilisiert
