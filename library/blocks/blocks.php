@@ -1009,7 +1009,6 @@ class PadmaBlocks {
 		foreach ( $blocked_handles as $handle ) {
 			if ( $wp_scripts->query($handle) ) {
 				wp_dequeue_script($handle);
-				error_log('[VE DEQUEUE Priority 1] Removed: ' . $handle);
 			}
 		}
 		
