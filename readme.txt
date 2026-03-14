@@ -60,6 +60,7 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 == Changelog ==
 
 = 1.1.1 =
+* BETA: Online Template Verwaltung und öffentlicher Template-Katalog
 * Grid Editor: Horizontales Block-Resize gehaertet, damit fehlende Grid-Guide/CSS-Werte keinen TypeError mehr ausloesen (`Cannot read properties of undefined (reading 'replace')` in `grid.js`)
 * Grid Editor: Guide-Alignment defensiv abgesichert, wenn Guides oder Margin-Werte temporär fehlen
 * Wrapper Controls: Parsing von `minHeight` und Wrapper-Margins robust gemacht, um weitere `replace`-Fehler in Randfaellen zu vermeiden
