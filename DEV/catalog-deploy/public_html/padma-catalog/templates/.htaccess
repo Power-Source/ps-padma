@@ -1,0 +1,6 @@
+Options -Indexes
+
+# Do not execute PHP files inside template download storage
+<FilesMatch "\\.php$">
+  Require all denied
+</FilesMatch>

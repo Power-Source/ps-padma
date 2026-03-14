@@ -1,0 +1,53 @@
+Padma Catalog Deploy (One-shot)
+
+1) Upload folder `public_html/padma-catalog/` to:
+   Home/web/eimen.net/public_html/padma-catalog/
+
+2) Upload folder `padma-catalog-storage/` to:
+   Home/web/eimen.net/padma-catalog-storage/
+
+3) Edit API key in:
+   public_html/padma-catalog/api/_config.php
+   const PADMA_CATALOG_API_KEY = 'YOUR_LONG_RANDOM_KEY';
+
+4) Verify storage path in _config.php:
+   const PADMA_CATALOG_STORAGE = __DIR__ . '/../../../../padma-catalog-storage';
+
+5) Ensure write permissions (hosting panel/chmod) for:
+   - public_html/padma-catalog/index/
+   - public_html/padma-catalog/templates/
+   - padma-catalog-storage/uploads/
+   - padma-catalog-storage/tmp/
+   - padma-catalog-storage/logs/
+
+6) Quick endpoint tests:
+   GET https://eimen.net/padma-catalog/api/templates.php
+   GET https://eimen.net/padma-catalog/api/updates.php
+
+7) Upload test (multipart/form-data):
+   POST https://eimen.net/padma-catalog/api/upload.php
+   Header: X-PADMA-API-KEY: <key>
+   File field: template_zip=<your-template.zip>
+   Form field: user_id=<wp_user_id>
+   Form field: visibility=public|private (optional, default private)
+
+8) Publish test:
+   POST https://eimen.net/padma-catalog/api/publish.php
+   Header: X-PADMA-API-KEY: <key>
+   Form field: upload_id=<value from upload response>
+
+Membership Gate:
+- API namespace: https://nerdservice.eimen.net/wp-json/membership2/v1
+- Required membership_id: 582
+- Server validates user via pass_key before upload/publish is allowed.
+
+Required ZIP file content:
+- manifest.json (at ZIP root)
+
+Minimal manifest.json:
+{
+  "slug": "my-template",
+  "name": "My Template",
+  "version": "1.0.0",
+  "channel": "stable"
+}

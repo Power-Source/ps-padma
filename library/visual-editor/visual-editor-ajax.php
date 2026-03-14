@@ -1064,13 +1064,43 @@ class PadmaVisualEditorAJAX {
 			require_once(ABSPATH . 'wp-admin/includes/class-pclzip.php');
 			$archive = new PclZip($zip_path);
 
-			// Add skin data JSON
-			$skin_json = json_encode($skin_data);
-			$archive->addString($skin_json, 'template-data.json');
+			// PclZip in this environment has no addString(); write temp files then create ZIP.
+			$cache_base_dir = defined('PADMA_CACHE_DIR') && !empty(PADMA_CACHE_DIR)
+				? untrailingslashit((string)PADMA_CACHE_DIR)
+				: untrailingslashit($upload_dir['basedir']) . '/padma-cache';
 
-			// Add manifest JSON
+			if ( !is_dir($cache_base_dir) ) {
+				wp_mkdir_p($cache_base_dir);
+			}
+
+			$temp_export_dir = $cache_base_dir . '/template-export-' . uniqid();
+			wp_mkdir_p($temp_export_dir);
+
+			$template_data_json_path = $temp_export_dir . '/template-data.json';
+			$template_manifest_json_path = $temp_export_dir . '/template-manifest.json';
+
+			$skin_json = json_encode($skin_data);
 			$manifest_json = json_encode($manifest);
-			$archive->addString($manifest_json, 'template-manifest.json');
+
+			if ( false === file_put_contents($template_data_json_path, (string)$skin_json) || false === file_put_contents($template_manifest_json_path, (string)$manifest_json) ) {
+				self::delete_directory_recursive($temp_export_dir);
+				return self::json_encode(array(
+					'error' => __('Temporäre Exportdateien konnten nicht geschrieben werden', 'padma')
+				));
+			}
+
+			$zip_create_result = $archive->create(array(
+				$template_data_json_path,
+				$template_manifest_json_path,
+			), PCLZIP_OPT_REMOVE_PATH, $temp_export_dir);
+
+			self::delete_directory_recursive($temp_export_dir);
+
+			if ( $zip_create_result == 0 ) {
+				return self::json_encode(array(
+					'error' => __('ZIP-Datei konnte nicht erstellt werden', 'padma')
+				));
+			}
 
 			// Prepare download
 			if ( file_exists($zip_path) ) {

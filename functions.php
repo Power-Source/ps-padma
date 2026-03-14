@@ -20,6 +20,52 @@ if ( ! defined( 'WP_CONTENT_DIR' ) ) {
 	die( 'Please do not access this file directly.' );
 }
 
+/* Catalog membership verification defaults (can be overridden in wp-config.php). */
+if ( ! defined( 'PADMA_MEMBERSHIP_API_BASE' ) ) {
+    define( 'PADMA_MEMBERSHIP_API_BASE', 'https://nerdservice.eimen.net/wp-json/membership2/v1' );
+}
+
+if ( ! defined( 'PADMA_MEMBERSHIP_API_PASS_KEY' ) ) {
+    define( 'PADMA_MEMBERSHIP_API_PASS_KEY', 'HarvH5Ri4E5QOUBS' );
+}
+
+if ( ! defined( 'PADMA_MEMBERSHIP_REQUIRED_ID' ) ) {
+    define( 'PADMA_MEMBERSHIP_REQUIRED_ID', 582 );
+}
+
+/* Optional: shared secret header for trusted membership auth bypass on nerdservice. */
+if ( ! defined( 'PADMA_MEMBERSHIP_AUTH_BYPASS_KEY' ) ) {
+    define( 'PADMA_MEMBERSHIP_AUTH_BYPASS_KEY', '' );
+}
+
+/* Catalog API defaults (key should be set in wp-config.php or env var). */
+if ( ! defined( 'PADMA_CATALOG_API_BASE' ) ) {
+    define( 'PADMA_CATALOG_API_BASE', 'https://eimen.net/padma-catalog/api' );
+}
+
+if ( ! defined( 'PADMA_CATALOG_API_KEY' ) ) {
+    $padma_catalog_key = getenv( 'PADMA_CATALOG_API_KEY' );
+
+    if ( ! is_string( $padma_catalog_key ) || trim( $padma_catalog_key ) === '' ) {
+        $local_catalog_config = get_template_directory() . '/catalog-deploy/public_html/padma-catalog/api/_config.php';
+
+        if ( file_exists( $local_catalog_config ) && is_readable( $local_catalog_config ) ) {
+            $config_contents = file_get_contents( $local_catalog_config );
+
+            if ( is_string( $config_contents ) ) {
+                if ( preg_match( "/const\\s+PADMA_CATALOG_API_KEY\\s*=\\s*'([^']+)'\\s*;/", $config_contents, $matches ) ) {
+                    $candidate = trim( (string) ( $matches[1] ?? '' ) );
+                    if ( $candidate !== '' && $candidate !== 'BITTE_HIER_LANGEN_RANDOM_KEY_SETZEN' ) {
+                        $padma_catalog_key = $candidate;
+                    }
+                }
+            }
+        }
+    }
+
+    define( 'PADMA_CATALOG_API_KEY', is_string( $padma_catalog_key ) ? trim( $padma_catalog_key ) : '' );
+}
+
 /* Make sure PHP 7.0 or newer is installed and WordPress 3.4 or newer is installed. */
 require_once get_template_directory() . '/library/common/compatibility-checks.php';
 
