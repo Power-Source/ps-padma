@@ -2,7 +2,7 @@
 Contributors: PSOURCE
 Requires at least: 5.0
 Tested up to: WordPress 8.6, ClassicPress 2.6.0
-Version: 1.1.0
+Version: 1.1.1
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -58,6 +58,14 @@ Hier entlang: https://power-source.github.io/ps-padma/
 Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 
 == Changelog ==
+
+= 1.1.1 =
+* Grid Editor: Horizontales Block-Resize gehaertet, damit fehlende Grid-Guide/CSS-Werte keinen TypeError mehr ausloesen (`Cannot read properties of undefined (reading 'replace')` in `grid.js`)
+* Grid Editor: Guide-Alignment defensiv abgesichert, wenn Guides oder Margin-Werte temporär fehlen
+* Wrapper Controls: Parsing von `minHeight` und Wrapper-Margins robust gemacht, um weitere `replace`-Fehler in Randfaellen zu vermeiden
+* Visual Editor: Weitere CSS-Parsing-Stellen (Inspector-Nudging, WYSIWYG-Panel, Wrapper-Margin-Feedback, Font-Browser) mit defensiven Fallbacks gegen `undefined.replace` gehaertet
+* Visual Editor: Strict-Mode-Fehler bereinigt, indem ungueltige `delete <bezeichner>`-Aufrufe durch sichere Resets (`= undefined`) ersetzt wurden
+* Optionen bereinigt: "Padma Entwickler-Version verwenden" und "Debug-Modus" inklusive zugehoeriger Laufzeitlogik vollstaendig entfernt
 
 = 1.1.0 =
 * Grid Editor: Wrapper-Resize stabilisiert, TypeError bei der Hoehenaenderung behoben (`Cannot read properties of undefined (reading 'height')` in `wrappers.js`)

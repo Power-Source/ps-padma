@@ -2261,11 +2261,9 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 							
 							render: function(event, api) {
 								
-								delete inspectorElement;
-								delete inspectorTooltip;
-								delete inspectorElementOptions;
-
-								inspectorTooltip = api;								
+						inspectorElement = undefined;
+						inspectorTooltip = undefined;
+						inspectorElementOptions = undefined;
 								
 								if ( !$('#toggle-inspector').hasClass('inspector-disabled') ) {									
 									enableInspector();
@@ -2408,7 +2406,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 				Padma.inspectorDisabled = true;
 
 				delete Padma.disableBlockDimensions;
-				delete inspectorElement;
+				inspectorElement = undefined;
 
 				$i('.inspector-element-hover').removeClass('inspector-element-hover');
 				$i('body').removeClass('disable-block-hover').addClass('inspector-disabled'); 
@@ -2969,7 +2967,12 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 
 						stylesheet.update_rule(selector, {"left": (previousLeft - interval) + 'px'});
 
-						var currentLeft = $i('.inspector-element-selected').css('left').replace('px', '');
+						var currentLeftRaw = $i('.inspector-element-selected').css('left');
+						if ( typeof currentLeftRaw !== 'string' ) {
+							currentLeftRaw = '0';
+						}
+
+						var currentLeft = currentLeftRaw.replace('px', '');
 						$('.design-editor-box-nudging .design-editor-property-left input[type="number"]', '.design-editor-options-container').val(currentLeft).trigger('change');
 
 					break;
@@ -2984,7 +2987,12 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 
 						stylesheet.update_rule(selector, {"top": (previousTop - interval) + 'px'});
 
-						var currentTop = $i('.inspector-element-selected').css('top').replace('px', '');
+						var currentTopRaw = $i('.inspector-element-selected').css('top');
+						if ( typeof currentTopRaw !== 'string' ) {
+							currentTopRaw = '0';
+						}
+
+						var currentTop = currentTopRaw.replace('px', '');
 						$('.design-editor-box-nudging .design-editor-property-top input[type="number"]', '.design-editor-options-container').val(currentTop).trigger('change');
 
 					break;
@@ -2999,7 +3007,12 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 
 						stylesheet.update_rule(selector, {"left": (previousLeft + interval) + 'px'});
 
-						var currentLeft = $i('.inspector-element-selected').css('left').replace('px', '');
+						var currentLeftRaw = $i('.inspector-element-selected').css('left');
+						if ( typeof currentLeftRaw !== 'string' ) {
+							currentLeftRaw = '0';
+						}
+
+						var currentLeft = currentLeftRaw.replace('px', '');
 						$('.design-editor-box-nudging .design-editor-property-left input[type="number"]', '.design-editor-options-container').val(currentLeft).trigger('change');
 
 					break;
@@ -3014,7 +3027,12 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 
 						stylesheet.update_rule(selector, {"top": (previousTop + interval) + 'px'});
 
-						var currentTop = $i('.inspector-element-selected').css('top').replace('px', '');
+						var currentTopRaw = $i('.inspector-element-selected').css('top');
+						if ( typeof currentTopRaw !== 'string' ) {
+							currentTopRaw = '0';
+						}
+
+						var currentTop = currentTopRaw.replace('px', '');
 						$('.design-editor-box-nudging .design-editor-property-top input[type="number"]', '.design-editor-options-container').val(currentTop).trigger('change');
 
 					break;

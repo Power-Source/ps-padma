@@ -64,11 +64,6 @@ class PadmaAdmin {
 
 			PadmaOption::set($option, $value);
 
-			// Developer version			
-			if($option == 'use-developer-version'){				
-				update_option('padma-use-developer-version',$value);
-			}
-
 		}
 
 		global $padma_admin_save_message;

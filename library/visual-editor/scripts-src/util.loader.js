@@ -58,9 +58,9 @@ define(['jquery', 'util.misc'], function($) {
 
 		changeTitle(titleActivityIndicatorSavedTitle);
 
-		delete titleActivityIndicatorCounter;
-		delete titleActivityIndicatorSavedTitle;
-		delete titleActivityIndicatorInstance;
+		titleActivityIndicatorCounter = undefined;
+		titleActivityIndicatorSavedTitle = undefined;
+		titleActivityIndicatorInstance = undefined;
 
 		return true;
 

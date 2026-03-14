@@ -635,7 +635,15 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 		});
 
 		/* Check that font browser isn't bleeding over right--if it is, fix it */
-		var fontBrowserLeftOffset = parseInt(fontBrowser.css('left').replace('px', ''));
+		var fontBrowserLeftOffsetRaw = fontBrowser.css('left');
+		if ( typeof fontBrowserLeftOffsetRaw !== 'string' ) {
+			fontBrowserLeftOffsetRaw = '0';
+		}
+
+		var fontBrowserLeftOffset = parseInt(fontBrowserLeftOffsetRaw.replace('px', ''), 10);
+		if ( isNaN(fontBrowserLeftOffset) ) {
+			fontBrowserLeftOffset = 0;
+		}
 		var fontBrowserRightPos = fontBrowserLeftOffset + fontBrowser.outerWidth(true);
 
 		if ( fontBrowserRightPos > $(window).width() ) {

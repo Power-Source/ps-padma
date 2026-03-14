@@ -36,7 +36,7 @@ define(['jquery', 'util.loader', 'knockout', 'deps/json2'], function($, loader, 
 			mode: Padma.mode
 		}, function(response) {
 			
-			delete currentlySaving;
+			currentlySaving = undefined;
 
 			/* If the AJAX response is '0' then show a log in alert */
 			if ( response === '0' ) {
@@ -229,7 +229,7 @@ define(['jquery', 'util.loader', 'knockout', 'deps/json2'], function($, loader, 
 
 	clearUnsavedValues = function() {
 
-		delete GLOBALunsavedValues;
+		GLOBALunsavedValues = undefined;
 		
 	}
 

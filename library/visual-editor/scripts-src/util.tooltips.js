@@ -115,7 +115,7 @@ define(['jquery', 'qtip'], function($) {
 				
 				$i('.qtip:visible').qtip('reposition');
 				
-				delete iframeScrollTooltipRepositionFloodTimeout;
+				iframeScrollTooltipRepositionFloodTimeout = undefined;
 				
 			}, 400);
 

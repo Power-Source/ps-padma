@@ -545,7 +545,7 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 
 				updateBlockContentFloodTimeout = setTimeout(function() {
 					
-					delete updateBlockContentFloodTimeout;
+					updateBlockContentFloodTimeout = undefined;
 					
 				}, 500);
 
@@ -555,7 +555,7 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 
 					throttledFunction.call();
 
-					delete updateBlockContentFloodTimeoutAfter;
+					updateBlockContentFloodTimeoutAfter = undefined;
 
 				}, 600);
 				
@@ -594,14 +594,14 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 				var contextMenuClickEvent 	= !Padma.touch ? 'click' : 'touchstart';
 
 				/* Block options */
-					$('<li class="context-menu-block-options"><span>Open Block Options</span></li>').appendTo(contextMenu).on(contextMenuClickEvent, function() {
+					$('<li class="context-menu-block-options"><span>Öffne Block Optionen</span></li>').appendTo(contextMenu).on(contextMenuClickEvent, function() {
 						openBlockOptions(block);
 					});
 
 				/* Switch block type */
 					if ( Padma.mode == 'grid' ) {
 
-						$('<li class="context-menu-block-switch-type"><span>Switch Block Type</span></li>').appendTo(contextMenu).on(contextMenuClickEvent, function() {
+						$('<li class="context-menu-block-switch-type"><span>Wechsle Blocktyp</span></li>').appendTo(contextMenu).on(contextMenuClickEvent, function() {
 							openBlockTypeSelector(block);
 						});
 
@@ -610,16 +610,16 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 				/* Duplicate block type */
 					if ( Padma.mode == 'grid' ) {
 
-						$('<li class="context-menu-block-duplicate"><span>Duplicate Block</span></li>').appendTo(contextMenu).on(contextMenuClickEvent, function() {
+						$('<li class="context-menu-block-duplicate"><span>Block duplizieren</span></li>').appendTo(contextMenu).on(contextMenuClickEvent, function() {
 							duplicateBlock(block);
 						});
 
 					}
 
 				/* Set Block Alias */
-					$('<li class="context-menu-set-alias"><span>Set Block Alias</span></li>').appendTo(contextMenu).on(contextMenuClickEvent, function() {
+					$('<li class="context-menu-set-alias"><span>Setze Block Alias</span></li>').appendTo(contextMenu).on(contextMenuClickEvent, function() {
 
-						var blockAlias = prompt('Please enter the desired block alias.', block.data('alias'));
+						var blockAlias = prompt('Bitte gib den gewünschten Block-Alias ein.', block.data('alias'));
 
 						if ( !blockAlias )
 							return;
@@ -633,8 +633,8 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 				/* Unmirror Block */
 					if ( isBlockMirrored(block) ) {
 
-						$('<li class="context-menu-block-unmirror"><span>Unmirror Block</span></li>').appendTo(contextMenu).on(contextMenuClickEvent, function() {
-							if ( !confirm("Are you sure you want to unmirror this block?\n\nIt will no longer copy the options and styling from the block it is currently mirroring.") )
+						$('<li class="context-menu-block-unmirror"><span>Block entmirrorn</span></li>').appendTo(contextMenu).on(contextMenuClickEvent, function() {
+							if ( !confirm("Bist du sicher, dass du diesen Block entmirrorn möchtest?\n\nEr wird nicht mehr die Optionen und das Styling von dem Block kopieren, den er derzeit spiegelt.") )
 								return;
 
 							updateBlockMirrorStatus(false, block, '');
@@ -648,9 +648,9 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 				/* Delete block */
 					if ( Padma.mode == 'grid' ) {
 
-						$('<li class="context-menu-block-delete"><span>Delete Block</span></li>').appendTo(contextMenu).on(contextMenuClickEvent, function(event) {
+						$('<li class="context-menu-block-delete"><span>Block löschen</span></li>').appendTo(contextMenu).on(contextMenuClickEvent, function(event) {
 							
-							if ( !confirm('Are you sure you want to delete this block?') )
+							if ( !confirm('Bist du sicher, dass du diesen Block löschen möchtest?') )
 								return false;
 
 							deleteBlock(block);
@@ -722,7 +722,7 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 					if(blockType == 'content'){
 						showNotification({
 							id: 'open-content-editor',
-							message: 'To edit Pages or Post content please right click the content block and use the option "Edit Content"',
+							message: 'Um Seiten- oder Beitragsinhalte zu bearbeiten, bitte mit der rechten Maustaste auf den Inhaltsblock klicken und die Option "Inhalt bearbeiten" verwenden.',
 							closeTimer: 3000
 						});
 					}
@@ -944,7 +944,7 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 					if ( $('#input-enable-responsive-grid label.checkbox-checked').length == 1 || (Padma.mode != 'grid' && Padma.responsiveGrid) )
 						var width = '<span class="block-width"><strong>Max Width:</strong> <small>~</small>' + blockWidth + '<small>px</small></span>';
 
-					var fluidMessage = !getBlockTypeObject(blockType)['fixed-height'] ? '<span class="block-fluid-height-message">Height will auto-expand</span>' : '';
+					var fluidMessage = !getBlockTypeObject(blockType)['fixed-height'] ? '<span class="block-fluid-height-message">Die Höhe passt sich automatisch an.</span>' : '';
 
 				/* Output */
 				return blockInfo + width + ' <span class="block-dimensions-separator">&#9747;</span> ' + height + fluidMessage + '<span class="right-click-message">Right-click to open block options</span>' ;
@@ -978,11 +978,11 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 			if(blocks.length > 0 ){
 				if(blocks.length == 1 ){
 					var block = getBlock(blocks[0]);
-					if(confirm('Are you sure you want to delete this block?')){
+					if(confirm('Bist du sicher, dass du diesen Block löschen möchtest?')){
 						deleteBlock(block);
 					}
 				}else{
-					if(confirm('Are you sure you want to delete all these blocks?')){
+					if(confirm('Bist du sicher, dass du alle diese Blöcke löschen möchtest?')){
 						blocks.each(function(){
 							var block = getBlock($(this))
 							deleteBlock(block);
@@ -1151,7 +1151,7 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 
 		/* Create blank panel */
 			removePanelTab('block-' + blockID);
-			addPanelTab('block-' + blockID, 'Select Block Type', '', true, true);
+			addPanelTab('block-' + blockID, 'Wähle Blocktyp', '', true, true);
 
 			var tab = $('#block-' + blockID + '-tab');
 
@@ -1175,7 +1175,7 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 						blockID = getBlockID(targetBlock);
 					
 				/* Otherwise we're switching an existing block's type */
-					} else if ( confirm('Are you sure you wish to switch block types?  All settings for this block will be lost.') ) {
+					} else if ( confirm('Bist du sicher, dass du den Blocktyp wechseln möchtest? Alle Einstellungen für diesen Block gehen verloren.') ) {
 						
 						var switchedBlockTypeBlockID = switchBlockType(block, blockType);
 
@@ -1487,7 +1487,7 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 
 			showErrorNotification({
 				id: 'overlapping-blocks',
-				message: 'There are <strong>overlapping blocks</strong>.<br />Please separate them before saving.',
+				message: 'Es gibt <strong>überlappende Blöcke</strong>.<br />Bitte trenne diese vor dem Speichern.',
 				closeTimer: false
 			});
 
@@ -1628,10 +1628,10 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 		var importDesign = puBoolean($(input).parents('.ui-tabs-panel').first().find('input[name="block-import-settings-include-design"]').val());
 
 		if ( !fileInput.val() )
-			return alert('You must select a block settings export file before importing.');
+			return alert('Du musst vor dem Import eine Exportdatei für Blockeinstellungen auswählen.');
 
 		if ( !importOptions && !importDesign )
-			return alert('You must import at least the options or design when importing block settings.');
+			return alert('Du musst mindestens die Optionen oder das Design beim Importieren von Blockeinstellungen auswählen.');
 
 		var blockSettingsFile = fileInput.get(0).files[0];
 
@@ -1646,18 +1646,18 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 
 				/* Check to be sure that the JSON file is a block settings export file */
 					if ( blockSettingsImportArray['data-type'] != 'block-settings' )
-						return alert('Cannot load block settings.  Please insure that the block settings are a proper Padma block settings export.');
+						return alert('Kann Blockeinstellungen nicht laden. Bitte stelle sicher, dass die Blockeinstellungen eine gültige Padma-Blockeinstellungen-Exportdatei sind.');
 
 				/* Make sure block type matches */
 					if ( getBlockType(getBlockByID(blockID)) != blockSettingsImportArray['type'] )
-						return alert('Block type mismatch.  Be sure that the block settings export is the same type of block type that you\'re importing to.');
+						return alert('Blocktyp stimmt nicht überein. Stelle sicher, dass der Blockeinstellungen-Export derselbe Blocktyp ist, den du importierst.');
 
 				/* Handle the fun stuff */
 					if ( typeof blockSettingsImportArray['image-definitions'] != 'undefined' && Object.keys(blockSettingsImportArray['image-definitions']).length ) {
 
 						showNotification({
 							id: 'importing-images',
-							message: 'Currently importing images.',
+							message: 'Derzeit werden Bilder importiert.',
 							closeTimer: 10000
 						});
 
@@ -1672,7 +1672,7 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 
 							/* If there's an error when sideloading images, then hault import. */
 							if ( typeof blockSettings['error'] != 'undefined' )
-								return alert('Error while importing images for block: ' + blockSettings['error']);
+								return alert('Fehler beim Importieren von Bildern für den Block: ' + blockSettings['error']);
 								
 							importBlockSettingsAJAXCallback(blockID, blockSettings, importOptions, importDesign);
 
@@ -1690,7 +1690,7 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 
 		} else {
 
-			alert('Cannot load block settings.  Please insure that the block settings are a proper Padma block settings export.');
+			alert('Kann Blockeinstellungen nicht laden. Bitte stelle sicher, dass die Blockeinstellungen eine gültige Padma-Blockeinstellungen-Exportdatei sind.');
 
 		}
 
@@ -1743,7 +1743,7 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 
 					showNotification({
 						id: 'block-design-imported-' + blockID,
-						message: 'Block design successfully imported',
+						message: 'Block-Design erfolgreich importiert',
 						closeTimer: 6000,
 						success: true
 					});
@@ -1769,7 +1769,7 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 			/* Show notification */
 				showNotification({
 					id: 'block-settings-imported-' + blockID,
-					message: 'Block settings successfully imported',
+					message: 'Blockeinstellungen erfolgreich importiert',
 					closeTimer: 6000,
 					success: true
 				});

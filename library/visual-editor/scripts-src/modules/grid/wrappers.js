@@ -68,7 +68,7 @@ define(['util.custommouse', 'qtip', 'helper.data', 'modules/grid/wrapper-inputs'
 
 					if ( typeof wrapperDraggableScrollDownInterval == 'number' ) {
 						clearInterval(wrapperDraggableScrollDownInterval);
-						delete wrapperDraggableScrollDownInterval;
+						wrapperDraggableScrollDownInterval = undefined;
 					}
 
 					if ( typeof wrapperDraggableScrollUpInterval == 'undefined' ) {
@@ -84,7 +84,7 @@ define(['util.custommouse', 'qtip', 'helper.data', 'modules/grid/wrapper-inputs'
 
 					if ( typeof wrapperDraggableScrollUpInterval == 'number' ) {
 						clearInterval(wrapperDraggableScrollUpInterval);
-						delete wrapperDraggableScrollUpInterval;
+						wrapperDraggableScrollUpInterval = undefined;
 					}
 
 					if ( typeof wrapperDraggableScrollDownInterval == 'undefined' ) {
@@ -108,12 +108,12 @@ define(['util.custommouse', 'qtip', 'helper.data', 'modules/grid/wrapper-inputs'
 
 					if ( typeof wrapperDraggableScrollDownInterval == 'number' ) {
 						clearInterval(wrapperDraggableScrollDownInterval);
-						delete wrapperDraggableScrollDownInterval;
+						wrapperDraggableScrollDownInterval = undefined;
 					}
 
 					if ( typeof wrapperDraggableScrollUpInterval == 'number' ) {
 						clearInterval(wrapperDraggableScrollUpInterval);
-						delete wrapperDraggableScrollUpInterval;
+						wrapperDraggableScrollUpInterval = undefined;
 					}
 
 				}
@@ -135,12 +135,12 @@ define(['util.custommouse', 'qtip', 'helper.data', 'modules/grid/wrapper-inputs'
 				/* Stop scrolling intervals if they still exist */
 				if ( typeof wrapperDraggableScrollDownInterval == 'number' ) {
 					clearInterval(wrapperDraggableScrollDownInterval);
-					delete wrapperDraggableScrollDownInterval;
+					wrapperDraggableScrollDownInterval = undefined;
 				}
 
 				if ( typeof wrapperDraggableScrollUpInterval == 'number' ) {
 					clearInterval(wrapperDraggableScrollUpInterval);
-					delete wrapperDraggableScrollUpInterval;
+					wrapperDraggableScrollUpInterval = undefined;
 				}
 
 				dataSortWrappers();
@@ -157,7 +157,15 @@ define(['util.custommouse', 'qtip', 'helper.data', 'modules/grid/wrapper-inputs'
 
 		wrappers.each(function() {
 
-			var wrapperMinHeight = parseInt($(this).css('minHeight').replace('px', '')) ;
+			var wrapperMinHeightRaw = $(this).css('minHeight');
+			if ( typeof wrapperMinHeightRaw !== 'string' ) {
+				wrapperMinHeightRaw = '0';
+			}
+
+			var wrapperMinHeight = parseInt(wrapperMinHeightRaw.replace('px', ''), 10);
+			if ( isNaN(wrapperMinHeight) ) {
+				wrapperMinHeight = 0;
+			}
 
 			$(this).resizable({
 				handles: 'n, s',
@@ -773,7 +781,15 @@ define(['util.custommouse', 'qtip', 'helper.data', 'modules/grid/wrapper-inputs'
 					this.marginToChange = this.handle.hasClass('wrapper-top-margin-handle') ? 'marginTop' : 'marginBottom';
 
 					this.wrapper = $(e.currentTarget).closest('.wrapper');
-					this.originalWrapperMargin = parseInt(this.wrapper.css(this.marginToChange).replace('px', ''));
+					var originalWrapperMarginRaw = this.wrapper.css(this.marginToChange);
+					if ( typeof originalWrapperMarginRaw !== 'string' ) {
+						originalWrapperMarginRaw = '0';
+					}
+
+					this.originalWrapperMargin = parseInt(originalWrapperMarginRaw.replace('px', ''), 10);
+					if ( isNaN(this.originalWrapperMargin) ) {
+						this.originalWrapperMargin = 0;
+					}
 
 					/* Disable sibling tooltips */
 					this.handle.siblings('.wrapper-handle[data-hasqtip], .wrapper-options[data-hasqtip]').each(function() {

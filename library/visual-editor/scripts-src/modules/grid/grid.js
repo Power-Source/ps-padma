@@ -146,10 +146,32 @@ define(['jquery', 'helper.history', 'helper.data', 'vanilla-draggable', 'deps/jq
 
 			resetGridCalculations: function() {
 
+				var gridGuide = this.container.find('.grid-guide:eq(1)');
+				var previousGrid = this.grid || {};
+
+				if ( !gridGuide.length ) {
+					gridGuide = this.container.find('.grid-guide:eq(0)');
+				}
+
+				var columnWidth = parseInt(gridGuide.outerWidth(), 10);
+				if ( isNaN(columnWidth) ) {
+					columnWidth = previousGrid.columnWidth || 0;
+				}
+
+				var gutterMarginLeft = gridGuide.css('marginLeft');
+				if ( typeof gutterMarginLeft !== 'string' ) {
+					gutterMarginLeft = '0';
+				}
+
+				var gutterWidth = parseInt(gutterMarginLeft.replace('px', ''), 10);
+				if ( isNaN(gutterWidth) ) {
+					gutterWidth = previousGrid.gutterWidth || 0;
+				}
+
 				this.grid = {
 					columns: this.container.find('.grid-guide').length,
-					columnWidth: parseInt(this.container.find('.grid-guide:eq(1)').outerWidth()),
-					gutterWidth: parseInt(this.container.find('.grid-guide:eq(1)').css('marginLeft').replace('px', ''))
+					columnWidth: columnWidth,
+					gutterWidth: gutterWidth
 				};
 
 				var self = this;
@@ -543,7 +565,15 @@ define(['jquery', 'helper.history', 'helper.data', 'vanilla-draggable', 'deps/jq
 				var block = getBlock(ui.element);
 				var grid = block.parents('.ui-padma-grid').data('ui-padmaGrid');
 				
-				var minBlockHeight = parseInt(block.css('minHeight').replace('px', ''));
+				var minBlockHeightRaw = block.css('minHeight');
+				if ( typeof minBlockHeightRaw !== 'string' ) {
+					minBlockHeightRaw = '0';
+				}
+
+				var minBlockHeight = parseInt(minBlockHeightRaw.replace('px', ''), 10);
+				if ( isNaN(minBlockHeight) ) {
+					minBlockHeight = 0;
+				}
 				var height = block.height();
 						
 				//Remove min-height
@@ -1469,6 +1499,9 @@ define(['jquery', 'helper.history', 'helper.data', 'vanilla-draggable', 'deps/jq
 			var leftGridGuideNum = ((leftGridNum + 1) < this.grid.columns) ? (leftGridNum + 1) : this.grid.columns;
 				var leftGridGuide = gridGuidesContainer.find('.grid-guide-' + leftGridGuideNum);
 
+			if ( !leftGridGuide.length )
+				return;
+
 			/* Do not search for a right grid guide that exceeds column count */
 			var rightGridGuideNum = ((leftGridNum + widthGridNum) < this.grid.columns) ? (leftGridNum + widthGridNum) : this.grid.columns;
 				var rightGridGuide = gridGuidesContainer.find('.grid-guide-' + rightGridGuideNum);
@@ -1478,8 +1511,26 @@ define(['jquery', 'helper.history', 'helper.data', 'vanilla-draggable', 'deps/jq
 
 			if ( (leftGridNum + 1) <= (leftGridNum + widthGridNum) ) {
 
-				var leftGridGuideMargin = parseInt(leftGridGuide.css('marginLeft').replace('px', ''));
-				var rightGridGuideMargin = parseInt(rightGridGuide.css('marginLeft').replace('px', ''));
+				var leftGridGuideMarginRaw = leftGridGuide.css('marginLeft');
+				if ( typeof leftGridGuideMarginRaw !== 'string' ) {
+					leftGridGuideMarginRaw = '0';
+				}
+
+				var rightGridGuideMarginRaw = rightGridGuide.css('marginLeft');
+				if ( typeof rightGridGuideMarginRaw !== 'string' ) {
+					rightGridGuideMarginRaw = '0';
+				}
+
+				var leftGridGuideMargin = parseInt(leftGridGuideMarginRaw.replace('px', ''), 10);
+				var rightGridGuideMargin = parseInt(rightGridGuideMarginRaw.replace('px', ''), 10);
+
+				if ( isNaN(leftGridGuideMargin) ) {
+					leftGridGuideMargin = 0;
+				}
+
+				if ( isNaN(rightGridGuideMargin) ) {
+					rightGridGuideMargin = 0;
+				}
 
 				var leftAmount = leftGridGuide.position().left + leftGridGuideMargin;
 				var rightAmount = (rightGridGuide.position().left + rightGridGuide.outerWidth()) - (leftGridGuide.position().left) - 1;

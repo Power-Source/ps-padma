@@ -91,7 +91,6 @@ Die Optionen-Seite ist in mehrere Tabs unterteilt:
 
 **Developer-Optionen**
 
-- **Debug-Modus:** Zeigt zusätzliche Debug-Informationen im Editor
 - **Disable Responsive Grid:** Deaktiviert responsive Anpassungen (nur für spezielle Fälle)
 - **Custom CSS laden:** Eigene CSS-Dateien einbinden
 

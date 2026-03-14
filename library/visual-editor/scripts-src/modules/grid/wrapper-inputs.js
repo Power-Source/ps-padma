@@ -144,7 +144,15 @@
 				var wrapperMarginFeedback = $('<div class="wrapper-margin-feedback"></div>').prependTo(wrapper);
 
 			/* Style it */
-				var value = parseInt(wrapper.css('margin' + topOrBottom.capitalize()).replace('px', ''));
+				var marginValueRaw = wrapper.css('margin' + topOrBottom.capitalize());
+				if ( typeof marginValueRaw !== 'string' ) {
+					marginValueRaw = '0';
+				}
+
+				var value = parseInt(marginValueRaw.replace('px', ''), 10);
+				if ( isNaN(value) ) {
+					value = 0;
+				}
 
 				var feedbackCSS = {
 					position: 'absolute',

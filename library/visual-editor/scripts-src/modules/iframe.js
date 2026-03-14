@@ -281,7 +281,7 @@ define(['jquery', 'deps/itstylesheet', 'util.saving', 'util.usability', 'util.to
 					overwriteExisting: true
 				});
 				
-				delete padmaIframeLoadNotification;
+				padmaIframeLoadNotification = undefined;
 			}
 			
 			/* Remove the tabs that are set to close on layout switch */

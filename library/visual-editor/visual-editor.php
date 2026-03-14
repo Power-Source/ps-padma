@@ -31,9 +31,6 @@ class PadmaVisualEditor {
 		//Visual Editor AJAX		
 		add_action('wp_ajax_padma_visual_editor', array(__CLASS__, 'ajax'));
 
-		if ( PadmaOption::get('debug-mode') )
-			add_action('wp_ajax_nopriv_padma_visual_editor', array(__CLASS__, 'ajax'));
-
 		//Cache rejection
 		global $cache_rejected_uri;
 
@@ -115,7 +112,7 @@ class PadmaVisualEditor {
 
 		$method = padma_post('method') ? padma_post('method') : padma_get('method');
 
-		//Check for a non-secure (something that doesn't save data) AJAX request first (let debug mode authentication pass through)
+		//Check for a non-secure (something that doesn't save data) AJAX request first.
 		if ( method_exists('PadmaVisualEditorAJAX', 'method_' . $method) && PadmaCapabilities::can_user_visually_edit() ) {
 			do_action('padma_visual_editor_ajax_pre_' . $method);
 			call_user_func(array('PadmaVisualEditorAJAX', 'method_' . $method));

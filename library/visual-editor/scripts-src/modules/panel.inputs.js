@@ -325,7 +325,17 @@ define(['jquery', 'vanilla-draggable', 'helper.codeMirror', 'deps/chosen.jquery'
 
 						/* Make sure WYSIWYG doesn't bleed off screen */
 							if ( $('div#side-panel-container').length ) {
-								var sidePanelWidth = $('div#side-panel-container').outerWidth() - $('div#side-panel-container').css('right').replace('px', '');
+								var sidePanelRightRaw = $('div#side-panel-container').css('right');
+								if ( typeof sidePanelRightRaw !== 'string' ) {
+									sidePanelRightRaw = '0';
+								}
+
+								var sidePanelRight = parseInt(sidePanelRightRaw.replace('px', ''), 10);
+								if ( isNaN(sidePanelRight) ) {
+									sidePanelRight = 0;
+								}
+
+								var sidePanelWidth = $('div#side-panel-container').outerWidth() - sidePanelRight;
 							} else {
 								var sidePanelWidth = 0;
 							}
@@ -442,7 +452,7 @@ define(['jquery', 'vanilla-draggable', 'helper.codeMirror', 'deps/chosen.jquery'
 			$(context).delegate('div.input-integer input', 'focus', function() {
 				
 				if ( typeof originalValues !== 'undefined' ) {
-					delete originalValues;
+					originalValues = undefined;
 				}
 				
 				originalValues = new Object;		

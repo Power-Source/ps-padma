@@ -67,7 +67,6 @@ if ( apply_filters( 'replace_editor', false, $post ) === true ) {
 
     WP_DEBUG: 			<?php echo defined('WP_DEBUG') ? WP_DEBUG ? 'Enabled' . "\n" : 'Disabled' . "\n" : 'Not set' . "\n" ?>
 	SCRIPT_DEBUG: 		<?php echo defined('SCRIPT_DEBUG') ? SCRIPT_DEBUG ? 'Enabled' . "\n" : 'Disabled' . "\n" : 'Not set' . "\n" ?>
-    Debug Mode: 		<?php echo PadmaOption::get('debug-mode', false, false) ? 'Enabled' . "\n" : 'Disabled' . "\n" ?>
 
 	Show On Front: 		<?php echo get_option('show_on_front') . "\n" ?>
 	Page On Front: 		<?php echo get_option('page_on_front') . "\n" ?>

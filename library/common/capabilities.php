@@ -38,8 +38,7 @@ class PadmaCapabilities {
 	 **/
 	public static function can_user_visually_edit($ignore_debug_mode = false) {
 
-		if ( !$ignore_debug_mode && PadmaOption::get('debug-mode') )
-			return true;
+		// Legacy parameter kept for backwards compatibility.
 
 		return is_user_logged_in() && self::can_user('padma_visual_editor');
 

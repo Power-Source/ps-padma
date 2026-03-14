@@ -51,8 +51,8 @@ class PadmaRoute {
 
 				return false;
 
-			//If the user isn't logged in at all, log 'em in and loop back to visual editor as long as debug mode isn't active
-			} elseif ( !is_user_logged_in() && !PadmaOption::get('debug-mode') ) {
+			//If the user isn't logged in at all, log 'em in and loop back to visual editor.
+			} elseif ( !is_user_logged_in() ) {
 
 				return auth_redirect();
 
