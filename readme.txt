@@ -1,4 +1,4 @@
-=== PS Padma ContentBuilder===
+=== PS Padma ContentBuilder ===
 Contributors: PSOURCE
 Requires at least: 5.0
 Tested up to: WordPress 8.6, ClassicPress 2.6.0
