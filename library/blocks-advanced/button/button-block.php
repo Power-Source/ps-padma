@@ -58,9 +58,9 @@ public $categories;
  */
 public function __construct() {
 $this->id            = 'visual-elements-button';
-$this->name          = __( 'Button', 'padma' );
+$this->name          = __( 'Schaltfläche', 'padma' );
 $this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockButtonOptions';
-$this->description   = __( 'Allows create highly customizable buttons. You can change button style, colors, size, add an icon or description . ', 'padma' );
+$this->description   = __( 'Ermöglicht das Erstellen hochgradig anpassbarer Schaltflächen. Du kannst den Schaltflächenstil, die Farben, die Größe ändern, ein Symbol oder eine Beschreibung hinzufügen.', 'padma' );
 $this->categories    = array( 'content' );
 }
 
@@ -78,7 +78,7 @@ public function setup_elements() {
 $this->register_block_element(
 array(
 'id'       => 'button',
-'name'     => __( 'Button', 'padma' ),
+'name'     => __( 'Schaltfläche', 'padma' ),
 'selector' => 'a.su-button',
 'states'   => array(
 'Hover'   => 'a.su-button:hover',
@@ -90,7 +90,7 @@ array(
 $this->register_block_element(
 array(
 'id'       => 'icon',
-'name'     => __( 'Icon', 'padma' ),
+'name'     => __( 'Symbol', 'padma' ),
 'selector' => 'a.su-button span i',
 )
 );

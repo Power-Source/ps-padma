@@ -14,7 +14,7 @@
 namespace Padma_Advanced;
 
 /**
- * FontAwesome Icon Block
+ * MaterialDesign Icon Block
  */
 class PadmaMDIBlock extends \PadmaBlockAPI {
 
@@ -58,9 +58,9 @@ class PadmaMDIBlock extends \PadmaBlockAPI {
 	 */
 	public function __construct() {
 		$this->id            = 'mdi';
-		$this->name          = __( 'MaterialDesign Icons', 'padma' );
+		$this->name          = __( 'MaterialDesign Symbole', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaMDIBlockOptions';
-		$this->description   = __( 'Add MaterialDesign Icons to the visual editor . ', 'padma' );
+		$this->description   = __( 'Fügt MaterialDesign-Symbole zum visuellen Editor hinzu.', 'padma' );
 		$this->categories    = array( 'content' );
 	}
 
@@ -79,7 +79,7 @@ class PadmaMDIBlock extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content',
-				'name'     => __( 'Block Content', 'padma' ),
+				'name'     => __( 'Block Inhalt', 'padma' ),
 				'selector' => '.block-content',
 			)
 		);
@@ -99,22 +99,22 @@ class PadmaMDIBlock extends \PadmaBlockAPI {
 		);
 		$this->register_block_element(
 			array(
-				'id'       => 'Icon',
-				'name'     => __( 'Icon', 'padma' ),
+				'id'       => 'icon',
+				'name'     => __( 'Symbol', 'padma' ),
 				'selector' => 'i.mdi',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'before-icon',
-				'name'     => __( 'Before Icon', 'padma' ),
+				'name'     => __( 'Vor dem Symbol', 'padma' ),
 				'selector' => '.before-icon',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'after-icon',
-				'name'     => __( 'After Icon', 'padma' ),
+				'name'     => __( 'Nach dem Symbol', 'padma' ),
 				'selector' => '.after-icon',
 			)
 		);

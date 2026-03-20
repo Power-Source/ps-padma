@@ -59,7 +59,7 @@ public function __construct() {
 $this->id            = 'visual-elements-box';
 $this->name          = __( 'Box', 'padma' );
 $this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockBoxOptions';
-$this->description   = __( 'Allows you to create customizable boxes with title and custom colors', 'padma' );
+$this->description   = __( 'Erlaubt das Erstellen anpassbarer Boxen mit Titel und benutzerdefinierten Farben', 'padma' );
 $this->categories    = array( 'box' );
 }
 
@@ -83,14 +83,14 @@ array(
 $this->register_block_element(
 array(
 'id'       => 'box-title',
-'name'     => __( 'Box Title', 'padma' ),
+'name'     => __( 'Box Titel', 'padma' ),
 'selector' => '.su-box-title',
 )
 );
 $this->register_block_element(
 array(
 'id'       => 'box-content',
-'name'     => __( 'Box Content', 'padma' ),
+'name'     => __( 'Box Inhalt', 'padma' ),
 'selector' => '.su-box-content',
 )
 );
@@ -140,22 +140,22 @@ echo $html;
  * @return void
  */
 public static function enqueue_action( $block_id, $block = false ) {
-if ( ! $block ) {
-$block = \PadmaBlocksData::get_block( $block_id );
-}
-$style = parent::get_setting( $block, 'style' );
-if ( 'none' !== $style ) {
-\PadmaCompiler::register_file(
-array(
-'name'         => 've-box-css',
-'format'       => 'css',
-'fragments'    => array(
-__DIR__ . '/box.css',
-),
-'dependencies' => array(),
-'enqueue'      => true,
-)
-);
-}
+	if ( ! $block ) {
+		$block = \PadmaBlocksData::get_block( $block_id );
+	}
+	$style = parent::get_setting( $block, 'style' );
+	if ( 'none' !== $style ) {
+		\PadmaCompiler::register_file(
+			array(
+				'name'         => 've-box-css',
+				'format'       => 'css',
+				'fragments'    => array(
+					__DIR__ . '/box.css',
+				),
+				'dependencies' => array(),
+				'enqueue'      => true,
+			)
+		);
+	}
 }
 }

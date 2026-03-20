@@ -57,9 +57,9 @@ public $categories;
  */
 public function __construct() {
 $this->id            = 'visual-elements-quote';
-$this->name          = __( 'Quote', 'padma' );
+$this->name          = __( 'Zitat', 'padma' );
 $this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockQuoteOptions';
-$this->description   = __( 'Allows you to create customizable quote blocks with author citation', 'padma' );
+$this->description   = __( 'Ermöglicht das Erstellen anpassbarer Zitatblöcke mit Autorenangabe', 'padma' );
 $this->categories    = array( 'box' );
 }
 
@@ -76,21 +76,21 @@ public function setup_elements() {
 $this->register_block_element(
 array(
 'id'       => 'quote',
-'name'     => __( 'Quote', 'padma' ),
+'name'     => __( 'Zitat', 'padma' ),
 'selector' => '.su-quote',
 )
 );
 $this->register_block_element(
 array(
 'id'       => 'quote-inner',
-'name'     => __( 'Quote Inner', 'padma' ),
+'name'     => __( 'Zitat Inhalt', 'padma' ),
 'selector' => '.su-quote-inner',
 )
 );
 $this->register_block_element(
 array(
 'id'       => 'quote-cite',
-'name'     => __( 'Quote Citation', 'padma' ),
+'name'     => __( 'Zitat Quelle', 'padma' ),
 'selector' => '.su-quote-cite',
 )
 );

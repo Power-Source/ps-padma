@@ -57,9 +57,9 @@ class PadmaVisualElementsBlockPostData extends \PadmaBlockAPI {
 	 */
 	public function __construct() {
 		$this->id            = 've-postdata';
-		$this->name          = __( 'Post Data', 'padma' );
+		$this->name          = __( 'Beitragsdaten', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockPostDataOptions';
-		$this->description   = __( 'Allows to display various post fields, including post title, post content, modified date etc . ', 'padma' );
+		$this->description   = __( 'Ermöglicht die Anzeige verschiedener Beitragsfelder, einschließlich Beitragstitel, Beitragsinhalt, Änderungsdatum usw.', 'padma' );
 		$this->categories    = array( 'content' );
 	}
 
@@ -89,7 +89,7 @@ class PadmaVisualElementsBlockPostData extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content',
-				'name'     => __( 'Content', 'padma' ),
+				'name'     => __( 'Inhalt', 'padma' ),
 				'selector' => '.ve-postdata',			
 			)
 		);
@@ -105,7 +105,7 @@ class PadmaVisualElementsBlockPostData extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-h1',
-				'name'     => __( 'Content h1', 'padma' ),
+				'name'     => __( 'Inhalt h1', 'padma' ),
 				'selector' => '.ve-postdata h1',
 			)
 		);
@@ -113,7 +113,7 @@ class PadmaVisualElementsBlockPostData extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-h2',
-				'name'     => __( 'Content h2', 'padma' ),
+				'name'     => __( 'Inhalt h2', 'padma' ),
 				'selector' => '.ve-postdata h2',
 			)
 		);
@@ -121,7 +121,7 @@ class PadmaVisualElementsBlockPostData extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-h3',
-				'name'     => __( 'Content h3', 'padma' ),
+				'name'     => __( 'Inhalt h3', 'padma' ),
 				'selector' => '.ve-postdata h3',
 			)
 		);
@@ -129,7 +129,7 @@ class PadmaVisualElementsBlockPostData extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-h4',
-				'name'     => __( 'Content h4', 'padma' ),
+				'name'     => __( 'Inhalt h4', 'padma' ),
 				'selector' => '.ve-postdata h4',
 			)
 		);
@@ -137,7 +137,7 @@ class PadmaVisualElementsBlockPostData extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-h5',
-				'name'     => __( 'Content h5', 'padma' ),
+				'name'     => __( 'Inhalt h5', 'padma' ),
 				'selector' => '.ve-postdata h5',
 			)
 		);
@@ -145,7 +145,7 @@ class PadmaVisualElementsBlockPostData extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-h6',
-				'name'     => __( 'Content h6', 'padma' ),
+				'name'     => __( 'Inhalt h6', 'padma' ),
 				'selector' => '.ve-postdata h6',
 			)
 		);
@@ -153,7 +153,7 @@ class PadmaVisualElementsBlockPostData extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-li',
-				'name'     => __( 'Content li', 'padma' ),
+				'name'     => __( 'Inhalt li', 'padma' ),
 				'selector' => '.ve-postdata li',
 			)
 		);
@@ -161,7 +161,7 @@ class PadmaVisualElementsBlockPostData extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-a',
-				'name'     => __( 'Content link', 'padma' ),
+				'name'     => __( 'Inhalt Link', 'padma' ),
 				'selector' => '.ve-postdata a',
 			)
 		);
@@ -169,7 +169,7 @@ class PadmaVisualElementsBlockPostData extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-image',
-				'name'     => __( 'Content image', 'padma' ),
+				'name'     => __( 'Inhalt Bild', 'padma' ),
 				'selector' => '.ve-postdata image',
 			)
 		);
@@ -177,7 +177,7 @@ class PadmaVisualElementsBlockPostData extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'content-figure',
-				'name'     => __( 'Content figure', 'padma' ),
+				'name'     => __( 'Inhalt Figure', 'padma' ),
 				'selector' => '.ve-postdata figure',
 			)
 		);

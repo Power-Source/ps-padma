@@ -58,9 +58,9 @@ class PadmaVisualElementsBlockDivider extends \PadmaBlockAPI {
 	 */
 	public function __construct() {
 		$this->id            = 'visual-elements-divider';
-		$this->name          = __( 'Divider', 'padma' );
+		$this->name          = __( 'Trenner', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockDividerOptions';
-		$this->description   = __( 'Allows you to divide page content with styled divider. You can customize colours, hide “Got to top” link and adjust divider size . ', 'padma' );
+		$this->description   = __( 'Ermöglicht das Teilen von Seiteninhalten mit einem gestalteten Trenner. Du kannst Farben anpassen, den „Nach oben“-Link ausblenden und die Größe des Trenners anpassen.', 'padma' );
 		$this->categories    = array( 'content' );
 
 		$this->inline_editable              = array( 'block-title', 'block-subtitle', 'su-divider' );
@@ -83,14 +83,14 @@ class PadmaVisualElementsBlockDivider extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'divider',
-				'name'     => 'divider',
+				'name'     => __( 'Trenner', 'padma' ),
 				'selector' => '.su-divider',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'link',
-				'name'     => 'link',
+				'name'     => __( 'Link', 'padma' ),
 				'selector' => '.su-divider a',
 			)
 		);
@@ -115,7 +115,7 @@ class PadmaVisualElementsBlockDivider extends \PadmaBlockAPI {
 		}
 
 		if ( ! $text ) {
-			$text = __( 'Go to top', 'padma' );
+			$text = __( 'Nach oben', 'padma' );
 		}
 
 		if ( ! $style ) {

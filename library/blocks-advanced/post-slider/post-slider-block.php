@@ -7,6 +7,7 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
     public $id 				= 'post-slider';    
     public $name 			= 'Post Slider';
 	public $options_class 	= 'Padma_Advanced\\PadmaVisualElementsBlockPostSliderOptions';
+	public $description 		= 'Zeigt Beiträge in einem Slider an';
     public $categories 		= array('content','gallery');
     private $authors;
 
@@ -49,19 +50,19 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 
 		$this->register_block_element(array(
 			'id' => 'slide-p',
-			'name' => 'Slide text',
+			'name' => 'Slide Text',
 			'selector' => '.swiper-slide p'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-a',
-			'name' => 'Slide link',
+			'name' => 'Slide Link',
 			'selector' => '.swiper-slide a'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'slide-a-button',
-			'name' => 'Slide Read more button',
+			'name' => 'Slide Mehr lesen-Schaltfläche',
 			'selector' => '.swiper-slide a.button'
 		));
 
@@ -116,25 +117,25 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 
 		$this->register_block_element(array(
 			'id' => 'dots-item',
-			'name' => 'Dots Item',
+			'name' => 'Dots Element',
 			'selector' => '.swiper-pagination-bullet'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'nav-buttons',
-			'name' => 'Navigation Buttons',
+			'name' => 'Navigationsschaltflächen',
 			'selector' => '.swiper-button-prev, .swiper-button-next'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'nav-button-prev',
-			'name' => 'Back Button',
+			'name' => 'Zurück-Taste',
 			'selector' => '.swiper-button-prev'
 		));
 
 		$this->register_block_element(array(
 			'id' => 'nav-button-next',
-			'name' => 'Next Button',
+			'name' => 'Weiter-Schaltfläche',
 			'selector' => '.swiper-button-next'
 		));
 
@@ -145,17 +146,17 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 		 */
 			$this->register_block_element(array(
 				'id' => 'padma-post-slider-area-style1',
-				'name' => 'Style 1 Area',
+				'name' => 'Style 1 Bereich',
 				'selector' => '.padma-post-slider-area-style1'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style1',
-				'name' => 'Style 1 Carousel',
+				'name' => 'Style 1 Karussell',
 				'selector' => '.carousel-style1'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style1-item',
-				'name' => 'Style 1 Item',
+				'name' => 'Style 1 Element',
 				'selector' => '.carousel-style1-item',
 				'states' => array(
 					'Hover' => '.carousel-style1-item:hover', 
@@ -164,73 +165,71 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style1-item-image',
-				'name' => 'Style 1 Image',
+				'name' => 'Style 1 Bild',
 				'selector' => '.carousel-style1-item-image'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style1-item-category',
-				'name' => 'Style 1 Categories',
+				'name' => 'Style 1 Kategorien',
 				'selector' => '.carousel-style1-item-category'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style1-item-category-a',
-				'name' => 'Style 1 Single Categorie',
+				'name' => 'Style 1 Einzelne Kategorie',
 				'selector' => '.carousel-style1-item-category a'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style1-item-reviews',
-				'name' => 'Style 1 Content container',
+				'name' => 'Style 1 Inhaltscontainer',
 				'selector' => '.carousel-style1-item-reviews'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style1-item-title',
-				'name' => 'Style 1 Title',
+				'name' => 'Style 1 Titel',
 				'selector' => '.carousel-style1-item-title'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style1-item-title-a',
-				'name' => 'Style 1 Title Link',
+				'name' => 'Style 1 Titel Link',
 				'selector' => '.carousel-style1-item-title a'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style1-item-description',
-				'name' => 'Style 1 Content',
+				'name' => 'Style 1 Inhalt',
 				'selector' => '.carousel-style1-item-description'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style1-item-author',
-				'name' => 'Style 1 Author',
+				'name' => 'Style 1 Autor',
 				'selector' => '.carousel-style1-item-author'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style1-item-author-a',
-				'name' => 'Style 1 Author Link',
+				'name' => 'Style 1 Autor Link',
 				'selector' => '.carousel-style1-item-author a'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style1-item-author-icon',
-				'name' => 'Style 1 Author Icon',
+				'name' => 'Style 1 Autor Icon',
 				'selector' => '.carousel-style1-item-author i'
 			));
 
 		/**
-		 *
 		 * Style 2
-		 *
 		 */
 			$this->register_block_element(array(
 				'id' => 'padma-post-slider-area-style2',
-				'name' => 'Style 2 Area',
+				'name' => 'Style 2 Bereich',
 				'selector' => '.padma-post-slider-area-style2'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style2',
-				'name' => 'Style 2 Carousel',
+				'name' => 'Style 2 Karussell',
 				'selector' => '.carousel-style2'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style2-item',
-				'name' => 'Style 2 Item',
+				'name' => 'Style 2 Element',
 				'selector' => '.carousel-style2-item',
 				'states' => array(
 					'Hover' => '.carousel-style2-item:hover', 
@@ -239,7 +238,7 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style2-item-image',
-				'name' => 'Style 2 Image',
+				'name' => 'Style 2 Bild',
 				'selector' => '.carousel-style2-item-image'
 			));
 			$this->register_block_element(array(
@@ -249,43 +248,41 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style2-item-meta-item',
-				'name' => 'Style 2 Meta Item',
+				'name' => 'Style 2 Meta Element',
 				'selector' => '.carousel-style2-item-meta li'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style2-item-date',
-				'name' => 'Style 2 Date',
+				'name' => 'Style 2 Datum',
 				'selector' => '.carousel-style2-item-date'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style2-item-author',
-				'name' => 'Style 2 Author',
+				'name' => 'Style 2 Autor',
 				'selector' => '.carousel-style2-item-author'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style2-item-description',
-				'name' => 'Style 2 Content',
+				'name' => 'Style 2 Inhalt',
 				'selector' => '.carousel-style2-item-description'
 			));
 
 		/**
-		 *
 		 * Style 3
-		 *
 		 */
 			$this->register_block_element(array(
 				'id' => 'padma-post-slider-area-style3',
-				'name' => 'Style 3 Area',
+				'name' => 'Style 3 Bereich',
 				'selector' => '.padma-post-slider-area-style3'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style3',
-				'name' => 'Style 3 Carousel',
+				'name' => 'Style 3 Karussell',
 				'selector' => '.carousel-style3'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style3-item',
-				'name' => 'Style 3 Item',
+				'name' => 'Style 3 Element',
 				'selector' => '.carousel-style3-item',
 				'states' => array(
 					'Hover' => '.carousel-style3-item:hover', 
@@ -294,22 +291,22 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style3-item-image-link',
-				'name' => 'Style 3 Image Link',
+				'name' => 'Style 3 Bild Link',
 				'selector' => '.carousel-style3-item-image a'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style3-item-image',
-				'name' => 'Style 3 Image',
+				'name' => 'Style 3 Bild',
 				'selector' => '.carousel-style3-item-image a img'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style3-item-title',
-				'name' => 'Style 3 Title',
+				'name' => 'Style 3 Titel',
 				'selector' => 'h5.carousel-style3-item-title'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style3-item-title-a',
-				'name' => 'Style 3 Title Link',
+				'name' => 'Style 3 Titel Link',
 				'selector' => 'h5.carousel-style3-item-title a'
 			));
 			$this->register_block_element(array(
@@ -319,17 +316,17 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style3-item-meta-item',
-				'name' => 'Style 3 Meta Item',
+				'name' => 'Style 3 Meta Element',
 				'selector' => '.carousel-style3-item-meta li'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style3-item-date',
-				'name' => 'Style 3 Date',
+				'name' => 'Style 3 Datum',
 				'selector' => '.carousel-style3-item-date'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style3-item-author',
-				'name' => 'Style 3 Author',
+				'name' => 'Style 3 Autor',
 				'selector' => '.carousel-style3-item-author'
 			));
 			$this->register_block_element(array(
@@ -339,7 +336,7 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style3-item-description',
-				'name' => 'Style 3 Content',
+				'name' => 'Style 3 Inhalt',
 				'selector' => '.carousel-style3-item-description'
 			));
 		
@@ -350,17 +347,17 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 		 */
 			$this->register_block_element(array(
 				'id' => 'padma-post-slider-area-style4',
-				'name' => 'Style 4 Area',
+				'name' => 'Style 4 Bereich',
 				'selector' => '.padma-post-slider-area-style4'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style4',
-				'name' => 'Style 4 Carousel',
+				'name' => 'Style 4 Karussell',
 				'selector' => '.carousel-style4'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style4-item-description',
-				'name' => 'Style 4 Content',
+				'name' => 'Style 4 Inhalt',
 				'selector' => '.carousel-style4-item-description'
 			));
 		
@@ -371,17 +368,17 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 		 */
 			$this->register_block_element(array(
 				'id' => 'padma-post-slider-area-style5',
-				'name' => 'Style 5 Area',
+				'name' => 'Style 5 Bereich',
 				'selector' => '.padma-post-slider-area-style5'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style5',
-				'name' => 'Style 5 Carousel',
+				'name' => 'Style 5 Karussell',
 				'selector' => '.carousel-style5'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style5-item',
-				'name' => 'Style 5 Item',
+				'name' => 'Style 5 Element',
 				'selector' => '.carousel-style5-item',
 				'states' => array(
 					'Hover' => '.carousel-style5-item:hover', 
@@ -390,22 +387,22 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style5-item-image-link',
-				'name' => 'Style 5 Image Link',
+				'name' => 'Style 5 Bild Link',
 				'selector' => '.carousel-style5-item-image a'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style5-item-image',
-				'name' => 'Style 5 Image',
+				'name' => 'Style 5 Bild',
 				'selector' => '.carousel-style5-item-image a img'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style5-item-title',
-				'name' => 'Style 5 Title',
+				'name' => 'Style 5 Titel',
 				'selector' => '.carousel-style5-item-title'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style5-item-title-a',
-				'name' => 'Style 5 Title Link',
+				'name' => 'Style 5 Titel Link',
 				'selector' => '.carousel-style5-item-title a'
 			));			
 			$this->register_block_element(array(
@@ -415,7 +412,7 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style5-item-description',
-				'name' => 'Style 5 Content',
+				'name' => 'Style 5 Inhalt',
 				'selector' => '.carousel-style5-item-description'
 			));
 
@@ -426,17 +423,17 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 		 */
 			$this->register_block_element(array(
 				'id' => 'padma-post-slider-area-style6',
-				'name' => 'Style 6 Area',
+				'name' => 'Style 6 Bereich',
 				'selector' => '.padma-post-slider-area-style6'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style6',
-				'name' => 'Style 6 Carousel',
+				'name' => 'Style 6 Karussell',
 				'selector' => '.carousel-style6'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style6-item',
-				'name' => 'Style 6 Item',
+				'name' => 'Style 6 Element',
 				'selector' => '.carousel-style6-item',
 				'states' => array(
 					'Hover' => '.carousel-style6-item:hover', 
@@ -445,22 +442,22 @@ class PadmaVisualElementsBlockPostSlider extends \PadmaBlockAPI {
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style6-item-image-link',
-				'name' => 'Style 6 Image Link',
+				'name' => 'Style 6 Bild Link',
 				'selector' => '.carousel-style6-item-image a'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style6-item-title',
-				'name' => 'Style 6 Title',
+				'name' => 'Style 6 Titel',
 				'selector' => '.carousel-style6-item-title'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style6-item-title-a',
-				'name' => 'Style 6 Title Link',
+				'name' => 'Style 6 Titel Link',
 				'selector' => '.carousel-style6-item-title a'
 			));
 			$this->register_block_element(array(
 				'id' => 'carousel-style6-item-description',
-				'name' => 'Style 6 Content',
+				'name' => 'Style 6 Inhalt',
 				'selector' => '.carousel-style6-item-description'
 			));
 				

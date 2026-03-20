@@ -17,6 +17,7 @@ class PadmaContentSliderBlock extends \PadmaBlockAPI {
     public $id 				= 'content-slider-block';    
     public $name 			= 'Content Slider';
     public $options_class 	= 'Padma_Advanced\\PadmaContentSliderBlockOptions';
+	public $description 	= 'Zeige deine Inhalte in einem modernen, responsiven Slider an.';
     public $categories 		= array('content','gallery');
 
 	function init() {

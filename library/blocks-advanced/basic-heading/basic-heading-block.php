@@ -66,9 +66,9 @@ class PadmaVisualElementsBlockBasicHeading extends \PadmaBlockAPI {
 	public function __construct() {
 
 		$this->id              = 've-basic-heading';
-		$this->name            = __( 'Basic Heading', 'padma' );
+		$this->name            = __( 'Basis Überschrift', 'padma' );
 		$this->options_class   = 'Padma_Advanced\PadmaVisualElementsBlockBasicHeadingOptions';
-		$this->description     = __( 'A Heading can act as a title, section heading, and/or subheading. You can give each Heading a relative level of importance, from H1 to H6. Tip: Search engines (and people!) use Headings to determine the most important themes and topics of your content. ', 'padma' );
+		$this->description     = __( 'Eine Überschrift kann als Titel, Abschnittsüberschrift und/oder Unterüberschrift dienen. Du kannst jeder Überschrift eine relative Wichtigkeit zuweisen, von H1 bis H6. Tipp: Suchmaschinen (und Menschen!) verwenden Überschriften, um die wichtigsten Themen und Inhalte Ihrer Inhalte zu bestimmen.', 'padma' );
 		$this->categories      = array( 'content', 'basic', 'typography' );
 		$this->inline_editable = array( 'block-title', 'block-subtitle', 'basic-heading' );
 	}
@@ -86,7 +86,7 @@ class PadmaVisualElementsBlockBasicHeading extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'basic-heading-h1',
-				'name'     => __( 'Basic Heading H1', 'padma' ),
+				'name'     => __( 'Überschrift H1', 'padma' ),
 				'selector' => 'h1',
 				'states'   => array(
 					'Hover' => 'h1:hover',
@@ -96,7 +96,7 @@ class PadmaVisualElementsBlockBasicHeading extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'basic-heading-h2',
-				'name'     => __( 'Basic Heading H2', 'padma' ),
+				'name'     => __( 'Überschrift H2', 'padma' ),
 				'selector' => 'h2',
 				'states'   => array(
 					'Hover' => 'h2:hover',
@@ -106,7 +106,7 @@ class PadmaVisualElementsBlockBasicHeading extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'basic-heading-h3',
-				'name'     => __( 'Basic Heading H3', 'padma' ),
+				'name'     => __( 'Überschrift H3', 'padma' ),
 				'selector' => 'h3',
 				'states'   => array(
 					'Hover' => 'h3:hover',
@@ -116,7 +116,7 @@ class PadmaVisualElementsBlockBasicHeading extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'basic-heading-h4',
-				'name'     => __( 'Basic Heading H4', 'padma' ),
+				'name'     => __( 'Überschrift H4', 'padma' ),
 				'selector' => 'h4',
 				'states'   => array(
 					'Hover' => 'h4:hover',
@@ -126,7 +126,7 @@ class PadmaVisualElementsBlockBasicHeading extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'basic-heading-h5',
-				'name'     => __( 'Basic Heading H5', 'padma' ),
+				'name'     => __( 'Überschrift H5', 'padma' ),
 				'selector' => 'h5',
 				'states'   => array(
 					'Hover' => 'h5:hover',
@@ -136,7 +136,7 @@ class PadmaVisualElementsBlockBasicHeading extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'basic-heading-h6',
-				'name'     => __( 'Basic Heading H6', 'padma' ),
+				'name'     => __( 'Überschrift H6', 'padma' ),
 				'selector' => 'h6',
 				'states'   => array(
 					'Hover' => 'h6:hover',

@@ -72,9 +72,9 @@ class PadmaVisualElementsBlockLabel extends \PadmaBlockAPI {
 	 */
 	public function __construct() {
 		$this->id            = 'visual-elements-label';
-		$this->name          = __( 'Label', 'padma' );
+		$this->name          = __( 'Etikett', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockLabelOptions';
-		$this->description   = __( 'Will help you to create colourful labels. You can choose among 6 various label colours . ', 'padma' );
+		$this->description   = __( 'Hilft dabei, farbenfrohe Etiketten zu erstellen. Du kannst aus 6 verschiedenen Etikettenfarben wählen.', 'padma' );
 		$this->categories    = array( 'content' );
 
 		$this->inline_editable = array( 'block-title', 'block-subtitle', 'su-label' );
@@ -97,7 +97,7 @@ class PadmaVisualElementsBlockLabel extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'label',
-				'name'     => 'Label',
+				'name'     => __( 'Etikett', 'padma' ),
 				'selector' => 'span.su-label',
 			)
 		);

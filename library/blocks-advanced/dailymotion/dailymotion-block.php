@@ -59,7 +59,7 @@ class PadmaVisualElementsBlockDailymotion extends \PadmaBlockAPI {
 		$this->id            = 'visual-elements-dailymotion';	
 		$this->name          = 'Dailymotion';
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockDailymotionOptions';
-		$this->description   = __( 'Allows you to insert responsive Dailymotion videos . ', 'padma' );
+		$this->description   = __( 'Ermöglicht das Einfügen von responsiven Dailymotion-Videos.', 'padma' );
 		$this->categories    = array( 'media' );
 	}
 
@@ -78,7 +78,7 @@ class PadmaVisualElementsBlockDailymotion extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'dailymotion',
-				'name'     => 'Dailymotion',
+				'name'     => __( 'Dailymotion', 'padma' ),
 				'selector' => 'div.su-dailymotion',
 			)
 		);

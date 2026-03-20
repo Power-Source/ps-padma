@@ -9,7 +9,7 @@ class PadmaVisualElementsBlockSociable extends \PadmaBlockAPI {
 	public $options_class 	= 'Padma_Advanced\\PadmaVisualElementsBlockSociableOptions';	
 	public $fixed_height 	= true;	
 	public $html_tag 		= 'section';
-	public $description 	= 'Display a set of Sociable icons';
+	public $description 	= 'Zeige eine Reihe von Social-Media-Symbolen an.';
 	public $categories 		= array('social');
 
 	protected $show_content_in_grid = false;
@@ -24,96 +24,96 @@ class PadmaVisualElementsBlockSociable extends \PadmaBlockAPI {
 	public function setup_elements() {
 
 		$this->register_block_element(array(
-			'id' => 'icons-wrapper',
-			'name' => 'Icons Container',
+			'id'       => 'icons-wrapper',
+			'name'     => __( 'Symbole Container', 'padma' ),
 			'selector' => 'ul.sociable-icons '
 		));
 
 		$this->register_block_element(array(
-			'id' => 'icon',
-			'name' => 'Icon Container ',
+			'id'       => 'icon',
+			'name'     => __( 'Symbol Container', 'padma' ),
 			'selector' => 'li'
 		));
 
 		$this->register_block_element(array(
-			'id' => 'icon-first',
-			'name' => 'First Icon',
+			'id'       => 'icon-first',
+			'name'     => __( 'Erstes Symbol', 'padma' ),
 			'selector' => 'li:first-child'
 		));
 
 		$this->register_block_element(array(
-			'id' => 'icon-last',
-			'name' => 'Last Icon',
+			'id'       => 'icon-last',
+			'name'     => __( 'Letztes Symbol', 'padma' ),
 			'selector' => 'li:last-child'
 		));
 		
 		$this->register_block_element(array(
-			'id' => 'image',
-			'name' => 'Image',
+			'id'       => 'image',
+			'name'     => __( 'Bild', 'padma' ),
 			'selector' => 'img'
 		));
 
 		$this->register_block_element(array(
-			'id' => 'image-link',
-			'name' => 'Image Link',
+			'id'       => 'image-link',
+			'name'     => __( 'Bild Link', 'padma' ),
 			'selector' => 'img a',
-			'states' => array(
-				'Hover' => 'img a:hover',
-				'Clicked' => 'img a:active'
+			'states'   => array(
+				__( 'Hover', 'padma' )   => 'img a:hover',
+				__( 'Clicked', 'padma' ) => 'img a:active'
 			)
 		));
 
 		$this->register_block_element(array(
-			'id' => 'icon paragraph',
-			'name' => 'Icon paragraph',
+			'id'       => 'icon-paragraph',
+			'name'     => __( 'Symbol Absatz', 'padma' ),
 			'selector' => 'li p'
 		));
 
 		$this->register_block_element(array(
-			'id' => 'icon link',
-			'name' => 'Icon link',
+			'id'       => 'icon-link',
+			'name'     => __( 'Symbol Link', 'padma' ),
 			'selector' => 'li a'
 		));
 
 		$this->register_block_element(array(
-			'id' => 'icon span',
-			'name' => 'Icon span',
+			'id'       => 'icon-span',
+			'name'     => __( 'Symbol Span', 'padma' ),
 			'selector' => 'li span'
 		));
 
 		$this->register_block_element(array(
-			'id' => 'icon h1',
-			'name' => 'Icon h1',
+			'id'       => 'icon-h1',
+			'name'     => __( 'Symbol h1', 'padma' ),
 			'selector' => 'li h1'
 		));
 
 		$this->register_block_element(array(
-			'id' => 'icon h2',
-			'name' => 'Icon h2',
+			'id'       => 'icon-h2',
+			'name'     => __( 'Symbol h2', 'padma' ),
 			'selector' => 'li h2'
 		));
 
 		$this->register_block_element(array(
-			'id' => 'icon h3',
-			'name' => 'Icon h3',
+			'id'       => 'icon-h3',
+			'name'     => __( 'Symbol h3', 'padma' ),
 			'selector' => 'li h3'
 		));
 
 		$this->register_block_element(array(
-			'id' => 'icon h4',
-			'name' => 'Icon h4',
+			'id'       => 'icon-h4',
+			'name'     => __( 'Symbol h4', 'padma' ),
 			'selector' => 'li h4'
 		));
 
 		$this->register_block_element(array(
-			'id' => 'icon h5',
-			'name' => 'Icon h5',
+			'id'       => 'icon-h5',
+			'name'     => __( 'Symbol h5', 'padma' ),
 			'selector' => 'li h5'
 		));
 
 		$this->register_block_element(array(
-			'id' => 'icon h6',
-			'name' => 'Icon h6',
+			'id'       => 'icon-h6',
+			'name'     => __( 'Symbol h6', 'padma' ),
 			'selector' => 'li h6'
 		));
 		

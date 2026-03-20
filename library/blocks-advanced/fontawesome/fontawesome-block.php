@@ -58,9 +58,9 @@ class PadmaVisualElementsFontAwesomeBlock extends \PadmaBlockAPI {
 	 */
 	public function __construct() {
 		$this->id            = 'visual-elements-fontawesome';
-		$this->name          = __( 'FontAwesome Icon', 'padma' );
+		$this->name          = __( 'FontAwesome Symbole', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsFontAwesomeBlockOptions';
-		$this->description   = __( 'Add FontAwesome to the visual editor . ', 'padma' );
+		$this->description   = __( 'Fügt FontAwesome-Symbole zum visuellen Editor hinzu.', 'padma' );
 		$this->categories    = array( 'content' );
 	}
 
@@ -79,210 +79,196 @@ class PadmaVisualElementsFontAwesomeBlock extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'block-content',
-				'name'     => __( 'Block content', 'padma' ),
+				'name'     => __( 'Blockinhalt', 'padma' ),
 				'selector' => '.block-content',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'icon',
-				'name'     => __( 'Icon', 'padma' ),
+				'name'     => __( 'Symbol', 'padma' ),
 				'selector' => '.block-content i',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'before-icon',
-				'name'     => __( 'Before Icon', 'padma' ),
+				'name'     => __( 'Vor dem Symbol', 'padma' ),
 				'selector' => '.before-icon',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'before-icon-a',
-				'name'     => __( 'Before Icon Link', 'padma' ),
+				'name'     => __( 'Vor dem Symbol Link', 'padma' ),
 				'selector' => '.before-icon a',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'before-icon-p',
-				'name'     => __( 'Before Icon Text', 'padma' ),
+				'name'     => __( 'Vor dem Symbol Text', 'padma' ),
 				'selector' => '.before-icon p',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'before-icon-span',
-				'name'     => __( 'Before Icon Span', 'padma' ),
+				'name'     => __( 'Vor dem Symbol Span', 'padma' ),
 				'selector' => '.before-icon span',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'before-icon-h1',
-				'name'     => __( 'Before Icon H1', 'padma' ),
+				'name'     => __( 'Vor dem Symbol H1', 'padma' ),
 				'selector' => '.before-icon h1',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'before-icon-h2',
-				'name'     => __( 'Before Icon H2', 'padma' ),
+				'name'     => __( 'Vor dem Symbol H2', 'padma' ),
 				'selector' => '.before-icon h2',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'before-icon-h3',
-				'name'     => __( 'Before Icon H3', 'padma' ),
+				'name'     => __( 'Vor dem Symbol H3', 'padma' ),
 				'selector' => '.before-icon h3',
 			)
 		);
 		$this->register_block_element(
 			array(
-				'id'       => 'before-icon-h1',
-				'name'     => __( 'Before Icon H1', 'padma' ),
-				'selector' => '.before-icon h1',
-			)
-		);
-		$this->register_block_element(
-			array(
 				'id'       => 'before-icon-h4',
-				'name'     => __( 'Before Icon H4', 'padma' ),
+				'name'     => __( 'Vor dem Symbol H4', 'padma' ),
 				'selector' => '.before-icon h4',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'before-icon-h5',
-				'name'     => __( 'Before Icon H5', 'padma' ),
+				'name'     => __( 'Vor dem Symbol H5', 'padma' ),
 				'selector' => '.before-icon h5',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'before-icon-h6',
-				'name'     => __( 'Before Icon H6', 'padma' ),
+				'name'     => __( 'Vor dem Symbol H6', 'padma' ),
 				'selector' => '.before-icon h6',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'before-icon-ul',
-				'name'     => __( 'Before Icon List', 'padma' ),
+				'name'     => __( 'Vor der Symbol Liste', 'padma' ),
 				'selector' => '.before-icon ul',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'before-icon-ol',
-				'name'     => __( 'Before Icon List', 'padma' ),
+				'name'     => __( 'Vor der Symbol Liste', 'padma' ),
 				'selector' => '.before-icon ol',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'before-icon-li',
-				'name'     => __( 'Before Icon List item', 'padma' ),
+				'name'     => __( 'Vor dem Symbol Listenelement', 'padma' ),
 				'selector' => '.before-icon li',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'after-icon',
-				'name'     => __( 'After Icon', 'padma' ),
+				'name'     => __( 'Nach dem Symbol', 'padma' ),
 				'selector' => '.after-icon',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'after-icon-a',
-				'name'     => __( 'After Icon Link', 'padma' ),
+				'name'     => __( 'Nach dem Symbol Link', 'padma' ),
 				'selector' => '.after-icon a',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'after-icon-p',
-				'name'     => __( 'After Icon Text', 'padma' ),
+				'name'     => __( 'Nach dem Symbol Text', 'padma' ),
 				'selector' => '.after-icon p',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'after-icon-span',
-				'name'     => __( 'After Icon Span', 'padma' ),
+				'name'     => __( 'Nach dem Symbol Span', 'padma' ),
 				'selector' => '.after-icon span',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'after-icon-h1',
-				'name'     => __( 'After Icon H1', 'padma' ),
+				'name'     => __( 'Nach dem Symbol H1', 'padma' ),
 				'selector' => '.after-icon h1',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'after-icon-h2',
-				'name'     => __( 'After Icon H2', 'padma' ),
+				'name'     => __( 'Nach dem Symbol H2', 'padma' ),
 				'selector' => '.after-icon h2',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'after-icon-h3',
-				'name'     => __( 'After Icon H3', 'padma' ),
+				'name'     => __( 'Nach dem Symbol H3', 'padma' ),
 				'selector' => '.after-icon h3',
 			)
 		);
 		$this->register_block_element(
 			array(
-				'id'       => 'after-icon-h1',
-				'name'     => __( 'After Icon H1', 'padma' ),
-				'selector' => '.after-icon h1',
-			)
-		);
-		$this->register_block_element(
-			array(
 				'id'       => 'after-icon-h4',
-				'name'     => __( 'After Icon H4', 'padma' ),
+				'name'     => __( 'Nach dem Symbol H4', 'padma' ),
 				'selector' => '.after-icon h4',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'after-icon-h5',
-				'name'     => __( 'After Icon H5', 'padma' ),
+				'name'     => __( 'Nach dem Symbol H5', 'padma' ),
 				'selector' => '.after-icon h5',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'after-icon-h6',
-				'name'     => __( 'After Icon H6', 'padma' ),
+				'name'     => __( 'Nach dem Symbol H6', 'padma' ),
 				'selector' => '.after-icon h6',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'after-icon-ul',
-				'name'     => __( 'After Icon List', 'padma' ),
+				'name'     => __( 'Nach dem Symbol Liste', 'padma' ),
 				'selector' => '.after-icon ul',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'after-icon-ol',
-				'name'     => __( 'After Icon List', 'padma' ),
+				'name'     => __( 'Nach dem Symbol Liste', 'padma' ),
 				'selector' => '.after-icon ol',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'after-icon-li',
-				'name'     => __( 'After Icon List item', 'padma' ),
+				'name'     => __( 'Nach dem Symbol Listenelement', 'padma' ),
 				'selector' => '.after-icon li',
 			)
 		);

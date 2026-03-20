@@ -60,7 +60,7 @@ class PadmaVisualElementsBlockDummyText extends \PadmaBlockAPI {
 		$this->id            = 'visual-elements-dummy-text';
 		$this->name          = __( 'Dummy Text', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockDummyTextOptions';
-		$this->description   = __( 'This shortcode allows you to display “lorem ipsum” text. You can choose how much paragraphs or words will be generated . ', 'padma' );
+		$this->description   = __( 'Dieser Shortcode ermöglicht das Anzeigen von „Lorem Ipsum“-Text. Du kannst auswählen, wie viele Absätze oder Wörter generiert werden sollen.', 'padma' );
 		$this->categories    = array( 'content' );
 	}
 
@@ -79,7 +79,7 @@ class PadmaVisualElementsBlockDummyText extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'dummy-text',
-				'name'     => 'dummy-text',
+				'name'     => __( 'Dummy Text', 'padma' ),
 				'selector' => '.su-dummy-text',
 			)
 		);

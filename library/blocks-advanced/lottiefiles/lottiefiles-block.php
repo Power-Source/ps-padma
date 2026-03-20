@@ -5,9 +5,9 @@ namespace Padma_Advanced;
 class PadmaVisualElementsBlockLottieFiles extends \PadmaBlockAPI {
 	
 	public $id 				= 'lottiefiles';
-	public $name 			= 'Lottie Files';
+	public $name 			= 'Lottie Dateien';
 	public $options_class 	= 'Padma_Advanced\\PadmaVisualElementsBlockLottieFilesOptions';
-	public $description 		= 'Display Lottie animations from https://lottiefiles.com/featured';
+	public $description 		= 'Zeigt Lottie-Animationen von https://lottiefiles.com/featured an';
 	public $categories 		= array('animations','media');
 	
 	function __construct(){
@@ -239,10 +239,10 @@ class PadmaVisualElementsBlockLottieFilesOptions extends \PadmaBlockOptionsAPI {
 				'animation-file' => array(
 					'type' => 'json',
 					'name' => 'animation-file',
-					'label' => 'Animation JSON File',
+					'label' => 'Animation JSON Datei',
 					'default' => '',					
-					'tooltip' => 'Upload the json file',
-					'button-label' => __('Select File','padma'),					
+					'tooltip' => 'Lade die JSON-Datei hoch',
+					'button-label' => __('Datei auswählen','padma'),					
 				),
 
 				'animation-url' => array(
@@ -250,7 +250,7 @@ class PadmaVisualElementsBlockLottieFilesOptions extends \PadmaBlockOptionsAPI {
 					'name' => 'animation-url',
 					'label' => 'Animation URL',
 					'default' => '',					
-					'tooltip' => 'json file URL',
+					'tooltip' => 'JSON-Datei URL',
 				),
 
 				'loop' => array(
@@ -291,7 +291,7 @@ class PadmaVisualElementsBlockLottieFilesOptions extends \PadmaBlockOptionsAPI {
 
 
 	public function modify_arguments($args = false) {
-		$this->tab_notices['general'] = sprintf( __('Get animations from  <a href="%s" target="_blank">lottiefiles.com</a>','padma'), 'https://lottiefiles.com/recent' );
+		$this->tab_notices['general'] = sprintf( __('Hole Animationen von  <a href="%s" target="_blank">lottiefiles.com</a>','padma'), 'https://lottiefiles.com/recent' );
 	}
 	
 }

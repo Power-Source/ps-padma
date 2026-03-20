@@ -57,9 +57,9 @@ class PadmaVisualElementsBlockContentToTabs extends \PadmaBlockAPI {
 	 */
 	public function __construct() {
 		$this->id            = 've-content-to-tabs';
-		$this->name          = __( 'Content to Tabs', 'padma' );
+		$this->name          = __( 'Inhalt zu Tabs', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockContentToTabsOptions';
-		$this->description   = __( 'Allows you to divide your content with horizontal or vertical tabs. You can specify which tab will be selected by default and turn any tab into a link . ', 'padma' );
+		$this->description   = __( 'Ermöglicht das Teilen Deines Inhalts in horizontale oder vertikale Tabs. Sie können angeben, welcher Tab standardmäßig ausgewählt wird, und jeden Tab in einen Link umwandeln.', 'padma' );
 		$this->categories    = array( 'box', 'content', 'dynamic-content' );
 	}
 
@@ -86,7 +86,7 @@ class PadmaVisualElementsBlockContentToTabs extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'tabs-options',
-				'name'     => __( 'Tab options', 'padma' ),
+				'name'     => __( 'Tab-Optionen', 'padma' ),
 				'selector' => '.su-tabs-nav',
 			)
 		);
@@ -94,7 +94,7 @@ class PadmaVisualElementsBlockContentToTabs extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'tabs-options-item',
-				'name'     => __( 'Tab options item', 'padma' ),
+				'name'     => __( 'Tab-Optionen-Element', 'padma' ),
 				'selector' => '.su-tabs-nav span',
 			)
 		);
@@ -102,7 +102,7 @@ class PadmaVisualElementsBlockContentToTabs extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'tab-panes',
-				'name'     => __( 'Tab Panes', 'padma' ),
+				'name'     => __( 'Tab-Bereiche', 'padma' ),
 				'selector' => '.su-tabs .su-tabs-panes',
 			)
 		);
@@ -110,7 +110,7 @@ class PadmaVisualElementsBlockContentToTabs extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'tab-panes-content',
-				'name'     => __( 'Tab Pane content', 'padma' ),
+				'name'     => __( 'Tab-Bereich Inhalt', 'padma' ),
 				'selector' => '.su-tabs .su-tabs-pane',
 			)
 		);		
@@ -118,7 +118,7 @@ class PadmaVisualElementsBlockContentToTabs extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'tab-content-p',
-				'name'     => __( 'Tab content paragraph', 'padma' ),
+				'name'     => __( 'Tab-Bereich Absatz', 'padma' ),
 				'selector' => '.su-tabs .su-tabs-pane p',
 			)
 		);
@@ -126,7 +126,7 @@ class PadmaVisualElementsBlockContentToTabs extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'tab-h1',
-				'name'     => __( 'Tab h1', 'padma' ),
+				'name'     => __( 'Tab-Bereich h1', 'padma' ),
 				'selector' => '.su-tabs .su-tabs-pane h1',
 			)
 		);
@@ -134,7 +134,7 @@ class PadmaVisualElementsBlockContentToTabs extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'tab-h2',
-				'name'     => __( 'Tab h2', 'padma' ),
+				'name'     => __( 'Tab-Bereich h2', 'padma' ),
 				'selector' => '.su-tabs .su-tabs-pane h2',
 			)
 		);
@@ -142,23 +142,15 @@ class PadmaVisualElementsBlockContentToTabs extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'tab-h3',
-				'name'     => __( 'Tab h3', 'padma' ),
+				'name'     => __( 'Tab-Bereich h3', 'padma' ),
 				'selector' => '.su-tabs .su-tabs-pane h3',
 			)
 		);
 
 		$this->register_block_element(
 			array(
-				'id'       => 'tab-h2',
-				'name'     => __( 'Tab h2', 'padma' ),
-				'selector' => '.su-tabs .su-tabs-pane h2',
-			)
-		);
-
-		$this->register_block_element(
-			array(
 				'id'       => 'tab-h4',
-				'name'     => __( 'Tab h4', 'padma' ),
+				'name'     => __( 'Tab-Bereich h4', 'padma' ),
 				'selector' => '.su-tabs .su-tabs-pane h4',
 			)
 		);
@@ -166,7 +158,7 @@ class PadmaVisualElementsBlockContentToTabs extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'tab-h5',
-				'name'     => __( 'Tab h5', 'padma' ),
+				'name'     => __( 'Tab-Bereich h5', 'padma' ),
 				'selector' => '.su-tabs .su-tabs-pane h5',
 			)
 		);
@@ -174,7 +166,7 @@ class PadmaVisualElementsBlockContentToTabs extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'tab-h6',
-				'name'     => __( 'Tab h6', 'padma' ),
+				'name'     => __( 'Tab-Bereich h6', 'padma' ),
 				'selector' => '.su-tabs .su-tabs-pane h6',
 			)
 		);
@@ -182,7 +174,7 @@ class PadmaVisualElementsBlockContentToTabs extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'tab-ul',
-				'name'     => __( 'Tab list', 'padma' ),
+				'name'     => __( 'Tab-Bereich Liste', 'padma' ),
 				'selector' => '.su-tabs .su-tabs-pane ul',
 			)
 		);
@@ -190,7 +182,7 @@ class PadmaVisualElementsBlockContentToTabs extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'tab-ol',
-				'name'     => __( 'Tab list', 'padma' ),
+				'name'     => __( 'Tab-Bereich Liste geordnet', 'padma' ),
 				'selector' => '.su-tabs .su-tabs-pane ol',
 			)
 		);
@@ -198,7 +190,7 @@ class PadmaVisualElementsBlockContentToTabs extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'tab-li',
-				'name'     => __( 'Tab list item', 'padma' ),
+				'name'     => __( 'Tab-Bereich Listenelement', 'padma' ),
 				'selector' => '.su-tabs .su-tabs-pane li',
 			)
 		);
@@ -206,7 +198,7 @@ class PadmaVisualElementsBlockContentToTabs extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'tab-span',
-				'name'     => __( 'Tab span', 'padma' ),
+				'name'     => __( 'Tab-Bereich span', 'padma' ),
 				'selector' => '.su-tabs .su-tabs-pane span',
 			)
 		);
