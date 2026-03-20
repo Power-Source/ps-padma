@@ -2,12 +2,12 @@
 /**
  * Spoiler Blocks
  *
- * @link       https://padmaunlimited.com
+ * @link       https://power-source.github.io/ps-padma/
  * @since      1.0.0
  *
  * @package    Padma_Advanced
  * @subpackage Padma_Advanced/public
- * @author     Padma Team <support@padmaunlimited.com>
+ * @author     PSOURCE <support@psource.eimen.net>
  */
 
 namespace Padma_Advanced;
@@ -59,7 +59,7 @@ class PadmaVisualElementsBlockSpoiler extends \PadmaBlockAPI {
 		$this->id            = 'visual-elements-spoiler';	
 		$this->name          = __( 'Spoiler', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockSpoilerOptions';
-		$this->description   = __( 'Allows you to create blocks with hidden content – spoilers (toggles). Hidden content will be shown when block title will be clicked. You can specify different icons or even use different styles for each spoiler . ', 'padma' );
+		$this->description   = __( 'Erlaubt das Erstellen von Blöcken mit verstecktem Inhalt – Spoiler (Umschalter). Der versteckte Inhalt wird angezeigt, wenn der Blocktitel angeklickt wird. Du kannst verschiedene Symbole angeben oder sogar verschiedene Stile für jeden Spoiler verwenden.', 'padma' );
 		$this->categories    = array( 'box' );
 	}
 
@@ -79,7 +79,7 @@ class PadmaVisualElementsBlockSpoiler extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'spoiler-item',
-				'name'     => __( 'Spoiler Item', 'padma' ),
+				'name'     => __( 'Spoiler Element', 'padma' ),
 				'selector' => '.su-spoiler',
 			)
 		);
@@ -95,7 +95,7 @@ class PadmaVisualElementsBlockSpoiler extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'spoiler-icon',
-				'name'     => __( 'Spoiler Icon', 'padma' ),
+				'name'     => __( 'Spoiler Symbol', 'padma' ),
 				'selector' => '.su-spoiler-icon',
 			)
 		);

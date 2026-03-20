@@ -276,7 +276,7 @@ class PadmaAdmin {
 					self::add_admin_submenu( __('Templates','padma'), 'padma-templates', array('PadmaAdminPages', 'templates'));
 					self::add_admin_submenu( __('Erweiterte Blöcke','padma'), 'padma-advanced-blocks', array('PadmaAdminPages', 'advanced_blocks'));
 					self::add_admin_submenu( __('SEO','padma'), 'padma-seo', array('PadmaAdminPages', 'seo'));
-					self::add_admin_submenu( __('Options','padma'), 'padma-options', array('PadmaAdminPages', 'options'));
+					self::add_admin_submenu( __('Optionen','padma'), 'padma-options', array('PadmaAdminPages', 'options'));
 					self::add_admin_submenu( __('Tools','padma'), 'padma-tools', array('PadmaAdminPages', 'tools'));
 				break;
 
@@ -285,12 +285,12 @@ class PadmaAdmin {
 					self::add_admin_submenu( __('Templates','padma'), 'padma-templates', array('PadmaAdminPages', 'templates'));
 					self::add_admin_submenu( __('Erweiterte Blöcke','padma'), 'padma-advanced-blocks', array('PadmaAdminPages', 'advanced_blocks'));
 					self::add_admin_submenu( __('SEO','padma'), 'padma-seo', array('PadmaAdminPages', 'seo'));
-					self::add_admin_submenu( __('Options','padma'), 'padma-options', array('PadmaAdminPages', 'options'));
+					self::add_admin_submenu( __('Optionen','padma'), 'padma-options', array('PadmaAdminPages', 'options'));
 					self::add_admin_submenu( __('Tools','padma'), 'padma-tools', array('PadmaAdminPages', 'tools'));
 				break;
 
 				case 'options':
-					self::add_admin_submenu( __('Options','padma'), 'padma-options', array('PadmaAdminPages', 'options'));
+					self::add_admin_submenu( __('Optionen','padma'), 'padma-options', array('PadmaAdminPages', 'options'));
 					self::add_admin_submenu( __('Visual Editor','padma'), 'padma-visual-editor', array('PadmaAdminPages', 'visual_editor'));
 					self::add_admin_submenu( __('Templates','padma'), 'padma-templates', array('PadmaAdminPages', 'templates'));
 					self::add_admin_submenu( __('Erweiterte Blöcke','padma'), 'padma-advanced-blocks', array('PadmaAdminPages', 'advanced_blocks'));

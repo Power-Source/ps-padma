@@ -2,12 +2,12 @@
 /**
  * Post Data Blocks
  *
- * @link       https://padmaunlimited.com
+ * @link       https://power-source.github.io/ps-padma/
  * @since      1.0.0
  *
  * @package    Padma_Advanced
  * @subpackage Padma_Advanced/public
- * @author     Padma Team <support@padmaunlimited.com>
+ * @author     PSOURCE <support@psource.eimen.net>
  */
 
 namespace Padma_Advanced;

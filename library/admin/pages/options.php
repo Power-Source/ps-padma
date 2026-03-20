@@ -10,13 +10,13 @@
 </div>
 
 <h2 class="nav-tab-wrapper big-tabs-tabs">
-	<a class="nav-tab" href="#tab-general"><?php _e('General', 'padma'); ?></a>
+	<a class="nav-tab" href="#tab-general"><?php _e('Allgemein', 'padma'); ?></a>
 	<a class="nav-tab" href="#tab-scripts"><?php _e('Scripts/Analytics', 'padma'); ?></a>
-	<a class="nav-tab" href="#tab-visual-editor"><?php _e('Visual Editor', 'padma'); ?></a>
-	<a class="nav-tab" href="#tab-advanced"><?php _e('Advanced', 'padma'); ?></a>
-	<a class="nav-tab" href="#tab-compatibility"><?php _e('Compatibility', 'padma'); ?></a>
-	<a class="nav-tab" href="#tab-mobile"><?php _e('Mobile', 'padma'); ?></a>
-	<a class="nav-tab" href="#tab-fonts"><?php _e('Fonts', 'padma'); ?></a>
+	<a class="nav-tab" href="#tab-visual-editor"><?php _e('Visueller Editor', 'padma'); ?></a>
+	<a class="nav-tab" href="#tab-advanced"><?php _e('Erweitert', 'padma'); ?></a>
+	<a class="nav-tab" href="#tab-compatibility"><?php _e('Kompatibilität', 'padma'); ?></a>
+	<a class="nav-tab" href="#tab-mobile"><?php _e('Mobil', 'padma'); ?></a>
+	<a class="nav-tab" href="#tab-fonts"><?php _e('Schriften', 'padma'); ?></a>
 </h2>
 
 <?php do_action('padma_admin_save_message'); ?>
@@ -35,12 +35,12 @@
 				<div id="" class="postbox padma-admin-options-group">
 
 					<button type="button" class="handlediv" aria-expanded="false">
-						<span class="screen-reader-text">Toggle panel: General</span>
+						<span class="screen-reader-text"><?php _e('Toggle panel: Allgemein', 'padma'); ?></span>
 						<span class="toggle-indicator" aria-hidden="true"></span>
 					</button>
 
 
-					<h2 class="hndle"><span>General</span></h2>
+					<h2 class="hndle"><span><?php _e('Allgemein', 'padma'); ?></span></h2>
 
 					<?php
 					$form = array(
@@ -50,7 +50,7 @@
 							'type' => 'text',
 							'label' => 'Favicon URL',
 							'value' => PadmaOption::get('favicon'),
-							'description' => __('A favicon is the little image that sits next to your address in the favorites menu and on tabs.  If you do not know how to save an image as an icon you can go to <a href="http://www.favicon.cc/" target="_blank">favicon.cc</a> and draw or import an image.', 'padma')
+							'description' => __('Ein Favicon ist das kleine Bild, das neben deiner Adresse im Favoritenmenü und auf Tabs angezeigt wird. Wenn du nicht weißt, wie man ein Bild als Icon speichert, kannst du zu <a href="http://www.favicon.cc/" target="_blank">favicon.cc</a> gehen und ein Bild zeichnen oder importieren.', 'padma')
 						),
 
 						array(
