@@ -59,7 +59,7 @@ class PadmaVisualElementsBlockSpacer extends \PadmaBlockAPI {
 		$this->id            = 'visual-elements-spacer';
 		$this->name          = __( 'Spacer', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockSpacerOptions';
-		$this->description   = __( 'Will help you to create an empty space between elements on a page . ', 'padma' );
+		$this->description   = __( 'Hilft Dir dabei, einen leeren Raum zwischen Elementen auf einer Seite zu erzeugen.', 'padma' );
 		$this->categories    = array( 'content' );
 	}
 
@@ -78,7 +78,7 @@ class PadmaVisualElementsBlockSpacer extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'spacer',
-				'name'     => __( 'spacer', 'padma' ),
+				'name'     => __( 'Spacer', 'padma' ),
 				'selector' => 'div.su-spacer',
 			)
 		);

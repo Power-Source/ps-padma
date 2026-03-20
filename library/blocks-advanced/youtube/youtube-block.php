@@ -57,9 +57,9 @@ class PadmaVisualElementsBlockYoutube extends \PadmaBlockAPI {
 	 */
 	public function __construct() {
 		$this->id            = 'visual-elements-youtube';
-		$this->name          = 'YouTube';
+		$this->name          = __( 'YouTube', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockYoutubeOptions';
-		$this->description   = __( 'Allows you to insert responsive YouTube videos. You can create playlists using Youtube Advanced block . ', 'padma' );
+		$this->description   = __( 'Ermöglicht das Einfügen responsiver YouTube-Videos.', 'padma' );
 		$this->categories    = array( 'media' );
 	}
 
@@ -78,7 +78,7 @@ class PadmaVisualElementsBlockYoutube extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'youtube',
-				'name'     => 'Youtube',
+				'name'     => __( 'YouTube', 'padma' ),
 				'selector' => 'div.su-youtube',
 			)
 		);

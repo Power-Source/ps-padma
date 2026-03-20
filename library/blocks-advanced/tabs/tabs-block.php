@@ -59,7 +59,7 @@ class PadmaVisualElementsBlockTabs extends \PadmaBlockAPI {
 		$this->id            = 'visual-elements-tabs';
 		$this->name          = __( 'Tabs', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockTabsOptions';
-		$this->description   = __( 'Allows you to create tabbed content with multiple tabs', 'padma' );
+		$this->description   = __( 'Ermöglicht Dir, Inhalte in mehreren Registerkarten anzuzeigen.', 'padma' );
 		$this->categories    = array( 'box' );
 	}
 
@@ -93,21 +93,21 @@ class PadmaVisualElementsBlockTabs extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'tab-item',
-				'name'     => __( 'Tab Item', 'padma' ),
+				'name'     => __( 'Tab Element', 'padma' ),
 				'selector' => '.su-tabs-nav > span',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'tab-item-active',
-				'name'     => __( 'Tab Item (Active)', 'padma' ),
+				'name'     => __( 'Tab Element (Aktiv)', 'padma' ),
 				'selector' => '.su-tabs-nav > span.su-tabs-current',
 			)
 		);
 		$this->register_block_element(
 			array(
 				'id'       => 'tab-item-inactive',
-				'name'     => __( 'Tab Item (Inactive)', 'padma' ),
+				'name'     => __( 'Tab Element (Inaktiv)', 'padma' ),
 				'selector' => '.su-tabs-nav > span:not(.su-tabs-current)',
 			)
 		);

@@ -59,7 +59,7 @@ class PadmaVisualElementsBlockVimeo extends \PadmaBlockAPI {
 		$this->id            = 'visual-elements-vimeo';
 		$this->name          = __( 'Vimeo', 'padma' );
 		$this->options_class = 'Padma_Advanced\PadmaVisualElementsBlockVimeoOptions';
-		$this->description   = __( 'Allows you to insert responsive Vimeo videos . ', 'padma' );
+		$this->description   = __( 'Erlaubt Dir, responsive Vimeo-Videos einzufügen.', 'padma' );
 		$this->categories    = array( 'media' );
 	}
 
@@ -78,7 +78,7 @@ class PadmaVisualElementsBlockVimeo extends \PadmaBlockAPI {
 		$this->register_block_element(
 			array(
 				'id'       => 'vimeo',
-				'name'     => 'Vimeo',
+				'name'     => __( 'Vimeo', 'padma' ),
 				'selector' => 'div.su-vimeo',
 			)
 		);
