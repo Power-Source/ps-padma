@@ -13,6 +13,8 @@ class PadmaAdmin {
 			'admin/api-admin-inputs'
 		));
 
+		// Shortcode-Builder initialisieren (theme-native, kein Plugin erforderlich)
+		new Padma_Shortcode_Generator();
 
 	}
 

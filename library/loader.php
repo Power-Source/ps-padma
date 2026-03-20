@@ -123,6 +123,11 @@ $padma_registry = array(
 	'PadmaWrapperOptions'	=>	'wrappers/wrapper-options',
 	'PadmaWrappers'	=>	'wrappers/wrappers',
 
+	// Shortcode Generator (theme-native, kein Plugin erforderlich)
+	'Padma_Generator_Data'       => 'shortcode-functions/generator-data',
+	'Padma_Generator_Views'      => 'shortcode-functions/generator-views',
+	'Padma_Shortcode_Generator'  => 'admin/shortcode-generator',
+
 );
 
 $padma_registry = apply_filters('padma_class_registry', $padma_registry);
