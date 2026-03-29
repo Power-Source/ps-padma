@@ -59,6 +59,10 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 
 == Changelog ==
 
+= 1.1.3 =
+* Fix: Einen Bug der nur begrenzt Medien im Uploader angezeigt hat 
+* Weitere Textanpassungen
+
 = 1.1.2 =
 * NEU: Theme-nativer Shortcode Builder integriert (kein psource-shortcodes Plugin mehr erforderlich)
 * Shortcode Builder: „Shortcode einfügen"-Button im TinyMCE-Editor (Pages, Posts, Custom Post Types)
