@@ -61,6 +61,7 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 
 = 1.1.3 =
 * Fix: Einen Bug der nur begrenzt Medien im Uploader angezeigt hat 
+* Fix: Blockoptionen Tabs lassen sich nun wieder wechseln
 * Weitere Textanpassungen
 
 = 1.1.2 =

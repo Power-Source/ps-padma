@@ -96,7 +96,7 @@ define(['jquery', 'vanilla-draggable', 'deps/jquery.cookie', 'util.tooltips', 'm
 		if (panelEl.length && typeof panelEl.tabs === 'function') {
 			panelEl.tabs('refresh');
 		}
-		$(tabLink).on('click', showPanel);
+		$(tabLink).on('click', function() { showPanel(); });
 		
 		showPanel();
 
@@ -339,7 +339,7 @@ define(['jquery', 'vanilla-draggable', 'deps/jquery.cookie', 'util.tooltips', 'm
 			});
 		}
 
-		$('ul#panel-top li a').on('click', showPanel);
+		$('ul#panel-top li a').on('click', function() { showPanel(); });
 
 		var subTabEl = $('div.sub-tab');
 		if (subTabEl.length && typeof subTabEl.tabs === 'function') {
