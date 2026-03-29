@@ -92,9 +92,9 @@ add_action('admin_enqueue_scripts', function() {
         'ajaxurl' => admin_url('admin-ajax.php'),
         'nonce' => wp_create_nonce('padma_media_nonce'),
         'maxUploadSize' => wp_max_upload_size(),
-        'uploadText' => __('Drop images here or click to browse', 'padma'),
-        'successText' => __('Upload complete', 'padma'),
-        'errorText' => __('Upload failed', 'padma')
+        'uploadText' => __('Zieh Bilder hierher oder klick zum Auswaehlen.', 'padma'),
+        'successText' => __('Upload abgeschlossen.', 'padma'),
+        'errorText' => __('Upload fehlgeschlagen.', 'padma')
     ));
 });
 

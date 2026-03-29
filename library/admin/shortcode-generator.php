@@ -94,8 +94,15 @@ class Padma_Shortcode_Generator {
 
 		// JS-Konfiguration für generator.js
 		wp_localize_script( 'su-generator', 'su_generator', array(
-			'ajaxurl' => admin_url( 'admin-ajax.php' ),
-			'nonce'   => wp_create_nonce( 'padma_generator_nonce' ),
+			'ajaxurl'             => admin_url( 'admin-ajax.php' ),
+			'nonce'               => wp_create_nonce( 'padma_generator_nonce' ),
+			'isp_media_title'     => __( 'Bilder aus der Mediathek auswaehlen', 'ps-padma' ),
+			'isp_media_insert'    => __( 'Bilder uebernehmen', 'ps-padma' ),
+			'upload_title'        => __( 'Medium auswaehlen', 'ps-padma' ),
+			'upload_insert'       => __( 'Medium verwenden', 'ps-padma' ),
+			'last_used'           => __( 'Zuletzt verwendet', 'ps-padma' ),
+			'presets_prompt_msg'  => __( 'Name fuer diese Vorlage eingeben:', 'ps-padma' ),
+			'presets_prompt_value'=> __( 'Meine Vorlage', 'ps-padma' ),
 		) );
 	}
 

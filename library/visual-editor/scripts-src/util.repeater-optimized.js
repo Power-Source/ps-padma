@@ -197,7 +197,7 @@ define(['jquery'], function($) {
                     response.data.uploads.forEach(function(upload) {
                         self.addUploadedImage(upload);
                     });
-                    self.showMessage('success', 'Images uploaded successfully');
+                    self.showMessage('success', 'Bilder wurden erfolgreich hochgeladen.');
                 } else {
                     self.showMessage('error', response.data.message);
                 }
@@ -205,7 +205,7 @@ define(['jquery'], function($) {
                 self.showProgress(100, files.length);
             },
             error: function(xhr, status, error) {
-                self.showMessage('error', 'Upload failed: ' + error);
+                self.showMessage('error', 'Upload fehlgeschlagen: ' + error);
                 self.uploading = false;
             }
         });

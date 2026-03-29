@@ -44,9 +44,9 @@ $tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'upload';
 
 // Simple tabs implementation
 $tabs = array(
-    'upload' => __('Upload Files'),
-    'url' => __('From URL'),
-    'library' => __('Media Library')
+    'upload' => __('Dateien hochladen', 'padma'),
+    'url' => __('Von URL', 'padma'),
+    'library' => __('Mediathek', 'padma')
 );
 
 // Handle file upload
@@ -145,7 +145,7 @@ if (isset($_POST['url-upload']) && !empty($_POST['src'])) {
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Media Upload</title>
+    <title><?php esc_html_e('Medien hochladen', 'padma'); ?></title>
     <?php wp_head(); ?>
     <style>
         body {
@@ -331,89 +331,89 @@ if (isset($_POST['url-upload']) && !empty($_POST['src'])) {
     
     <div class="media-upload-form">
         <?php if ($tab === 'upload'): ?>
-            <h3><?php _e('Upload Files'); ?></h3>
+            <h3><?php _e('Dateien hochladen', 'padma'); ?></h3>
             <form method="post" enctype="multipart/form-data">
                 <p>
                     <input type="file" name="async-upload" accept="<?php echo $type === 'image' ? 'image/*' : ($type === 'video' ? 'video/*' : ($type === 'audio' ? 'audio/*' : '*/*')); ?>" />
                 </p>
                 <p>
-                    <input type="submit" name="html-upload" value="<?php _e('Upload'); ?>" />
+                    <input type="submit" name="html-upload" value="<?php _e('Hochladen', 'padma'); ?>" />
                 </p>
             </form>
             
         <?php elseif ($tab === 'url'): ?>
-            <h3><?php _e('From URL'); ?></h3>
+            <h3><?php _e('Von URL', 'padma'); ?></h3>
             <form method="post">
                 <table class="form-table">
                     <tr>
-                        <th scope="row"><label for="src"><?php _e('URL:'); ?></label></th>
+                        <th scope="row"><label for="src"><?php _e('URL:', 'padma'); ?></label></th>
                         <td>
-                            <input type="url" name="src" id="src" placeholder="<?php _e('Enter URL here'); ?>" style="width: 100%; max-width: 400px;" required />
-                            <p class="description"><?php _e('Enter the URL of the media file you want to use.'); ?></p>
+                            <input type="url" name="src" id="src" placeholder="<?php _e('Gib hier die URL ein', 'padma'); ?>" style="width: 100%; max-width: 400px;" required />
+                            <p class="description"><?php _e('Gib die URL der Mediendatei ein, die Du verwenden willst.', 'padma'); ?></p>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="title"><?php _e('Title:'); ?></label></th>
+                        <th scope="row"><label for="title"><?php _e('Titel:', 'padma'); ?></label></th>
                         <td>
                             <input type="text" name="title" id="title" style="width: 100%; max-width: 400px;" />
-                            <p class="description"><?php _e('Title for the media file (optional).'); ?></p>
+                            <p class="description"><?php _e('Titel fuer die Mediendatei (optional).', 'padma'); ?></p>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="description"><?php _e('Description:'); ?></label></th>
+                        <th scope="row"><label for="description"><?php _e('Beschreibung:', 'padma'); ?></label></th>
                         <td>
                             <textarea name="description" id="description" rows="3" style="width: 100%; max-width: 400px;"></textarea>
-                            <p class="description"><?php _e('Description for the media file (optional).'); ?></p>
+                            <p class="description"><?php _e('Beschreibung fuer die Mediendatei (optional).', 'padma'); ?></p>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="alt"><?php _e('Alt Text:'); ?></label></th>
+                        <th scope="row"><label for="alt"><?php _e('Alt-Text:', 'padma'); ?></label></th>
                         <td>
                             <input type="text" name="alt" id="alt" style="width: 100%; max-width: 400px;" />
-                            <p class="description"><?php _e('Alt text for images (recommended for accessibility).'); ?></p>
+                            <p class="description"><?php _e('Alt-Text fuer Bilder (empfohlen fuer Barrierefreiheit).', 'padma'); ?></p>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="alignment"><?php _e('Alignment:'); ?></label></th>
+                        <th scope="row"><label for="alignment"><?php _e('Ausrichtung:', 'padma'); ?></label></th>
                         <td>
                             <select name="alignment" id="alignment">
-                                <option value="none"><?php _e('None'); ?></option>
-                                <option value="left"><?php _e('Left'); ?></option>
-                                <option value="center"><?php _e('Center'); ?></option>
-                                <option value="right"><?php _e('Right'); ?></option>
+                                <option value="none"><?php _e('Keine', 'padma'); ?></option>
+                                <option value="left"><?php _e('Links', 'padma'); ?></option>
+                                <option value="center"><?php _e('Zentriert', 'padma'); ?></option>
+                                <option value="right"><?php _e('Rechts', 'padma'); ?></option>
                             </select>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="size"><?php _e('Size:'); ?></label></th>
+                        <th scope="row"><label for="size"><?php _e('Groesse:', 'padma'); ?></label></th>
                         <td>
                             <select name="size" id="size">
-                                <option value="full"><?php _e('Full Size'); ?></option>
-                                <option value="large"><?php _e('Large'); ?></option>
-                                <option value="medium"><?php _e('Medium'); ?></option>
-                                <option value="thumbnail"><?php _e('Thumbnail'); ?></option>
+                                <option value="full"><?php _e('Originalgroesse', 'padma'); ?></option>
+                                <option value="large"><?php _e('Gross', 'padma'); ?></option>
+                                <option value="medium"><?php _e('Mittel', 'padma'); ?></option>
+                                <option value="thumbnail"><?php _e('Vorschaubild', 'padma'); ?></option>
                             </select>
                         </td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="link_to"><?php _e('Link To:'); ?></label></th>
+                        <th scope="row"><label for="link_to"><?php _e('Verlinken auf:', 'padma'); ?></label></th>
                         <td>
                             <select name="link_to" id="link_to">
-                                <option value="none"><?php _e('None'); ?></option>
-                                <option value="file"><?php _e('Media File'); ?></option>
-                                <option value="custom"><?php _e('Custom URL'); ?></option>
+                                <option value="none"><?php _e('Nichts', 'padma'); ?></option>
+                                <option value="file"><?php _e('Mediendatei', 'padma'); ?></option>
+                                <option value="custom"><?php _e('Eigene URL', 'padma'); ?></option>
                             </select>
                         </td>
                     </tr>
                     <tr id="custom_url_row" style="display: none;">
-                        <th scope="row"><label for="custom_url"><?php _e('Custom URL:'); ?></label></th>
+                        <th scope="row"><label for="custom_url"><?php _e('Eigene URL:', 'padma'); ?></label></th>
                         <td>
                             <input type="url" name="custom_url" id="custom_url" style="width: 100%; max-width: 400px;" />
                         </td>
                     </tr>
                 </table>
                 <p class="submit">
-                    <input type="submit" name="url-upload" value="<?php _e('Insert into Post'); ?>" class="button-primary" />
+                    <input type="submit" name="url-upload" value="<?php _e('In Beitrag einfuegen', 'padma'); ?>" class="button-primary" />
                 </p>
             </form>
             
@@ -429,14 +429,14 @@ if (isset($_POST['url-upload']) && !empty($_POST['src'])) {
             </script>
             
         <?php elseif ($tab === 'library'): ?>
-            <h3><?php _e('Media Library'); ?></h3>
+            <h3><?php _e('Mediathek', 'padma'); ?></h3>
             <div class="media-library-grid">
                 <?php
                 $attachments = get_posts(array(
                     'post_type' => 'attachment',
                     'post_mime_type' => $type,
-                    'post_status' => 'inherit',
-                    'posts_per_page' => 20,
+                    'post_status' => 'any',
+                    'posts_per_page' => -1,
                     'orderby' => 'date',
                     'order' => 'DESC'
                 ));

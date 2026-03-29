@@ -41,28 +41,28 @@ class PadmaHeaderBlock extends PadmaBlockAPI {
 			'selector' => 'span.banner a',
 			'states' => array(
 				'Hover' => 'span.banner a:hover',
-				'Clicked' => 'span.banner a:active',
-				'Shrinked' => 'span.banner a.is_shrinked',
+				'Active' => 'span.banner a:active',
+				'Verkleinert' => 'span.banner a.is_shrinked',
 			)
 		));
 
 		$this->register_block_element(array(
 			'id' => 'banner-image',
-			'name' => __('Banner/Logo Link','padma'),
+			'name' => __('Banner/Logo-Link','padma'),
 			'selector' => 'a.banner-image',
 			'states' => array(
-				'Clicked' => 'a.banner-image:active',
+				'Active' => 'a.banner-image:active',
 				'Hover' => 'a.banner-image:hover',
-				'Shrinked' => 'a.banner-image.is_shrinked',
+				'Verkleinert' => 'a.banner-image.is_shrinked',
 			)
 		));
 
 		$this->register_block_element(array(
 			'id' => 'banner-image-img',
-			'name' => __('Banner Bild','padma'),
+			'name' => __('Banner-Bild','padma'),
 			'selector' => 'a.banner-image img',
 			'states' => array(
-				'Shrinked' => 'a.banner-image img.is_shrinked',
+				'Verkleinert' => 'a.banner-image img.is_shrinked',
 			)
 		));
 
@@ -179,7 +179,7 @@ class PadmaHeaderBlockOptions extends PadmaBlockOptionsAPI {
 		parent::__construct($block_type_object);
 
 		$this->tabs = array(
-			'general' => 'General'
+			'general' => 'Allgemein'
 		);
 
 		$this->inputs = array(
@@ -193,17 +193,17 @@ class PadmaHeaderBlockOptions extends PadmaBlockOptionsAPI {
 
 				'resize-header-image' => array(
 					'name' => 'resize-header-image',
-					'label' => __('Automatically Resize Header Image','padma'),
+					'label' => __('Header-Bild automatisch anpassen','padma'),
 					'type' => 'checkbox',
-					'tooltip' => __('If you would like Padma to automatically scale and crop your header image to the correct dimensions, keep this checked.<br /><br /><em><strong>Important:</strong> In order for the image to be resized and cropped it must be uploaded <strong>From Computer</strong>. <strong>NOT</strong> <strong>From URL</strong>.</em>','padma'),
+					'tooltip' => __('Lass das aktiviert, wenn Padma Dein Header-Bild automatisch auf die passende Groesse skalieren und zuschneiden soll.<br /><br /><em><strong>Wichtig:</strong> Das Bild muss dafuer <strong>vom Computer</strong> hochgeladen werden, <strong>nicht</strong> ueber <strong>URL</strong>.</em>','padma'),
 					'default' => true
 				),
 
 				'hide-tagline' => array(
 					'name' => 'hide-tagline',
-					'label' => __('Hide Tagline','padma'),
+					'label' => __('Slogan ausblenden','padma'),
 					'type' => 'checkbox',
-					'tooltip' => __('Check this to hide the tagline in your header.  The tagline will sit beneath your site title.<br /><br /><em><strong>Important:</strong> The tagline will <strong>NOT</strong> show if a Header Image is added.</em>','padma'),
+					'tooltip' => __('Aktiviere das, wenn der Slogan im Header ausgeblendet werden soll. Der Slogan steht sonst unter Deinem Seitentitel.<br /><br /><em><strong>Wichtig:</strong> Wenn ein Header-Bild gesetzt ist, wird der Slogan sowieso <strong>nicht</strong> angezeigt.</em>','padma'),
 					'default' => false
 				)
 			)

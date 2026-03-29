@@ -1,4 +1,15 @@
 jQuery(document).ready(function($) {
+	var suGeneratorI18n = $.extend({
+		hotkey: '',
+		isp_media_title: 'Bilder aus der Mediathek auswaehlen',
+		isp_media_insert: 'Bilder uebernehmen',
+		upload_title: 'Medium auswaehlen',
+		upload_insert: 'Medium verwenden',
+		last_used: 'Zuletzt verwendet',
+		presets_prompt_msg: 'Name fuer diese Vorlage eingeben:',
+		presets_prompt_value: 'Meine Vorlage'
+	}, window.su_generator || {});
+
 	// Prepare data
 	var $generator = $('#su-generator'),
 		$search = $('#su-generator-search'),
@@ -12,8 +23,8 @@ jQuery(document).ready(function($) {
 		$selected = $('#su-generator-selected'),
 		mce_selection = '';
 	// Hotkey
-	if (typeof $.hotkeys == 'object' && $.hotkeys.version === '(beta)(0.0.3)' && su_generator.hotkey) {
-		$.hotkeys.add(su_generator.hotkey, function() {
+	if (typeof $.hotkeys == 'object' && $.hotkeys.version === '(beta)(0.0.3)' && suGeneratorI18n.hotkey) {
+		$.hotkeys.add(suGeneratorI18n.hotkey, function() {
 			$('.su-generator-button').trigger('click');
 		});
 	}
@@ -318,12 +329,12 @@ jQuery(document).ready(function($) {
 						e.preventDefault();
 						if (typeof(frame) !== 'undefined') frame.close();
 						frame = wp.media.frames.su_media_frame_1 = wp.media({
-							title: su_generator.isp_media_title,
+							title: suGeneratorI18n.isp_media_title,
 							library: {
 								type: 'image'
 							},
 							button: {
-								text: su_generator.isp_media_insert
+								text: suGeneratorI18n.isp_media_insert
 							},
 							multiple: true
 						});
@@ -396,10 +407,10 @@ jQuery(document).ready(function($) {
 						// Create WP media frame.
 						file = wp.media.frames.su_media_frame_2 = wp.media({
 							// Title of media manager frame
-							title: su_generator.upload_title,
+							title: suGeneratorI18n.upload_title,
 							button: {
 								//Button text
-								text: su_generator.upload_insert
+								text: suGeneratorI18n.upload_insert
 							},
 							// Do not allow multiple files, if you want multiple, set true
 							multiple: false
@@ -653,7 +664,7 @@ jQuery(document).ready(function($) {
 		// Prepare data
 		var shortcode = parse();
 		// Save current settings to presets
-		add_preset('last_used', su_generator.last_used);
+		add_preset('last_used', suGeneratorI18n.last_used);
 		// Close popup
 		$.magnificPopup.close();
 		// Save shortcode to div
@@ -717,7 +728,7 @@ jQuery(document).ready(function($) {
 			$list = $('.su-gp-list'),
 			id = new Date().getTime();
 		// Ask for preset name
-		var name = prompt(su_generator.presets_prompt_msg, su_generator.presets_prompt_value);
+		var name = prompt(suGeneratorI18n.presets_prompt_msg, suGeneratorI18n.presets_prompt_value);
 		// Name is entered
 		if (name !== '' && name !== null) {
 			// Hide default text

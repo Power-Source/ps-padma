@@ -1,4 +1,8 @@
 ! function () {
+	if (typeof window.tinymce === 'undefined' || !window.tinymce || !window.tinymce.PluginManager) {
+		return;
+	}
+
 	tinymce.create('tinymce.plugins.shortcodesultimate', {
 		init: function (e) {
 			var t = this,

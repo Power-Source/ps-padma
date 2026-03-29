@@ -16,7 +16,7 @@ function padma_handle_image_upload_ajax() {
     check_ajax_referer('padma_media_nonce', 'nonce');
 
     if (empty($_FILES['file'])) {
-        wp_send_json_error(array('message' => __('No file uploaded', 'padma')));
+        wp_send_json_error(array('message' => __('Es wurde keine Datei hochgeladen.', 'padma')));
     }
 
     // Batch-verarbeitung: Prüfe ob mehrere Dateien
@@ -102,22 +102,24 @@ add_action('wp_ajax_padma_get_media_library', 'padma_get_media_library_ajax');
 function padma_get_media_library_ajax() {
     check_ajax_referer('padma_media_nonce', 'nonce');
 
-    $paged = intval($_POST['paged'] ?? 1);
-    $per_page = 20; // Pagination: verhindert zu viele Results
-    $offset = ($paged - 1) * $per_page;
+    $paged = 1;
+    $per_page = -1;
+    $offset = 0;
+    $media_type = sanitize_text_field($_POST['media_type'] ?? '');
 
     // Query mit Caching für Performance
-    $cache_key = 'padma_media_library_page_' . $paged;
+    $cache_key = 'padma_media_library_page_' . md5($media_type ?: 'all');
     $media = wp_cache_get($cache_key);
 
     if ($media === false) {
         $args = array(
             'post_type' => 'attachment',
-            'post_mime_type' => 'image',
+            'post_mime_type' => $media_type,
             'posts_per_page' => $per_page,
             'offset' => $offset,
             'orderby' => 'date',
             'order' => 'DESC',
+            'post_status' => 'any',
             'fields' => 'ids' // Nur IDs abrufen (schneller)
         );
 

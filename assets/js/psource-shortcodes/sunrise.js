@@ -1,5 +1,9 @@
 // Wait DOM
 jQuery(document).ready(function ($) {
+	var sunriseI18n = $.extend({
+		media_title: 'Medium auswaehlen',
+		media_insert: 'Medium verwenden'
+	}, window.sunrise || {});
 
 
 	// ########## Tabs ##########
@@ -85,13 +89,13 @@ jQuery(document).ready(function ($) {
 			// Create WP media frame.
 			file = wp.media.frames.customHeader = wp.media({
 				// Title of media manager frame
-				title: sunrise.media_title,
+				title: sunriseI18n.media_title,
 				library: {
 					type: 'image'
 				},
 				button: {
 					//Button text
-					text: sunrise.media_insert
+					text: sunriseI18n.media_insert
 				},
 				// Do not allow multiple files, if you want multiple, set true
 				multiple: false

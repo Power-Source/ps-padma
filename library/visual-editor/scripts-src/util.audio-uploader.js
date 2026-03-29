@@ -1,5 +1,10 @@
 define(['jquery', 'underscore'], function($, _) {
 
+	var uploaderI18n = (typeof Padma !== 'undefined' && Padma.i18nUploader) ? Padma.i18nUploader : {};
+	var t = function(key, fallback) {
+		return uploaderI18n[key] || fallback;
+	};
+
 	openAudioUploader = function(callback) {
 
 		// Check if WordPress Media Library is available
@@ -7,9 +12,9 @@ define(['jquery', 'underscore'], function($, _) {
 			
 			// Initialize WordPress Media Library directly
 			var mediaUploader = wp.media({
-				title: 'Select or Upload Audio',
+				title: t('selectOrUploadAudio', 'Audio auswaehlen oder hochladen'),
 				button: {
-					text: 'Select Audio'
+					text: t('useAudio', 'Audio verwenden')
 				},
 				multiple: false,
 				library: {
@@ -43,8 +48,8 @@ define(['jquery', 'underscore'], function($, _) {
 
 			var settings = {
 				id: 'input-audio',
-				title: 'Select an audio',
-				description: 'Upload or select an audio',
+				title: t('selectAudio', 'Audio auswaehlen'),
+				description: t('uploadOrSelectAudio', 'Audio hochladen oder auswaehlen'),
 				src: Padma.homeURL + '/?padma-trigger=media-uploader',
 				load: function() {
 				},

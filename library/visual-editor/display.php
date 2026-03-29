@@ -298,6 +298,18 @@ class PadmaVisualEditorDisplay {
 		wp_localize_script('padma-editor', 'Padma', array(
 			'ajaxURL' => admin_url('admin-ajax.php'),
 			'security' => wp_create_nonce('padma-visual-editor-ajax'),
+			'i18nUploader' => array(
+				'selectImage' => __('Bild auswaehlen', 'padma'),
+				'uploadOrSelectImage' => __('Bild hochladen oder auswaehlen', 'padma'),
+				'selectAudio' => __('Audio auswaehlen', 'padma'),
+				'uploadOrSelectAudio' => __('Audio hochladen oder auswaehlen', 'padma'),
+				'selectVideo' => __('Video auswaehlen', 'padma'),
+				'uploadOrSelectVideo' => __('Video hochladen oder auswaehlen', 'padma'),
+				'selectOrUploadAudio' => __('Audio auswaehlen oder hochladen', 'padma'),
+				'selectOrUploadVideo' => __('Video auswaehlen oder hochladen', 'padma'),
+				'useAudio' => __('Audio verwenden', 'padma'),
+				'useVideo' => __('Video verwenden', 'padma')
+			),
 
 			'currentLayout' => PadmaLayout::get_current(),
 			'currentLayoutName' => PadmaLayout::get_name( PadmaLayout::get_current() ),

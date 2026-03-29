@@ -1,5 +1,10 @@
 define(['jquery', 'underscore'], function($, _) {
 
+	var uploaderI18n = (typeof Padma !== 'undefined' && Padma.i18nUploader) ? Padma.i18nUploader : {};
+	var t = function(key, fallback) {
+		return uploaderI18n[key] || fallback;
+	};
+
 	openVideoUploader = function(callback) {
 
 		// Check if WordPress Media Library is available
@@ -7,9 +12,9 @@ define(['jquery', 'underscore'], function($, _) {
 			
 			// Initialize WordPress Media Library directly
 			var mediaUploader = wp.media({
-				title: 'Select or Upload Video',
+				title: t('selectOrUploadVideo', 'Video auswaehlen oder hochladen'),
 				button: {
-					text: 'Select Video'
+					text: t('useVideo', 'Video verwenden')
 				},
 				multiple: false,
 				library: {
@@ -46,8 +51,8 @@ define(['jquery', 'underscore'], function($, _) {
 
 			var settings = {
 				id: 'input-video',
-				title: 'Select a video',
-				description: 'Upload or select a video',
+				title: t('selectVideo', 'Video auswaehlen'),
+				description: t('uploadOrSelectVideo', 'Video hochladen oder auswaehlen'),
 				src: Padma.homeURL + '/?padma-trigger=media-uploader',
 				load: function() {
 					console.log('Video uploader iframe loaded');
