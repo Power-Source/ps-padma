@@ -30,7 +30,7 @@ class PadmaNavigationBlock extends PadmaBlockAPI {
 			'itemscope' => '',
 			'itemtype' => 'http://schema.org/SiteNavigationElement'
 		);
-		$this->description = 'The navigation is the menu that will display all of the pages in your site.';
+		$this->description = __('Die Navigation ist das Menue, das die Seiten deiner Website anzeigt.', 'padma');
 		$this->categories = array('core','navigation');
 		$this->show_content_in_grid = true;
 
@@ -182,7 +182,7 @@ class PadmaNavigationBlock extends PadmaBlockAPI {
 
 
 			echo '<span class="pushy-menu-toggle' . $toggle_class . '">
-					<span class="pushy-menu-toggle-text">' . parent::get_setting($block, 'responsive-menu-label', __('Menu','padma')) . '</span>
+					<span class="pushy-menu-toggle-text">' . parent::get_setting($block, 'responsive-menu-label', __('Menue','padma')) . '</span>
 					<span class="pushy-menu-toggle-icon">
                         <span class="pushy-menu-toggle-icon-bar"></span>
                         <span class="pushy-menu-toggle-icon-bar"></span>
@@ -383,7 +383,7 @@ class PadmaNavigationBlock extends PadmaBlockAPI {
 
 							$("' . $selector . ' ul.menu").slicknav({
 								prependTo: "' . $selector . ' .block-content",
-								label: "' . parent::get_setting($block, 'responsive-menu-label', 'Menu') . '",
+								label: "' . parent::get_setting($block, 'responsive-menu-label', 'Menue') . '",
 								additionalBtnClass: "' . $toggle_class . '",
 								additionalMenuClass: "' . $menu_class . '"
 							});
@@ -528,87 +528,87 @@ class PadmaNavigationBlock extends PadmaBlockAPI {
 	function setup_elements() {
 
 		$this->register_block_element( array(
-			'name' => __('Menu Container','padma'),
+			'name' => __('Menue-Container','padma'),
 			'selector' => '.nav-horizontal'
 		) );
 
 		$this->register_block_element( array(
-			'name' => __('Menu Container - Vertical','padma'),
+			'name' => __('Menue-Container - vertikal','padma'),
 			'selector' => '.nav-vertical'
 		) );
 
 		$this->register_block_element( array(
-			'name' => __('Menu','padma'),
+			'name' => __('Menue','padma'),
 			'selector' => 'ul.menu'
 		) );
 
 		$this->register_block_element( array(
-			'name' => __('Menu Item','padma'),
+			'name' => __('Menuepunkt','padma'),
 			'selector' => 'ul.menu li'
 		) );
 
 		$this->register_block_element(array(
-			'name' => __('Menu Item Shrinked','padma'),
+			'name' => __('Menuepunkt verkleinert','padma'),
 			'selector' => 'ul.menu li',
 			'states' => array(
-				'Shrinked' => 'ul.menu li.is_shrinked',
+				'Verkleinert' => 'ul.menu li.is_shrinked',
 			)
 		));
 
 		$this->register_block_element( array(
-			'name' => __('Menu Item Link','padma'),
+			'name' => __('Menuepunkt-Link','padma'),
 			'selector' => 'ul.menu li a'
 		) );
 
 		$this->register_block_element( array(
-			'name' => __('Menu Item - Active','padma'),
+			'name' => __('Menuepunkt - aktiv','padma'),
 			'selector' => 'ul.menu li.current-menu-item a'
 		) );
 
 		$this->register_block_element( array(
-			'name' => __('Sub Menu','padma'),
+			'name' => __('Untermenue','padma'),
 			'selector' => 'ul.sub-menu'
 		) );
 
 		$this->register_block_element( array(
-			'name' => __('Sub Menu Item','padma'),
+			'name' => __('Untermenuepunkt','padma'),
 			'selector' => 'ul.sub-menu li'
 		) );
 
 		$this->register_block_element( array(
-			'name' => __('Sub Menu Item Link','padma'),
+			'name' => __('Untermenuepunkt-Link','padma'),
 			'selector' => 'ul.sub-menu li a'
 		) );
 
 		$this->register_block_element( array(
-			'name' => __('Search Input','padma'),
+			'name' => __('Sucheingabe','padma'),
 			'selector' => '#searchform input[type="text"]'
 		) );
 
 		$this->register_block_element( array(
-			'name' => __('Horizontal SlideOut Tag','padma'),
+			'name' => __('Horizontaler Slide-out-Trigger','padma'),
 			'selector' => '.nav-horizontal .pushy-menu-toggle',
 			'states' => array(
 				'Hover' => '.nav-horizontal .pushy-menu-toggle:hover', 
-				'Clicked' => '.nav-horizontal .pushy-menu-toggle:active'
+				'Active' => '.nav-horizontal .pushy-menu-toggle:active'
 			)
 		) );
 
 		$this->register_block_element( array(
-			'name' => __('Horizontal SlideOut Icon','padma'),
+			'name' => __('Horizontales Slide-out-Icon','padma'),
 			'selector' => '.nav-horizontal .pushy-menu-toggle .pushy-menu-toggle-icon',
 			'states' => array(
 					'Hover' => '.nav-horizontal .pushy-menu-toggle .pushy-menu-toggle-icon:hover', 
-					'Clicked' => '.nav-horizontal .pushy-menu-toggle .pushy-menu-toggle-icon:active'
+					'Active' => '.nav-horizontal .pushy-menu-toggle .pushy-menu-toggle-icon:active'
 				)
 		) );
 
 		$this->register_block_element( array(
-			'name' => __('Horizontal SlideOut Icon Line','padma'),
+			'name' => __('Horizontale Slide-out-Icon-Linie','padma'),
 			'selector' => '.nav-horizontal .pushy-menu-toggle .pushy-menu-toggle-icon .pushy-menu-toggle-icon-bar',
 			'states' => array(
 				'Hover' => '.nav-horizontal .pushy-menu-toggle .pushy-menu-toggle-icon .pushy-menu-toggle-icon-bar:hover', 
-				'Clicked' => '.nav-horizontal .pushy-menu-toggle .pushy-menu-toggle-icon .pushy-menu-toggle-icon-bar:active'
+				'Active' => '.nav-horizontal .pushy-menu-toggle .pushy-menu-toggle-icon .pushy-menu-toggle-icon-bar:active'
 			)
 		) );
 
@@ -625,17 +625,17 @@ class PadmaNavigationBlock extends PadmaBlockAPI {
 		) );
 		$this->register_block_element( array(
 			'id' => 'slide-out-container',
-			'name' => __('Slide-out: Menu Container','padma'),			
+			'name' => __('Slide-out: Menue-Container','padma'),			
 			'selector' => '\ul.pushy',
 		) );
 		
 		$this->register_block_element( array(
-			'name' => __('Slide-out: Menu Item','padma'),			
+			'name' => __('Slide-out: Menuepunkt','padma'),			
 			'selector' => '\ul.pushy li',
 		) );
 		
 		$this->register_block_element( array(
-			'name' => __('Slide-out: Menu Item Link','padma'),			
+			'name' => __('Slide-out: Menuepunkt-Link','padma'),			
 			'selector' => '\ul.pushy li a',
 			'states' => array(
 				'Hover' => '\ul.pushy li a:hover', 				
@@ -652,10 +652,10 @@ class PadmaNavigationBlock extends PadmaBlockAPI {
 		$this->register_block_element( array(
 				'legacy-only' => true,
 				'id' => 'menu-item',
-				'name' => __('Menu Item','padma'),
+				'name' => __('Menuepunkt','padma'),
 				'selector' => 'ul.menu li > a',
 				'states' => array(
-						'Selected' => '
+						'Aktiv' => '
 					ul.menu li.current_page_item > a,
 					ul.menu li.current_page_parent > a,
 					ul.menu li.current_page_ancestor > a,
@@ -670,9 +670,9 @@ class PadmaNavigationBlock extends PadmaBlockAPI {
 					ul.menu li.current-menu-ancestor > a:hover
 				',
 						'Hover' => 'ul.menu li > a:hover',
-						'Clicked' => 'ul.menu li > a:active',
-						'Dropdown Open' => 'ul.menu li.sfHover > a',
-						'Shrinked' => 'ul.menu li.is_shrinked',
+						'Active' => 'ul.menu li > a:active',
+						'Dropdown offen' => 'ul.menu li.sfHover > a',
+						'Verkleinert' => 'ul.menu li.is_shrinked',
 			
 				)
 		) );
@@ -681,7 +681,7 @@ class PadmaNavigationBlock extends PadmaBlockAPI {
 		$this->register_block_element( array(
 				'legacy-only' => true,
 				'id' => 'sub-nav-menu',
-				'name' => __('Sub Menu','padma'),
+				'name' => __('Untermenue','padma'),
 				'selector' => 'ul.sub-menu'
 		) );
 
@@ -689,10 +689,10 @@ class PadmaNavigationBlock extends PadmaBlockAPI {
 		$this->register_block_element( array(
 				'legacy-only' => true,
 				'id' => 'sub-menu-item',
-				'name' => __('Sub Menu Item','padma'),
+				'name' => __('Untermenuepunkt','padma'),
 				'selector' => 'ul.sub-menu li > a',
 				'states' => array(
-						'Selected' => '
+						'Aktiv' => '
 					ul.sub-menu li.current_page_item > a,
 					ul.sub-menu li.current_page_parent > a,
 					ul.sub-menu li.current_page_ancestor > a,
@@ -701,19 +701,19 @@ class PadmaNavigationBlock extends PadmaBlockAPI {
 					ul.sub-menu li.current_page_ancestor > a:hover
 				',
 						'Hover' => 'ul.sub-menu li > a:hover',
-						'Clicked' => 'ul.sub-menu li > a:active',
-						'Dropdown Open' => 'ul.sub-menu li.sfHover > a',
-						'Shrinked' => 'ul.menu li.is_shrinked',
+						'Active' => 'ul.sub-menu li > a:active',
+						'Dropdown offen' => 'ul.sub-menu li.sfHover > a',
+						'Verkleinert' => 'ul.menu li.is_shrinked',
 				)
 		) );
 
 		$this->register_block_element( array(
 				'legacy-only' => true,
 				'id' => 'search-input',
-				'name' => __('Search Input','padma'),
+				'name' => __('Sucheingabe','padma'),
 				'selector' => '#searchform input[type="text"]',
 				'states' => array(
-						'Focused' => '#searchform input[type="text"]:focus'
+						'Fokussiert' => '#searchform input[type="text"]:focus'
 				)
 		) );
 
@@ -731,7 +731,7 @@ class PadmaNavigationBlock extends PadmaBlockAPI {
 		if ( get_option( 'show_on_front' ) == 'posts' ) {
 
 			$current = ( is_home() || is_front_page() ) ? ' current-menu-item current_page_item' : null;
-			$home_text = ( parent::get_setting( $block, 'home-link-text' ) ) ? parent::get_setting( $block, 'home-link-text' ) : __('Home','padma');
+			$home_text = ( parent::get_setting( $block, 'home-link-text' ) ) ? parent::get_setting( $block, 'home-link-text' ) : __('Start','padma');
 
 			/* If it's not the grid, then do not add the extra <span>'s */
 			if ( ! padma_get( 've-live-content-query', $block ) ) {
@@ -778,11 +778,11 @@ class PadmaNavigationBlockOptions extends PadmaBlockOptionsAPI {
 		parent::__construct($block_type_object);
 
 		$this->tabs = array(
-			'nav-menu-content' => __('Content','padma'),
-			'setup' => __('Setup','padma'),
-			'home-link' => __('Home Link','padma'),
-			'search' => __('Search','padma'),
-			'orientation' => __('Orientation','padma'),
+			'nav-menu-content' => __('Inhalt','padma'),
+			'setup' => __('Allgemein','padma'),
+			'home-link' => __('Startseiten-Link','padma'),
+			'search' => __('Suche','padma'),
+			'orientation' => __('Ausrichtung','padma'),
 			'dropdowns' => __('Dropdowns','padma'),
 		);
 
@@ -791,7 +791,7 @@ class PadmaNavigationBlockOptions extends PadmaBlockOptionsAPI {
 				'item-height' => array(
 					'type' => 'slider',
 					'name' => 'item-height',
-					'label' => __('Navigation Item Height','padma'),
+					'label' => __('Hoehe der Navigationselemente','padma'),
 					'default' => 40,
 					'slider-min' => 0,
 					'slider-max' => 250,
@@ -802,18 +802,18 @@ class PadmaNavigationBlockOptions extends PadmaBlockOptionsAPI {
 				'responsiveness-notice' => array(
 					'name' => 'responsiveness-notice',
 					'type' => 'notice',
-					'notice' => __('You must have Responsive Grid enabled to take advantage of these options. Responsive Grid can be enabled under Setup &raquo; Responsive Grid in the Grid mode.','padma')
+					'notice' => __('Du musst Responsive Grid aktivieren, damit du diese Optionen nutzen kannst. Responsive Grid kannst du im Grid-Modus unter Setup &raquo; Responsive Grid aktivieren.','padma')
 				),
 
 				'responsive-method' => array(
 					'type' => 'select',
 					'name' => 'responsive-method',
-					'label' => __('Responsive Method','padma'),
+					'label' => __('Responsive Methode','padma'),
 					'default' => 'vertical',
 					'options' => array(
-						'vertical' => __('Vertical Menu','padma'),
-						'slide-out' => __('Horizontal Slideout','padma'),
-						'select' => __('Basic Select Input','padma')
+						'vertical' => __('Vertikales Menue','padma'),
+						'slide-out' => __('Horizontaler Slide-out','padma'),
+						'select' => __('Einfaches Auswahlfeld','padma')
 					),
 					'toggle' => array(
 						'vertical' => array(
@@ -859,18 +859,18 @@ class PadmaNavigationBlockOptions extends PadmaBlockOptionsAPI {
 				'responsive-menu-label' => array(
 					'type' => 'text',
 					'name' => 'responsive-menu-label',
-					'label' => 'Responsive Menu Label',
-					'default' => __('Menu','padma')
+					'label' => __('Responsives Menue-Label','padma'),
+					'default' => __('Menue','padma')
 				),
 
 				'responsive-menu-label-position' => array(
 					'type' => 'select',
 					'name' => 'responsive-menu-label-position',
-					'label' => __('Responsive Menu Label Position','padma'),
+					'label' => __('Position des responsiven Menue-Labels','padma'),
 					'options' => array(
-						'left' => __('Left','padma'),
-						'right' => __('Right','padma'),
-						'center' => __('Center','padma')
+						'left' => __('Links','padma'),
+						'right' => __('Rechts','padma'),
+						'center' => __('Zentriert','padma')
 					),
 					'default' => 'right'
 				),
@@ -878,10 +878,10 @@ class PadmaNavigationBlockOptions extends PadmaBlockOptionsAPI {
 				'slide-out-menu-position' => array(
 					'type' => 'select',
 					'name' => 'slide-out-menu-position',
-					'label' => __('Slide Out Position','padma'),
+					'label' => __('Slide-out-Position','padma'),
 					'options' => array(
-						'left' => __('Left','padma'),
-						'right' => __('Right','padma')
+						'left' => __('Links','padma'),
+						'right' => __('Rechts','padma')
 					),
 					'default' => 'left'
 				),
@@ -889,8 +889,8 @@ class PadmaNavigationBlockOptions extends PadmaBlockOptionsAPI {
 				'use-responsive-menu-breakpoint' => array(
 					'type' => 'checkbox',
 					'name' => 'use-responsive-menu-breakpoint',
-					'label' => __('Use Responsive Menu Breakpoint','padma'),
-					'tooltip' => __('If this is unchecked then the slide out or vertical navigation will show for all devices.','padma'),
+					'label' => __('Responsive Menue-Breakpoint verwenden','padma'),
+					'tooltip' => __('Wenn das deaktiviert ist, wird die Slide-out- oder vertikale Navigation auf allen Geraeten angezeigt.','padma'),
 					'default' => true,
 					'toggle' => array(
 						'true' => array(
@@ -905,8 +905,8 @@ class PadmaNavigationBlockOptions extends PadmaBlockOptionsAPI {
 				'responsive-menu-breakpoint' => array(
 					'type' => 'slider',
 					'name' => 'responsive-menu-breakpoint',
-					'label' => __('Menu Breakpoint','padma'),
-					'tooltip' => __('This is the device width at which the navigation block should hide its own navigation and display the slide out or vertical navigation.','padma'),
+					'label' => __('Menue-Breakpoint','padma'),
+					'tooltip' => __('Das ist die Geraetebreite, ab der der Navigationsblock seine eigene Navigation ausblenden und die Slide-out- oder vertikale Navigation anzeigen soll.','padma'),
 					'unit' => 'px',
 					'default' => 600,
 					'slider-min' => 200,
@@ -916,23 +916,23 @@ class PadmaNavigationBlockOptions extends PadmaBlockOptionsAPI {
 				'responsiveness-notice' => array(
 					'name' => 'responsiveness-notice',
 					'type' => 'notice',
-					'notice' => __('You must have Responsive Grid enabled to take advantage of these options.  Responsive Grid can be enabled under Setup &raquo; Responsive Grid in the Grid mode.','padma')
+					'notice' => __('Du musst Responsive Grid aktivieren, damit du diese Optionen nutzen kannst. Responsive Grid kannst du im Grid-Modus unter Setup &raquo; Responsive Grid aktivieren.','padma')
 				),
 
 				'responsive-select' => array(
 					'type' => 'checkbox',
 					'name' => 'responsive-select',
-					'label' => __('Responsive Select','padma'),
+					'label' => __('Responsives Auswahlfeld','padma'),
 					'default' => true,
-					'tooltip' => __('When enabled, your navigation will turn into a mobile-friendly select menu when your visitors are viewing your site on a mobile device (phones, not tablets).','padma')
+					'tooltip' => __('Wenn das aktiv ist, wird deine Navigation auf Mobilgeraeten in ein mobilfreundliches Auswahlfeld umgewandelt.','padma')
 				),
 
 				'slide-out-overlay-color' => array(
 					'type' => 'colorpicker',
 					'name' => 'slide-out-overlay-color',
-					'label' => __('Overlay color','padma'),
+					'label' => __('Overlay-Farbe','padma'),
 					'default' => '#000000',
-					'tooltip' => __('Overlay color when menu is open.','padma')
+					'tooltip' => __('Overlay-Farbe, waehrend das Menue geoeffnet ist.','padma')
 				)
 			),
 
@@ -940,16 +940,16 @@ class PadmaNavigationBlockOptions extends PadmaBlockOptionsAPI {
 				'hide-home-link' => array(
 					'type' => 'checkbox',
 					'name' => 'hide-home-link',
-					'label' => __('Hide Home Link','padma'),
+					'label' => __('Startseiten-Link ausblenden','padma'),
 					'default' => false,
-					'tooltip' => __('If you do not have a static page as the front page, Padma will add a home item to the navigation menu by default.','padma'),
+					'tooltip' => __('Wenn du keine statische Startseite verwendest, fuegt Padma standardmaessig einen Startseiten-Link zum Menue hinzu.','padma'),
 				),
 				'home-link-text' => array(
 					'name' => 'home-link-text',
-					'label' => __('Home Link Text','padma'),
+					'label' => __('Text fuer den Startseiten-Link','padma'),
 					'type' => 'text',
-					'tooltip' => __('If you would like the link to your homepage to say something other than <em>Home</em>, enter it here!','padma'),
-					'default' => __('Home','padma')
+					'tooltip' => __('Wenn der Link zu deiner Startseite anders als <em>Start</em> heissen soll, trag es hier ein.','padma'),
+					'default' => __('Start','padma')
 				)
 			),
 
@@ -957,29 +957,29 @@ class PadmaNavigationBlockOptions extends PadmaBlockOptionsAPI {
 				'enable-nav-search' => array(
 					'type' => 'checkbox',
 					'name' => 'enable-nav-search',
-					'label' => __('Enable Navigation Search','padma'),
+					'label' => __('Navigationssuche aktivieren','padma'),
 					'default' => false,
-					'tooltip' => __('If you wish to have a simple search form in the navigation bar, then check this box. <em><strong>Note:</strong> the search form will not show if the Vertical Navigation option is enabled for this block.</em>','padma')
+					'tooltip' => __('Wenn du ein einfaches Suchformular in der Navigationsleiste haben moechtest, aktiviere diese Option. <em><strong>Hinweis:</strong> Das Suchformular wird nicht angezeigt, wenn fuer diesen Block die vertikale Navigation aktiviert ist.</em>','padma')
 				),
 
 				'nav-search-position' => array(
 					'type' => 'select',
 					'name' => 'nav-search-position',
-					'label' => __('Search Position','padma'),
+					'label' => __('Position der Suche','padma'),
 					'default' => 'right',
 					'options' => array(
-						'left' => __('Left','padma'),
-						'right' => __('Right','padma')
+						'left' => __('Links','padma'),
+						'right' => __('Rechts','padma')
 					),
-					'tooltip' => __('If you would like the navigation search input to snap to the left instead of the right, you can use this option.','padma')
+					'tooltip' => __('Wenn die Sucheingabe links statt rechts ausgerichtet sein soll, kannst du diese Option verwenden.','padma')
 				),
 
 				'nav-search-placeholder' => array(
 					'type' => 'text',
 					'name' => 'nav-search-placeholder',
-					'label' => __('Search Placeholder','padma'),
-					'default' => __('Type to search, then press enter','padma'),
-					'tooltip' => __('This will be the text inside the search input telling the visitor how to interact with the search input.','padma')
+					'label' => __('Platzhalter der Suche','padma'),
+					'default' => __('Zum Suchen tippen und Enter druecken','padma'),
+					'tooltip' => __('Dieser Text wird in der Sucheingabe angezeigt und erklaert, wie die Suche verwendet wird.','padma')
 				)
 			),
 
@@ -987,21 +987,21 @@ class PadmaNavigationBlockOptions extends PadmaBlockOptionsAPI {
 				'alignment' => array(
 					'type' => 'select',
 					'name' => 'alignment',
-					'label' => __('Alignment','padma'),
+					'label' => __('Ausrichtung','padma'),
 					'default' => 'left',
 					'options' => array(
-						'left' => __('Left','padma'),
-						'right' => __('Right','padma'),
-						'center' => __('Center','padma')
+						'left' => __('Links','padma'),
+						'right' => __('Rechts','padma'),
+						'center' => __('Zentriert','padma')
 					)
 				),
 
 				'vert-nav-box' => array(
 					'type' => 'checkbox',
 					'name' => 'vert-nav-box',
-					'label' => __('Vertical Navigation','padma'),
+					'label' => __('Vertikale Navigation','padma'),
 					'default' => false,
-					'tooltip' => __('Instead of showing navigation horizontally, you can make the navigation show vertically. <em><strong>Note:</strong> You may have to resize the block to make the navigation items fit correctly.</em>','padma')
+					'tooltip' => __('Statt die Navigation horizontal anzuzeigen, kannst du sie auch vertikal darstellen. <em><strong>Hinweis:</strong> Eventuell musst du die Blockgroesse anpassen, damit die Navigationselemente sauber passen.</em>','padma')
 				)
 			),
 
@@ -1009,14 +1009,14 @@ class PadmaNavigationBlockOptions extends PadmaBlockOptionsAPI {
 				'effect' => array(
 					'type' => 'select',
 					'name' => 'effect',
-					'label' => __('Drop Down Effect','padma'),
+					'label' => __('Dropdown-Effekt','padma'),
 					'default' => 'fade',
 					'options' => array(
-						'none' => __('No Effect','padma'),
-						'fade' => __('Fade','padma'),
-						'slide' => __('Slide','padma')
+						'none' => __('Kein Effekt','padma'),
+						'fade' => __('Einblenden','padma'),
+						'slide' => __('Schieben','padma')
 					),
-					'tooltip' => __('This is the effect that will be used when the drop downs are shown and hidden.','padma')
+					'tooltip' => __('Dieser Effekt wird verwendet, wenn Dropdowns ein- oder ausgeblendet werden.','padma')
 				),
 
 				'hover-intent' => array(
@@ -1024,7 +1024,7 @@ class PadmaNavigationBlockOptions extends PadmaBlockOptionsAPI {
 					'name' => 'hover-intent',
 					'label' => __('Hover Intent','padma'),
 					'default' => true,
-					'tooltip' => __('Hover Intent makes it so if a navigation item with a drop down is hovered then the drop down will only be shown if the visitor has their mouse over the item for more than a split second.<br /><br />This reduces drop-downs from sporatically showing if the visitor makes fast movements over the navigation.','padma')
+					'tooltip' => __('Hover Intent sorgt dafuer, dass ein Dropdown erst dann angezeigt wird, wenn der Mauszeiger etwas laenger auf einem Navigationselement bleibt.<br /><br />So werden Dropdowns nicht dauernd versehentlich bei schnellen Mausbewegungen geoeffnet.','padma')
 				)
 			),
 		);
@@ -1033,7 +1033,7 @@ class PadmaNavigationBlockOptions extends PadmaBlockOptionsAPI {
 
 	function modify_arguments( $args = false ) {
 
-		$this->tab_notices['nav-menu-content'] = sprintf( __('To add items to this navigation menu, go to <a href="%s" target="_blank">WordPress Admin &raquo; Appearance &raquo; Menus</a>. Then, create a menu and assign it to <em>%s</em> in the <strong>Theme Locations</strong> box.','padma'), admin_url( 'nav-menus.php' ), PadmaBlocksData::get_block_name( $args['blockID'] ));
+		$this->tab_notices['nav-menu-content'] = sprintf( __('Um Eintraege zu diesem Navigationsmenue hinzuzufuegen, geh zu <a href="%s" target="_blank">WordPress Admin &raquo; Design &raquo; Menues</a>. Erstelle dort ein Menue und weise es im Bereich <strong>Theme-Positionen</strong> <em>%s</em> zu.','padma'), admin_url( 'nav-menus.php' ), PadmaBlocksData::get_block_name( $args['blockID'] ));
 
 		if ( $block_height = PadmaBlocksData::get_block_height( $args['blockID'] ) ) {
 			$this->inputs['setup']['item-height']['default'] = $block_height;
