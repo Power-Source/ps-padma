@@ -60,6 +60,7 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 == Changelog ==
 
 = 1.1.4 =
+* NEU: Nativer Hero-Shortcode plus passender Hero-Block fuer den Padma Builder hinzugefuegt
 * Shortcode Builder: Markierte bestehende Shortcodes im Classic Editor werden jetzt erkannt und direkt zur passenden Builder-Maske geladen
 * Shortcode Builder: Beim Bearbeiten bestehender Wrap-Shortcodes wird im Feld "Inhalt" nur noch der innere Inhalt geladen, nicht mehr der komplette Shortcode
 * Shortcode Builder: Bearbeitete markierte Shortcodes werden im Editor jetzt direkt ersetzt statt zusaetzlich neu eingefuegt

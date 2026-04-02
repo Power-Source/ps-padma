@@ -55,6 +55,7 @@ class PadmaBlocks {
 		'fontawesome' => 'Padma_Advanced\\PadmaVisualElementsFontAwesomeBlock',
 		'gmap' => 'Padma_Advanced\\PadmaVisualElementsBlockGmap',
 		'heading' => 'Padma_Advanced\\PadmaVisualElementsBlockHeading',
+		'hero' => 'Padma_Advanced\\PadmaVisualElementsBlockHero',
 		'label' => 'Padma_Advanced\\PadmaVisualElementsBlockLabel',
 		'lightbox' => 'Padma_Advanced\\PadmaVisualElementsBlockLightbox',
 		'lottiefiles' => 'Padma_Advanced\\PadmaVisualElementsBlockLottieFiles',

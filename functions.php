@@ -87,6 +87,7 @@ require_once get_template_directory() . '/library/shortcode-functions/assets.php
 
 // Advanced Blocks (VE2 Integration)
 require_once get_template_directory() . '/library/shortcode-functions/button.php';
+require_once get_template_directory() . '/library/shortcode-functions/hero.php';
 require_once get_template_directory() . '/library/shortcode-functions/accordion.php';
 require_once get_template_directory() . '/library/shortcode-functions/box.php';
 require_once get_template_directory() . '/library/shortcode-functions/quote.php';

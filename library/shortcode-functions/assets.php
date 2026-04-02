@@ -78,6 +78,10 @@ class PadmaAssets {
 					'file' => 'content-shortcodes.css',
 					'deps' => array()
 				),
+				'hero-shortcodes' => array(
+					'file' => 'hero-shortcodes.css',
+					'deps' => array()
+				),
 				'galleries-shortcodes' => array(
 					'file' => 'galleries-shortcodes.css',
 					'deps' => array()
@@ -186,6 +190,7 @@ class PadmaAssets {
 		self::enqueue_local_asset( 'css', 'other-shortcodes' );
 		self::enqueue_local_asset( 'js', 'other-shortcodes' );
 		self::enqueue_local_asset( 'css', 'content-shortcodes' );
+		self::enqueue_local_asset( 'css', 'hero-shortcodes' );
 		self::enqueue_local_asset( 'css', 'box-shortcodes' );
 	}
 }

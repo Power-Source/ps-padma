@@ -83,6 +83,7 @@ function padma_register_all_shortcodes() {
 	// TYPOGRAPHY SHORTCODES (11)
 	// ========================================================================
 	padma_register_shortcode( 'heading' );
+	padma_register_shortcode( 'hero' );
 	padma_register_shortcode( 'divider' );
 	padma_register_shortcode( 'spacer' );
 	padma_register_shortcode( 'highlight' );

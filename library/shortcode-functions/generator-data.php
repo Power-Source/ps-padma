@@ -101,6 +101,149 @@ class Padma_Generator_Data {
 			),
 
 			// ----------------------------------------------------------------
+			// HERO
+			// ----------------------------------------------------------------
+			'hero' => array(
+				'name'    => __( 'Hero', 'ps-padma' ),
+				'type'    => 'wrap',
+				'group'   => 'content',
+				'icon'    => 'picture-o',
+				'desc'    => __( 'Großer Intro-Bereich mit Hintergrund, Text und Button', 'ps-padma' ),
+				'content' => __( 'Kurzer Beschreibungstext für den Hero-Bereich.', 'ps-padma' ),
+				'atts'    => array(
+					'title' => array(
+						'default' => __( 'Hero Überschrift', 'ps-padma' ),
+						'name'    => __( 'Titel', 'ps-padma' ),
+						'desc'    => __( 'Hauptüberschrift des Hero-Bereichs', 'ps-padma' ),
+					),
+					'subtitle' => array(
+						'default' => __( 'Kurze Einleitung oder Zusatzzeile', 'ps-padma' ),
+						'name'    => __( 'Untertitel', 'ps-padma' ),
+						'desc'    => __( 'Optionale Zeile oberhalb des Inhalts', 'ps-padma' ),
+					),
+					'background_image' => array(
+						'type'    => 'upload',
+						'default' => '',
+						'name'    => __( 'Hintergrundbild', 'ps-padma' ),
+						'desc'    => __( 'URL oder Upload für das Hero-Hintergrundbild', 'ps-padma' ),
+					),
+					'background_color' => array(
+						'type'    => 'color',
+						'default' => '#1f2937',
+						'name'    => __( 'Hintergrundfarbe', 'ps-padma' ),
+						'desc'    => __( 'Fallback-Farbe hinter dem Bild', 'ps-padma' ),
+					),
+					'text_color' => array(
+						'type'    => 'color',
+						'default' => '#ffffff',
+						'name'    => __( 'Textfarbe', 'ps-padma' ),
+						'desc'    => __( 'Farbe für Titel, Untertitel und Inhalt', 'ps-padma' ),
+					),
+					'overlay_color' => array(
+						'type'    => 'color',
+						'default' => '#000000',
+						'name'    => __( 'Overlay-Farbe', 'ps-padma' ),
+						'desc'    => __( 'Farbe der Bild-Überlagerung', 'ps-padma' ),
+					),
+					'overlay_opacity' => array(
+						'type'    => 'slider',
+						'min'     => 0,
+						'max'     => 90,
+						'step'    => 5,
+						'default' => 45,
+						'name'    => __( 'Overlay-Deckkraft', 'ps-padma' ),
+						'desc'    => __( 'Deckkraft der Überlagerung in Prozent', 'ps-padma' ),
+					),
+					'min_height' => array(
+						'type'    => 'slider',
+						'min'     => 200,
+						'max'     => 900,
+						'step'    => 10,
+						'default' => 420,
+						'name'    => __( 'Mindesthöhe', 'ps-padma' ),
+						'desc'    => __( 'Mindesthöhe des Hero-Bereichs in Pixeln', 'ps-padma' ),
+					),
+					'align' => array(
+						'type'    => 'select',
+						'values'  => array(
+							'left'   => __( 'Links', 'ps-padma' ),
+							'center' => __( 'Mitte', 'ps-padma' ),
+							'right'  => __( 'Rechts', 'ps-padma' ),
+						),
+						'default' => 'center',
+						'name'    => __( 'Textausrichtung', 'ps-padma' ),
+						'desc'    => __( 'Horizontale Ausrichtung des Hero-Inhalts', 'ps-padma' ),
+					),
+					'valign' => array(
+						'type'    => 'select',
+						'values'  => array(
+							'top'    => __( 'Oben', 'ps-padma' ),
+							'middle' => __( 'Mitte', 'ps-padma' ),
+							'bottom' => __( 'Unten', 'ps-padma' ),
+						),
+						'default' => 'middle',
+						'name'    => __( 'Vertikale Ausrichtung', 'ps-padma' ),
+						'desc'    => __( 'Vertikale Position des Hero-Inhalts', 'ps-padma' ),
+					),
+					'button_text' => array(
+						'default' => __( 'Mehr erfahren', 'ps-padma' ),
+						'name'    => __( 'Button-Text', 'ps-padma' ),
+						'desc'    => __( 'Optionaler Call-to-Action Button', 'ps-padma' ),
+					),
+					'button_url' => array(
+						'default' => '',
+						'name'    => __( 'Button-URL', 'ps-padma' ),
+						'desc'    => __( 'Ziel-URL des Buttons', 'ps-padma' ),
+					),
+					'button_target' => array(
+						'type'    => 'select',
+						'values'  => array(
+							'self'  => __( 'Gleiches Tab', 'ps-padma' ),
+							'blank' => __( 'Neues Tab', 'ps-padma' ),
+						),
+						'default' => 'self',
+						'name'    => __( 'Button-Ziel', 'ps-padma' ),
+						'desc'    => __( 'Wie wird der Button-Link geöffnet', 'ps-padma' ),
+					),
+					'button_style' => array(
+						'type'    => 'select',
+						'values'  => array(
+							'default' => __( 'Standard', 'ps-padma' ),
+							'flat'    => __( 'Flat', 'ps-padma' ),
+							'ghost'   => __( 'Ghost', 'ps-padma' ),
+							'soft'    => __( 'Soft', 'ps-padma' ),
+							'glass'   => __( 'Glass', 'ps-padma' ),
+							'bubbles' => __( 'Bubbles', 'ps-padma' ),
+							'noise'   => __( 'Noise', 'ps-padma' ),
+							'stroked' => __( 'Stroked', 'ps-padma' ),
+							'3d'      => __( '3D', 'ps-padma' ),
+						),
+						'default' => 'default',
+						'name'    => __( 'Button-Stil', 'ps-padma' ),
+						'desc'    => __( 'Stil des Hero-Buttons', 'ps-padma' ),
+					),
+					'button_background' => array(
+						'type'    => 'color',
+						'default' => '#2D89EF',
+						'name'    => __( 'Button-Hintergrund', 'ps-padma' ),
+						'desc'    => __( 'Hintergrundfarbe des Buttons', 'ps-padma' ),
+					),
+					'button_color' => array(
+						'type'    => 'color',
+						'default' => '#FFFFFF',
+						'name'    => __( 'Button-Textfarbe', 'ps-padma' ),
+						'desc'    => __( 'Textfarbe des Buttons', 'ps-padma' ),
+					),
+					'class' => array(
+						'type'    => 'extra_css_class',
+						'default' => '',
+						'name'    => __( 'Zusätzliche CSS-Klasse', 'ps-padma' ),
+						'desc'    => __( 'Weitere CSS-Klassen, mit Leerzeichen getrennt', 'ps-padma' ),
+					),
+				),
+			),
+
+			// ----------------------------------------------------------------
 			// DIVIDER
 			// ----------------------------------------------------------------
 			'divider' => array(
