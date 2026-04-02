@@ -22,37 +22,226 @@ jQuery(document).ready(function($) {
 		$result = $('#su-generator-result'),
 		$selected = $('#su-generator-selected'),
 		mce_selection = '';
+	// Markierten Shortcode parsen (Edit-Mode)
+	// Gibt {name, atts, content} zurück oder null
+	function parseShortcodeString(str) {
+		if (!str) return null;
+		str = $.trim(str);
+		var prefix = ($prefix.val() || 'su_').replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+		// Wrap-Shortcode: [prefix_name att="val"]Inhalt[/prefix_name]
+		var reWrap = new RegExp('^\\[(' + prefix + '[a-z0-9_]+)((?:\\s+[a-z0-9_]+="[^"]*")*)\\s*\\]([\\s\\S]*)\\[\/\\1\\]$', 'i');
+		// Single-Shortcode: [prefix_name att="val" /] oder [prefix_name att="val"]
+		var reSingle = new RegExp('^\\[(' + prefix + '[a-z0-9_]+)((?:\\s+[a-z0-9_]+="[^"]*")*)\\s*\/? *\\]$', 'i');
+		var fullName, attStr, content = null, m;
+		if ((m = reWrap.exec(str))) {
+			fullName = m[1]; attStr = m[2] || ''; content = m[3];
+		} else if ((m = reSingle.exec(str))) {
+			fullName = m[1]; attStr = m[2] || '';
+		} else {
+			return null;
+		}
+		var rawPrefix = $prefix.val() || 'su_';
+		var name = (fullName.indexOf(rawPrefix) === 0) ? fullName.slice(rawPrefix.length) : fullName;
+		var atts = {}, am, attRe = /([a-z0-9_]+)="([^"]*)"/gi;
+		while ((am = attRe.exec(attStr)) !== null) { atts[am[1]] = am[2]; }
+		return { name: name, atts: atts, content: content };
+	}
+	function su_get_editor_api() {
+		if (typeof tinymce !== 'undefined') return tinymce;
+		if (typeof tinyMCE !== 'undefined') return tinyMCE;
+		return null;
+	}
+	function su_strip_html(str) {
+		return (str || '').replace(/<[^>]+>/g, '');
+	}
+	function su_get_textarea_selection(editorId) {
+		var textarea = null;
+		if (editorId) textarea = document.getElementById(editorId);
+		if (!textarea && document.activeElement && document.activeElement.tagName && document.activeElement.tagName.toLowerCase() === 'textarea') {
+			textarea = document.activeElement;
+		}
+		if (!textarea || typeof textarea.value !== 'string') return '';
+		if (typeof textarea.selectionStart === 'number' && typeof textarea.selectionEnd === 'number' && textarea.selectionEnd > textarea.selectionStart) {
+			return textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
+		}
+		return '';
+	}
+	function su_get_editor_selection(editorId) {
+		var api = su_get_editor_api(),
+			candidateIds = [],
+			i,
+			editor,
+			selection = '';
+		if (editorId) candidateIds.push(editorId);
+		if (window.wpActiveEditor && $.inArray(window.wpActiveEditor, candidateIds) === -1) candidateIds.push(window.wpActiveEditor);
+		if (api && api.activeEditor && api.activeEditor.id && $.inArray(api.activeEditor.id, candidateIds) === -1) candidateIds.unshift(api.activeEditor.id);
+		for (i = 0; i < candidateIds.length; i++) {
+			if (!api || !api.get) continue;
+			editor = api.get(candidateIds[i]);
+			if (!editor || !editor.selection) continue;
+			try {
+				selection = editor.selection.getContent({ format: 'text' });
+				if (!$.trim(selection)) selection = su_strip_html(editor.selection.getContent());
+				selection = $.trim(selection);
+				if (selection) return selection;
+			} catch (err) {}
+		}
+		if (api && api.activeEditor && api.activeEditor.selection) {
+			try {
+				selection = api.activeEditor.selection.getContent({ format: 'text' });
+				if (!$.trim(selection)) selection = su_strip_html(api.activeEditor.selection.getContent());
+				selection = $.trim(selection);
+				if (selection) return selection;
+			} catch (err2) {}
+		}
+		selection = $.trim(su_get_textarea_selection(editorId));
+		if (selection) return selection;
+		selection = $.trim(su_get_textarea_selection(window.wpActiveEditor));
+		return selection || '';
+	}
+	function su_capture_replace_state(editorId) {
+		var api = su_get_editor_api(),
+			editor = null,
+			selectedText = '',
+			textarea = null;
+		window.su_replace_state = null;
+		if (api && api.get && editorId) editor = api.get(editorId);
+		if (!editor && api && api.activeEditor) editor = api.activeEditor;
+		if (editor && editor.selection) {
+			try {
+				selectedText = editor.selection.getContent({ format: 'text' });
+				if (!$.trim(selectedText)) selectedText = su_strip_html(editor.selection.getContent());
+				selectedText = $.trim(selectedText);
+				if (selectedText) {
+					window.su_replace_state = {
+						type: 'tinymce',
+						editorId: editor.id,
+						bookmark: editor.selection.getBookmark(2, true)
+					};
+					return;
+				}
+			} catch (err) {}
+		}
+		if (editorId) textarea = document.getElementById(editorId);
+		if (!textarea && document.activeElement && document.activeElement.tagName && document.activeElement.tagName.toLowerCase() === 'textarea') {
+			textarea = document.activeElement;
+		}
+		if (textarea && typeof textarea.selectionStart === 'number' && typeof textarea.selectionEnd === 'number' && textarea.selectionEnd > textarea.selectionStart) {
+			window.su_replace_state = {
+				type: 'textarea',
+				editorId: textarea.id || editorId || '',
+				start: textarea.selectionStart,
+				end: textarea.selectionEnd
+			};
+		}
+	}
+	function su_replace_selection(shortcode) {
+		var state = window.su_replace_state,
+			api = su_get_editor_api(),
+			editor = null,
+			textarea = null,
+			value = '';
+		if (!state) return false;
+		if (state.type === 'tinymce' && api) {
+			if (api.get && state.editorId) editor = api.get(state.editorId);
+			if (!editor && api.activeEditor && api.activeEditor.id === state.editorId) editor = api.activeEditor;
+			if (editor && editor.selection) {
+				try {
+					editor.focus();
+					editor.selection.moveToBookmark(state.bookmark);
+					editor.selection.setContent(shortcode);
+					window.su_replace_state = null;
+					return true;
+				} catch (err) {}
+			}
+		}
+		if (state.type === 'textarea') {
+			if (state.editorId) textarea = document.getElementById(state.editorId);
+			if (!textarea && document.activeElement && document.activeElement.tagName && document.activeElement.tagName.toLowerCase() === 'textarea') {
+				textarea = document.activeElement;
+			}
+			if (textarea && typeof textarea.value === 'string') {
+				value = textarea.value;
+				textarea.value = value.substring(0, state.start) + shortcode + value.substring(state.end);
+				textarea.focus();
+				textarea.selectionStart = state.start;
+				textarea.selectionEnd = state.start + shortcode.length;
+				$(textarea).trigger('input').trigger('change');
+				window.su_replace_state = null;
+				return true;
+			}
+		}
+		return false;
+	}
 	// Hotkey
 	if (typeof $.hotkeys == 'object' && $.hotkeys.version === '(beta)(0.0.3)' && suGeneratorI18n.hotkey) {
 		$.hotkeys.add(suGeneratorI18n.hotkey, function() {
 			$('.su-generator-button').trigger('click');
 		});
 	}
+	// TinyMCE-Selektion robust speichern
+	window.su_saved_raw_sel = '';
+	function su_attach_sel_listener(editor) {
+		editor.on('NodeChange SelectionChange mouseup keyup', function() {
+			var sel = '';
+			try {
+				sel = editor.selection ? editor.selection.getContent({ format: 'text' }) : '';
+				if (!$.trim(sel) && editor.selection) {
+					sel = su_strip_html(editor.selection.getContent());
+				}
+			} catch(err) {}
+			if ($.trim(sel) !== '') {
+				window.su_saved_raw_sel = $.trim(sel);
+			}
+		});
+	}
+	function su_init_sel_listeners() {
+		var api = (typeof tinymce !== 'undefined') ? tinymce : ((typeof tinyMCE !== 'undefined') ? tinyMCE : null);
+		if (!api) return;
+		// Bereits vorhandene Editoren
+		if (api.editors) {
+			$.each(api.editors, function(i, ed) {
+				if (ed && ed.on) su_attach_sel_listener(ed);
+			});
+		}
+		// Künftig hinzugefügte
+		api.on('AddEditor', function(ev) {
+			if (ev.editor && ev.editor.on) su_attach_sel_listener(ev.editor);
+		});
+	}
+	// Sofort versuchen + nach DOM-Ready nochmal (WP initialisiert MCE evtl. verzögert)
+	su_init_sel_listeners();
+	$(window).on('load', su_init_sel_listeners);
 	// Generator button
 	$('body').on('click', '.su-generator-button', function(e) {
 		e.preventDefault();
 		// Save the target
-		window.su_generator_target = $(this).data('target');
-		// Get open shortcode
+		window.su_generator_target = window.wpActiveEditor || $(this).data('target');
+		// Get open shortcode (from data attribute, e.g. direct call)
 		var shortcode = $(this).data('shortcode');
+		// Selektion aus Cache oder direkt aus dem aktuellen Editor/der Textarea holen
+		var rawSel = $.trim(window.su_saved_raw_sel || su_get_editor_selection(window.su_generator_target) || '');
+		if (rawSel) window.su_saved_raw_sel = rawSel;
+		su_capture_replace_state(window.su_generator_target);
+		mce_selection = rawSel;
+		// Shortcode parsen (Edit-Mode)
+		window.su_parsed_shortcode = parseShortcodeString(rawSel);
+		// Wenn ein Shortcode erkannt wurde, diesen direkt öffnen
+		var openShortcode = (window.su_parsed_shortcode) ? window.su_parsed_shortcode.name : shortcode;
 		// Open magnificPopup
 		$(this).magnificPopup({
 			type: 'inline',
 			alignTop: true,
 			callbacks: {
 				open: function() {
-					// Open queried shortcode
-					if (shortcode) $choice.filter('[data-shortcode="' + shortcode + '"]').trigger('click');
+					// Open queried shortcode (direkt oder aus Selektion)
+					if (openShortcode) $choice.filter('[data-shortcode="' + openShortcode + '"]').trigger('click');
 					// Focus search field when popup is opened
 					else window.setTimeout(function() {
 						$search.focus();
 					}, 200);
 					// Change z-index
 					$('body').addClass('su-mfp-shown');
-					// Save selection
-					mce_selection = (typeof tinyMCE !== 'undefined' && tinyMCE.activeEditor != null && tinyMCE.activeEditor.hasOwnProperty('selection')) ? tinyMCE.activeEditor.selection.getContent({
-						format: "text"
-					}) : '';
 				},
 				close: function() {
 					// Clear search field
@@ -68,6 +257,10 @@ jQuery(document).ready(function($) {
 					$choice.show();
 					// Clear selection
 					mce_selection = '';
+					// Edit-Mode zurücksetzen
+					window.su_parsed_shortcode = null;
+					window.su_saved_raw_sel = '';
+					window.su_replace_state = null;
 					// Change z-index
 					$('body').removeClass('su-mfp-shown');
 				}
@@ -229,9 +422,10 @@ jQuery(document).ready(function($) {
 				$settings.removeClass('su-generator-loading');
 				// Insert new HTML
 				$settings.html(data);
-				// Apply selected text to the content field
+				// Apply selected text nur dann,
+				// wenn wir keinen Shortcode im Edit-Mode parsen.
 				var $content = $('#su-generator-content');
-				if (typeof mce_selection !== 'undefined' && mce_selection !== '' && $content.attr('type') !== 'hidden') {
+				if (!window.su_parsed_shortcode && typeof mce_selection !== 'undefined' && mce_selection !== '' && $content.attr('type') !== 'hidden') {
 					$content.val(mce_selection);
 				}
 				// Init range pickers
@@ -645,12 +839,22 @@ jQuery(document).ready(function($) {
 					success: function(data) {
 						// Remove loading animation
 						// $settings.removeClass('su-generator-loading');
-						// Set new settings
-						set(data);
-						// Apply selected text to the content field
-						var $content = $('#su-generator-content');
-						if (typeof mce_selection !== 'undefined' && mce_selection !== '' && $content.attr('type') !== 'hidden') {
-							$content.val(mce_selection);
+					// Set new settings (Preset / last used)
+					set(data);
+						// Apply selected text to the content field nur dann,
+						// wenn kein Shortcode geparst wurde.
+					var $content = $('#su-generator-content');
+						if (!window.su_parsed_shortcode && typeof mce_selection !== 'undefined' && mce_selection !== '' && $content.attr('type') !== 'hidden') {
+						$content.val(mce_selection);
+					}
+					// Edit-Mode: Geparste Shortcode-Attribute einfüllen (überschreibt Preset)
+					if (window.su_parsed_shortcode && window.su_parsed_shortcode.name === shortcode) {
+						var fillData = $.extend({}, window.su_parsed_shortcode.atts);
+						if (window.su_parsed_shortcode.content !== null) {
+							fillData.content = window.su_parsed_shortcode.content;
+						}
+						set(fillData);
+						window.su_parsed_shortcode = null;
 						}
 					},
 					dataType: 'json'
@@ -662,7 +866,8 @@ jQuery(document).ready(function($) {
 	// Insert shortcode
 	$('#su-generator').on('click', '.su-generator-insert', function(e) {
 		// Prepare data
-		var shortcode = parse();
+		var shortcode = parse(),
+			replaced = false;
 		// Save current settings to presets
 		add_preset('last_used', suGeneratorI18n.last_used);
 		// Close popup
@@ -671,6 +876,9 @@ jQuery(document).ready(function($) {
 		$result.text(shortcode);
 		// Prevent default action
 		e.preventDefault();
+		// Replace previously selected shortcode/text when possible
+		replaced = su_replace_selection(shortcode);
+		if (replaced) return;
 		// Save original activeeditor
 		window.su_wpActiveEditor = window.wpActiveEditor;
 		// Set new active editor

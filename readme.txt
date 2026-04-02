@@ -59,6 +59,13 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 
 == Changelog ==
 
+= 1.1.4 =
+* Shortcode Builder: Markierte bestehende Shortcodes im Classic Editor werden jetzt erkannt und direkt zur passenden Builder-Maske geladen
+* Shortcode Builder: Beim Bearbeiten bestehender Wrap-Shortcodes wird im Feld "Inhalt" nur noch der innere Inhalt geladen, nicht mehr der komplette Shortcode
+* Shortcode Builder: Bearbeitete markierte Shortcodes werden im Editor jetzt direkt ersetzt statt zusaetzlich neu eingefuegt
+* Shortcode Builder: Editor-/Selektions-Erkennung fuer TinyMCE und Textarea-Fallback robuster gemacht
+* Shortcode Builder: Admin-Skripte fuer den Builder mit Cache-Busting versehen, damit JS-Aenderungen im Backend sofort greifen
+
 = 1.1.3 =
 * Fix: Einen Bug der nur begrenzt Medien im Uploader angezeigt hat 
 * Fix: Blockoptionen Tabs lassen sich nun wieder wechseln

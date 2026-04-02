@@ -61,6 +61,9 @@ class Padma_Shortcode_Generator {
 		$base  = get_template_directory_uri();
 		$css   = $base . '/assets/css/psource-shortcodes/';
 		$js    = $base . '/assets/js/psource-shortcodes/';
+		$js_dir = get_template_directory() . '/assets/js/psource-shortcodes/';
+		$tinymce_ver = file_exists( $js_dir . 'tinymce.js' ) ? (string) filemtime( $js_dir . 'tinymce.js' ) : PADMA_VERSION;
+		$generator_ver = file_exists( $js_dir . 'generator.js' ) ? (string) filemtime( $js_dir . 'generator.js' ) : PADMA_VERSION;
 
 		// WordPress-eigene Farb-Picker-Bibliothek
 		wp_enqueue_style( 'farbtastic' );
@@ -81,14 +84,14 @@ class Padma_Shortcode_Generator {
 		wp_enqueue_style( 'su-generator', $css . 'generator.css', array( 'su-magnific-popup' ), PADMA_VERSION );
 
 		// TinyMCE-Plugin für Shortcodes
-		wp_enqueue_script( 'su-tinymce', $js . 'tinymce.js', array( 'jquery' ), PADMA_VERSION, true );
+		wp_enqueue_script( 'su-tinymce', $js . 'tinymce.js', array( 'jquery' ), $tinymce_ver, true );
 
 		// Generator-Logik (muss nach jQuery + Popup-Libs geladen werden)
 		wp_enqueue_script(
 			'su-generator',
 			$js . 'generator.js',
 			array( 'jquery', 'su-magnific-popup', 'su-simpleslider', 'farbtastic' ),
-			PADMA_VERSION,
+			$generator_ver,
 			true
 		);
 
