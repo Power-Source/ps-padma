@@ -47,14 +47,6 @@ if ( ! function_exists( 'padma_hero_hex_to_rgba' ) ) {
  * @return string
  */
 function padma_render_hero( $args = array(), $content = '' ) {
-	$style_file = get_template_directory() . '/assets/css/psource-shortcodes/hero-shortcodes.css';
-	wp_enqueue_style(
-		'padma-hero-shortcodes-css',
-		get_template_directory_uri() . '/assets/css/psource-shortcodes/hero-shortcodes.css',
-		array(),
-		file_exists( $style_file ) ? (string) filemtime( $style_file ) : PADMA_VERSION
-	);
-
 	$args = wp_parse_args( $args, array(
 		'title'             => '',
 		'subtitle'          => '',
@@ -122,13 +114,22 @@ function padma_render_hero( $args = array(), $content = '' ) {
 		'position'         => 'relative',
 		'overflow'         => 'hidden',
 	) ) : '';
-	$media_style = padma_build_style_attr( array(
-		'background-image'    => $args['background_image'] ? 'url(' . esc_url( $args['background_image'] ) . ')' : '',
-		'background-size'     => 'cover',
-		'background-position' => 'center center',
-		'position'            => 'absolute',
-		'inset'               => '0',
-	) );
+	if ( $args['use_inline_styles'] ) {
+		$media_style = padma_build_style_attr( array(
+			'background-image'    => $args['background_image'] ? 'url(' . esc_url( $args['background_image'] ) . ')' : '',
+			'background-size'     => 'cover',
+			'background-position' => 'center center',
+			'position'            => 'absolute',
+			'inset'               => '0',
+		) );
+	} else {
+		// Block mode: only inject the dynamic background-image URL inline;
+		// structural styles (position, size, etc.) live in hero-shortcodes.css
+		// so the Visual Designer can override them without fighting inline specificity.
+		$media_style = $args['background_image']
+			? 'background-image:url(' . esc_url( $args['background_image'] ) . ')'
+			: '';
+	}
 	$overlay_style = $args['use_inline_styles'] ? padma_build_style_attr( array(
 		'background' => $overlay_rgba,
 		'position'   => 'absolute',

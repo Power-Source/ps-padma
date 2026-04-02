@@ -104,7 +104,7 @@ class Padma_Generator_Data {
 			// HERO
 			// ----------------------------------------------------------------
 			'hero' => array(
-				'name'    => __( 'Hero', 'ps-padma' ),
+				'name'    => __( 'Hero-Bereich', 'ps-padma' ),
 				'type'    => 'wrap',
 				'group'   => 'content',
 				'icon'    => 'picture-o',
@@ -112,7 +112,7 @@ class Padma_Generator_Data {
 				'content' => __( 'Kurzer Beschreibungstext für den Hero-Bereich.', 'ps-padma' ),
 				'atts'    => array(
 					'title' => array(
-						'default' => __( 'Hero Überschrift', 'ps-padma' ),
+						'default' => __( 'Hero-Titel', 'ps-padma' ),
 						'name'    => __( 'Titel', 'ps-padma' ),
 						'desc'    => __( 'Hauptüberschrift des Hero-Bereichs', 'ps-padma' ),
 					),
