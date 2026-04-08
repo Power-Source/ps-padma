@@ -4,7 +4,7 @@ function padma_register_structural_elements() {
 
 	//Structure
 	PadmaElementAPI::register_group('structure', array(
-		'name' => __('Structure','padma')
+		'name' => __('Struktur','padma')
 	));
 
 		PadmaElementAPI::register_element( array(
@@ -40,8 +40,8 @@ function padma_register_structural_elements() {
 
 	//Blocks
 	PadmaElementAPI::register_group('blocks', array(
-		'name' => 'Blocks',
-		'description' => __('Individual block types and block elements','padma')
+		'name' => __('Blöcke','padma'),
+		'description' => __('Individuelle Blocktypen und Blockelemente','padma')
 	));
 
 }

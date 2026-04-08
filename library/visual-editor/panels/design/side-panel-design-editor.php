@@ -38,8 +38,8 @@ class PadmaSidePanelDesignEditor {
 
 		echo '
 			<ul id="element-selector-tabs">
-				<li><a href="#design-editor-element-selector-container">Navigator</a></li>
-				<li><a href="#design-editor-styles-container">Styles</a></li>
+				<li><a href="#design-editor-element-selector-container">Navigation</a></li>
+				<li><a href="#design-editor-styles-container">Stile</a></li>
 
 				<span id="side-panel-collapse-arrow" title="' . __('Design-Editor umschalten','padma') . '" class="tooltip-top-right"></span>
 			</ul>
@@ -62,7 +62,7 @@ class PadmaSidePanelDesignEditor {
 
 			echo '<div id="design-editor-styles-nothing-selected" class="design-editor-styles-message">';
 
-				echo '<p>' . __('Du hast <strong>kein Element</strong> zum Bearbeiten ausgewählt..','padma') . '</p>';
+				echo '<p>' . __('Du hast <strong>kein Element</strong> zum Bearbeiten ausgewählt.','padma') . '</p>';
 				echo '<p>' . __('Verwende den Inspektor, um ein Element auszuwählen, das du bearbeiten möchtest.','padma') . '</p>';
 
 				// Pending update docs
@@ -95,7 +95,7 @@ class PadmaSidePanelDesignEditor {
 
 						<span class="design-editor-selection-details">
 							<strong class="design-editor-selected-element"></strong>
-							for <strong class="design-editor-selection-details-layout">all layouts</strong>
+							fuer <strong class="design-editor-selection-details-layout">alle Layouts</strong>
 							<span class="design-editor-selection-details-state-container"><span class="design-editor-selection-details-state-before"></span> <strong class="design-editor-selection-details-state"></strong></span>
 						</span>
 
@@ -105,7 +105,7 @@ class PadmaSidePanelDesignEditor {
 				</div><!-- .design-editor-info -->
 
 			<div class="design-editor-options-filter">
-				<input type="text" id="options-filter" placeholder="Filter" title="Filter options">
+				<input type="text" id="options-filter" placeholder="Filter" title="Optionen filtern">
 				<a class="options-filter-reset"><span>x</span></a>
 				<a class="options-filter-only-modified">' . __('Zeige nur geänderte Optionen','padma') . '<input type="checkbox" id="options-filter-only-modified"></a>
 			</div>

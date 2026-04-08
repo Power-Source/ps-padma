@@ -1,8 +1,9 @@
 === PS Padma ContentBuilder ===
 Contributors: PSOURCE
 Requires at least: 5.0
-Tested up to: WordPress 8.6, ClassicPress 2.6.0
-Version: 1.1.3
+Tested up to: WordPress 8.6 
+ClassicPress: 2.7.0
+Version: 1.1.4
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -23,7 +24,7 @@ Was euch erwartet:
 Kurz gesagt: weniger Frickelei, mehr bauen.
 
 Dokumentation:
-https://power-source.github.io/ps-padma/
+https://psource.eimen.net/wiki/ps-padma-contentbuilder-dokumentation/
 
 == Installation ==
 
@@ -66,6 +67,9 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 * Shortcode Builder: Bearbeitete markierte Shortcodes werden im Editor jetzt direkt ersetzt statt zusaetzlich neu eingefuegt
 * Shortcode Builder: Editor-/Selektions-Erkennung fuer TinyMCE und Textarea-Fallback robuster gemacht
 * Shortcode Builder: Admin-Skripte fuer den Builder mit Cache-Busting versehen, damit JS-Aenderungen im Backend sofort greifen
+* Visual Editor: Inspector-Initialisierung gehaertet, damit fehlende qTip-Tooltip-API keinen JS-Abbruch mehr ausloest (`Cannot read properties of undefined (reading 'show')`)
+* Visual Editor: Element-Filter in der rechten Leiste beim Erstladen stabilisiert ("Zeige Elemente des aktuellen Layouts" wird nach Iframe-Ready zuverlaessig angewendet)
+* Visual Editor: Weitere UI-Texte in der rechten Leiste auf Deutsch Informell umgestellt (u.a. Navigation, Stile, Instanzen, Gruppenbezeichnungen)
 
 = 1.1.3 =
 * Fix: Einen Bug der nur begrenzt Medien im Uploader angezeigt hat 

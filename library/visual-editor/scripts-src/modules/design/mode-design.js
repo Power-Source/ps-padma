@@ -304,7 +304,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 						elementNode.children('.children-elements').prepend('\
 							<li id="element-' + elementID + '-instances" class="element element-instances-container has-children">\
 								<span class="element-expander"></span>\
-								<span class="element-name">Instances</span>\
+								<span class="element-name">Instanzen</span>\
 								<ul class="children-elements"></ul>\
 							</li>\
 						');
@@ -2262,7 +2262,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 							render: function(event, api) {
 								
 						inspectorElement = undefined;
-						inspectorTooltip = undefined;
+						inspectorTooltip = api;
 						inspectorElementOptions = undefined;
 								
 								if ( !$('#toggle-inspector').hasClass('inspector-disabled') ) {									
@@ -2363,8 +2363,14 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 					var api = $(this).qtip('api');
 					api.destroy();
 				});
-				
-				inspectorTooltip.show();
+
+				if ( !inspectorTooltip || typeof inspectorTooltip.show !== 'function' ) {
+					inspectorTooltip = $i('body').qtip('api');
+				}
+
+				if ( inspectorTooltip && typeof inspectorTooltip.show === 'function' ) {
+					inspectorTooltip.show();
+				}
 
 				var inspectorMouseMoveEvent = !Padma.touch ? 'mousemove' : 'touchstart';
 				$i('html').bind(inspectorMouseMoveEvent, inspectorMouseMove);											
@@ -2412,7 +2418,9 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 				$i('body').removeClass('disable-block-hover').addClass('inspector-disabled'); 
 				$i('.block').qtip('enable');
 
-				$(inspectorTooltip.elements.tooltip).hide();
+				if ( inspectorTooltip && inspectorTooltip.elements && inspectorTooltip.elements.tooltip ) {
+					$(inspectorTooltip.elements.tooltip).hide();
+				}
 				hideNotification('inspector');
 
 				$i('html').unbind('mousemove', inspectorMouseMove);
@@ -2638,15 +2646,22 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 
 						}
 
-						inspectorTooltip.set('content.text', tooltipText);
+						if ( inspectorTooltip && typeof inspectorTooltip.set === 'function' ) {
+							inspectorTooltip.set('content.text', tooltipText);
+						}
 
 					}
 
 				}
 				
 				
-				inspectorTooltip.show();
-				inspectorTooltip.set('position.target', 'mouse');
+				if ( inspectorTooltip && typeof inspectorTooltip.show === 'function' ) {
+					inspectorTooltip.show();
+				}
+
+				if ( inspectorTooltip && typeof inspectorTooltip.set === 'function' ) {
+					inspectorTooltip.set('position.target', 'mouse');
+				}
 				
 
 			}
@@ -2666,7 +2681,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 					onHide: function() {
 
 					/* Reactivate inspector tooltip */
-					if (inspectorTooltip && inspectorTooltip.length && inspectorTooltip.closest('body').length) {
+					if ( inspectorTooltip && typeof inspectorTooltip.show === 'function' ) {
 						inspectorTooltip.show();
 					}
 					Padma.inspectorDisabled = false;
@@ -2684,8 +2699,8 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 				$(this).data('element-options', inspectorElement.data('inspectorElementOptions'));
 
 			/* Disable inspector tooltip */
-				if (inspectorTooltip && inspectorTooltip.length && inspectorTooltip.data('qtip')) {
-					inspectorTooltip.data('qtip').hide();
+				if ( inspectorTooltip && typeof inspectorTooltip.hide === 'function' ) {
+					inspectorTooltip.hide();
 				}
 				Padma.inspectorDisabled = true;
 
@@ -3095,8 +3110,8 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 
 			var details = $.extend({}, {
 				instance: element.name,
-				layout: 'all layouts',
-				state: 'all states'
+				layout: 'alle Layouts',
+				state: 'alle Zustaende'
 			}, details);
 
 			var deSelectionDetails = $('span.design-editor-selection-details');
@@ -3113,10 +3128,10 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 				deSelectionDetails.find('span.design-editor-selection-details-state-container').show();
 
 
-				if ( details.state == 'all states' ) {
-					deSelectionDetails.find('.design-editor-selection-details-state-before').text('and');
+				if ( details.state == 'alle Zustaende' ) {
+					deSelectionDetails.find('.design-editor-selection-details-state-before').text('und');
 				} else {
-					deSelectionDetails.find('.design-editor-selection-details-state-before').text('when');
+					deSelectionDetails.find('.design-editor-selection-details-state-before').text('bei');
 				}
 
 				if ( details.state == 'Hover' )
@@ -3362,6 +3377,14 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 
 			// Enable navigation
 			bindNavigationElements();
+
+			if ( designEditor && typeof designEditor.showOnlyLayoutElements == 'function' ) {
+				designEditor.showOnlyLayoutElements();
+
+				setTimeout(function() {
+					designEditor.showOnlyLayoutElements();
+				}, 150);
+			}
 			
 
 		}

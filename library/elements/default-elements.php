@@ -2,7 +2,7 @@
 add_action('padma_register_elements', 'padma_register_default_elements');
 function padma_register_default_elements() {
 
-	PadmaElementAPI::register_group('default-elements', __('Global Styling','padma') );
+	PadmaElementAPI::register_group('default-elements', __('Globales Styling','padma') );
 
 	PadmaElementAPI::register_element(array(
 		'id' => 'default-text',
