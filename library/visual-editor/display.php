@@ -100,9 +100,14 @@ class PadmaVisualEditorDisplay {
 	public static function require_js() {
 
 		$script_folder = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? 'scripts-src' : 'scripts-src';
+		$require_path = PADMA_LIBRARY_DIR . '/visual-editor/' . $script_folder . '/deps/require-and-jquery.js';
+		$app_path = PADMA_LIBRARY_DIR . '/visual-editor/' . $script_folder . '/app.js';
 
-		wp_enqueue_script('padma-editor', padma_url() . '/library/visual-editor/' . $script_folder . '/deps/require-and-jquery.js');
-		wp_enqueue_script('padma-editor-bootstrap', padma_url() . '/library/visual-editor/' . $script_folder . '/app.js', array('padma-editor'));
+		$require_ver = file_exists($require_path) ? filemtime($require_path) : false;
+		$app_ver = file_exists($app_path) ? filemtime($app_path) : false;
+
+		wp_enqueue_script('padma-editor', padma_url() . '/library/visual-editor/' . $script_folder . '/deps/require-and-jquery.js', array(), $require_ver);
+		wp_enqueue_script('padma-editor-bootstrap', padma_url() . '/library/visual-editor/' . $script_folder . '/app.js', array('padma-editor'), $app_ver);
 
 	}
 

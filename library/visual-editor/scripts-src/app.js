@@ -2,6 +2,25 @@ var padmaBaseUrl = (typeof Padma !== 'undefined' && Padma.padmaURL && Padma.scri
 	? (Padma.padmaURL + '/library/visual-editor/' + Padma.scriptFolder)
 	: null;
 
+if (!padmaBaseUrl && typeof document !== 'undefined') {
+	var scriptNode = document.currentScript;
+
+	if (!scriptNode) {
+		var scripts = document.getElementsByTagName('script');
+		for (var si = scripts.length - 1; si >= 0; si--) {
+			var scriptSrc = scripts[si] && scripts[si].src ? scripts[si].src : '';
+			if (scriptSrc.indexOf('/library/visual-editor/') !== -1 && scriptSrc.indexOf('/app.js') !== -1) {
+				scriptNode = scripts[si];
+				break;
+			}
+		}
+	}
+
+	if (scriptNode && scriptNode.src) {
+		padmaBaseUrl = scriptNode.src.split('?')[0].replace(/\/app\.js$/, '');
+	}
+}
+
 require.config({
 	baseUrl: padmaBaseUrl || '',
 	waitSeconds: 45,
@@ -30,9 +49,13 @@ require.config({
 
 if (typeof requirejs !== 'undefined') {
 	requirejs.onError = function(err) {
-		if (err && err.requireType === 'timeout' && err.requireModules && err.requireModules.indexOf('app') !== -1) {
+		if (err && err.requireType === 'timeout') {
 			if (window.console && typeof window.console.error === 'function') {
-				console.error('[Padma VE] RequireJS timeout while loading app module.', err);
+				console.error('[Padma VE] RequireJS timeout.', {
+					error: err,
+					baseUrl: padmaBaseUrl,
+					modules: err.requireModules || []
+				});
 			}
 		}
 

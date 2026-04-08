@@ -78,6 +78,11 @@ class PadmaWebFontsLoader {
 
 			if(PadmaOption::get('load-google-fonts-asynchronously')){
 
+				/* Reliable fallback: always print stylesheet link.
+				   Async loader can fail or be delayed in some contexts (frontend/VE iframe). */
+				$stylesheet_url = 'https://eimen.net/fonts/css.php?display=' . $font_display . '&family=' . $fonts ;
+				echo "<link rel='stylesheet' id='padma-google-fonts' href='$stylesheet_url' type='text/css' media='all' />\n";
+
 				wp_enqueue_script('google-fonts-async', padma_url() . '/library/media/js/google-fonts-asynchronously.js', array('jquery'), false, true);
 
 				// Korrekte Übergabe als Array
