@@ -28,7 +28,13 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
 */
 
-(function($){
+(function(factory){
+	if (typeof define === 'function' && define.amd) {
+		define(['jquery'], factory);
+	} else {
+		factory(jQuery);
+	}
+}(function($){
 
 var PROP_NAME = 'css3colorpicker';
 var mainDivId = 'css3colorpicker-div';
@@ -1387,4 +1393,4 @@ $.colorpicker = new Colorpicker();
 $.colorpicker.initialized = false;
 $.colorpicker.uuid = new Date().getTime();
 
-})(jQuery);
+}));
