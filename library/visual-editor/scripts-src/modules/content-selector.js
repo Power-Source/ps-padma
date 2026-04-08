@@ -1,5 +1,10 @@
 define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 
+	var veI18n = (typeof Padma !== 'undefined' && Padma.i18nVE) ? Padma.i18nVE : {};
+	var t = function(key, fallback) {
+		return (typeof veI18n[key] === 'string' && veI18n[key].length) ? veI18n[key] : fallback;
+	};
+
 	
 	showContentSelector = function() {
 
@@ -67,7 +72,7 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 			return false;
 		}
 				
-		changeTitle('Visual Editor: Loading');
+		changeTitle('Visual Editor: Laden');
 		startTitleActivityIndicator();
 
 		if ( contentNode.length ) {
@@ -270,7 +275,7 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 			contentData.ajaxLoading(true);
 
 
-			var $loadingIndicator = $('<li class="content-item content-loading-children"><span class="dashicons dashicons-update"></span> Loading...</li>');
+			var $loadingIndicator = $('<li class="content-item content-loading-children"><span class="dashicons dashicons-update"></span> Wird geladen...</li>');
 			$loadingIndicator.insertAfter($element.parent());
 
 			return $.ajax(Padma.ajaxURL, {
@@ -405,7 +410,7 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 
 				if ( typeof allowVECloseSwitch !== 'undefined' && allowVECloseSwitch === false ) {
 
-					if ( !confirm('You have unsaved changes, are you sure you want to switch contents?') ) {
+					if ( !confirm(t('confirmSwitchContentUnsaved', 'Du hast ungespeicherte Aenderungen, bist du sicher, dass du den Inhalt wechseln willst?')) ) {
 						return false;
 					}
 
@@ -459,12 +464,12 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 				var contentContext = ko.contextFor(this);
 
 				$(self)
-					.text('Load More...')
+					.text('Mehr laden...')
 					.attr('disabled', 'disabled');
 
 				$.when(contentSelector.loadContents(contentData, contentContext, $(this), true)).done(function() {
 					$(self)
-						.text('Load More...')
+						.text('Mehr laden...')
 						.attr('disabled', '');
 				});
 

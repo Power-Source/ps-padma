@@ -550,7 +550,7 @@ define(['deps/chosen.jquery'], function(chosen) {
 				if (typeof response === 'undefined' || response == 'failure') {
 					showErrorNotification({
 						id: 'error-could-not-assign-template',
-						message: 'Error: Could not assign shared layout.'
+						message: 'Fehler: Geteiltes Layout konnte nicht zugewiesen werden.'
 					});
 
 					return false;
@@ -566,14 +566,14 @@ define(['deps/chosen.jquery'], function(chosen) {
 				showIframeLoadingOverlay();
 
 				//Change title to loading
-				changeTitle('Visual Editor: Assigning Shared Layout');
+				changeTitle('Visual Editor: Geteiltes Layout wird zugewiesen');
 				startTitleActivityIndicator();
 
 				Padma.viewModels.layoutSelector.currentLayoutTemplate('template-' + templateToAssign);
 				Padma.viewModels.layoutSelector.currentLayoutTemplateName($('span.layout[data-layout-id="template-' + templateToAssign + '"]').find('.template-name').text());
 
 				//Reload iframe and new layout
-				padmaIframeLoadNotification = 'Shared Layout assigned successfully!';
+				padmaIframeLoadNotification = 'Geteiltes Layout wurde erfolgreich zugewiesen!';
 
 				loadIframe(Padma.instance.iframeCallback);
 
@@ -613,7 +613,7 @@ define(['deps/chosen.jquery'], function(chosen) {
 			var layoutChooser = input;
 
 			if (!layoutChooser.val())
-				return alert('You must select a Padma layout file before importing.');
+				return alert('Du musst vor dem Import eine Padma-Layoutdatei auswaehlen.');
 
 			var layoutFile = layoutChooser.get(0).files[0];
 
@@ -628,13 +628,13 @@ define(['deps/chosen.jquery'], function(chosen) {
 
 					/* Check to be sure that the JSON file is a layout */
 					if (layout['data-type'] != 'layout')
-						return alert('Cannot load layout file.  Please insure that the selected file is a valid Padma layout export.');
+						return alert('Layoutdatei kann nicht geladen werden. Bitte stelle sicher, dass die ausgewaehlte Datei ein gueltiger Padma-Layout-Export ist.');
 
 					if (typeof layout['image-definitions'] != 'undefined' && Object.keys(layout['image-definitions']).length) {
 
 						showNotification({
 							id: 'importing-images',
-							message: 'Currently importing images.',
+							message: 'Bilder werden gerade importiert.',
 							closeTimer: 10000
 						});
 
@@ -649,7 +649,7 @@ define(['deps/chosen.jquery'], function(chosen) {
 
 							/* If there's an error when sideloading images, then hault import. */
 							if (typeof layout['error'] != 'undefined')
-								return alert('Error while importing images for layout: ' + layout['error']);
+								return alert('Fehler beim Importieren der Bilder fuer das Layout: ' + layout['error']);
 
 							importLayout(layout);
 
@@ -667,7 +667,7 @@ define(['deps/chosen.jquery'], function(chosen) {
 
 			} else {
 
-				alert('Cannot load layout file.  Please insure that the selected file is a valid Padma layout export.');
+				alert('Layoutdatei kann nicht geladen werden. Bitte stelle sicher, dass die ausgewaehlte Datei ein gueltiger Padma-Layout-Export ist.');
 
 			}
 
@@ -791,7 +791,7 @@ define(['deps/chosen.jquery'], function(chosen) {
 			/* Finish Up */
 			showNotification({
 				id: 'layout-successfully-imported',
-				message: 'Layout successfully imported.<br /><br />Remember to save if you wish to keep the layout.',
+				message: 'Layout wurde erfolgreich importiert.<br /><br />Denke ans Speichern, wenn du das Layout behalten willst.',
 				closeTimer: false,
 				closable: true,
 				success: true
@@ -818,7 +818,7 @@ define(['deps/chosen.jquery'], function(chosen) {
 			if (event.target.files[0].name.split('.').slice(-1)[0] != 'json') {
 
 				$(this).val(null);
-				return alert('Invalid layout file.  Please be sure that the layout is a valid JSON formatted file.');
+				return alert('Ungueltige Layoutdatei. Bitte stelle sicher, dass das Layout eine gueltig formatierte JSON-Datei ist.');
 
 			}
 

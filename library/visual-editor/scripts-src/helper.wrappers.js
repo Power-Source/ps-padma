@@ -188,7 +188,7 @@ define(['modules/panel.inputs'], function(panelInputs) {
 		//var importDesign = puBoolean($(input).parents('.ui-tabs-panel').first().find('input[name="wrapper-import-settings-include-design"]').val());
 
 		if ( !fileInput.val() )
-			return alert('You must select a wrapper settings export file before importing.');
+			return alert('Du musst vor dem Import eine Wrapper-Einstellungen-Exportdatei auswaehlen.');
 
 		//if ( !importOptions )
 			//return alert('You must import at least the options when importing wrapper settings.');
@@ -207,14 +207,14 @@ define(['modules/panel.inputs'], function(panelInputs) {
 
 				/* Check to be sure that the JSON file is a block settings export file */
 					if ( wrapperSettingsImportArray['data-type'] != 'wrapper-settings' )
-						return alert('Cannot load wrapper settings.  Please insure that the wrapper settings are a proper Padma wrapper settings export.');
+						return alert('Wrapper-Einstellungen koennen nicht geladen werden. Bitte stelle sicher, dass es ein gueltiger Padma-Wrapper-Einstellungen-Export ist.');
 
 				/* Handle the fun stuff */
 					if ( typeof wrapperSettingsImportArray['image-definitions'] != 'undefined' && Object.keys(wrapperSettingsImportArray['image-definitions']).length ) {
 
 						showNotification({
 							id: 'importing-images',
-							message: 'Currently importing images.',
+							message: 'Bilder werden gerade importiert.',
 							closeTimer: 10000
 						});
 
@@ -232,7 +232,7 @@ define(['modules/panel.inputs'], function(panelInputs) {
 
 							/* If there's an error when sideloading images, then hault import. */
 							if ( typeof blockSettings['error'] != 'undefined' )
-								return alert('Error while importing images for wrapper: ' + wrapperSettings['error']);
+								return alert('Fehler beim Importieren der Bilder fuer den Wrapper: ' + wrapperSettings['error']);
 								
 							importWrapperSettingsAJAXCallback(wrapperID, wrapperSettings);
 
@@ -250,7 +250,7 @@ define(['modules/panel.inputs'], function(panelInputs) {
 
 		} else {
 
-			alert('Cannot load wrapper settings.  Please insure that the wrapper settings are a proper Padma wrapper settings export.');
+			alert('Wrapper-Einstellungen koennen nicht geladen werden. Bitte stelle sicher, dass es ein gueltiger Padma-Wrapper-Einstellungen-Export ist.');
 
 		}
 

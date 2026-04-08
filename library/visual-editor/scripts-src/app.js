@@ -15,6 +15,9 @@ require.config({
 	shim: {
 	    underscore: {
 	      exports: '_'
+		},
+		'deps/colorpicker': {
+			deps: ['jquery']
 		}
 	}
 });

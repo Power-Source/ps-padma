@@ -425,15 +425,15 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 					'<span class="close-preview"></span>' +
 					'<header>' +
 						'<h4></h4>' +
-						'<p><i class="icon-edit">&nbsp;</i><strong>click anywhere</strong> in preview text to edit and add your own</p>' +
+						'<p><i class="icon-edit">&nbsp;</i><strong>klicke irgendwo</strong> in den Vorschautext, um ihn zu bearbeiten und deinen eigenen Text einzufuegen</p>' +
 					'</header>' +
 					'<div class="editable allow-backspace-key" contenteditable="true"></div>' +
 					'<footer>' +
 						'<div class="tools">' +
-							'<span title="Reset Preview Text" class="reset-preview"></span>' +
-							'<span title="Decrease Preview Size" class="size-down"></span>' +
-							'<span title="Increase Preview Size" class="size-up"></span>' +
-							'<span title="Use This Font" class="use-font"></span>' +
+							'<span title="Vorschautext zuruecksetzen" class="reset-preview"></span>' +
+							'<span title="Vorschaugroesse verkleinern" class="size-down"></span>' +
+							'<span title="Vorschaugroesse vergroessern" class="size-up"></span>' +
+							'<span title="Diese Schriftart verwenden" class="use-font"></span>' +
 						'</div>' +
 					'</footer>' +
 				'</div>');
@@ -441,7 +441,7 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 			context.find('.fonts-list').after(previewHtml);
 
 		    /* preview functions */
-		    this.defaultPreviewText = 'The quick brown fox jumps over the lazy dog.';
+		    this.defaultPreviewText = 'Franz jagt im komplett verwahrlosten Taxi quer durch Bayern.';
 		    this.defaultPreviewSize = '24px';
 
 		    this.previewResize = function(preview, resizeBy) {
@@ -504,7 +504,7 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 
 				fontPreview.fadeIn(750);
 				fontPreview.css('font-family', fontFamily);
-				fontPreview.find('h4').html($(this).parent().find('.font-family').text() + ' <span>(Preview)</span>');
+				fontPreview.find('h4').html($(this).parent().find('.font-family').text() + ' <span>(Vorschau)</span>');
 
 				self.previewLoadFromStorage(fontPreview);
 

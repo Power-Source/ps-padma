@@ -17,12 +17,12 @@ define(['jquery', 'util.loader', 'knockout', 'deps/json2'], function($, loader, 
 		saveButton 		= $('span#save-button');
 	
 		saveButton
-			.text('Saving...')
+			.text('Speichert...')
 			.addClass('active')
 			.css('cursor', 'wait');
 		
 		/* Change the title */
-		changeTitle('Visual Editor: Saving');
+		changeTitle('Visual Editor: Speichern');
 		startTitleActivityIndicator();
 
 
@@ -43,14 +43,14 @@ define(['jquery', 'util.loader', 'knockout', 'deps/json2'], function($, loader, 
 								
 				saveButton.stop(true);
 			
-				saveButton.text('Save');
+				saveButton.text('Speichern');
 				saveButton.removeClass('active');
 
 				saveButton.css('cursor', 'pointer');
 							
 				return showErrorNotification({
 					id: 'error-wordpress-authentication',
-					message: '<strong>Notice!</strong><br /><br />Your WordPress authentication has expired and you must log in before you can save.<br /><br /><a href="' + Padma.adminURL + '" target="_blank">Click Here to log in</a>, then switch back to the window/tab the Visual Editor is in.',
+					message: '<strong>Hinweis!</strong><br /><br />Deine WordPress-Anmeldung ist abgelaufen und du musst dich erneut einloggen, bevor du speichern kannst.<br /><br /><a href="' + Padma.adminURL + '" target="_blank">Hier einloggen</a>, dann wieder zum Fenster/Tab des Visual Editors wechseln.',
 					closeTimer: false,
 					closable: true
 				});
@@ -60,12 +60,12 @@ define(['jquery', 'util.loader', 'knockout', 'deps/json2'], function($, loader, 
 								
 				saveButton.stop(true);
 			
-				saveButton.text('Save');
+				saveButton.text('Speichern');
 				saveButton.removeClass('active');
 
 				saveButton.css('cursor', 'pointer');
 
-				var errorMessage = 'There was an error while saving.  Please try again';
+				var errorMessage = 'Beim Speichern ist ein Fehler aufgetreten. Bitte versuche es erneut';
 
 				if ( typeof response.errors != 'undefined' ) {
 
@@ -100,7 +100,7 @@ define(['jquery', 'util.loader', 'knockout', 'deps/json2'], function($, loader, 
 					saveButton.css('boxShadow', '');
 					saveButton.stop(true);
 
-					saveButton.text('Save');
+					saveButton.text('Speichern');
 					saveButton.removeClass('active');
 
 					saveButton.css('cursor', 'pointer');
@@ -170,7 +170,7 @@ define(['jquery', 'util.loader', 'knockout', 'deps/json2'], function($, loader, 
 
 							showNotification({
 								id: 'snapshot-saved',
-								message: 'Snapshot automatically saved.',
+								message: 'Snapshot wurde automatisch gespeichert.',
 								success: true
 							});
 
@@ -200,7 +200,7 @@ define(['jquery', 'util.loader', 'knockout', 'deps/json2'], function($, loader, 
 
 						showNotification({
 							id: 'saving-complete',
-							message: 'Saving Complete!',
+							message: 'Speichern abgeschlossen!',
 							closeTimer: 3500,
 							success: true
 						});

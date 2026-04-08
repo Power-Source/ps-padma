@@ -1,10 +1,15 @@
 define(['jquery', 'deps/mousetrap'], function($, mousetrap) {
 
+	var veI18n = (typeof Padma !== 'undefined' && Padma.i18nVE) ? Padma.i18nVE : {};
+	var t = function(key, fallback) {
+		return (typeof veI18n[key] === 'string' && veI18n[key].length) ? veI18n[key] : fallback;
+	};
+
 	/* ANNOYANCE FIXER FUNCTIONS */
 		prohibitVEClose = function () {	
 
 			window.onbeforeunload = function(){
-				return 'You have unsaved changes.  Are you sure you wish to leave the Visual Editor?';
+				return t('unsavedLeaveVisualEditor', 'Du hast ungespeicherte Aenderungen. Bist du sicher, dass du den Visual Editor verlassen willst?');
 			}
 		
 			allowVECloseSwitch = false;
@@ -26,7 +31,7 @@ define(['jquery', 'deps/mousetrap'], function($, mousetrap) {
 		prohibitLiveCSSClose = function (w) {	
 
 			w.onbeforeunload = function(){
-				return 'You have unsaved changes.  Are you sure you wish to leave the Live CSS Editor?';
+				return t('unsavedLeaveLiveCssEditor', 'Du hast ungespeicherte Aenderungen. Bist du sicher, dass du den Live-CSS-Editor verlassen willst?');
 			}
 
 		}

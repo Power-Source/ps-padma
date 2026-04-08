@@ -1,5 +1,10 @@
 define(['jquery', 'vanilla-draggable', 'helper.codeMirror', 'deps/chosen.jquery', 'deps/colorpicker', 'util.image-uploader', 'util.video-uploader', 'util.audio-uploader', 'util.json-uploader'], function($, vanillaDraggable, codeMirror, chosen, colorpicker, imageUploader, videoUploader, audioUploader, jsonUploader) {
 
+	var veI18n = (typeof Padma !== 'undefined' && Padma.i18nVE) ? Padma.i18nVE : {};
+	var t = function(key, fallback) {
+		return (typeof veI18n[key] === 'string' && veI18n[key].length) ? veI18n[key] : fallback;
+	};
+
 	handleInputTogglesInContainer = function(container) {
 
 		container.each(function() {
@@ -643,7 +648,7 @@ define(['jquery', 'vanilla-draggable', 'helper.codeMirror', 'deps/chosen.jquery'
 
 			$(context).delegate('div.input-image span.delete-image', 'click', function() {
 
-				if ( !confirm('Are you sure you wish to remove this image?') ) {
+				if ( !confirm(t('confirmRemoveImage', 'Bist du sicher, dass du dieses Bild entfernen willst?')) ) {
 					return false;
 				}
 
@@ -676,7 +681,7 @@ define(['jquery', 'vanilla-draggable', 'helper.codeMirror', 'deps/chosen.jquery'
 			
 			$(context).delegate('div.input-audio span.delete-audio', 'click', function() {
 
-				if ( !confirm('Are you sure you wish to remove this audio?') ) {
+				if ( !confirm(t('confirmRemoveAudio', 'Bist du sicher, dass du dieses Audio entfernen willst?')) ) {
 					return false;
 				}
 
@@ -708,7 +713,7 @@ define(['jquery', 'vanilla-draggable', 'helper.codeMirror', 'deps/chosen.jquery'
 			
 			$(context).delegate('div.input-video span.delete-video', 'click', function() {
 
-				if ( !confirm('Are you sure you wish to remove this video?') ) {
+				if ( !confirm(t('confirmRemoveVideo', 'Bist du sicher, dass du dieses Video entfernen willst?')) ) {
 					return false;
 				}
 
@@ -797,7 +802,7 @@ define(['jquery', 'vanilla-draggable', 'helper.codeMirror', 'deps/chosen.jquery'
 
 				$(context).delegate('div.repeater .remove-group', 'click', function() {
 
-					if ( !confirm('Are you sure?') )
+					if ( !confirm('Bist du sicher?') )
 						return;
 					
 					var repeater = $(this).parents('div.repeater');
@@ -932,7 +937,7 @@ define(['jquery', 'vanilla-draggable', 'helper.codeMirror', 'deps/chosen.jquery'
 					if ( event.target.files[0].name.split('.').slice(-1)[0] != 'json' ) {
 
 						$(this).val(null);
-						return alert('Invalid Padma import file.  Please be sure that the Padma import file is a valid JSON formatted file.');
+						return alert('Ungueltige Padma-Importdatei. Bitte stelle sicher, dass die Padma-Importdatei eine gueltig formatierte JSON-Datei ist.');
 
 					}
 
@@ -945,7 +950,7 @@ define(['jquery', 'vanilla-draggable', 'helper.codeMirror', 'deps/chosen.jquery'
 
 				$(context).delegate('div.input-import-file .delete-file', 'click', function() {
 					
-					if ( !confirm('Are you sure?') )
+					if ( !confirm('Bist du sicher?') )
 						return;
 
 					$(this).fadeOut(100);
@@ -980,7 +985,7 @@ define(['jquery', 'vanilla-draggable', 'helper.codeMirror', 'deps/chosen.jquery'
 				
 				$(context).delegate('div.input-json span.delete-json', 'click', function() {
 
-					if ( !confirm('Are you sure you wish to remove this json?') ) {
+					if ( !confirm(t('confirmRemoveJson', 'Bist du sicher, dass du diese JSON-Datei entfernen willst?')) ) {
 						return false;
 					}
 

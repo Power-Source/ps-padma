@@ -214,9 +214,9 @@ define(['jquery', 'deps/itstylesheet', 'util.saving', 'util.usability', 'util.to
 
 					var $iframeNotice = $('<div id="iframe-notice">' +
 						'<div>' +
-							'<h1>This layout currently has a Shared Layout assigned to it.</h1>' +
-							'<h3>The shared layout assigned is <strong>' + Padma.viewModels.layoutSelector.currentLayoutTemplateName() + '</strong></h3>' +
-							'<p><span class="button button-blue" id="iframe-notice-switch-to-shared-layout">Switch To Shared Layout</span><span class="button button-blue" id="iframe-notice-unassign-shared-layout">Unassign Shared Layout</span></p>' +
+							'<h1>Diesem Layout ist aktuell ein geteiltes Layout zugewiesen.</h1>' +
+							'<h3>Das zugewiesene geteilte Layout ist <strong>' + Padma.viewModels.layoutSelector.currentLayoutTemplateName() + '</strong></h3>' +
+							'<p><span class="button button-blue" id="iframe-notice-switch-to-shared-layout">Zum geteilten Layout wechseln</span><span class="button button-blue" id="iframe-notice-unassign-shared-layout">Geteiltes Layout entfernen</span></p>' +
 						'</div>' +
 					'</div>');
 
@@ -306,9 +306,9 @@ define(['jquery', 'deps/itstylesheet', 'util.saving', 'util.usability', 'util.to
 
 				var $iframeNotice = $('<div id="iframe-notice">' +
 					'<div>' +
-					'<h1>This layout is inheriting from another layout.</h1>' +
-					'<h3>The inherited layout is <strong>' + Padma.viewModels.layoutSelector.currentLayoutInUseName() + '</strong></h3>' +
-					'<p><span class="button button-blue" id="iframe-notice-customize-current">Customize Current Layout</span><span class="button button-blue" id="iframe-notice-switch-to-inherited">Switch To Inherited Layout</span></p>' +
+					'<h1>Dieses Layout erbt von einem anderen Layout.</h1>' +
+					'<h3>Das geerbte Layout ist <strong>' + Padma.viewModels.layoutSelector.currentLayoutInUseName() + '</strong></h3>' +
+					'<p><span class="button button-blue" id="iframe-notice-customize-current">Aktuelles Layout anpassen</span><span class="button button-blue" id="iframe-notice-switch-to-inherited">Zum geerbten Layout wechseln</span></p>' +
 				'	</div>' +
 				'</div>');
 
@@ -356,12 +356,12 @@ define(['jquery', 'deps/itstylesheet', 'util.saving', 'util.usability', 'util.to
 			
 			stopTitleActivityIndicator();
 
-			changeTitle('Visual Editor: Error!');	
+			changeTitle('Visual Editor: Fehler!');	
 
 			/* Hide all controls */
 			$('#iframe-container, #menu, #panel, #layout-selector-offset').hide();			
 									
-			alert("ERROR: There was a problem while loading the visual editor.\n\nYour browser will automatically refresh to attempt loading again.");
+			alert("FEHLER: Beim Laden des Visual Editors ist ein Problem aufgetreten.\n\nDein Browser wird automatisch neu laden und es erneut versuchen.");
 
 			document.location.reload(true);
 

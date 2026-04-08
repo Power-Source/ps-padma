@@ -344,7 +344,7 @@ define(['util.custommouse', 'qtip', 'helper.data', 'modules/grid/wrapper-inputs'
 				var wrapperID = getWrapperID(wrapper);
 
 				/* Wrapper options */
-					$('<li class="context-menu-wrapper-options"><span>Open Wrapper Options</span></li>').appendTo(contextMenu).on('click', function() {
+					$('<li class="context-menu-wrapper-options"><span>Wrapper-Optionen oeffnen</span></li>').appendTo(contextMenu).on('click', function() {
 
 						openWrapperOptions(wrapperID);
 
@@ -353,7 +353,7 @@ define(['util.custommouse', 'qtip', 'helper.data', 'modules/grid/wrapper-inputs'
 				/* Wrapper type changing */
 				if ( wrapper.hasClass('wrapper-fluid') && Padma.mode == 'grid' ) {
 
-					$('<li class="context-menu-wrapper-to-fixed"><span>Change Wrapper to Fixed</span></li>').appendTo(contextMenu).find('span').on('click', function() {
+					$('<li class="context-menu-wrapper-to-fixed"><span>Wrapper auf Fest setzen</span></li>').appendTo(contextMenu).find('span').on('click', function() {
 
 						wrapper.removeClass('wrapper-fluid');
 						wrapper.removeClass('wrapper-fluid-grid');
@@ -372,7 +372,7 @@ define(['util.custommouse', 'qtip', 'helper.data', 'modules/grid/wrapper-inputs'
 
 					if ( wrapper.hasClass('wrapper-fixed-grid') ) {
 
-						$('<li class="context-menu-wrapper-grid-to-fluid"><span>Change Grid to Fluid</span></li>').appendTo(contextMenu).find('span').on('click', function() {
+						$('<li class="context-menu-wrapper-grid-to-fluid"><span>Grid auf Fluide setzen</span></li>').appendTo(contextMenu).find('span').on('click', function() {
 
 							wrapper.removeClass('wrapper-fixed-grid');
 							wrapper.addClass('wrapper-fluid-grid');
@@ -388,7 +388,7 @@ define(['util.custommouse', 'qtip', 'helper.data', 'modules/grid/wrapper-inputs'
 
 					} else if ( wrapper.hasClass('wrapper-fluid-grid') ) {
 
-						$('<li class="context-menu-wrapper-grid-to-fixed"><span>Change Grid to Fixed</span></li>').appendTo(contextMenu).find('span').on('click', function() {
+						$('<li class="context-menu-wrapper-grid-to-fixed"><span>Grid auf Fest setzen</span></li>').appendTo(contextMenu).find('span').on('click', function() {
 
 							wrapper.removeClass('wrapper-fluid-grid');
 							wrapper.addClass('wrapper-fixed-grid');
@@ -406,7 +406,7 @@ define(['util.custommouse', 'qtip', 'helper.data', 'modules/grid/wrapper-inputs'
 
 				} else if ( wrapper.hasClass('wrapper-fixed') && Padma.mode == 'grid' ) {
 
-					$('<li class="context-menu-wrapper-to-fluid"><span>Change Wrapper to Fluid</span></li>').appendTo(contextMenu).on('click', function() {
+					$('<li class="context-menu-wrapper-to-fluid"><span>Wrapper auf Fluide setzen</span></li>').appendTo(contextMenu).on('click', function() {
 
 						wrapper.removeClass('wrapper-fixed');
 
@@ -426,9 +426,9 @@ define(['util.custommouse', 'qtip', 'helper.data', 'modules/grid/wrapper-inputs'
 
 
 				/* Wrapper Alias */
-				$('<li class="context-menu-set-alias"><span>Set Wrapper Alias</span></li>').appendTo(contextMenu).on('click', function() {
+				$('<li class="context-menu-set-alias"><span>Wrapper-Alias setzen</span></li>').appendTo(contextMenu).on('click', function() {
 
-					var wrapperAlias = prompt('Please enter the desired wrapper alias.', wrapper.data('alias'));
+					var wrapperAlias = prompt('Bitte gib den gewuenschten Wrapper-Alias ein.', wrapper.data('alias'));
 
 					if ( !wrapperAlias )
 						return;
@@ -439,7 +439,7 @@ define(['util.custommouse', 'qtip', 'helper.data', 'modules/grid/wrapper-inputs'
 				});
 
 				/* Duplicate Wrapper */
-				$('<li class="context-menu-duplicate-wrapper"><span>Duplicate Wrapper</span></li>').appendTo(contextMenu).on('click', function() {
+				$('<li class="context-menu-duplicate-wrapper"><span>Wrapper duplizieren</span></li>').appendTo(contextMenu).on('click', function() {
 
 					var orgWrapper = wrapper.clone();	
 
@@ -450,7 +450,7 @@ define(['util.custommouse', 'qtip', 'helper.data', 'modules/grid/wrapper-inputs'
 					if(typeof orgWrapper.data('wrapper-settings') == "undefined" || isSavingAllowed === true ){
 						showNotification({
 							id: 'wrapper-notification',
-							message: 'Please save and refresh before duplicate this wrapper.',
+							message: 'Bitte speichere und lade neu, bevor du diesen Wrapper duplizierst.',
 							closable: true,
 							closeTimer: 5000
 						});
@@ -462,7 +462,7 @@ define(['util.custommouse', 'qtip', 'helper.data', 'modules/grid/wrapper-inputs'
 				});
 
 				/* Duplicate Wrapper and Blocks*/
-				$('<li class="context-menu-duplicate-wrapper-and-blocks"><span>Duplicate Wrapper and Blocks</span></li>').appendTo(contextMenu).on('click', function() {
+				$('<li class="context-menu-duplicate-wrapper-and-blocks"><span>Wrapper und Bloecke duplizieren</span></li>').appendTo(contextMenu).on('click', function() {
 
 
 					var orgWrapper = wrapper.clone();
@@ -478,7 +478,7 @@ define(['util.custommouse', 'qtip', 'helper.data', 'modules/grid/wrapper-inputs'
 					if(typeof orgWrapper.data('wrapper-settings') == "undefined" || isSavingAllowed === true){
 						showNotification({
 							id: 'wrapper-notification',
-							message: 'Please save and refresh before duplicate this wrapper.',
+							message: 'Bitte speichere und lade neu, bevor du diesen Wrapper duplizierst.',
 							closable: true,
 							closeTimer: 5000
 						});
@@ -509,7 +509,7 @@ define(['util.custommouse', 'qtip', 'helper.data', 'modules/grid/wrapper-inputs'
 				/* Delete wrapper.  Do not allow it to be deleted if it's the last one. */
 				if ( $i('.wrapper:visible').length >= 2 && Padma.mode == 'grid' ) {
 
-					$('<li class="context-menu-wrapper-delete"><span>Delete Wrapper</span></li>').appendTo(contextMenu).on('click', function() {
+					$('<li class="context-menu-wrapper-delete"><span>Wrapper loeschen</span></li>').appendTo(contextMenu).on('click', function() {
 
 						deleteWrapper(wrapperID);
 
@@ -603,9 +603,9 @@ define(['util.custommouse', 'qtip', 'helper.data', 'modules/grid/wrapper-inputs'
 					wrapper.find('.grid-container').append('\
 						<div class="wrapper-mirror-notice">\
 							<div>\
-							<h2>Wrapper Mirrored</h2>\
-							<p>This wrapper is mirroring blocks from another wrapper.</p>\
-							<small>Mirroring can be disabled via Wrapper Options in the right-click menu</small>\
+							<h2>Wrapper gespiegelt</h2>\
+							<p>Dieser Wrapper spiegelt Bloecke eines anderen Wrappers.</p>\
+							<small>Die Spiegelung kannst du ueber die Wrapper-Optionen im Rechtsklick-Menue deaktivieren</small>\
 							</div>\
 						</div><!-- .wrapper-mirror-notice -->\
 					');
@@ -674,12 +674,12 @@ define(['util.custommouse', 'qtip', 'helper.data', 'modules/grid/wrapper-inputs'
 				bindWrapperMarginButtons(wrapper.find('.wrapper-margin-handle'));
 
 			/* Show notification */
-				var wrapperType = wrapperSettings['fluid'] ? 'Fluid' : 'Fixed';
+				var wrapperType = wrapperSettings['fluid'] ? 'Fluide' : 'Feste';
 
 				if ( typeof suppressNotice == 'undefined' || !suppressNotice ) {
 					showNotification({
 						id: 'wrapper-created-' + temporaryID,
-						message: wrapperType + ' wrapper created.',
+						message: wrapperType + ' Wrapper erstellt.',
 						closable: true,
 						closeTimer: 5000
 					});
@@ -696,7 +696,7 @@ define(['util.custommouse', 'qtip', 'helper.data', 'modules/grid/wrapper-inputs'
 			
 			var wrapper = $i('.wrapper[data-id="' + wrapperID + '"]');
 			
-			if ( wrapper.length && (force || confirm('Are you sure you want to remove this wrapper?  All blocks inside the wrapper will be deleted as well.')) ) {
+			if ( wrapper.length && (force || confirm('Bist du sicher, dass du diesen Wrapper entfernen willst? Alle Bloecke innerhalb dieses Wrappers werden ebenfalls geloescht.')) ) {
 
 				dataDeleteWrapper(wrapperID);
 

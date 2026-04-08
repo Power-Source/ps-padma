@@ -60,6 +60,15 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 
 == Changelog ==
 
+= 1.1.5 =
+* Visual Editor: Colorpicker im Design-Editor und in Panel-Color-Inputs wieder stabil verfuegbar (`$(...).colorpicker is not a function` behoben)
+* Visual Editor: RequireJS-Konfiguration um Shim fuer `deps/colorpicker` erweitert, damit das nicht-AMD-Plugin zuverlaessig mit jQuery geladen wird
+* Visual Editor: Event-Handler-Regression behoben (`...handleObj.handler).apply is not a function`), asynchronen Colorpicker-Require-Fallback entfernt
+* Architektur: Kein jQuery UI reaktiviert; bestehender jQuery-UI-freier Ansatz bleibt erhalten
+* Visual Editor: JS-Fallback-Texte im Code selbst (nicht nur Laufzeit-Lokalisierung) breit auf Deutsch Informell umgestellt, inkl. Inspector-Kontextmenues, Tooltips, Confirm-Dialoge und Snapshot-UI
+* Visual Editor: Weitere harte UI-Strings in Modulen fuer Layout/Content-Selector, Saving, Iframe-Hinweise, Wrapper/Grid-Management und Benachrichtigungen auf Deutsch umgestellt
+* UX/Konsistenz: Terminologie im Editor vereinheitlicht (z. B. Instanzen, Zustaende, Block-/Wrapper-Optionen, Mehr laden)
+
 = 1.1.4 =
 * NEU: Nativer Hero-Shortcode plus passender Hero-Block fuer den Padma Builder hinzugefuegt
 * Shortcode Builder: Markierte bestehende Shortcodes im Classic Editor werden jetzt erkannt und direkt zur passenden Builder-Maske geladen

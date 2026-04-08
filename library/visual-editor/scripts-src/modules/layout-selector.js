@@ -1,5 +1,10 @@
 define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 
+	var veI18n = (typeof Padma !== 'undefined' && Padma.i18nVE) ? Padma.i18nVE : {};
+	var t = function(key, fallback) {
+		return (typeof veI18n[key] === 'string' && veI18n[key].length) ? veI18n[key] : fallback;
+	};
+
 	showLayoutSelector = function() {
 
 		$('div#layout-selector-select')
@@ -219,7 +224,7 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 
 		}
 
-		if ( !confirm('Are you sure you want to remove the shared layout from ' + layoutName + '?') )
+		if ( !confirm('Bist du sicher, dass du das geteilte Layout von ' + layoutName + ' entfernen willst?') )
 			return false;
 
 		//Do the AJAX request to assign the template
@@ -233,7 +238,7 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 			if ( typeof response === 'undefined' || response == 'failure' ) {
 				showErrorNotification({
 					id: 'error-could-not-remove-template-from-layout',
-					message: 'Error: Could not remove shared layout from layout.'
+					message: 'Fehler: Geteiltes Layout konnte nicht aus dem Layout entfernt werden.'
 				});
 
 				return false;
@@ -250,13 +255,13 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 				showIframeLoadingOverlay();
 
 				//Change title to loading
-				changeTitle('Visual Editor: Removing Shared Layout From Layout');
+				changeTitle('Visual Editor: Geteiltes Layout wird aus Layout entfernt');
 				startTitleActivityIndicator();
 
 				Padma.viewModels.layoutSelector.currentLayoutTemplate(false);
 
 				//Reload iframe and new layout
-				padmaIframeLoadNotification = 'Shared Layout removed from layout successfully!';
+				padmaIframeLoadNotification = 'Geteiltes Layout wurde erfolgreich aus dem Layout entfernt!';
 
 				loadIframe(Padma.instance.iframeCallback);
 
@@ -265,7 +270,7 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 			} else {
 				showNotification({
 					id: 'shared-layout-removed-from-layout',
-					message: 'Shared Layout removed from layout successfully!'
+					message: 'Geteiltes Layout wurde erfolgreich aus dem Layout entfernt!'
 				});
 			}
 
@@ -354,7 +359,7 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 
 			layoutData.ajaxLoading(true);
 
-			var $loadingIndicator = $('<li class="layout-item layout-loading-children"><span class="dashicons dashicons-update"></span> Loading...</li>');
+			var $loadingIndicator = $('<li class="layout-item layout-loading-children"><span class="dashicons dashicons-update"></span> Wird geladen...</li>');
 			$loadingIndicator.insertAfter($element.parent());
 
 			return $.ajax(Padma.ajaxURL, {
@@ -491,7 +496,7 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 
 				if ( typeof allowVECloseSwitch !== 'undefined' && allowVECloseSwitch === false ) {
 
-					if ( !confirm('You have unsaved changes, are you sure you want to switch layouts?') ) {
+					if ( !confirm(t('confirmSwitchLayoutUnsaved', 'Du hast ungespeicherte Aenderungen, bist du sicher, dass du das Layout wechseln willst?')) ) {
 						return false;
 					}
 
@@ -513,7 +518,7 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
          
             layoutSelectorEl.delegate('span.revert', 'click', function(event){
 
-				if ( !confirm('Are you sure you wish to reset this layout?  All blocks and content will be removed from this layout.\n\nPlease note: Any block that is mirroring a block on this layout will also lose its settings.') ) {
+				if ( !confirm(t('confirmResetLayout', 'Bist du sicher, dass du dieses Layout zuruecksetzen willst? Alle Bloecke und Inhalte werden aus diesem Layout entfernt.\n\nHinweis: Jeder Block, der einen Block aus diesem Layout spiegelt, verliert ebenfalls seine Einstellungen.')) ) {
 					return false;
 				}
 
@@ -524,7 +529,7 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 				/* Add loading indicators */
 				showIframeLoadingOverlay();
 
-				changeTitle('Visual Editor: Reverting ' + revertedLayoutName);
+				changeTitle('Visual Editor: Setze ' + revertedLayoutName + ' zurueck');
 				startTitleActivityIndicator();
 
 				/* Remove customized status from current layout */
@@ -567,14 +572,14 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 
 						showNotification({
 							id: 'layout-reverted',
-							message: '<em>' + revertedLayoutName + '</em> successfully reverted!',
+							message: '<em>' + revertedLayoutName + '</em> wurde erfolgreich zurueckgesetzt!',
 							success: true
 						});
 
 					} else {
 						showErrorNotification({
 							id: 'error-could-not-revert-layout',
-							message: 'Error: Could not revert layout.'
+							message: 'Fehler: Layout konnte nicht zurueckgesetzt werden.'
 						});
 					}
 
@@ -600,7 +605,7 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 					if ( typeof response === 'undefined' || !response ) {
 						showErrorNotification({
 							id: 'error-could-not-add-template',
-							message: 'Error: Could not add shared layout.'
+							message: 'Fehler: Geteiltes Layout konnte nicht hinzugefuegt werden.'
 						});
 
 						return false;
@@ -611,12 +616,12 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 						<span data-layout-id="template-' + response.id + '" class="layout layout-template">\
 							<strong class="template-name">' + response.name + '</strong>\
 							\
-							<span class="delete-template" title="Delete Shared Layout">Delete</span>\
+							<span class="delete-template" title="Geteiltes Layout loeschen">Loeschen</span>\
 							\
-							<span class="status status-currently-editing">Currently Editing</span>\
+							<span class="status status-currently-editing">Wird gerade bearbeitet</span>\
 							\
 							\
-							<span class="rename-template button layout-selector-button" title="Rename Shared Layout">Rename</span>\
+							<span class="rename-template button layout-selector-button" title="Geteiltes Layout umbenennen">Umbenennen</span>\
 							<span class="assign-template button layout-selector-button">Use Layout</span>\
 							<span class="edit button layout-selector-button">Edit</span>\
 						</span>\
@@ -630,7 +635,7 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 					//We're all good!
 					showNotification({
 						id: 'template-added',
-						message: 'Shared layout added!',
+							message: 'Geteiltes Layout hinzugefuegt!',
 						success: true
 					});
 
@@ -651,7 +656,7 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 				var templateID = template.replace('template-', '');
 				var templateName = templateSpan.find('strong').text();
 
-				if ( !confirm('Are you sure you wish to delete this Shared Layout?') )
+				if ( !confirm(t('confirmDeleteSharedLayout', 'Bist du sicher, dass du dieses geteilte Layout loeschen willst?')) )
 					return false;
 
 				//Do the AJAX request for the new template
@@ -665,7 +670,7 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 					if ( typeof response === 'undefined' || response == 'failure' || response != 'success' ) {
 						showErrorNotification({
 							id: 'error-could-not-deleted-template',
-							message: 'Error: Could not delete shared layout.'
+							message: 'Fehler: Geteiltes Layout konnte nicht geloescht werden.'
 						});
 
 						return false;
@@ -682,7 +687,7 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 					//We're all good!
 					showNotification({
 						id: 'template-deleted',
-						message: 'Shared Layout: <em>' + templateName + '</em> successfully deleted!',
+						message: 'Geteiltes Layout: <em>' + templateName + '</em> wurde erfolgreich geloescht!',
 						success: true
 					});
 
@@ -710,7 +715,7 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 
 				//If the current layout being edited is a template trigger an error.
 				if ( Padma.viewModels.layoutSelector.currentLayout().indexOf('template-') === 0 ) {
-					alert('You cannot assign a shared layout to another shared layout.');
+					alert('Du kannst kein geteiltes Layout einem anderen geteilten Layout zuweisen.');
 
 					return false;
 				}
@@ -727,7 +732,7 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 					if ( typeof response === 'undefined' || response == 'failure' ) {
 						showErrorNotification({
 							id: 'error-could-not-assign-template',
-							message: 'Error: Could not assign shared layout.'
+							message: 'Fehler: Geteiltes Layout konnte nicht zugewiesen werden.'
 						});
 
 						return false;
@@ -747,14 +752,14 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 						showIframeLoadingOverlay();
 
 						//Change title to loading
-						changeTitle('Visual Editor: Assigning Shared Layout');
+						changeTitle('Visual Editor: Geteiltes Layout wird zugewiesen');
 						startTitleActivityIndicator();
 
 						Padma.viewModels.layoutSelector.currentLayoutTemplate('template-' + template);
 						Padma.viewModels.layoutSelector.currentLayoutTemplateName($('span.layout[data-layout-id="template-' + template + '"]').find('.template-name').text());
 
 						//Reload iframe and new layout
-						padmaIframeLoadNotification = 'Shared layout assigned successfully!';
+						padmaIframeLoadNotification = 'Geteiltes Layout wurde erfolgreich zugewiesen!';
 
 						loadIframe(Padma.instance.iframeCallback);
 
@@ -773,7 +778,7 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 
 				var nameEl = $(this).siblings('.template-name');
 				var currentName = nameEl.text();
-				var newName = prompt('Please enter new Shared Layout name', currentName);
+				var newName = prompt('Bitte gib einen neuen Namen fuer das geteilte Layout ein', currentName);
 
 				//Do the AJAX request to assign the template
 				$.post(Padma.ajaxURL, {
@@ -787,7 +792,7 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 					if (typeof response === 'undefined' || response == 'failure') {
 						showErrorNotification({
 							id: 'error-could-not-rename-layout-template',
-							message: 'Error: Could not rename shared layout.'
+							message: 'Fehler: Geteiltes Layout konnte nicht umbenannt werden.'
 						});
 
 						return false;
@@ -848,12 +853,12 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 				var layoutContext = ko.contextFor(this);
 
 				$(self)
-					.text('Load More...')
+					.text('Mehr laden...')
 					.attr('disabled', 'disabled');
 
 				$.when(layoutSelector.loadLayouts(layoutData, layoutContext, $(this), true)).done(function() {
 					$(self)
-						.text('Load More...')
+						.text('Mehr laden...')
 						.attr('disabled', '');
 				});
 

@@ -1,5 +1,10 @@
 define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(panelInputs, history, browser) {
 
+	var veI18n = (typeof Padma !== 'undefined' && Padma.i18nVE) ? Padma.i18nVE : {};
+	var t = function(key, fallback) {
+		return (typeof veI18n[key] === 'string' && veI18n[key].length) ? veI18n[key] : fallback;
+	};
+
 	getBlockByID = function(id) {
 
 		var id = id.toString().replace('block-', '');
@@ -947,7 +952,7 @@ define(['modules/panel.inputs', 'helper.history', 'util.browser'], function(pane
 					var fluidMessage = !getBlockTypeObject(blockType)['fixed-height'] ? '<span class="block-fluid-height-message">Die Höhe passt sich automatisch an.</span>' : '';
 
 				/* Output */
-				return blockInfo + width + ' <span class="block-dimensions-separator">&#9747;</span> ' + height + fluidMessage + '<span class="right-click-message">Right-click to open block options</span>' ;
+				return blockInfo + width + ' <span class="block-dimensions-separator">&#9747;</span> ' + height + fluidMessage + '<span class="right-click-message">' + t('rightClickOpenBlockOptions', 'Rechtsklick, um Block-Optionen zu oeffnen') + '</span>' ;
 
 			}
 

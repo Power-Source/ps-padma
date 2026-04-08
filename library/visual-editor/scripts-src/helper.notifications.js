@@ -61,7 +61,7 @@
 		/* Set up close button and bind it */
 			if ( args.closable ) {
 
-				var notificationCloseButton = $('<span class="close">Close</span>');
+				var notificationCloseButton = $('<span class="close">Schliessen</span>');
 
 				var notificationClose = function() {
 

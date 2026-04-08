@@ -1,5 +1,23 @@
 define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.navigation', 'deps/colorpicker', 'helper.blocks', 'modules/grid/wrappers' ], function($, _, contentEditor, interact, navigation) {
 
+	var veI18n = (typeof Padma !== 'undefined' && Padma.i18nVE) ? Padma.i18nVE : {};
+	var t = function(key, fallback) {
+		return (typeof veI18n[key] === 'string' && veI18n[key].length) ? veI18n[key] : fallback;
+	};
+	var tFormat = function(key, fallback, replacements) {
+		var str = t(key, fallback);
+
+		if ( !$.isArray(replacements) ) {
+			return str;
+		}
+
+		$.each(replacements, function(index, value) {
+			str = str.replace('%s', value);
+		});
+
+		return str;
+	};
+
 	/* DESIGN EDITOR ELEMENT LOADING */
 		designEditorRequestElements = function(forceReload) {
 
@@ -363,7 +381,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 						elementNode.children('.children-elements').prepend('\
 							<li id="element-' + elementID + '-states" class="element element-states-container has-children">\
 								<span class="element-expander"></span>\
-								<span class="element-name">States</span>\
+								<span class="element-name">' + t('contextStates', 'Zustaende') + '</span>\
 								<ul class="children-elements"></ul>\
 							</li>\
 						');
@@ -509,7 +527,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 							/* Uncustomizations */
 							if ( _.isEmpty(propertyValue) ) {
 
-								formattedPropertyValue = 'Inheriting';
+								formattedPropertyValue = t('propertyInheriting', 'Wird geerbt');
 
 							/* Colors */
 							} else if ( propertyObject['type'] == 'color' ) {
@@ -531,7 +549,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 							} else if ( propertyObject['type'] == 'image' ) {
 
 								formattedPropertyValue = '\
-									<span class="tooltip tooltip-left" title="&lt;img src=\'' + propertyValue + '\' style=\'max-width:300px;height:auto;\' /&gt;" >Preview</span>\
+									<span class="tooltip tooltip-left" title="&lt;img src=\'' + propertyValue + '\' style=\'max-width:300px;height:auto;\' /&gt;" >' + t('propertyPreview', 'Vorschau') + '</span>\
 								';
 
 							/* Integers with units */
@@ -591,7 +609,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 										<li class="property" data-property-id="' + property + '" data-property-group-id="' + propertyGroupID + '">\
 											<strong title="' + propertyObject['name'] + '">' + propertyObject['name'] + '</strong> \
 											<span class="property-delete"></span>\
-											<span class="property-value" title="Click to Edit">' + formattedPropertyValue + '</span>\
+											<span class="property-value" title="' + t('propertyClickToEdit', 'Zum Bearbeiten klicken') + '">' + formattedPropertyValue + '</span>\
 										</li>\
 									');
 
@@ -615,7 +633,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 										<li class="property" data-property-id="' + property + '" data-property-group-id="' + propertyGroupID + '" data-special-element-type="' + specialElement.type + '" data-special-element-id="' + specialElement.id + '">\
 											<strong title="' + specialElement.name.split(' &ndash; ')[0] + specialElement.layoutName + '">' + specialElement.name.split(' &ndash; ')[0] + '</strong> \
 											<span class="property-delete"></span>\
-											<span class="property-value" title="Click to Edit">' + formattedPropertyValue + '</span>\
+											<span class="property-value" title="' + t('propertyClickToEdit', 'Zum Bearbeiten klicken') + '">' + formattedPropertyValue + '</span>\
 										</li>\
 									');
 
@@ -764,12 +782,12 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 						if ( !link.hasClass('element-instance') && !link.hasClass('element-state') ) {
 
 							/* Layout-specific */
-								elementName.append('<span class="element-name-button element-name-button-layout-specific tooltip" title="Edit Element Only On This Layout"></span>');
+								elementName.append('<span class="element-name-button element-name-button-layout-specific tooltip" title="' + t('tooltipEditElementThisLayout', 'Element nur in diesem Layout bearbeiten') + '"></span>');
 
 						}
 
 						/* Live CSS */
-						elementName.append('<span class="element-name-button element-name-button-live-css tooltip" title="Edit in Live CSS"></span>');
+						elementName.append('<span class="element-name-button element-name-button-live-css tooltip" title="' + t('tooltipEditInLiveCss', 'In Live CSS bearbeiten') + '"></span>');
 
 						elementName.find('.tooltip').qtip({
 							style: {
@@ -945,7 +963,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 
 				showNotification({
 					id: 'copied-design-properties',
-					message: 'Copied properties from <strong>' + currentElementName + '</strong>',
+					message: tFormat('copiedPropertiesFrom', 'Eigenschaften von <strong>%s</strong> kopiert', [currentElementName]),
 					closeTimer: 2000,
 					overwriteExisting: true
 				});
@@ -1043,7 +1061,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 
 				showNotification({
 					id: 'copied-design-properties',
-					message: 'Pasted properties onto <strong>' + currentElementName + '</strong>',
+					message: tFormat('pastedPropertiesOnto', 'Eigenschaften auf <strong>%s</strong> eingefuegt', [currentElementName]),
 					closeTimer: 2000,
 					overwriteExisting: true,
 					success: true
@@ -1427,7 +1445,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 					$(this).find('.customize-property').fadeOut(150);
 			    	$(this).removeClass('uncustomized-property');
 			    	$(this).addClass('customized-property-by-user');
-			    	$(this).attr('title', 'You have customized this property.');
+			    	$(this).attr('title', t('propertyCustomizedTitle', 'Du hast diese Eigenschaft angepasst.'));
 
 			    	var hidden = $(this).find('input.property-hidden-input');
 
@@ -1447,7 +1465,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 			/* Uncustomize Button */
 			$('.design-editor-options-container').delegate('span.uncustomize-property', 'click', function() {			
 				
-				if ( !confirm('Are you sure you wish to delete this customization?') )
+				if ( !confirm(t('confirmDeleteCustomization', 'Bist du sicher, dass du diese Anpassung loeschen willst?')) )
 					return false;
 
 				var property = $(this).parents('li').first();
@@ -1481,7 +1499,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 
 					$(this).addClass('uncustomized-property', 150);
 					$(this).removeClass('customized-property-by-user');
-					$(this).attr('title', 'You have set this property to inherit.');
+					$(this).attr('title', t('propertyInheritTitle', 'Du hast diese Eigenschaft auf Vererbung gesetzt.'));
 					
 			    });
 											
@@ -1503,14 +1521,14 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 
 			        $(this)
 			    		.attr('data-locked', false)
-			    		.attr('title', 'Unlock sides')
+				        .attr('title', t('unlockSides', 'Seiten entsperren'))
 			    		.parent().removeClass('box-model-inputs-locked');
 
 			    } else {
 
 			        $(this)
 			    		.attr('data-locked', true)
-			    		.attr('title', 'Lock sides')
+				        .attr('title', t('lockSides', 'Seiten sperren'))
 			    		.parent().addClass('box-model-inputs-locked');
 
 			    }
@@ -1583,7 +1601,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 		designEditorInputIntegerFocus = function(event) {
 
 			if ( typeof originalValues !== 'undefined' ) {
-				delete originalValues;
+				originalValues = undefined;
 			}
 			
 			originalValues = new Object;
@@ -1662,7 +1680,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 		
 		designEditorInputImageUploadDelete = function(event) {
 			
-			if ( !confirm('Are you sure you wish to remove this image?') ) {
+			if ( !confirm(t('confirmRemoveImage', 'Bist du sicher, dass du dieses Bild entfernen willst?')) ) {
 				return false;
 			}
 
@@ -2250,7 +2268,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 							}
 						},
 						content: {
-							text: 'Hover over an element.'
+							text: t('hoverElement', 'Fahre mit der Maus ueber ein Element.')
 						},
 						show: {
 							event: false,
@@ -2391,7 +2409,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 
 				showNotification({
 					id: 'inspector',
-					message: '<strong>Right-click</strong> highlighted elements to style them.<br /><br />Once an element is selected, you may nudge it using your arrow keys.<br /><br />The faded orange and purple are the margins and padding.  These colors are only visible when the inspector is active.',
+					message: t('inspectorHelpMessage', '<strong>Rechtsklick</strong> auf markierte Elemente, um sie zu stylen.<br /><br />Sobald ein Element ausgewaehlt ist, kannst du es mit den Pfeiltasten verschieben.<br /><br />Das blasse Orange und Lila zeigen Margin und Padding. Diese Farben sind nur sichtbar, wenn der Inspector aktiv ist.'),
 					/*closeConfirmMessage: 'Please be sure you understand how the Design Editor inspector works before hiding this message.',*/
 					closeTimer: false,
 					closable: true,
@@ -2604,7 +2622,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 
 								if ( inspectorElementOptions.name.indexOf(' &ndash; ') !== -1 ) {
 
-									insideInstanceText = '<span class="inspector-tooltip-instance">Inside <strong>' + inspectorElementOptions.name.split(' &ndash; ')[0] + '</strong></span>';
+									insideInstanceText = '<span class="inspector-tooltip-instance">' + tFormat('insideInstance', 'Innerhalb von <strong>%s</strong>', [inspectorElementOptions.name.split(' &ndash; ')[0]]) + '</span>';
 
 								} else {
 
@@ -2636,7 +2654,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 						tooltipText += ' &rsaquo; <strong>' + elementName + '</strong></span>';
 						tooltipText += insideInstanceText;
 
-						tooltipText += '<small class="right-click-message">Right-click to style</small>';
+						tooltipText += '<small class="right-click-message">' + t('rightClickToStyle', 'Rechtsklick zum Stylen') + '</small>';
 
 						
 
@@ -2824,31 +2842,31 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 						if ( isInstance ) {
 
 							// Edit This Instance
-							contextMenu.append('<li class="inspector-context-menu-edit-instance" data-instance-id="' + inspectorElementOptions.instance + '"><span>Edit This Instance</span></li>');
+							contextMenu.append('<li class="inspector-context-menu-edit-instance" data-instance-id="' + inspectorElementOptions.instance + '"><span>' + t('contextEditThisInstance', 'Diese Instanz bearbeiten') + '</span></li>');
 
 							//Edit content option							
-							contextMenu.append('<li class="inspector-context-menu-edit-content" data-instance-id="' + inspectorElementOptions.instance + '"><span>Edit Content</span></li>');
+							contextMenu.append('<li class="inspector-context-menu-edit-content" data-instance-id="' + inspectorElementOptions.instance + '"><span>' + t('contextEditContent', 'Inhalt bearbeiten') + '</span></li>');
 							
 
-							var regularElementGroup = $('<li class="inspector-context-menu-edit-normal"><span class="group-title group-title-clickable">Edit Regular Element<small>' + inspectorElementOptions.parentName + '</small></span><ul></ul></li>').appendTo(contextMenu);
+							var regularElementGroup = $('<li class="inspector-context-menu-edit-normal"><span class="group-title group-title-clickable">' + t('contextEditRegularElement', 'Regulaeres Element bearbeiten') + '<small>' + inspectorElementOptions.parentName + '</small></span><ul></ul></li>').appendTo(contextMenu);
 							regularElementGroup = regularElementGroup.find('ul').first();
 
 						/* Regular Element */
 						} else {
 
-							regularElementGroup.append('<li class="inspector-context-menu-edit-normal"><span>Edit</span></li>');
+							regularElementGroup.append('<li class="inspector-context-menu-edit-normal"><span>' + t('contextEdit', 'Bearbeiten') + '</span></li>');
 
 						}
 
-							regularElementGroup.append('<li class="inspector-context-menu-edit-for-layout"><span>Edit For This Layout</span></li>');
+							regularElementGroup.append('<li class="inspector-context-menu-edit-for-layout"><span>' + t('contextEditForThisLayout', 'Fuer dieses Layout bearbeiten') + '</span></li>');
 
 						/* Regular Element States */
 							if ( !_.isEmpty(inspectorElementOptions.states) ) {
 
-								var statesMenu = $('<li class="inspector-context-menu-states"><span class="group-title">States</span><ul></ul></li>').appendTo(regularElementGroup);
+								var statesMenu = $('<li class="inspector-context-menu-states"><span class="group-title">' + t('contextStates', 'Zustaende') + '</span><ul></ul></li>').appendTo(regularElementGroup);
 
 								$.each(inspectorElementOptions.states, function(stateID, stateInfo) {
-									statesMenu.find('ul').append('<li data-state-id="' + stateID + '"><span>Edit ' + stateInfo.name + '</span></li>');
+									statesMenu.find('ul').append('<li data-state-id="' + stateID + '"><span>' + tFormat('contextEditName', '%s bearbeiten', [stateInfo.name]) + '</span></li>');
 								});
 
 							}
@@ -2858,7 +2876,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 						if ( !_.isEmpty(inspectorElementOptions.instances) ) {
 
 							if ( typeof inspectorElementOptions.instance == 'undefined' || !inspectorElementOptions.instance ) {
-								var instancesMenu = $('<li class="inspector-context-menu-instances"><span class="group-title">Instances</span><ul></ul></li>').appendTo(contextMenu);
+								var instancesMenu = $('<li class="inspector-context-menu-instances"><span class="group-title">' + t('contextInstances', 'Instanzen') + '</span><ul></ul></li>').appendTo(contextMenu);
 							} else {
 								var instancesMenu = false;
 							}
@@ -2869,10 +2887,10 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 									if ( instance['state-of'] == inspectorElementOptions.instance ) {
 
 										if ( !contextMenu.find('> li.inspector-context-menu-instance-states').length )
-											$('<li class="inspector-context-menu-instance-states"><span class="group-title">Instance States</span><ul></ul></li>')
+											$('<li class="inspector-context-menu-instance-states"><span class="group-title">' + t('contextInstanceStates', 'Instanz-Zustaende') + '</span><ul></ul></li>')
 												.insertAfter(contextMenu.find('li.inspector-context-menu-edit-instance'));
 
-										contextMenu.find('> li.inspector-context-menu-instance-states ul').append('<li data-instance-id="' + instanceID + '"><span>Edit ' + instance['state-name'] + '</span></li>');
+										contextMenu.find('> li.inspector-context-menu-instance-states ul').append('<li data-instance-id="' + instanceID + '"><span>' + tFormat('contextEditName', '%s bearbeiten', [instance['state-name']]) + '</span></li>');
 
 									}
 
@@ -2887,7 +2905,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 					/* Parent Elements */
 						if ( inspectorElement.parents('.inspector-element').length ) {
 
-							var parentsMenu = $('<li class="inspector-context-menu-parents"><span class="group-title">Parents</span><ul></ul></li>').appendTo(contextMenu);
+							var parentsMenu = $('<li class="inspector-context-menu-parents"><span class="group-title">' + t('contextParents', 'Eltern') + '</span><ul></ul></li>').appendTo(contextMenu);
 
 							inspectorElement.parents('.inspector-element').each(function() {
 
@@ -2920,7 +2938,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 							var blockID = getBlockID(block);
 							var blockType = getBlockTypeNice(getBlockType(block));
 
-							var blockOptionsNode = $('<li class="inspector-context-menu-block-options"><span>Open Block Options</span></li>').appendTo(contextMenu);
+							var blockOptionsNode = $('<li class="inspector-context-menu-block-options"><span>' + t('contextOpenBlockOptions', 'Block-Optionen oeffnen') + '</span></li>').appendTo(contextMenu);
 
 						}
 					/* End block options */
@@ -3142,9 +3160,16 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 			}
 
 			/* Update height of DE info */
+			var deInfoMaxHeight = 140;
 			var deInfoHeight = $('.design-editor-info').outerHeight();
+			deInfoHeight = Math.min(deInfoHeight, deInfoMaxHeight);
 
-			$('.design-editor-info').css('marginTop', '-' + deInfoHeight + 'px');
+			$('.design-editor-info').css({
+				'marginTop': '-' + deInfoHeight + 'px',
+				'maxHeight': deInfoMaxHeight + 'px',
+				'overflowY': 'auto'
+			});
+
 			$('#side-panel-bottom').css('paddingTop', deInfoHeight + 'px');
 
 			return $('span.design-editor-selection-details');
@@ -3168,7 +3193,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 				}
 				if ( typeof allowVECloseSwitch !== 'undefined' && allowVECloseSwitch === false ) {
 
-					if ( !confirm('You have unsaved changes, are you sure you want to switch layouts?') ) {
+					if ( !confirm(t('confirmSwitchLayoutUnsaved', 'Du hast ungespeicherte Aenderungen, bist du sicher, dass du das Layout wechseln willst?')) ) {
 						return false;
 					}
 

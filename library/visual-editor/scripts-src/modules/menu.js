@@ -98,7 +98,7 @@ define(['jquery', 'util.tour', 'helper.codeMirror', 'deps/url'], function($, tou
 
 							showNotification({
 								id: 'cache-cleared',
-								message: 'The cache was successfully cleared!',
+								message: 'Der Cache wurde erfolgreich geleert!',
 								success: true
 							});
 
@@ -106,7 +106,7 @@ define(['jquery', 'util.tour', 'helper.codeMirror', 'deps/url'], function($, tou
 
 							showErrorNotification({
 								id: 'error-could-not-clear-cache',
-								message: 'Error: Could not clear cache.'
+								message: 'Fehler: Cache konnte nicht geleert werden.'
 							});
 
 						}

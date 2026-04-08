@@ -1,5 +1,10 @@
 define(['jquery', 'knockout'], function($, ko) {
 
+	var veI18n = (typeof Padma !== 'undefined' && Padma.i18nVE) ? Padma.i18nVE : {};
+	var t = function(key, fallback) {
+		return (typeof veI18n[key] === 'string' && veI18n[key].length) ? veI18n[key] : fallback;
+	};
+
 	var snapshots = {
 		init: function() {
 
@@ -21,7 +26,7 @@ define(['jquery', 'knockout'], function($, ko) {
 				},
 				rollbackToSnapshot: function(data, event) {
 
-					if ( !confirm("Are you sure you wish to rollback?\n\nYou will lose all between this snapshot and now unless you save another snapshot.") )
+					if ( !confirm(t('confirmRollbackSnapshot', 'Bist du sicher, dass du zurueckrollen willst?\n\nDu verlierst alles zwischen diesem Snapshot und jetzt, wenn du nicht vorher einen neuen Snapshot speicherst.')) )
 						return false;
 
 					var button = $(event.target);
@@ -32,7 +37,7 @@ define(['jquery', 'knockout'], function($, ko) {
 					/* Disable button temporarily */
 					button.attr('disabled', true);
 					button.addClass('button-depressed');
-					button.text('Rolling Back..');
+					button.text(t('snapshotRollingBack', 'Rolle zurueck..'));
 
 					/* Rollback */
 					$.post(Padma.ajaxURL, {
@@ -49,11 +54,11 @@ define(['jquery', 'knockout'], function($, ko) {
 
 						showNotification({
 							id: 'rolled-back-successfully',
-							message: 'Successfully rolled back to snapshot.<br /><br /><strong>Refreshing Visual Editor in 3 seconds</strong>.',
+							message: t('snapshotRollbackSuccess', 'Snapshot erfolgreich wiederhergestellt.<br /><br /><strong>Visual Editor wird in 3 Sekunden neu geladen</strong>.'),
 							success: true
 						});
 
-						button.text('Rolled Back!');
+						button.text(t('snapshotRolledBack', 'Zurueckgerollt!'));
 
 						/* Reload the Visual Editor */
 						setTimeout(function() {
@@ -66,7 +71,7 @@ define(['jquery', 'knockout'], function($, ko) {
 				},
 				deleteSnapshot: function(data, event) {
 
-					if ( !confirm("Are you sure you wish to delete this snapshot?\n\nYou cannot undo this or restore another snapshot to bring this snapshot back.") )
+					if ( !confirm(t('confirmDeleteSnapshot', 'Bist du sicher, dass du diesen Snapshot loeschen willst?\n\nDas kannst du nicht rueckgaengig machen und auch nicht ueber einen anderen Snapshot wiederherstellen.')) )
 						return false;
 
 					var button = $(event.target);
@@ -92,7 +97,7 @@ define(['jquery', 'knockout'], function($, ko) {
 
 						showNotification({
 							id: 'deleted-snapshot-successfully',
-							message: 'Successfully deleted snapshot.',
+							message: t('snapshotDeletedSuccess', 'Snapshot erfolgreich geloescht.'),
 							success: true
 						});
 
@@ -111,13 +116,13 @@ define(['jquery', 'knockout'], function($, ko) {
 
 					/* Disable button temporarily */
 					button.attr('disabled', true);
-					button.text('Saving Snapshot...');
+					button.text('Snapshot wird gespeichert...');
 
 					/* Add the snapshot */
 					button.siblings('.spinner').show();
 
 					/* Prompt for comments about snapshot */
-					var snapshotComments = prompt("(Optional)\n\nEnter name or description of the changes in this snapshot.");
+					var snapshotComments = prompt("(Optional)\n\nGib einen Namen oder eine Beschreibung fuer die Aenderungen in diesem Snapshot ein.");
 
 					$.post(Padma.ajaxURL, {
 						security: Padma.security,
@@ -133,7 +138,7 @@ define(['jquery', 'knockout'], function($, ko) {
 
 						showNotification({
 							id: 'snapshot-saved',
-							message: 'Snapshot saved.',
+							message: 'Snapshot gespeichert.',
 							success: true
 						});
 
@@ -143,7 +148,7 @@ define(['jquery', 'knockout'], function($, ko) {
 							comments: response.comments
 						});
 
-						button.text('Save Snapshot');
+						button.text('Snapshot speichern');
 						button.removeAttr('disabled');
 						button.siblings('.spinner').hide();
 
