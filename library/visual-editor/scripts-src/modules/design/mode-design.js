@@ -1833,10 +1833,26 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 		var finalCssValue = params.stack ? params.stack : (fontNameQuoted + fallback);
 
 		stylesheet.update_rule(selector, {"font-family": finalCssValue});
+		}
+
+		propertyInputCallbackFilterType = function(params,block){
+
+			var blockID = getBlockID(block);
+			var key_filter_value = 'visual-editor-design-filter-value-' + blockID;
+			var key_filter_type = 'visual-editor-design-filter-type-' + blockID;
+			var selector = params.selector;
+			var filter = params.value ? params.value : 'none';
 			var unit = '%';
 			var value = 50;
 			var min = 0;
 			var max = 100;
+
+			if( filter == 'none' ){
+				stylesheet.delete_rule_property(selector, 'filter');
+				reloadBlockOptions(blockID);
+				localStorage[key_filter_type] = filter;
+				return;
+			}
 
 			if( filter == 'blur' ){
 				unit = 'px';
@@ -1848,6 +1864,14 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 				}
 			}
 
+			if(localStorage[key_filter_value] !== undefined && localStorage[key_filter_value] !== 'null'){
+				value = parseFloat(localStorage[key_filter_value]);
+
+				if ( isNaN(value) ) {
+					value = 50;
+				}
+			}
+
 			if( value < min ){
 				value = min;
 			}
@@ -1856,14 +1880,10 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 				value = max;
 			}
 
-			if(localStorage[key_filter_value] !== undefined && localStorage[key_filter_value] !== 'null'){
-				value = localStorage[key_filter_value];
-			}
-			
 			stylesheet.update_rule(selector, {"filter": filter + '(' + value + unit + ')'});
 			reloadBlockOptions(blockID);
-			localStorage[key_filter_type] = filter;	
-			
+			localStorage[key_filter_type] = filter;
+
 		}
 
 		propertyInputCallbackFilterValue = function(params,block){
