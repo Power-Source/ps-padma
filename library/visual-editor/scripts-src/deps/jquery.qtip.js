@@ -1420,8 +1420,13 @@ $(function() {
 
 // Event trigger
 PROTOTYPE._trigger = function(type, args, event) {
+	if(!this || !this.tooltip || !this.tooltip.length) {
+		return TRUE;
+	}
+
+	var cacheEvent = this.cache && this.cache.event ? this.cache.event : NULL;
 	var callback = $.Event('tooltip'+type);
-	callback.originalEvent = (event && $.extend({}, event)) || this.cache.event || NULL;
+	callback.originalEvent = (event && $.extend({}, event)) || cacheEvent || NULL;
 
 	this.triggering = type;
 	this.tooltip.trigger(callback, [this].concat(args || []));

@@ -480,17 +480,33 @@ $.extend(Colorpicker.prototype, {
 		var offset = $input.offset();
 		var width = cpDiv.outerWidth();
 		var height = cpDiv.defaultHeight + (this._get(this._getInst($input), 'alpha') ? cpDiv.alphaHeight : 0) + (this._get(this._getInst($input), 'swatches') ? cpDiv.swatchHeight : 0);
-		var winWidth = $(window).width();
-		var winHeight = $(window).height();
+		var $win = $(window);
+		var winWidth = $win.width();
+		var winHeight = $win.height();
+		var scrollTop = $win.scrollTop();
+		var scrollLeft = $win.scrollLeft();
 		var margin = 10;
 		height += margin;
+
+		/* Prefer opening to the right of the input. */
 		offset.left += $input.outerWidth() + margin;
-		if(offset.top + height > winHeight){
-			offset.top = winHeight - height;
+
+		/* If it would overflow to the right, try opening to the left. */
+		if ( offset.left + width > scrollLeft + winWidth ) {
+			offset.left = $input.offset().left - width - margin;
 		}
-		if(offset.left + width > winWidth){
-			offset.left = winWidth - width;
+
+		/* Clamp horizontal position to viewport bounds. */
+		offset.left = Math.max(scrollLeft + margin, Math.min(offset.left, (scrollLeft + winWidth) - width - margin));
+
+		/* If it would overflow below the viewport, move it up. */
+		if ( offset.top + height > scrollTop + winHeight ) {
+			offset.top = (scrollTop + winHeight) - height;
 		}
+
+		/* Clamp vertical position to viewport bounds. */
+		offset.top = Math.max(scrollTop + margin, offset.top);
+
 		cpDiv.css({top:0, left:0}).offset(offset);
 	},
 
