@@ -443,6 +443,9 @@ $.extend(Colorpicker.prototype, {
 		this._curInst = inst;
 		inst.lastColor = inst.color.isNull ? null : inst.color.hexa;
 		var a = this._get(inst, 'alpha');
+		if (!cpDiv.hasClass('mode-' + this.mode)) {
+			cpDiv.removeClass('mode-h mode-s mode-v').addClass('mode-' + this.mode);
+		}
 		$.colorpicker._updateColorpicker();
 		inst.input.addClass('selected');
 
@@ -1194,6 +1197,7 @@ $.fn.colorpicker = function(options){
 	if (!$.colorpicker.initialized) {
 		$(document).on('mousedown', $.colorpicker._checkExternalClick)
 			.find('body').append($.colorpicker.cpDiv.hide())
+			.find('#' + mainDivId).addClass('mode-' + $.colorpicker.mode).end()
 			.find('#'+mainDivId+'-'+$.colorpicker.mode).closest('li').addClass('selected');
 	
 		for (var i in cpDiv.inputs) {
