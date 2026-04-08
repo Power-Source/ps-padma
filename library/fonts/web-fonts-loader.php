@@ -148,10 +148,18 @@ class PadmaWebFontsLoader {
 
 				$web_fonts = array_merge($web_fonts, self::pluck_webfonts($value));
 
-			/* We've found a font family property.  Now make sure that the font is a web font by checking for the | delimiter */
-			} else if ( $key === 'font-family' && strpos($value, '|') ) {
+			/* We've found a font-ish property.  Capture only webfont-encoded values. */
+			} else if ( is_string($value) ) {
 
-				$web_fonts[] = $value;
+				$is_font_key = ($key === 'font-family' || $key === 'font-family-select' || strpos((string)$key, 'font-family') !== false);
+				if ( $is_font_key && strpos($value, '|') !== false ) {
+
+					$fragments = explode('|', $value);
+					if ( !empty($fragments[0]) && !empty($fragments[1]) ) {
+						$web_fonts[] = $value;
+					}
+
+				}
 
 			}
 

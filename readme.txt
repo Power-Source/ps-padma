@@ -60,6 +60,14 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 
 == Changelog ==
 
+= 1.1.6 =
+* Visual Editor: Fontpicker-Tabs (Traditional Fonts / Google Web Fonts) im Design-Editor stabilisiert; unzuverlaessiges Umschalten und haengende Erstinitialisierung behoben
+* Visual Editor: Google-Webfonts-Liste laedt beim Oeffnen jetzt zuverlaessig, auch ohne vorher manuell zwischen Sortieroptionen zu wechseln
+* Visual Editor: Provider-Tab-Auswahl im Fontpicker korrigiert, damit beim erneuten Oeffnen wieder der passende Font-Provider aktiv ist
+* Visual Editor: Auswahl aus Fontliste/Vorschau uebernimmt den gewaehlten Font jetzt konsistent in das Font-Family-Readout und markiert die Eigenschaft korrekt als angepasst
+* Visual Editor: Live-Preview-Rendering von Google Fonts im VE-iframe repariert; ausgewaehlte Webfonts werden wieder sichtbar gerendert
+* Visual Editor: Robustere Font-Metadaten-Verarbeitung (ID/Name/Family/Variants), damit Werte auch bei inkonsistenten Datenquellen sauber uebernommen werden
+
 = 1.1.5 =
 * Visual Editor: Colorpicker im Design-Editor und in Panel-Color-Inputs wieder stabil verfuegbar (`$(...).colorpicker is not a function` behoben)
 * Visual Editor: RequireJS-Konfiguration um Shim fuer `deps/colorpicker` erweitert, damit das nicht-AMD-Plugin zuverlaessig mit jQuery geladen wird

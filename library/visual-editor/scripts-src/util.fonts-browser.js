@@ -25,6 +25,57 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 
 		this.hiddenInput = this.propertyInput.find('input.property-hidden-input');
 
+		this.extractFontFamilyFromStyle = function(styleValue) {
+
+			if (typeof styleValue !== 'string' || !styleValue.length)
+				return '';
+
+			var match = styleValue.match(/font-family\s*:\s*([^;]+)/i);
+			return match && match[1] ? $.trim(match[1]) : '';
+
+		}
+
+		this.resolveFontSelectionMeta = function(li, webfontProvider) {
+
+			li = $(li);
+
+			var fontID = li.data('value') || li.attr('data-value') || '';
+			var fontName = $.trim(li.find('.font-family').first().text()) || String(fontID);
+
+			var fontFamily = li.css('font-family');
+			if (typeof fontFamily !== 'string' || !$.trim(fontFamily).length) {
+				fontFamily = this.extractFontFamilyFromStyle(li.attr('style'));
+			}
+
+			if (typeof fontFamily !== 'string' || !$.trim(fontFamily).length) {
+				if (webfontProvider) {
+					fontFamily = fontName.indexOf(' ') !== -1 ? ('"' + fontName + '", sans-serif') : (fontName + ', sans-serif');
+				} else {
+					fontFamily = String(fontID);
+				}
+			}
+
+			return {
+				fontID: String(fontID),
+				fontName: fontName,
+				fontFamily: $.trim(String(fontFamily || ''))
+			};
+
+		}
+
+		this.updateFontReadout = function(fontName, fontFamily, value) {
+
+			var fontNameReadout = this.propertyInput.find('.font-name');
+
+			if (!fontNameReadout.length)
+				return;
+
+			fontNameReadout.css('font-family', fontFamily);
+			fontNameReadout.text(fontName || '');
+			fontNameReadout.attr('data-webfont-value', value || '');
+
+		}
+
 		this.setup = function() {
 
 			var self = this;
@@ -50,10 +101,13 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 
 					/* Determine value to save to DB */
 					var webfontProvider 	= $(this).parents('.tab-content').data('font-webfont-provider');
-					var fontID 				= li.data('value');
+					var fontMeta 			= self.resolveFontSelectionMeta(li, webfontProvider);
+					var fontID 				= fontMeta.fontID;
+					var fontName 			= fontMeta.fontName;
+					var fontFamily 			= fontMeta.fontFamily;
 
-					var fontName 			= $(this).siblings('.font-family').text();
-					var fontFamily 			= fontID;
+					if (!fontID.length)
+						return;
 				var fontVariants 		= li.data('variants');
 				
 				// Normalize variants - handle both array and string formats
@@ -71,11 +125,16 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 						.value();
 				}
 				
-				var variantsStr = '';
-				if ( normalizedVariants && normalizedVariants.length > 0 && _.indexOf(normalizedVariants, 'regular') === -1 )
-					variantsStr = '|' + normalizedVariants.join(',');
+				var variantsForValue = _.filter(normalizedVariants, function(item) {
+					return item !== 'regular';
+				});
 
-				var value = webfontProvider != false ? webfontProvider + '|' + fontID + ':' + normalizedVariants.join(',') : fontID;
+				var variantsStr = variantsForValue.length ? '|' + variantsForValue.join(',') : '';
+
+				var value = webfontProvider != false ? webfontProvider + '|' + fontID + variantsStr : fontID;
+
+					/* Change readout */
+					self.updateFontReadout(fontName, fontFamily, value);
 
 					/*	Change iframe	*/
 					var selector = $(self.propertyInput.find('input.property-hidden-input')[0]).attr('element_selector');
@@ -94,34 +153,62 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 							fontBrowser: self.browser
 						}
 					});
+
+					/* Mark property as customized so dataHandleDesignEditorInput won't ignore it. */
+					var propertyNode = self.hiddenInput.closest('li');
+					propertyNode.find('.customize-property').hide();
+					propertyNode.removeClass('uncustomized-property').addClass('customized-property-by-user');
 					
 					/* Save value */
 					dataHandleDesignEditorInput({hiddenInput: self.hiddenInput, value: value, stack: fontFamily});
 
+					});
+
 				});
 
-			});
+				// Check if jQuery UI tabs widget is available before calling
+				if (typeof this.browser.tabs === 'function') {
 
-			// Check if jQuery UI tabs widget is available before calling
-			if (typeof this.browser.tabs === 'function') {
-				this.browser.tabs({
-					selected: 0,
-					activate: function(event, ui) {
+					var handleTabActivate = function(ui) {
 
-						var $newPanel = $(ui.newPanel);
-
-						if ( $newPanel.data('fonts-loaded') )
+						var $newPanel = $(ui && ui.newPanel ? ui.newPanel : []);
+						if (!$newPanel.length)
 							return;
 
-						self.retrieveRemoteFonts($newPanel, 'popularity', true, true);
+						if ( $newPanel.data('fonts-loaded') || $newPanel.data('fonts-requesting') )
+							return;
+
+						/* Do not bail on fonts-loaded flag – rely on localStorage 1-hour cache instead
+						   so re-opening the browser always shows fonts without reloading every click. */
+						self.retrieveRemoteFonts($newPanel, 'popularity', false, true);
 
 					}
+
+					this.browser.tabs({
+						active: 0,
+						activate: function(event, ui) {
+							handleTabActivate(ui);
+						},
+						beforeActivate: function(event, ui) {
+							handleTabActivate(ui);
+						}
+					});
+
+					/* Ensure first visible (active) panel is loaded on initial open. */
+					var $activePanel = this.browser.find('.tab-content').not('.ui-tabs-hide').first();
+					if ( $activePanel.length ) {
+						handleTabActivate({newPanel: $activePanel});
+					}
+				}
+
+				/* Prevent outside mousedown handler from closing the browser while switching tabs. */
+				this.browser.off('mousedown.fontBrowser').on('mousedown.fontBrowser', function(event) {
+					event.stopPropagation();
 				});
+
+				this.changeToSelectedFontProviderTab();
+
 			}
-
-			this.changeToSelectedFontProviderTab();
-
-		}
 
 		this.retrieveRemoteFonts = function(context, sortBy, resetTransient, firstLoad) {
 
@@ -134,12 +221,22 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 
 			// Check for cached fonts (valid for 1 hour)
 			if (cachedFonts && !resetTransient) {
-				var cacheData = JSON.parse(cachedFonts);
-				if (cacheData.timestamp && (Date.now() - cacheData.timestamp) < 3600000) { // 1 hour
-					self.renderFontsList(context, cacheData.html, firstLoad);
-					return;
+				try {
+					var cacheData = JSON.parse(cachedFonts);
+					if (cacheData.timestamp && (Date.now() - cacheData.timestamp) < 3600000) { // 1 hour
+						self.renderFontsList(context, cacheData.html, firstLoad);
+						return;
+					}
+				} catch (e) {
+					/* Ignore corrupted localStorage cache entries and refetch. */
+					localStorage.removeItem(cacheKey);
 				}
 			}
+
+			if ( context.data('fonts-requesting') )
+				return;
+
+			context.data('fonts-requesting', true);
 
 			createCog(context.find('.fonts-loading'), true);
 
@@ -155,7 +252,7 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 				method: 'fonts_list',
 				sortby: sortBy,
 				provider: context.data('font-webfont-provider')
-			}, function(response) {
+			}).done(function(response) {
 
 				// Cache the response in localStorage
 				try {
@@ -168,6 +265,13 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 				}
 
 				self.renderFontsList(context, response, firstLoad);
+
+			}).fail(function() {
+
+				context.find('.fonts-loading').fadeOut(150);
+				context.find('.fonts-filter').removeAttr('disabled');
+				context.data('fonts-requesting', false);
+				context.find('ul').html('<li class="font-load-error">Schriften konnten gerade nicht geladen werden.</li>').show();
 
 			});
 
@@ -187,7 +291,9 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 
 			/* Refresh quick search cache */
 			context.find('.fonts-filter').val('');
-			context.data('quicksearch').cache();
+			if ( context.data('quicksearch') && typeof context.data('quicksearch').cache == 'function' ) {
+				context.data('quicksearch').cache();
+			}
 
 			/* Allow quick search again */
 			context.find('.fonts-filter').removeAttr('disabled');
@@ -211,6 +317,7 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 			}
 
 			context.data('fonts-loaded', true);
+			context.data('fonts-requesting', false);
 
 		};
 
@@ -538,23 +645,25 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 
 				/* Determine value to save to DB */
 				var webfontProvider = $(this).parents('.tab-content').data('font-webfont-provider');
-				var fontID 			= $(this).parents('.font-preview-overlay').data('font-value');
-				var fontName 		= $(this).parents('.font-preview-overlay').data('font-name');
-				var fontFamily 		= $(this).parents('.font-preview-overlay').css('font-family');
+				var fontID 			= String($(this).parents('.font-preview-overlay').data('font-value') || '');
+				var fontName 		= $.trim(String($(this).parents('.font-preview-overlay').data('font-name') || fontID));
+				var fontFamily 		= $.trim(String($(this).parents('.font-preview-overlay').css('font-family') || ''));
 				var variants 		= $(this).parents('.font-preview-overlay').data('font-variants');
 
-				var variantsStr 	= '';
+				if (!fontID.length)
+					return;
 
-				if ( variants && variants.indexOf('regular') === -1 )
-					variantsStr = '|' + variants.join(',');
+				var variantsList 	= _.isArray(variants) ? variants : [];
+				variantsList = _.filter(variantsList, function(item) {
+					return item !== 'regular';
+				});
+
+				var variantsStr 	= variantsList.length ? '|' + variantsList.join(',') : '';
 
 				var value = webfontProvider != false ? webfontProvider + '|' + fontID + variantsStr : fontID;
 
 				/* Change readout */
-				var fontNameReadout = self.propertyInput.find('.font-name');
-
-				fontNameReadout.css('font-family', fontFamily);
-				fontNameReadout.text(fontName);
+				self.updateFontReadout(fontName, fontFamily, value);
 
 				/* Change selected font */
 				self.browser.find('.selected-font').removeClass('selected-font');
@@ -566,6 +675,11 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 						fontBrowser: self.browser
 					}
 				});
+
+				/* Mark property as customized so dataHandleDesignEditorInput won't ignore it. */
+				var propertyNode = self.hiddenInput.closest('li');
+				propertyNode.find('.customize-property').hide();
+				propertyNode.removeClass('uncustomized-property').addClass('customized-property-by-user');
 
 				/* Save value */
 				dataHandleDesignEditorInput({hiddenInput: self.hiddenInput, value: value, stack: fontFamily});
@@ -614,7 +728,7 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 
 				var fragments = value.split('|');
 
-				selectTab(+ fragments[0] + '-fonts', this.browser);
+				selectTab(fragments[0] + '-fonts', this.browser);
 
 			}
 
@@ -673,10 +787,21 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 			if ( fontBrowser.data('visible') !== true ) {
 			
 				/* Show the font browser */
-				fontBrowser.fadeIn(150);
-				fontBrowser.data('visible', true);
-			
-				/* Bind the document close */
+					fontBrowser.fadeIn(150, function() {
+
+						/* Safety-net: after browser is visible, ensure any active AJAX-loadable panel
+						   is loaded – handles both first-time opens and re-opens. */
+						var obj = fontBrowser.data('obj');
+						if (obj && typeof obj.retrieveRemoteFonts === 'function') {
+							fontBrowser.find('.tab-content').not('.ui-tabs-hide').each(function() {
+								obj.retrieveRemoteFonts($(this), 'popularity', false, true);
+							});
+						}
+
+					});
+					fontBrowser.data('visible', true);
+
+					/* Bind the document close */
 				$(document).bind('mousedown', {fontBrowser: fontBrowser}, fontBrowserClose);
 				Padma.iframe.contents().bind('mousedown', {fontBrowser: fontBrowser}, fontBrowserClose);
 				
@@ -728,19 +853,54 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 
 /* Web Font Quick load for loading just one font */
 	webFontQuickLoad = function(font) {
-
 		/* Not a web font */
-		if ( !font.match(/\|/g) )
+		if ( typeof font !== 'string' || !font.length || !font.match(/\|/g) )
 			return;
 
 		var fragments 		= font.split('|');
 		var fontOriginal 	= font;
 		var provider 		= fragments[0];
-		var font 			= fragments[1];
+		var fontFamily 		= fragments[1];
 		var variants 		= '';
 
-		if ( typeof fragments[2] != 'undefined' && fragments[2] )
-			var variants = ':' + fragments[2];
+		if ( !fontFamily )
+			return;
+
+		/* Support both formats:
+		   - google|Open+Sans|400,700
+		   - google|Open+Sans:400,700 */
+		if ( typeof fragments[2] != 'undefined' && fragments[2] ) {
+			variants = ':' + fragments[2];
+		} else if ( fontFamily.indexOf(':') !== -1 ) {
+			var familyParts = fontFamily.split(':');
+			fontFamily = familyParts[0];
+			variants = familyParts[1] ? ':' + familyParts[1] : '';
+		}
+
+		/* Always inject into iframe head so reloads and initial editor state render correctly,
+		   even if outer-frame WebFont API is unavailable. */
+		if ( provider == 'google' && typeof Padma !== 'undefined' && Padma.iframe ) {
+			var iframeHead = Padma.iframe.contents().find('head');
+			if ( iframeHead.length ) {
+				var request = String(fontFamily + variants).replace(/\s+/g, '+');
+				var linkId = 'padma-ve-google-font-' + String(fontFamily).toLowerCase().replace(/[^a-z0-9]+/g, '-');
+				var href = 'https://eimen.net/fonts/css.php?display=swap&family=' + encodeURIComponent(request);
+				var existingLink = iframeHead.find('link#' + linkId);
+				if ( existingLink.length ) {
+					existingLink.attr('href', href);
+				} else {
+					$('<link/>', {
+						id: linkId,
+						rel: 'stylesheet',
+						type: 'text/css',
+						href: href
+					}).appendTo(iframeHead);
+				}
+			}
+		}
+
+		if ( typeof window.WebFont === 'undefined' || typeof WebFont.load !== 'function' )
+			return;
 
 		var args = {
 			fontactive: function(fontFamily, fontDescription) {
@@ -749,7 +909,7 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 		};
 
 		args[provider] = {
-			families: [font + variants]
+			families: [fontFamily + variants]
 		};
 
 		return WebFont.load(args);

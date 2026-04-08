@@ -37,9 +37,13 @@ define(['jquery', 'qtip'], function($) {
 		
 		if ( location == 'iframe' ) {
 			
+			if ( typeof $i !== 'function' ) {
+				return false;
+			}
+
 			tooltipOptions.position.container = $i('body');
 			tooltipOptions.position.viewport = $i('#padma-tooltip-container');
-						
+					
 			var tooltipElement = $i;
 			
 		} else {
@@ -105,6 +109,9 @@ define(['jquery', 'qtip'], function($) {
 		
 		
 		var iframeScrollTooltipReposition = function() {
+
+			if ( typeof $i !== 'function' )
+				return;
 			
 
 			/* Flood Control */
@@ -122,14 +129,19 @@ define(['jquery', 'qtip'], function($) {
 						
 		}
 
-		Padma.iframe.contents().unbind('scroll', iframeScrollTooltipReposition);		
-		Padma.iframe.contents().bind('scroll', iframeScrollTooltipReposition);
+		if ( Padma.iframe && typeof Padma.iframe.contents === 'function' ) {
+			Padma.iframe.contents().unbind('scroll', iframeScrollTooltipReposition);		
+			Padma.iframe.contents().bind('scroll', iframeScrollTooltipReposition);
+		}
 
 		
 	}
 	
 
 	repositionTooltips = function() {
+
+		if ( typeof $i !== 'function' )
+			return;
 		
 		$i('.qtip:visible').qtip('reposition');
 		

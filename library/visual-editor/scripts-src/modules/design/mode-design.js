@@ -1794,17 +1794,10 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 
 			/* Web Fonts */
 				var fontFragments = value.split('|');
-				var args = {};
 
-				/* Handle variants */
-				var variants = '';
-
-				if ( typeof fontFragments[2] != 'undefined' && fontFragments[2] )
-					variants = ':' + fontFragments[2];
-
-				args[fontFragments[0]] = {
-					families: [fontFragments[1] + variants]
-				};
+				if ( typeof webFontQuickLoad === 'function' ) {
+					webFontQuickLoad(value);
+				}
 
 		/* Generate proper CSS value with quotes and fallback */
 		var fontName = fontFragments[1].replace(/\+/g, ' ').replace(/:/g, '');
@@ -1833,6 +1826,30 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 		var finalCssValue = params.stack ? params.stack : (fontNameQuoted + fallback);
 
 		stylesheet.update_rule(selector, {"font-family": finalCssValue});
+
+		/* Inject Google Font stylesheet into the iframe for live preview.
+		   Include variants to avoid "half-rendered" weights/styles and dedupe by a stable id. */
+		if ( fontFragments[0] == 'google' && typeof Padma !== 'undefined' && Padma.iframe ) {
+			var variantsQuery = ( typeof fontFragments[2] != 'undefined' && fontFragments[2] ) ? (':' + fontFragments[2]) : '';
+			var fontRequest = fontFragments[1] + variantsQuery;
+			var fontRequestForUrl = String(fontRequest).replace(/\s+/g, '+');
+			var linkId = 'padma-ve-google-font-' + String(fontFragments[1]).toLowerCase().replace(/[^a-z0-9]+/g, '-');
+			var iframeHead = Padma.iframe.contents().find('head');
+			if ( iframeHead.length ) {
+				var href = 'https://eimen.net/fonts/css.php?display=swap&family=' + encodeURIComponent(fontRequestForUrl);
+				var existing = iframeHead.find('link#' + linkId);
+				if ( existing.length ) {
+					existing.attr('href', href);
+				} else {
+					$('<link/>', {
+						id: linkId,
+						rel: 'stylesheet',
+						type: 'text/css',
+						href: href
+					}).appendTo(iframeHead);
+				}
+			}
+		}
 		}
 
 		propertyInputCallbackFilterType = function(params,block){

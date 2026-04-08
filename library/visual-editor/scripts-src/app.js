@@ -1,4 +1,10 @@
+var padmaBaseUrl = (typeof Padma !== 'undefined' && Padma.padmaURL && Padma.scriptFolder)
+	? (Padma.padmaURL + '/library/visual-editor/' + Padma.scriptFolder)
+	: null;
+
 require.config({
+	baseUrl: padmaBaseUrl || '',
+	waitSeconds: 45,
 	paths: {
 		knockout: 'deps/knockout',
 		underscore: 'deps/underscore',
@@ -21,6 +27,18 @@ require.config({
 		}
 	}
 });
+
+if (typeof requirejs !== 'undefined') {
+	requirejs.onError = function(err) {
+		if (err && err.requireType === 'timeout' && err.requireModules && err.requireModules.indexOf('app') !== -1) {
+			if (window.console && typeof window.console.error === 'function') {
+				console.error('[Padma VE] RequireJS timeout while loading app module.', err);
+			}
+		}
+
+		throw err;
+	};
+}
 
 require(['jquery', 'util.loader', 'Sortable', 'sortable-adapter', 'vanilla-tabs', 'vanilla-draggable'], function($) {
 

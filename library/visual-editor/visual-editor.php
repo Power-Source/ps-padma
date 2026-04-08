@@ -688,6 +688,11 @@ class PadmaVisualEditor {
 			/* Set autoload */
 			Padma::set_autoload();
 
+			/* Ensure frontend webfont cache is refreshed even if compiler flush happens later. */
+			if ( class_exists('PadmaWebFontsLoader') && is_callable(array('PadmaWebFontsLoader', 'flush_cache')) ) {
+				PadmaWebFontsLoader::flush_cache();
+			}
+
 			//This hook is used by cache flushing, plugins, etc.  Do not fire on preview save because it'll flush preview options
 			if ( !padma_get('ve-preview') )
 				do_action('padma_visual_editor_save');

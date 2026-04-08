@@ -102,18 +102,15 @@ class PadmaVisualEditorDisplay {
 		$script_folder = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? 'scripts-src' : 'scripts-src';
 
 		wp_enqueue_script('padma-editor', padma_url() . '/library/visual-editor/' . $script_folder . '/deps/require-and-jquery.js');
+		wp_enqueue_script('padma-editor-bootstrap', padma_url() . '/library/visual-editor/' . $script_folder . '/app.js', array('padma-editor'));
 
 	}
 
 
 	public static function require_js_attr( $tag, $handle, $src ) {
 
-		$script_folder = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? 'scripts-src' : 'scripts-src';
-
-		if ( false !== strpos( $src, 'require-and-jquery.js' ) ) {
-
-			return "<script type='text/javascript' id='padma-editor' src='{$src}' data-main='" . padma_url() . "/library/visual-editor/{$script_folder}/app.js'></script>";
-
+		if ( $handle === 'padma-editor' || $handle === 'padma-editor-bootstrap' ) {
+			return $tag;
 		}
 
 		return str_replace( "></script>", " async='true'></script>", $tag );
