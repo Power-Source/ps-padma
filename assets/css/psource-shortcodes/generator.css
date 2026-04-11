@@ -13,9 +13,15 @@
 
 .su-generator-loading {
 	min-height: 60px;
-	background: 50% 50% url("../images/spinner.gif") no-repeat !important;
+	background: linear-gradient(90deg, #f4f4f4 25%, #ececec 37%, #f4f4f4 63%) 0 0 / 400% 100% no-repeat !important;
+	animation: su-generator-shimmer 1.1s ease-in-out infinite;
 }
 .su-generator-loading * { visibility: hidden; }
+
+@keyframes su-generator-shimmer {
+	0% { background-position: 100% 0; }
+	100% { background-position: 0 0; }
+}
 
 .su-generator-button img {
 	margin: -1px 2px 0 -5px;
@@ -69,7 +75,7 @@
 	width: 100%;
 	margin-bottom: 5px;
 	padding: 10px 10px 10px 42px;
-	background: 5px 50% url('../images/search.png') no-repeat;
+	background: linear-gradient(transparent, transparent);
 	font-size: 1.3em;
 }
 #su-generator-search-pro-tip {

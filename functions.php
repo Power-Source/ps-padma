@@ -81,6 +81,11 @@ require_once get_template_directory() . '/library/common/parse-php.php';
 require_once get_template_directory() . '/library/common/settings.php';
 require_once get_template_directory() . '/library/loader.php';
 
+// Ensure shortcode generator AJAX actions are always available in admin/ajax requests.
+if ( is_admin() ) {
+    new Padma_Shortcode_Generator();
+}
+
 /* Load Shortcode Functions (extracted from psource-shortcodes) */
 require_once get_template_directory() . '/library/shortcode-functions/helpers.php';
 require_once get_template_directory() . '/library/shortcode-functions/assets.php';

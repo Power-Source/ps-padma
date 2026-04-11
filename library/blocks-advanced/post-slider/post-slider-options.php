@@ -10,7 +10,7 @@ class PadmaVisualElementsBlockPostSliderOptions extends \PadmaBlockOptionsAPI {
 	function __construct(){
 
 		$this->tabs = array(
-			'content-tab' 	=> 'Content'
+			'content-tab' 	=> __( 'Inhalt', 'padma' )
 		);
 
 
@@ -21,7 +21,7 @@ class PadmaVisualElementsBlockPostSliderOptions extends \PadmaBlockOptionsAPI {
 				'post-type' => array(
 					'type' => 'select',
 					'name' => 'post-type',
-					'label' => 'Post type',
+					'label' => __( 'Beitragstyp', 'padma' ),
 					'options' => 'get_post_types()',
 					'callback' => 'reloadBlockOptions(block.id)',
 					'default' => 'post',
@@ -31,7 +31,7 @@ class PadmaVisualElementsBlockPostSliderOptions extends \PadmaBlockOptionsAPI {
 				'categories' => array(
 					'type' => 'multi-select',
 					'name' => 'categories',
-					'label' => 'Categories',
+					'label' => __( 'Kategorien', 'padma' ),
 					'tooltip' => '',
 					'options' => 'get_categories()'
 				),
@@ -39,28 +39,28 @@ class PadmaVisualElementsBlockPostSliderOptions extends \PadmaBlockOptionsAPI {
 				'order-by' => array(
 					'type' => 'select',
 					'name' => 'order-by',
-					'label' => 'Order By',
+					'label' => __( 'Sortieren nach', 'padma' ),
 					'tooltip' => '',
 					'options' => array(
-						'date' => 'Date',
-						'title' => 'Title',
-						'rand' => 'Random',
-						'comment_count' => 'Comment Count',
+						'date' => __( 'Datum', 'padma' ),
+						'title' => __( 'Titel', 'padma' ),
+						'rand' => __( 'Zufall', 'padma' ),
+						'comment_count' => __( 'Anzahl Kommentare', 'padma' ),
 						'ID' => 'ID',
-						'author' => 'Author',
-						'type' => 'Post Type',
-						'menu_order' => 'Custom Order'
+						'author' => __( 'Autor', 'padma' ),
+						'type' => __( 'Beitragstyp', 'padma' ),
+						'menu_order' => __( 'Eigene Reihenfolge', 'padma' )
 					)
 				),
 				
 				'order' => array(
 					'type' => 'select',
 					'name' => 'order',
-					'label' => 'Order',
+					'label' => __( 'Reihenfolge', 'padma' ),
 					'tooltip' => '',
 					'options' => array(
-						'desc' => 'Descending',
-						'asc' => 'Ascending',
+						'desc' => __( 'Absteigend', 'padma' ),
+						'asc' => __( 'Aufsteigend', 'padma' ),
 					)
 				),
 
@@ -68,22 +68,22 @@ class PadmaVisualElementsBlockPostSliderOptions extends \PadmaBlockOptionsAPI {
 					'type' => 'integer',
 					'default' => 6,
 					'name' => 'number-of-posts',
-					'label' => 'Total Items to show',
+					'label' => __( 'So viele Eintraege anzeigen', 'padma' ),
 					'tooltip' => '',				
 				),
 
 				'slider-style' => array(
 					'type' => 'select',
 					'name' => 'slider-style',
-					'label' => 'Style',
+					'label' => __( 'Stil', 'padma' ),
 					'default' => 'style1',
 					'options' => array(
-						'style1' => 'Style 1',
-						'style2' => 'Style 2',
-						'style3' => 'Style 3',
-						'style4' => 'Style 4',
-						'style5' => 'Style 5',
-						'style6' => 'Style 6',
+						'style1' => __( 'Stil 1', 'padma' ),
+						'style2' => __( 'Stil 2', 'padma' ),
+						'style3' => __( 'Stil 3', 'padma' ),
+						'style4' => __( 'Stil 4', 'padma' ),
+						'style5' => __( 'Stil 5', 'padma' ),
+						'style6' => __( 'Stil 6', 'padma' ),
 					),
 					'toggle'    => array(
 						'style1' => array(
@@ -158,11 +158,11 @@ class PadmaVisualElementsBlockPostSliderOptions extends \PadmaBlockOptionsAPI {
 				'content-to-show' => array(
 					'type' => 'select',
 					'name' => 'content-to-show',
-					'label' => 'Content to show',
+					'label' => __( 'Was soll gezeigt werden?', 'padma' ),
 					'options' => array(
-						'normal' => 'Normal',						
-						'excerpts' => __('Show Excerpts','padma-post-slider'),
-						'none' => __('Do not show content','padma-post-slider')
+						'normal' => __( 'Kompletter Inhalt', 'padma' ),
+						'excerpts' => __( 'Nur Auszuege zeigen', 'padma' ),
+						'none' => __( 'Keinen Inhalt zeigen', 'padma' )
 					),
 					'default' => 'normal',
 					'tooltip' => '',
@@ -171,10 +171,10 @@ class PadmaVisualElementsBlockPostSliderOptions extends \PadmaBlockOptionsAPI {
 				'custom-length' => array(
 					'type' => 'select',
 					'name' => 'custom-length',
-					'label' => 'Custom length',
+					'label' => __( 'Eigene Laenge nutzen', 'padma' ),
 					'options' => array(
-						'no' => 'No',
-						'yes' => 'Yes',
+						'no' => __( 'Nein', 'padma' ),
+						'yes' => __( 'Ja', 'padma' ),
 					),
 					'default' => 'no',
 					'tooltip' => '',
@@ -196,18 +196,18 @@ class PadmaVisualElementsBlockPostSliderOptions extends \PadmaBlockOptionsAPI {
 					'name' => 'custom-length-number',
 					'type' => 'integer',
 					'default' => 15,
-					'label' => 'Words to show',
+					'label' => __( 'So viele Woerter anzeigen', 'padma' ),
 					'tooltip' => '',
 				),				
 
 				'auto_play' => array(
 					'type' => 'select',
 					'name' => 'auto_play',
-					'label' => 'Auto play',
+					'label' => __( 'Automatisch abspielen', 'padma' ),
 					'tooltip' => '',
 					'options' => array(
-						'true' => 'Yes',
-						'false' => 'No',
+						'true' => __( 'Ja', 'padma' ),
+						'false' => __( 'Nein', 'padma' ),
 					)
 				),
 
@@ -215,35 +215,35 @@ class PadmaVisualElementsBlockPostSliderOptions extends \PadmaBlockOptionsAPI {
 					'type' => 'integer',
 					'default' => 3,
 					'name' => 'show_items',
-					'label' => 'Show items',
+					'label' => __( 'So viele Slides gleichzeitig', 'padma' ),
 					'tooltip' => '',				
 				),			
 
 				'show_pagination' => array(
 					'type' => 'select',		
 					'name' => 'show_pagination',
-					'label' => 'Show pagination',
+					'label' => __( 'Punkte-Navigation anzeigen', 'padma' ),
 					'tooltip' => '',
 					'options' => array(
-						'true' => 'Yes',
-						'false' => 'No',
+						'true' => __( 'Ja', 'padma' ),
+						'false' => __( 'Nein', 'padma' ),
 					)				
 				),
 
 				'read-more-label' => array(
 					'type' => 'text',		
 					'name' => 'read-more-label',
-					'label' => 'Read more label',
+					'label' => __( 'Text fuer Mehr-lesen-Button', 'padma' ),
 					'tooltip' => '',
 				),
 
 				'focus-effect' => array(
 					'type' => 'select',		
 					'name' => 'focus-effect',
-					'label' => 'Focus effect',
+					'label' => __( 'Fokus-Effekt nutzen', 'padma' ),
 					'options' => array(
-						'true' => 'Yes',
-						'false' => 'No',
+						'true' => __( 'Ja', 'padma' ),
+						'false' => __( 'Nein', 'padma' ),
 					),
 					'toggle'    => array(
 						'true' => array(
@@ -262,18 +262,18 @@ class PadmaVisualElementsBlockPostSliderOptions extends \PadmaBlockOptionsAPI {
 				'focus-effect-color' => array(
 					'type' => 'colorpicker',		
 					'name' => 'focus-effect-color',
-					'label' => 'Focus color',
+					'label' => __( 'Fokus-Farbe', 'padma' ),
 					'default' => '#3398db',
 				),
 
 				'show-direction-nav' => array(
 					'type' => 'select',		
 					'name' => 'show-direction-nav',
-					'label' => 'Show navigation arrows',
+					'label' => __( 'Navigationspfeile anzeigen', 'padma' ),
 					'default' => 'true',
 					'options' => array(
-						'true' => 'Yes',
-						'false' => 'No',
+						'true' => __( 'Ja', 'padma' ),
+						'false' => __( 'Nein', 'padma' ),
 					)
 				),
 
@@ -282,7 +282,7 @@ class PadmaVisualElementsBlockPostSliderOptions extends \PadmaBlockOptionsAPI {
 					'default' => false,
 					'name' => 'navigate-mode',
 					'label' => __( 'Navigations-Modus im Editor', 'padma' ),
-					'tooltip' => __( 'Im visuellen Editor durch die Slides navigieren um elementweise zu stylen', 'padma' ),
+					'tooltip' => __( 'Navigiere im visuellen Editor durch die Slides, damit du sie einzeln stylen kannst.', 'padma' ),
 				),
 			),
 

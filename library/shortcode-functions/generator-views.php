@@ -98,7 +98,7 @@ class Padma_Generator_Views {
 		return '<input type="text" name="' . esc_attr( $id ) . '" value="' . esc_attr( $field['default'] ) . '" id="su-generator-attr-' . esc_attr( $id ) . '" class="su-generator-attr su-generator-upload-value" />'
 			. '<div class="su-generator-field-actions">'
 			. '<a href="javascript:;" class="button su-generator-upload-button">'
-			. '<img src="' . esc_url( admin_url( 'images/media-button.png' ) ) . '" alt="' . esc_attr__( 'Medien', 'ps-padma' ) . '" /> '
+			. '<span class="dashicons dashicons-admin-media" aria-hidden="true"></span> '
 			. __( 'Medienverwaltung', 'ps-padma' )
 			. '</a>'
 			. '</div>';
@@ -112,7 +112,7 @@ class Padma_Generator_Views {
 		return '<input type="text" name="' . esc_attr( $id ) . '" value="' . esc_attr( $field['default'] ) . '" id="su-generator-attr-' . esc_attr( $id ) . '" class="su-generator-attr su-generator-icon-picker-value" />'
 			. '<div class="su-generator-field-actions">'
 			. '<a href="javascript:;" class="button su-generator-icon-picker-button su-generator-field-action">'
-			. '<img src="' . esc_url( admin_url( 'images/media-button-other.gif' ) ) . '" alt="' . esc_attr__( 'Icon wählen', 'ps-padma' ) . '" /> '
+			. '<span class="dashicons dashicons-star-filled" aria-hidden="true"></span> '
 			. __( 'Icon wählen', 'ps-padma' )
 			. '</a>'
 			. '</div>'

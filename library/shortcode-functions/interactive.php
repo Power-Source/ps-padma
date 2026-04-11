@@ -111,16 +111,32 @@ function padma_render_service( $args = array(), $content = '' ) {
 	
 	// RTL support
 	$rtl = ( is_rtl() ) ? 'right' : 'left';
-	
-	// Built-in icon
-	if ( strpos( $args['icon'], 'icon:' ) !== false ) {
-		$icon_name = trim( str_replace( 'icon:', '', $args['icon'] ) );
-		$args['icon'] = '<i class="fa fa-' . esc_attr( $icon_name ) . '" style="font-size:' . $args['size'] . 'px;color:' . esc_attr( $args['icon_color'] ) . '"></i>';
-	} else {
-		$args['icon'] = '<img src="' . esc_url( $args['icon'] ) . '" width="' . $args['size'] . '" height="' . $args['size'] . '" alt="' . esc_attr( $args['title'] ) . '" />';
+
+	$icon_input = trim( (string) $args['icon'] );
+	$icon_html  = '';
+
+	if ( $icon_input !== '' ) {
+		$is_image = filter_var( $icon_input, FILTER_VALIDATE_URL ) || strpos( $icon_input, '/' ) !== false;
+
+		if ( $is_image ) {
+			$icon_html = '<img src="' . esc_url( $icon_input ) . '" width="' . $args['size'] . '" height="' . $args['size'] . '" alt="' . esc_attr( $args['title'] ) . '" />';
+		} else {
+			$icon_name = preg_replace( '/^icon\s*:\s*/i', '', $icon_input );
+			$icon_name = preg_replace( '/^(fa[a-z]*\s+)+/i', '', $icon_name );
+			$icon_name = preg_replace( '/^fa-/i', '', $icon_name );
+			$icon_name = sanitize_html_class( $icon_name );
+
+			if ( $icon_name !== '' ) {
+				$icon_html = '<i class="fa fa-' . esc_attr( $icon_name ) . '" style="font-size:' . $args['size'] . 'px;color:' . esc_attr( $args['icon_color'] ) . '"></i>';
+			}
+		}
 	}
-	
-	return '<div class="su-service' . padma_ecssc( $args ) . '"><div class="su-service-title" style="padding-' . $rtl . ':' . round( $args['size'] + 14 ) . 'px;min-height:' . $args['size'] . 'px;line-height:' . $args['size'] . 'px">' . $args['icon'] . ' ' . esc_html( $args['title'] ) . '</div><div class="su-service-content su-clearfix" style="padding-' . $rtl . ':' . round( $args['size'] + 14 ) . 'px">' . do_shortcode( $content ) . '</div></div>';
+
+	if ( $icon_html ) {
+		$icon_html .= ' ';
+	}
+
+	return '<div class="su-service' . padma_ecssc( $args ) . '"><div class="su-service-title" style="padding-' . $rtl . ':' . round( $args['size'] + 14 ) . 'px;min-height:' . $args['size'] . 'px;line-height:' . $args['size'] . 'px">' . $icon_html . esc_html( $args['title'] ) . '</div><div class="su-service-content su-clearfix" style="padding-' . $rtl . ':' . round( $args['size'] + 14 ) . 'px">' . do_shortcode( $content ) . '</div></div>';
 }
 
 // ============================================================================

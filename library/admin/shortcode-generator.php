@@ -14,8 +14,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Padma_Shortcode_Generator {
+	private static $hooks_registered = false;
 
 	public function __construct() {
+		if ( self::$hooks_registered ) {
+			return;
+		}
+
+		self::$hooks_registered = true;
+
 		add_action( 'media_buttons',                       array( $this, 'button' ), 1000 );
 		add_action( 'admin_footer',                        array( $this, 'popup' ) );
 
@@ -24,6 +31,9 @@ class Padma_Shortcode_Generator {
 		add_action( 'wp_ajax_su_generator_get_icons',      array( $this, 'ajax_get_icons' ) );
 		add_action( 'wp_ajax_su_generator_get_terms',      array( $this, 'ajax_get_terms' ) );
 		add_action( 'wp_ajax_su_generator_get_taxonomies', array( $this, 'ajax_get_taxonomies' ) );
+		add_action( 'wp_ajax_su_generator_get_preset',     array( $this, 'ajax_get_preset' ) );
+		add_action( 'wp_ajax_su_generator_add_preset',     array( $this, 'ajax_add_preset' ) );
+		add_action( 'wp_ajax_su_generator_remove_preset',  array( $this, 'ajax_remove_preset' ) );
 	}
 
 	// -------------------------------------------------------------------------
@@ -61,6 +71,7 @@ class Padma_Shortcode_Generator {
 		$base  = get_template_directory_uri();
 		$css   = $base . '/assets/css/psource-shortcodes/';
 		$js    = $base . '/assets/js/psource-shortcodes/';
+		$fa_css = $base . '/library/blocks-advanced/post-slider/css/font-awesome.css';
 		$js_dir = get_template_directory() . '/assets/js/psource-shortcodes/';
 		$tinymce_ver = file_exists( $js_dir . 'tinymce.js' ) ? (string) filemtime( $js_dir . 'tinymce.js' ) : PADMA_VERSION;
 		$generator_ver = file_exists( $js_dir . 'generator.js' ) ? (string) filemtime( $js_dir . 'generator.js' ) : PADMA_VERSION;
@@ -82,6 +93,9 @@ class Padma_Shortcode_Generator {
 
 		// Generator-Popup-CSS
 		wp_enqueue_style( 'su-generator', $css . 'generator.css', array( 'su-magnific-popup' ), PADMA_VERSION );
+
+		// Font Awesome fuer den Icon-Picker im Generator
+		wp_enqueue_style( 'padma-generator-fontawesome', $fa_css, array(), PADMA_VERSION );
 
 		// TinyMCE-Plugin für Shortcodes
 		wp_enqueue_script( 'su-tinymce', $js . 'tinymce.js', array( 'jquery' ), $tinymce_ver, true );
@@ -346,6 +360,77 @@ class Padma_Shortcode_Generator {
 	}
 
 	// -------------------------------------------------------------------------
+	// AJAX: Presets
+	// -------------------------------------------------------------------------
+
+	public function ajax_get_preset() {
+		$this->access();
+
+		$shortcode = isset( $_REQUEST['shortcode'] ) ? sanitize_key( wp_unslash( $_REQUEST['shortcode'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+		$id        = isset( $_REQUEST['id'] ) ? sanitize_key( wp_unslash( $_REQUEST['id'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+
+		if ( ! $shortcode || ! $id ) {
+			wp_send_json( array() );
+		}
+
+		$presets = $this->get_presets();
+		if ( empty( $presets[ $shortcode ] ) || ! isset( $presets[ $shortcode ][ $id ]['settings'] ) || ! is_array( $presets[ $shortcode ][ $id ]['settings'] ) ) {
+			wp_send_json( array() );
+		}
+
+		wp_send_json( $presets[ $shortcode ][ $id ]['settings'] );
+	}
+
+	public function ajax_add_preset() {
+		$this->access();
+
+		$shortcode = isset( $_POST['shortcode'] ) ? sanitize_key( wp_unslash( $_POST['shortcode'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+		$id        = isset( $_POST['id'] ) ? sanitize_key( wp_unslash( $_POST['id'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+		$name      = isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+		$settings  = isset( $_POST['settings'] ) ? $this->sanitize_preset_settings( wp_unslash( $_POST['settings'] ) ) : array(); // phpcs:ignore WordPress.Security.NonceVerification
+
+		// Some legacy UI paths call this endpoint without a shortcode context.
+		if ( ! $shortcode || ! $id || ! is_array( $settings ) ) {
+			wp_send_json_success();
+		}
+
+		$presets = $this->get_presets();
+		if ( ! isset( $presets[ $shortcode ] ) || ! is_array( $presets[ $shortcode ] ) ) {
+			$presets[ $shortcode ] = array();
+		}
+
+		$presets[ $shortcode ][ $id ] = array(
+			'name'     => $name,
+			'settings' => $settings,
+		);
+
+		$this->save_presets( $presets );
+		wp_send_json_success();
+	}
+
+	public function ajax_remove_preset() {
+		$this->access();
+
+		$shortcode = isset( $_POST['shortcode'] ) ? sanitize_key( wp_unslash( $_POST['shortcode'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+		$id        = isset( $_POST['id'] ) ? sanitize_key( wp_unslash( $_POST['id'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+
+		if ( ! $shortcode || ! $id ) {
+			wp_send_json_success();
+		}
+
+		$presets = $this->get_presets();
+		if ( isset( $presets[ $shortcode ][ $id ] ) ) {
+			unset( $presets[ $shortcode ][ $id ] );
+			if ( empty( $presets[ $shortcode ] ) ) {
+				unset( $presets[ $shortcode ] );
+			}
+			$this->save_presets( $presets );
+		}
+
+		wp_send_json_success();
+	}
+
+	// -------------------------------------------------------------------------
 	// Hilfsmethoden
 	// -------------------------------------------------------------------------
 
@@ -418,6 +503,37 @@ class Padma_Shortcode_Generator {
 		if ( ! $this->access_check() ) {
 			wp_die( esc_html__( 'Zugriff verweigert.', 'ps-padma' ) );
 		}
+	}
+
+	private function get_presets() {
+		$presets = get_user_meta( get_current_user_id(), 'padma_su_generator_presets', true );
+		return is_array( $presets ) ? $presets : array();
+	}
+
+	private function save_presets( array $presets ) {
+		update_user_meta( get_current_user_id(), 'padma_su_generator_presets', $presets );
+	}
+
+	private function sanitize_preset_settings( $settings ) {
+		if ( ! is_array( $settings ) ) {
+			return array();
+		}
+
+		$sanitized = array();
+		foreach ( $settings as $key => $value ) {
+			$safe_key = sanitize_key( (string) $key );
+			if ( '' === $safe_key ) {
+				continue;
+			}
+
+			if ( is_array( $value ) ) {
+				$sanitized[ $safe_key ] = array_map( 'sanitize_text_field', $value );
+			} elseif ( is_scalar( $value ) ) {
+				$sanitized[ $safe_key ] = sanitize_textarea_field( (string) $value );
+			}
+		}
+
+		return $sanitized;
 	}
 
 }

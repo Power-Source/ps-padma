@@ -60,6 +60,12 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 
 == Changelog ==
 
+= 1.1.7 =
+* Shortcode Builder: AJAX-Initialisierung gehaertet, damit `su_generator_*`-Actions im Admin/AJAX-Kontext zuverlaessig registriert sind
+* Shortcode Builder: Icon-Picker repariert, Font Awesome wird im Generator-Popup jetzt explizit geladen
+* Shortcode Builder: Veraltete Admin-Button-Bildicons (`media-button*.gif/png`) im Generator durch Dashicons ersetzt, um fehlende Ressourcen/500er zu vermeiden
+* Shortcode Builder: Preset/Icon-AJAX-Fehlerfolgen reduziert (400/500 im Generator-Workflow)
+
 = 1.1.6 =
 * Visual Editor: Fontpicker-Tabs (Traditional Fonts / Google Web Fonts) im Design-Editor stabilisiert; unzuverlaessiges Umschalten und haengende Erstinitialisierung behoben
 * Visual Editor: Google-Webfonts-Liste laedt beim Oeffnen jetzt zuverlaessig, auch ohne vorher manuell zwischen Sortieroptionen zu wechseln
