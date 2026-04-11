@@ -199,6 +199,25 @@ class PadmaAssets {
 add_action( 'init', array( 'PadmaAssets', 'init' ) );
 
 /**
+ * Enqueue bundled Font Awesome for shortcode output.
+ *
+ * Some extracted shortcodes render Font Awesome markup directly and cannot
+ * rely on the original plugin asset loader being present.
+ */
+function padma_enqueue_fontawesome_assets() {
+	static $enqueued = false;
+
+	if ( $enqueued ) {
+		return;
+	}
+
+	$fontawesome_url = trailingslashit( padma_url() ) . 'library/blocks-advanced/fontawesome/fontawesome.css';
+	wp_enqueue_style( 'padma-ve-fontawesome', $fontawesome_url, array(), PADMA_VERSION, 'all' );
+
+	$enqueued = true;
+}
+
+/**
  * Helper function to enqueue assets (similar to plugin API)
  */
 function padma_query_asset( $type, $handle ) {

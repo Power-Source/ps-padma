@@ -138,6 +138,8 @@ function padma_get_icon( $icon = '', $size = '', $color = '', $style = '' ) {
 	
 	// Font Awesome icon
 	if ( strpos( $icon, 'icon:' ) !== false ) {
+		padma_enqueue_fontawesome_assets();
+
 		// Add size
 		if ( $size ) {
 			$style .= 'font-size:' . intval( $size ) . 'px;';

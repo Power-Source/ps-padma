@@ -127,6 +127,7 @@ function padma_render_service( $args = array(), $content = '' ) {
 			$icon_name = sanitize_html_class( $icon_name );
 
 			if ( $icon_name !== '' ) {
+				padma_enqueue_fontawesome_assets();
 				$icon_html = '<i class="fa fa-' . esc_attr( $icon_name ) . '" style="font-size:' . $args['size'] . 'px;color:' . esc_attr( $args['icon_color'] ) . '"></i>';
 			}
 		}
