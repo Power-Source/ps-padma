@@ -313,14 +313,14 @@
 	border-style: solid;
 }
 .su-button-style-ghost:hover span { border-color: inherit !important; }
-.su-button-style-soft span { background: 0 -20px url('../images/styles/style-soft.png') repeat-x }
-.su-button-style-soft:hover span { background: 0 0 url('../images/styles/style-soft.png') repeat-x }
-.su-button-style-glass span { background: 0 50% url('../images/styles/style-glass.png') repeat-x }
-.su-button-style-glass:hover span { background: 100% 50% url('../images/styles/style-glass.png') repeat-x }
-.su-button-style-bubbles span { background: 0 50% url('../images/styles/style-bubbles.png') no-repeat }
-.su-button-style-bubbles:hover span { background: -710px 50% url('../images/styles/style-bubbles.png') no-repeat }
-.su-button-style-noise span { background: 0 0 url('../images/styles/style-noise.png') repeat-x }
-.su-button-style-noise:hover span { background: 0 0 url('../images/styles/style-noise.png') repeat-x }
+.su-button-style-soft span { background: linear-gradient(to bottom, rgba(255,255,255,0.46) 0%, rgba(255,255,255,0.2) 48%, rgba(0,0,0,0.05) 50%, rgba(255,255,255,0.02) 100%) }
+.su-button-style-soft:hover span { background: linear-gradient(to bottom, rgba(255,255,255,0.58) 0%, rgba(255,255,255,0.3) 48%, rgba(0,0,0,0.03) 50%, rgba(255,255,255,0.1) 100%) }
+.su-button-style-glass span { background: linear-gradient(to bottom, rgba(255,255,255,0.72) 0%, rgba(255,255,255,0.32) 47%, rgba(255,255,255,0.07) 49%, rgba(0,0,0,0.12) 52%, rgba(0,0,0,0.02) 100%) }
+.su-button-style-glass:hover span { background: linear-gradient(to bottom, rgba(255,255,255,0.84) 0%, rgba(255,255,255,0.44) 47%, rgba(255,255,255,0.18) 49%, rgba(0,0,0,0.08) 52%, rgba(255,255,255,0.06) 100%) }
+.su-button-style-bubbles span { background: radial-gradient(circle at 18% 35%, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.12) 22%, rgba(255,255,255,0) 38%), radial-gradient(circle at 56% 65%, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.09) 18%, rgba(255,255,255,0) 31%), radial-gradient(circle at 84% 28%, rgba(255,255,255,0.42) 0%, rgba(255,255,255,0.08) 20%, rgba(255,255,255,0) 34%), linear-gradient(to bottom, rgba(255,255,255,0.36) 0%, rgba(255,255,255,0.14) 48%, rgba(0,0,0,0.08) 51%, rgba(255,255,255,0.03) 100%) }
+.su-button-style-bubbles:hover span { background: radial-gradient(circle at 22% 35%, rgba(255,255,255,0.66) 0%, rgba(255,255,255,0.18) 22%, rgba(255,255,255,0) 40%), radial-gradient(circle at 60% 65%, rgba(255,255,255,0.46) 0%, rgba(255,255,255,0.12) 18%, rgba(255,255,255,0) 33%), radial-gradient(circle at 86% 26%, rgba(255,255,255,0.52) 0%, rgba(255,255,255,0.1) 20%, rgba(255,255,255,0) 35%), linear-gradient(to bottom, rgba(255,255,255,0.46) 0%, rgba(255,255,255,0.2) 48%, rgba(0,0,0,0.05) 51%, rgba(255,255,255,0.1) 100%) }
+.su-button-style-noise span { background: repeating-linear-gradient(0deg, rgba(255,255,255,0.12) 0, rgba(255,255,255,0.12) 1px, rgba(0,0,0,0.05) 1px, rgba(0,0,0,0.05) 2px), linear-gradient(to bottom, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0.1) 48%, rgba(0,0,0,0.07) 50%, rgba(255,255,255,0.02) 100%) }
+.su-button-style-noise:hover span { background: repeating-linear-gradient(0deg, rgba(255,255,255,0.16) 0, rgba(255,255,255,0.16) 1px, rgba(0,0,0,0.04) 1px, rgba(0,0,0,0.04) 2px), linear-gradient(to bottom, rgba(255,255,255,0.36) 0%, rgba(255,255,255,0.16) 48%, rgba(0,0,0,0.05) 50%, rgba(255,255,255,0.08) 100%) }
 .su-button-style-stroked span {
 	margin: 1px;
 	border: 1px dashed #fff !important;
