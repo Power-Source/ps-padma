@@ -66,6 +66,12 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 * Shortcode Builder: Veraltete Admin-Button-Bildicons (`media-button*.gif/png`) im Generator durch Dashicons ersetzt, um fehlende Ressourcen/500er zu vermeiden
 * Shortcode Builder: Preset/Icon-AJAX-Fehlerfolgen reduziert (400/500 im Generator-Workflow)
 * Shortcode Styles: Veraltete Textur-Bildpfade (`../images/styles/style-*.png`) in den Shortcode-CSS durch visuelle CSS-Fallbacks ersetzt, damit keine 500er auf fehlende Assets mehr auftreten
+* Visual Editor (Grid-Iframe): Basis-Shortcode-Assets (content/box/other CSS + other-shortcodes JS) werden im Grid-Canvas jetzt explizit geladen/ausgegeben, damit verschachtelte Shortcodes (z. B. `su_row`/`su_column` mit `su_button`) nicht ungestylt bleiben
+* Shortcode-Fallbacks: Veraltete lokale Asset-Pfade (`/assets/psource-css` und `/assets/psource-js`) auf die aktuellen Verzeichnisse (`/assets/css/psource-shortcodes` und `/assets/js/psource-shortcodes`) umgestellt
+* Shortcode-Fallbacks: Korrektur in Utility-, Media-, Galleries- und Lightbox-Shortcodes, damit CSS/JS im Frontend ohne Plugin-Fallback wieder konsistent gefunden und geladen werden
+* SEO Suite: Open Graph und Twitter Card Image Meta-Tags (`og:image`, `og:image:width`, `og:image:height`, `twitter:image`) werden jetzt beim Social Media Sharing ausgegeben
+* SEO Suite: Neues Feld "Social Media Bild" in der SEO Metabox mit Media Uploader (Media Library Integration)
+* SEO Suite: Intelligentes Bild-Prioritätssystem (Custom OG Image > Featured Image > Default Social Media Bild), damit Posts beim Teilen auf WhatsApp/Facebook das richtige Bild anzeigen
 
 = 1.1.6 =
 * Visual Editor: Fontpicker-Tabs (Traditional Fonts / Google Web Fonts) im Design-Editor stabilisiert; unzuverlaessiges Umschalten und haengende Erstinitialisierung behoben

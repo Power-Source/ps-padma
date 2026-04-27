@@ -100,8 +100,8 @@ function padma_render_slider( $args = array(), $content = '' ) {
 		su_query_asset( 'css', 'su-galleries-shortcodes' );
 		su_query_asset( 'js', 'su-galleries-shortcodes' );
 	} else {
-		wp_enqueue_style( 'padma-galleries-css', get_template_directory_uri() . '/assets/psource-css/galleries-shortcodes.css' );
-		wp_enqueue_script( 'padma-galleries-js', get_template_directory_uri() . '/assets/psource-js/galleries-shortcodes.js', array( 'jquery' ) );
+		wp_enqueue_style( 'padma-galleries-css', get_template_directory_uri() . '/assets/css/psource-shortcodes/galleries-shortcodes.css' );
+		wp_enqueue_script( 'padma-galleries-js', get_template_directory_uri() . '/assets/js/psource-shortcodes/galleries-shortcodes.js', array( 'jquery' ) );
 	}
 	
 	$id = uniqid( 'su_slider_' );
@@ -194,8 +194,8 @@ function padma_render_carousel( $args = array(), $content = '' ) {
 		su_query_asset( 'css', 'su-galleries-shortcodes' );
 		su_query_asset( 'js', 'su-galleries-shortcodes' );
 	} else {
-		wp_enqueue_style( 'padma-galleries-css', get_template_directory_uri() . '/assets/psource-css/galleries-shortcodes.css' );
-		wp_enqueue_script( 'padma-galleries-js', get_template_directory_uri() . '/assets/psource-js/galleries-shortcodes.js', array( 'jquery' ) );
+		wp_enqueue_style( 'padma-galleries-css', get_template_directory_uri() . '/assets/css/psource-shortcodes/galleries-shortcodes.css' );
+		wp_enqueue_script( 'padma-galleries-js', get_template_directory_uri() . '/assets/js/psource-shortcodes/galleries-shortcodes.js', array( 'jquery' ) );
 	}
 	
 	$id = uniqid( 'su_carousel_' );

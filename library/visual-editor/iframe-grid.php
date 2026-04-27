@@ -153,6 +153,8 @@ class PadmaVisualEditorIframeGrid {
 
 		add_action('padma_grid_iframe_head', array(__CLASS__, 'print_styles'), 12);
 		add_action('padma_grid_iframe_styles', array(__CLASS__, 'enqueue_canvas_assets'));
+		add_action('padma_grid_iframe_footer', array(__CLASS__, 'print_scripts'), 5);
+		add_action('padma_grid_iframe_scripts', array(__CLASS__, 'enqueue_canvas_scripts'));
 
 		self::display_canvas();
 
@@ -175,6 +177,19 @@ class PadmaVisualEditorIframeGrid {
 			)
 		));
 
+		// Ensure nested shortcode output (e.g. su_column + su_button) is styled in grid iframe.
+		wp_enqueue_style( 'padma-shortcodes-content', get_template_directory_uri() . '/assets/css/psource-shortcodes/content-shortcodes.css', array(), PADMA_VERSION );
+		wp_enqueue_style( 'padma-shortcodes-box', get_template_directory_uri() . '/assets/css/psource-shortcodes/box-shortcodes.css', array(), PADMA_VERSION );
+		wp_enqueue_style( 'padma-shortcodes-other', get_template_directory_uri() . '/assets/css/psource-shortcodes/other-shortcodes.css', array(), PADMA_VERSION );
+
+	}
+
+
+	public static function enqueue_canvas_scripts() {
+
+		// Needed by interactive shortcode wrappers inside text blocks in grid iframe.
+		wp_enqueue_script( 'padma-shortcodes-other', get_template_directory_uri() . '/assets/js/psource-shortcodes/other-shortcodes.js', array( 'jquery' ), PADMA_VERSION, true );
+
 	}
 
 
@@ -186,6 +201,16 @@ class PadmaVisualEditorIframeGrid {
 		do_action('padma_grid_iframe_styles');
 
 		wp_print_styles();
+
+	}
+
+
+	public static function print_scripts() {
+
+		do_action('padma_grid_iframe_scripts');
+
+		wp_print_scripts();
+		wp_print_footer_scripts();
 
 	}
 

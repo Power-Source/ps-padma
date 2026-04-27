@@ -67,6 +67,7 @@ class PadmaSEOSuite {
 		$canonical_url = get_post_meta($post->ID, '_padma_canonical_url', true);
 		$og_title = get_post_meta($post->ID, '_padma_og_title', true);
 		$og_description = get_post_meta($post->ID, '_padma_og_description', true);
+		$og_image_id = get_post_meta($post->ID, '_padma_og_image_id', true);
 		$robots_noindex = get_post_meta($post->ID, '_padma_robots_noindex', true);
 
 		?>
@@ -137,7 +138,42 @@ class PadmaSEOSuite {
 				<small><?php _e('Länge:', 'padma'); ?> <span id="og_desc_count"><?php echo strlen($og_description); ?></span>/200</small>
 			</div>
 
-			<!-- Canonical URL -->
+			<!-- OG Image (Social Share) -->
+			<div class="padma-seo-field">
+				<label for="padma_og_image"><?php _e('Social Media Bild', 'padma'); ?></label>
+				<div style="margin-top: 10px; margin-bottom: 10px;">
+					<?php if ($og_image_id) : ?>
+						<?php echo wp_get_attachment_image($og_image_id, array(150, 150), false, array('style' => 'max-width: 150px; height: auto; border: 1px solid #ddd; border-radius: 4px;')); ?>
+						<button type="button" class="button" style="margin-top: 10px; display: block;" onclick="document.getElementById('padma_og_image_id').value = ''; this.parentElement.innerHTML = '';">
+							<?php _e('Entfernen', 'padma'); ?>
+						</button>
+					<?php endif; ?>
+				</div>
+				<input type="hidden" id="padma_og_image_id" name="padma_og_image_id" value="<?php echo esc_attr($og_image_id); ?>" />
+				<button type="button" class="button" onclick="padmaOpenMediaUploader()">
+					<?php _e('Bild wählen', 'padma'); ?>
+				</button>
+				<small><?php _e('Wird beim Teilen auf Facebook, Twitter, WhatsApp verwendet. Leer lassen, um das Beitragsbild zu verwenden.', 'padma'); ?></small>
+			</div>
+
+			<script>
+				function padmaOpenMediaUploader() {
+					const mediaUploader = wp.media({
+						title: '<?php _e('Social Media Bild wählen', 'padma'); ?>',
+						button: { text: '<?php _e('Wählen', 'padma'); ?>' },
+						multiple: false
+					});
+
+					mediaUploader.on('select', function() {
+						const attachment = mediaUploader.state().get('selection').first().toJSON();
+						document.getElementById('padma_og_image_id').value = attachment.id;
+						// Reload the preview
+						location.reload();
+					});
+
+					mediaUploader.open();
+				}
+			</script>
 			<div class="padma-seo-field">
 				<label for="padma_canonical_url"><?php _e('Canonical URL', 'padma'); ?></label>
 				<input 
@@ -268,6 +304,12 @@ class PadmaSEOSuite {
 			update_post_meta($post_id, '_padma_og_description', sanitize_textarea_field($_POST['padma_og_description']));
 		}
 
+		// Save OG image
+		if (isset($_POST['padma_og_image_id'])) {
+			$og_image_id = absint($_POST['padma_og_image_id']);
+			update_post_meta($post_id, '_padma_og_image_id', $og_image_id);
+		}
+
 		// Save canonical URL
 		if (isset($_POST['padma_canonical_url'])) {
 			$canonical = sanitize_url($_POST['padma_canonical_url']);
@@ -331,9 +373,56 @@ class PadmaSEOSuite {
 		// OG URL
 		echo '<meta property="og:url" content="' . esc_url(get_permalink($post->ID)) . '" />' . "\n";
 
+		// OG Image
+		$og_image = '';
+		$og_image_id = '';
+		
+		// Priority 1: Custom OG image from metabox
+		$custom_og_image_id = get_post_meta($post->ID, '_padma_og_image_id', true);
+		if ($custom_og_image_id) {
+			$og_image = wp_get_attachment_url($custom_og_image_id);
+			$og_image_id = $custom_og_image_id;
+		}
+		
+		// Priority 2: Featured image
+		if (!$og_image) {
+			$featured_image_id = get_post_thumbnail_id($post->ID);
+			if ($featured_image_id) {
+				$og_image = wp_get_attachment_url($featured_image_id);
+				$og_image_id = $featured_image_id;
+			}
+		}
+		
+		// Priority 3: Default social media image from settings
+		if (!$og_image) {
+			$default_image_id = PadmaOption::get('social-default-image', 'general');
+			if ($default_image_id) {
+				$og_image = wp_get_attachment_url($default_image_id);
+				$og_image_id = $default_image_id;
+			}
+		}
+
+		if ($og_image) {
+			echo '<meta property="og:image" content="' . esc_url($og_image) . '" />' . "\n";
+			
+			// Add image dimensions for better social media rendering
+			$image_id = $og_image_id ?: PadmaOption::get('social-default-image', 'general');
+			if ($image_id) {
+				$image_meta = wp_get_attachment_metadata($image_id);
+				if ($image_meta && isset($image_meta['width'], $image_meta['height'])) {
+					echo '<meta property="og:image:width" content="' . esc_attr($image_meta['width']) . '" />' . "\n";
+					echo '<meta property="og:image:height" content="' . esc_attr($image_meta['height']) . '" />' . "\n";
+				}
+			}
+		}
+
 		// Twitter Card
 		echo '<meta name="twitter:card" content="summary_large_image" />' . "\n";
 		echo '<meta name="twitter:title" content="' . esc_attr($og_title ?: get_the_title($post->ID)) . '" />' . "\n";
+		
+		if ($og_image) {
+			echo '<meta name="twitter:image" content="' . esc_url($og_image) . '" />' . "\n";
+		}
 
 	}
 

@@ -249,9 +249,9 @@ function padma_render_audio( $args = array(), $content = '' ) {
 		su_query_asset( 'js', 'jplayer' );
 		su_query_asset( 'js', 'su-players-shortcodes' );
 	} else {
-		wp_enqueue_style( 'padma-players-css', get_template_directory_uri() . '/assets/psource-css/players-shortcodes.css' );
-		wp_enqueue_script( 'padma-jplayer-js', get_template_directory_uri() . '/assets/psource-js/jplayer.js', array( 'jquery' ) );
-		wp_enqueue_script( 'padma-players-js', get_template_directory_uri() . '/assets/psource-js/players-shortcodes.js', array( 'jquery', 'padma-jplayer-js' ) );
+		wp_enqueue_style( 'padma-players-css', get_template_directory_uri() . '/assets/css/psource-shortcodes/players-shortcodes.css' );
+		wp_enqueue_script( 'padma-jplayer-js', get_template_directory_uri() . '/assets/js/psource-shortcodes/jplayer.js', array( 'jquery' ) );
+		wp_enqueue_script( 'padma-players-js', get_template_directory_uri() . '/assets/js/psource-shortcodes/players-shortcodes.js', array( 'jquery', 'padma-jplayer-js' ) );
 	}
 	
 	$args['url'] = esc_url( $args['url'] );

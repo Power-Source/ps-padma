@@ -41,8 +41,8 @@ function padma_render_lightbox( $args = array(), $content = '' ) {
 		su_query_asset( 'js', 'magnific-popup' );
 		su_query_asset( 'js', 'jquery' );
 	} else {
-		wp_enqueue_style( 'padma-magnific-popup-css', get_template_directory_uri() . '/assets/psource-css/magnific-popup.css' );
-		wp_enqueue_script( 'padma-magnific-popup-js', get_template_directory_uri() . '/assets/psource-js/magnific-popup.js', array( 'jquery' ) );
+		wp_enqueue_style( 'padma-magnific-popup-css', get_template_directory_uri() . '/assets/css/psource-shortcodes/magnific-popup.css' );
+		wp_enqueue_script( 'padma-magnific-popup-js', get_template_directory_uri() . '/assets/js/psource-shortcodes/magnific-popup.js', array( 'jquery' ) );
 	}
 	
 	// Build HTML

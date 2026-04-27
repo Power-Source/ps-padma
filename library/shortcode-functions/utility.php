@@ -66,10 +66,10 @@ function padma_render_tooltip( $args = array(), $content = '' ) {
 		su_query_asset( 'js', 'su-other-shortcodes' );
 	} else {
 		// Plugin not active, use WordPress enqueue
-		wp_enqueue_style( 'padma-qtip-css', get_template_directory_uri() . '/assets/psource-css/qtip.css' );
-		wp_enqueue_style( 'padma-other-shortcodes-css', get_template_directory_uri() . '/assets/psource-css/other-shortcodes.css' );
-		wp_enqueue_script( 'padma-qtip-js', get_template_directory_uri() . '/assets/psource-js/qtip.js', array( 'jquery' ) );
-		wp_enqueue_script( 'padma-other-shortcodes-js', get_template_directory_uri() . '/assets/psource-js/other-shortcodes.js', array( 'jquery' ) );
+		wp_enqueue_style( 'padma-qtip-css', get_template_directory_uri() . '/assets/css/psource-shortcodes/qtip.css' );
+		wp_enqueue_style( 'padma-other-shortcodes-css', get_template_directory_uri() . '/assets/css/psource-shortcodes/other-shortcodes.css' );
+		wp_enqueue_script( 'padma-qtip-js', get_template_directory_uri() . '/assets/js/psource-shortcodes/qtip.js', array( 'jquery' ) );
+		wp_enqueue_script( 'padma-other-shortcodes-js', get_template_directory_uri() . '/assets/js/psource-shortcodes/other-shortcodes.js', array( 'jquery' ) );
 	}
 	
 	return '<span class="su-tooltip' . padma_ecssc( $args ) . '" data-close="' . esc_attr( $args['close'] ) . '" data-behavior="' . esc_attr( $args['behavior'] ) . '" data-my="' . esc_attr( $position_config['my'] ) . '" data-at="' . esc_attr( $position_config['at'] ) . '" data-classes="' . esc_attr( implode( ' ', $classes ) ) . '" data-title="' . esc_attr( $args['title'] ) . '" title="' . esc_attr( $args['content'] ) . '">' . do_shortcode( $content ) . '</span>';
