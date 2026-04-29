@@ -60,6 +60,11 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 
 == Changelog ==
 
+= 1.1.8 =
+* Shortcode Builder: Presets-Dropdown im Generator aktiviert, damit gespeicherte Vorlagen pro Shortcode-Typ direkt im Builder auswählbar und löschbar sind
+* Shortcode Builder: Einstellungen mit gesetzter zusätzlicher CSS-Klasse werden beim Einfügen jetzt automatisch als Klassen-Preset gespeichert
+* Shortcode Builder: Preset-Button und Dropdown im Generator visuell überarbeitet, mit sauberer Action-Leiste, Card-Dropdown, besserem Leerzustand und lesbareren Preset-Einträgen
+
 = 1.1.7 =
 * Shortcode Builder: AJAX-Initialisierung gehaertet, damit `su_generator_*`-Actions im Admin/AJAX-Kontext zuverlaessig registriert sind
 * Shortcode Builder: Icon-Picker repariert, Font Awesome wird im Generator-Popup jetzt explizit geladen

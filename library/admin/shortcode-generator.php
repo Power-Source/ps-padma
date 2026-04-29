@@ -207,9 +207,45 @@ class Padma_Shortcode_Generator {
 			wp_die( esc_html__( 'Shortcode nicht gefunden.', 'ps-padma' ) );
 		}
 
+		// Vorhandene Klassen-Presets für diesen Shortcode-Typ laden
+		$user_presets  = $this->get_presets();
+		$sc_presets    = isset( $user_presets[ $sc_key ] ) ? $user_presets[ $sc_key ] : array();
+		$class_presets = array_filter(
+			$sc_presets,
+			function( $k ) { return $k !== 'last_used'; },
+			ARRAY_FILTER_USE_KEY
+		);
+
+		$has_presets    = ! empty( $class_presets );
+		$no_presets_txt = esc_html__( 'Keine Vorlagen gespeichert.', 'ps-padma' );
+
+		$presets_list  = '<b' . ( $has_presets ? ' style="display:none"' : '' ) . '>' . $no_presets_txt . '</b>';
+		foreach ( $class_presets as $pid => $pdata ) {
+			$pname         = is_array( $pdata ) && isset( $pdata['name'] ) ? $pdata['name'] : $pid;
+			$presets_list .= '<span data-id="' . esc_attr( $pid ) . '">'
+				. '<em>' . esc_html( $pname ) . '</em>'
+				. '<i class="fa fa-times"></i>'
+				. '</span>';
+		}
+
+		$presets_btn = '<div class="su-generator-presets" data-shortcode="' . esc_attr( $sc_key ) . '">'
+			. '<a href="javascript:void(0);" class="button button-large su-generator-presets-toggle">'
+			. '<i class="fa fa-bookmark"></i> ' . esc_html__( 'Vorlagen', 'ps-padma' ) . ' <i class="fa fa-caret-down"></i>'
+			. '</a>'
+			. '<div class="su-gp-popup">'
+			. '<div class="su-gp-head">'
+			. '<a href="javascript:void(0);" class="button su-gp-new">'
+			. '<i class="fa fa-plus"></i> ' . esc_html__( 'Aktuelle Einstellungen speichern', 'ps-padma' )
+			. '</a>'
+			. '</div>'
+			. '<div class="su-gp-list">' . $presets_list . '</div>'
+			. '</div>'
+			. '</div>';
+
 		$actions = array(
 			'insert'  => '<a href="javascript:void(0);" class="button button-primary button-large su-generator-insert"><i class="fa fa-check"></i> ' . esc_html__( 'Shortcode einfügen', 'ps-padma' ) . '</a>',
 			'preview' => '<a href="javascript:void(0);" class="button button-large su-generator-toggle-preview"><i class="fa fa-eye"></i> ' . esc_html__( 'Live-Vorschau', 'ps-padma' ) . '</a>',
+			'presets' => $presets_btn,
 		);
 
 		$sc_name = isset( $shortcode['name'] ) ? $shortcode['name'] : $sc_key;

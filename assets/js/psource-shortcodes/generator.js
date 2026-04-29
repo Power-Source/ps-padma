@@ -870,6 +870,15 @@ jQuery(document).ready(function($) {
 			replaced = false;
 		// Save current settings to presets
 		add_preset('last_used', suGeneratorI18n.last_used);
+		// Auto-save als Klassen-Vorlage wenn CSS-Klasse gesetzt ist
+		var $classInput = $('#su-generator-attr-class');
+		if ( $classInput.length ) {
+			var cssClass = $.trim( $classInput.val() );
+			if ( cssClass ) {
+				var safePresetId = cssClass.replace( /[^a-z0-9_\-]/gi, '_' ).toLowerCase();
+				add_preset( safePresetId, cssClass );
+			}
+		}
 		// Close popup
 		$.magnificPopup.close();
 		// Save shortcode to div
