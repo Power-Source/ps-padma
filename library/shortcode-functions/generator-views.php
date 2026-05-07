@@ -60,14 +60,11 @@ class Padma_Generator_Views {
 	}
 
 	/**
-	 * Farb-Picker (using Farbtastic)
+	 * Farb-Picker (wp-color-picker / Iris, mit Theme-Favorit-Farben als Palette)
 	 */
 	public static function color( $id, $field ) {
 		$field = wp_parse_args( $field, array( 'default' => '#000000' ) );
-		return '<span class="su-generator-select-color">'
-			. '<span class="su-generator-select-color-wheel"></span>'
-			. '<input type="text" name="' . esc_attr( $id ) . '" value="' . esc_attr( $field['default'] ) . '" id="su-generator-attr-' . esc_attr( $id ) . '" class="su-generator-attr su-generator-select-color-value" />'
-			. '</span>';
+		return '<input type="text" name="' . esc_attr( $id ) . '" value="' . esc_attr( $field['default'] ) . '" id="su-generator-attr-' . esc_attr( $id ) . '" class="su-generator-attr su-generator-color-picker" />';
 	}
 
 	/**

@@ -23,6 +23,7 @@ class Padma_Shortcode_Generator {
 
 		self::$hooks_registered = true;
 
+		add_action( 'admin_enqueue_scripts',               array( $this, 'maybe_enqueue_color_picker' ) );
 		add_action( 'media_buttons',                       array( $this, 'button' ), 1000 );
 		add_action( 'admin_footer',                        array( $this, 'popup' ) );
 
@@ -64,6 +65,17 @@ class Padma_Shortcode_Generator {
 	}
 
 	// -------------------------------------------------------------------------
+	// wp-color-picker früh einreihen (admin_enqueue_scripts, vor wp_head)
+	// -------------------------------------------------------------------------
+
+	public function maybe_enqueue_color_picker( $hook ) {
+		if ( in_array( $hook, array( 'post.php', 'post-new.php' ), true ) ) {
+			wp_enqueue_style( 'wp-color-picker' );
+			wp_enqueue_script( 'wp-color-picker' );
+		}
+	}
+
+	// -------------------------------------------------------------------------
 	// Asset-Enqueue (nur auf Post-Edit-Seiten)
 	// -------------------------------------------------------------------------
 
@@ -75,10 +87,6 @@ class Padma_Shortcode_Generator {
 		$js_dir = get_template_directory() . '/assets/js/psource-shortcodes/';
 		$tinymce_ver = file_exists( $js_dir . 'tinymce.js' ) ? (string) filemtime( $js_dir . 'tinymce.js' ) : PADMA_VERSION;
 		$generator_ver = file_exists( $js_dir . 'generator.js' ) ? (string) filemtime( $js_dir . 'generator.js' ) : PADMA_VERSION;
-
-		// WordPress-eigene Farb-Picker-Bibliothek
-		wp_enqueue_style( 'farbtastic' );
-		wp_enqueue_script( 'farbtastic' );
 
 		// Medien-Uploader
 		wp_enqueue_media();
@@ -104,7 +112,7 @@ class Padma_Shortcode_Generator {
 		wp_enqueue_script(
 			'su-generator',
 			$js . 'generator.js',
-			array( 'jquery', 'su-magnific-popup', 'su-simpleslider', 'farbtastic' ),
+			array( 'jquery', 'su-magnific-popup', 'su-simpleslider', 'wp-color-picker' ),
 			$generator_ver,
 			true
 		);
@@ -120,6 +128,7 @@ class Padma_Shortcode_Generator {
 			'last_used'           => __( 'Zuletzt verwendet', 'ps-padma' ),
 			'presets_prompt_msg'  => __( 'Name fuer diese Vorlage eingeben:', 'ps-padma' ),
 			'presets_prompt_value'=> __( 'Meine Vorlage', 'ps-padma' ),
+			'colorSwatches'       => array_values( (array) PadmaSkinOption::get( 'colorpicker-swatches', false, array() ) ),
 		) );
 	}
 

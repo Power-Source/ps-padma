@@ -446,16 +446,14 @@ jQuery(document).ready(function($) {
 						$val.simpleSlider('setValue', $val.val());
 					});
 				});
-				// Init color pickers
-				$('.su-generator-select-color').each(function(index) {
-					$(this).find('.su-generator-select-color-wheel').filter(':first').farbtastic('.su-generator-select-color-value:eq(' + index + ')');
-					$(this).find('.su-generator-select-color-value').focus(function() {
-						$('.su-generator-select-color-wheel:eq(' + index + ')').show();
-					});
-					$(this).find('.su-generator-select-color-value').blur(function() {
-						$('.su-generator-select-color-wheel:eq(' + index + ')').hide();
-					});
-				});
+				// Init color pickers (wp-color-picker / Iris, mit Theme-Favorit-Farben)
+				var suColorSwatches = (typeof su_generator !== "undefined" && su_generator.colorSwatches) ? su_generator.colorSwatches : null;
+				var colorPalette = (suColorSwatches && suColorSwatches.length) ? suColorSwatches : true;
+				if (typeof $.fn.wpColorPicker === 'function') {
+					$('.su-generator-color-picker').wpColorPicker({ palettes: colorPalette });
+				} else {
+					$('.su-generator-color-picker').attr('type', 'color');
+				}
 				// Init image sourse pickers
 				$('.su-generator-isp').each(function() {
 					var $picker = $(this),
@@ -750,13 +748,17 @@ jQuery(document).ready(function($) {
 						},
 						$val = $picker.find('.su-generator-attr');
 					// Init color picker
-					$color.wheel.farbtastic($color.value);
-					$color.value.focus(function() {
-						$color.wheel.show();
-					});
-					$color.value.blur(function() {
-						$color.wheel.hide();
-					});
+					if (typeof $.fn.wpColorPicker === 'function') {
+						$color.value.wpColorPicker({
+							palettes: colorPalette,
+							change: function(event, ui) {
+								$color.value.val(ui.color.toString());
+								$fields.trigger('change');
+							}
+						});
+					} else {
+						$color.value.attr('type', 'color');
+					}
 					// Handle text fields
 					$fields.on('change blur keyup', function() {
 						$val.val($hoff.val() + 'px ' + $voff.val() + 'px ' + $blur.val() + 'px ' + $color.value.val()).trigger('change');
@@ -786,13 +788,17 @@ jQuery(document).ready(function($) {
 						},
 						$val = $picker.find('.su-generator-attr');
 					// Init color picker
-					$color.wheel.farbtastic($color.value);
-					$color.value.focus(function() {
-						$color.wheel.show();
-					});
-					$color.value.blur(function() {
-						$color.wheel.hide();
-					});
+					if (typeof $.fn.wpColorPicker === 'function') {
+						$color.value.wpColorPicker({
+							palettes: colorPalette,
+							change: function(event, ui) {
+								$color.value.val(ui.color.toString());
+								$fields.trigger('change');
+							}
+						});
+					} else {
+						$color.value.attr('type', 'color');
+					}
 					// Handle text fields
 					$fields.on('change blur keyup', function() {
 						$val.val($width.val() + 'px ' + $style.val() + ' ' + $color.value.val()).trigger('change');

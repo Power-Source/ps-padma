@@ -61,19 +61,9 @@ jQuery(document).ready(function ($) {
 
 	// ########## Color picker ##########
 
-	$('.sunrise-color-picker').each(function (i) {
-		$(this).find('.sunrise-color-picker-wheel').filter(':first').farbtastic('.sunrise-color-picker-value:eq(' +
-			i + ')');
-		$(this).find('.sunrise-color-picker-value').focus(function () {
-			$('.sunrise-color-picker-wheel:eq(' + i + ')').show();
-		});
-		$(this).find('.sunrise-color-picker-value').blur(function () {
-			$('.sunrise-color-picker-wheel:eq(' + i + ')').hide();
-		});
-		$(this).find('.sunrise-color-picker-button').click(function (e) {
-			$('.sunrise-color-picker-value:eq(' + i + ')').focus();
-			e.preventDefault();
-		});
+	$('.sunrise-color-picker-value').wpColorPicker({
+		palettes: (typeof Padma !== 'undefined' && Padma.colorpickerSwatches && Padma.colorpickerSwatches.length)
+			? Padma.colorpickerSwatches : true
 	});
 
 	// ########## Media manager ##########

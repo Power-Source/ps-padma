@@ -115,21 +115,6 @@ h3.sunrise-no-js-tab {
 ***********************************/
 
 .sunrise-color-picker { position: relative; }
-.sunrise-color-picker-wheel {
-	position: absolute;
-	top: 100%;
-	left: 0;
-	z-index: 9999;
-	display: none;
-	border: 1px solid #aaa;
-	background: #fff;
-	-webkit-box-shadow: 0 2px 5px #ccc;
-	-moz-box-shadow: 0 2px 5px #ccc;
-	box-shadow: 0 2px 5px #ccc;
-	-webkit-border-radius: 50%;
-	-moz-border-radius: 50%;
-	border-radius: 50%;
-}
 .sunrise-color-picker .button img {
 	vertical-align: middle;
 	margin: -3px 4px 0 -4px;

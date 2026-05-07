@@ -3,7 +3,7 @@ Contributors: PSOURCE
 Requires at least: 5.0
 Tested up to: WordPress 8.6 
 ClassicPress: 2.7.0
-Version: 1.1.7
+Version: 1.1.9
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -59,6 +59,11 @@ Hier entlang: https://power-source.github.io/ps-padma/
 Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 
 == Changelog ==
+
+= 1.1.9 =
+* Shortcode Builder: Veralteter Farbtastic-Colorpicker entfernt und durch WordPress-nativen wp-color-picker (Iris) ersetzt — Favorit-Farben aus dem Theme-Editor sind jetzt auch im Shortcode Builder verfügbar
+* Shortcode Builder: wp-color-picker wird jetzt korrekt über `admin_enqueue_scripts` (vor wp_head) statt spät über den media_buttons-Hook eingereiht, um Popup-Öffnungs-Fehler zu vermeiden
+* Shortcode Builder: Defensive Absicherung der `su_generator.colorSwatches`-Referenz im AJAX-Callback mit `typeof`-Guard
 
 = 1.1.8 =
 * Shortcode Builder: Presets-Dropdown im Generator aktiviert, damit gespeicherte Vorlagen pro Shortcode-Typ direkt im Builder auswählbar und löschbar sind
