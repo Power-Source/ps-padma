@@ -35,6 +35,7 @@ class Padma_Shortcode_Generator {
 		add_action( 'wp_ajax_su_generator_get_preset',     array( $this, 'ajax_get_preset' ) );
 		add_action( 'wp_ajax_su_generator_add_preset',     array( $this, 'ajax_add_preset' ) );
 		add_action( 'wp_ajax_su_generator_remove_preset',  array( $this, 'ajax_remove_preset' ) );
+		add_action( 'wp_ajax_su_save_swatches',            array( $this, 'ajax_save_swatches' ) );
 	}
 
 	// -------------------------------------------------------------------------
@@ -65,12 +66,24 @@ class Padma_Shortcode_Generator {
 	}
 
 	// -------------------------------------------------------------------------
-	// wp-color-picker früh einreihen (admin_enqueue_scripts, vor wp_head)
+	// Padma-nativen Colorpicker früh einreihen (admin_enqueue_scripts, vor wp_head)
 	// -------------------------------------------------------------------------
 
 	public function maybe_enqueue_color_picker() {
-		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_script( 'wp-color-picker' );
+		$base = get_template_directory_uri();
+		wp_enqueue_style(
+			'padma-colorpicker',
+			$base . '/assets/css/psource-shortcodes/padma-colorpicker.css',
+			array(),
+			PADMA_VERSION
+		);
+		wp_enqueue_script(
+			'padma-colorpicker',
+			$base . '/library/visual-editor/scripts-src/deps/colorpicker.js',
+			array( 'jquery' ),
+			PADMA_VERSION,
+			true
+		);
 	}
 
 	// -------------------------------------------------------------------------
@@ -86,9 +99,9 @@ class Padma_Shortcode_Generator {
 		$tinymce_ver = file_exists( $js_dir . 'tinymce.js' ) ? (string) filemtime( $js_dir . 'tinymce.js' ) : PADMA_VERSION;
 		$generator_ver = file_exists( $js_dir . 'generator.js' ) ? (string) filemtime( $js_dir . 'generator.js' ) : PADMA_VERSION;
 
-		// WordPress-eigener Farb-Picker (wp-color-picker / Iris) — explizit einreihen wie farbtastic davor
-		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_script( 'wp-color-picker' );
+		// Padma-nativer Colorpicker (CSS3 ColorPicker / $.colorpicker()) — explizit einreihen
+		wp_enqueue_style( 'padma-colorpicker' );
+		wp_enqueue_script( 'padma-colorpicker' );
 
 		// Medien-Uploader
 		wp_enqueue_media();
@@ -581,6 +594,25 @@ class Padma_Shortcode_Generator {
 		}
 
 		return $sanitized;
+	}
+
+	// -------------------------------------------------------------------------
+	// AJAX: Farbpaletten-Swatches speichern (Padma-nativer Colorpicker)
+	// -------------------------------------------------------------------------
+
+	public function ajax_save_swatches() {
+		check_ajax_referer( 'padma_generator_nonce', 'nonce' );
+
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			wp_send_json_error( array( 'message' => 'Unauthorized' ) );
+		}
+
+		$swatches = isset( $_POST['swatches'] ) ? (array) $_POST['swatches'] : array();
+		$swatches = array_values( array_map( 'sanitize_text_field', $swatches ) );
+
+		PadmaSkinOption::set( 'colorpicker-swatches', $swatches, 'general' );
+
+		wp_send_json_success( array( 'swatches' => $swatches ) );
 	}
 
 }
