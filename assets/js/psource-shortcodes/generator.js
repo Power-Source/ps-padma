@@ -473,8 +473,8 @@ jQuery(document).ready(function($) {
 						swatches: suColorSwatches.length ? suColorSwatches : true,
 						color: $input.val() || '',
 						showAnim: false,
-						onSelect: onChange ? function(color) { onChange(color); } : undefined,
-						onClose: onChange ? function(color) { onChange(color); } : undefined,
+						onSelect: onChange ? function(color) { onChange(color ? color.hexa : ''); } : undefined,
+						onClose: onChange ? function(color) { onChange(color ? color.hexa : ''); } : undefined,
 						onAddSwatch: function(color, swatches) { suColorSwatches = swatches; savePadmaSwatches(swatches); },
 						onDeleteSwatch: function(color, swatches) { suColorSwatches = swatches; savePadmaSwatches(swatches); }
 					});
