@@ -3,7 +3,7 @@ Contributors: PSOURCE
 Requires at least: 5.0
 Tested up to: WordPress 8.6 
 ClassicPress: 2.7.0
-Version: 2.0.0
+Version: 1.1.8
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -60,18 +60,11 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 
 == Changelog ==
 
-= 2.0.0 =
-* Shortcode Builder: wp-color-picker (Iris) durch den Padma-nativen CSS3 ColorPicker (`$.colorpicker()`) ersetzt — Favorit-Farben aus dem Visual Editor sind jetzt auch im Shortcode Builder direkt sichtbar und nutzbar
-* Shortcode Builder: Neue AJAX-Action `su_save_swatches` — Farb-Swatches die im Shortcode Builder hinzugefügt oder gelöscht werden, werden sofort gespeichert und stehen auch im Visual Editor zur Verfügung (gemeinsame Palette)
-* Shortcode Builder: Padma-Colorpicker CSS (`padma-colorpicker.css`) als standalone Stylesheet aus dem Visual Editor extrahiert und korrekt eingebunden
-
-= 1.1.9 =
-* Shortcode Builder: Veralteter Farbtastic-Colorpicker entfernt und durch WordPress-nativen wp-color-picker (Iris) ersetzt — Favorit-Farben aus dem Theme-Editor sind jetzt auch im Shortcode Builder verfügbar
-* Shortcode Builder: wp-color-picker wird explizit in enqueue_assets() eingereiht (analog zu Farbtastic) und NICHT als harte Abhängigkeit in den su-generator-Deps deklariert — verhindert Popup-Öffnungsfehler durch die jQuery-UI-Kette (iris/draggable/slider)
-* Shortcode Builder: maybe_enqueue_color_picker läuft seitenunabhängig auf admin_enqueue_scripts (kein Hook-Filter mehr)
-* Shortcode Builder: Defensive Absicherung der `su_generator.colorSwatches`-Referenz im AJAX-Callback mit `typeof`-Guard
-
 = 1.1.8 =
+* Shortcode Builder: Farbtastic-Colorpicker entfernt und durch Padma-nativen CSS3 ColorPicker (`$.colorpicker()`) ersetzt — Favorit-Farben aus dem Visual Editor sind jetzt auch im Shortcode Builder sichtbar und nutzbar
+* Shortcode Builder: Neue AJAX-Action `su_save_swatches` — Swatches die im Shortcode Builder gesetzt werden sind sofort auch im Visual Editor verfügbar (gemeinsame Palette)
+* Shortcode Builder: Padma-Colorpicker CSS (`padma-colorpicker.css`) als standalone Stylesheet extrahiert und eingebunden
+* Shortcode Builder: Popup-Öffnungsfehler durch jQuery-UI-Kette (iris/draggable/slider) behoben
 * Shortcode Builder: Presets-Dropdown im Generator aktiviert, damit gespeicherte Vorlagen pro Shortcode-Typ direkt im Builder auswählbar und löschbar sind
 * Shortcode Builder: Einstellungen mit gesetzter zusätzlicher CSS-Klasse werden beim Einfügen jetzt automatisch als Klassen-Preset gespeichert
 * Shortcode Builder: Preset-Button und Dropdown im Generator visuell überarbeitet, mit sauberer Action-Leiste, Card-Dropdown, besserem Leerzustand und lesbareren Preset-Einträgen
