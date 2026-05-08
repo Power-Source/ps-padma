@@ -68,11 +68,9 @@ class Padma_Shortcode_Generator {
 	// wp-color-picker früh einreihen (admin_enqueue_scripts, vor wp_head)
 	// -------------------------------------------------------------------------
 
-	public function maybe_enqueue_color_picker( $hook ) {
-		if ( in_array( $hook, array( 'post.php', 'post-new.php' ), true ) ) {
-			wp_enqueue_style( 'wp-color-picker' );
-			wp_enqueue_script( 'wp-color-picker' );
-		}
+	public function maybe_enqueue_color_picker() {
+		wp_enqueue_style( 'wp-color-picker' );
+		wp_enqueue_script( 'wp-color-picker' );
 	}
 
 	// -------------------------------------------------------------------------
@@ -87,6 +85,10 @@ class Padma_Shortcode_Generator {
 		$js_dir = get_template_directory() . '/assets/js/psource-shortcodes/';
 		$tinymce_ver = file_exists( $js_dir . 'tinymce.js' ) ? (string) filemtime( $js_dir . 'tinymce.js' ) : PADMA_VERSION;
 		$generator_ver = file_exists( $js_dir . 'generator.js' ) ? (string) filemtime( $js_dir . 'generator.js' ) : PADMA_VERSION;
+
+		// WordPress-eigener Farb-Picker (wp-color-picker / Iris) — explizit einreihen wie farbtastic davor
+		wp_enqueue_style( 'wp-color-picker' );
+		wp_enqueue_script( 'wp-color-picker' );
 
 		// Medien-Uploader
 		wp_enqueue_media();
@@ -112,7 +114,7 @@ class Padma_Shortcode_Generator {
 		wp_enqueue_script(
 			'su-generator',
 			$js . 'generator.js',
-			array( 'jquery', 'su-magnific-popup', 'su-simpleslider', 'wp-color-picker' ),
+			array( 'jquery', 'su-magnific-popup', 'su-simpleslider' ),
 			$generator_ver,
 			true
 		);

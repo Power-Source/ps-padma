@@ -62,7 +62,8 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 
 = 1.1.9 =
 * Shortcode Builder: Veralteter Farbtastic-Colorpicker entfernt und durch WordPress-nativen wp-color-picker (Iris) ersetzt — Favorit-Farben aus dem Theme-Editor sind jetzt auch im Shortcode Builder verfügbar
-* Shortcode Builder: wp-color-picker wird jetzt korrekt über `admin_enqueue_scripts` (vor wp_head) statt spät über den media_buttons-Hook eingereiht, um Popup-Öffnungs-Fehler zu vermeiden
+* Shortcode Builder: wp-color-picker wird explizit in enqueue_assets() eingereiht (analog zu Farbtastic) und NICHT als harte Abhängigkeit in den su-generator-Deps deklariert — verhindert Popup-Öffnungsfehler durch die jQuery-UI-Kette (iris/draggable/slider)
+* Shortcode Builder: maybe_enqueue_color_picker läuft seitenunabhängig auf admin_enqueue_scripts (kein Hook-Filter mehr)
 * Shortcode Builder: Defensive Absicherung der `su_generator.colorSwatches`-Referenz im AJAX-Callback mit `typeof`-Guard
 
 = 1.1.8 =
