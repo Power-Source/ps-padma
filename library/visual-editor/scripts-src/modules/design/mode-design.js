@@ -826,7 +826,10 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 
 					/* Remove buttons */
 						link.children('.element-name').find('.element-name-button').each(function() {
-							$(this).qtip('api').destroy(true);
+							var tooltipApi = $(this).qtip('api');
+
+							if ( tooltipApi && typeof tooltipApi.destroy === 'function' )
+								tooltipApi.destroy(true);
 							$(this).remove();
 						});
 
@@ -1115,7 +1118,8 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 					});
 
 					/* Focus the iframe to allow immediate nudging control */
-					Padma.iframe.focus();
+					if ( Padma.iframe && typeof Padma.iframe.focus === 'function' )
+						Padma.iframe.focus();
 
 				});
 
@@ -2613,24 +2617,66 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 		/* END INSPECTOR BOX MODAL HIGHLIGHTING */
 
 		/* INSPECTOR TOOLTIP */
+			isGenericShortcodeInspectorOption = function(inspectorOptions) {
+
+				if ( typeof inspectorOptions !== 'object' || !inspectorOptions.id )
+					return false;
+
+				return (
+					inspectorOptions.id === 'block-content-entry-content-shortcodes' ||
+					inspectorOptions.id === 'block-content-entry-content-shortcodes-text' ||
+					inspectorOptions.id === 'block-content-entry-content-shortcodes-links' ||
+					inspectorOptions.id === 'block-content-entry-content-shortcodes-images'
+				);
+
+			}
+
+			findPreferredInspectorElement = function(targetElement) {
+
+				var $target = $(targetElement);
+
+				if ( !$target.hasClass('inspector-element') )
+					$target = $target.parents('.inspector-element').first();
+
+				if ( !$target.length )
+					return $target;
+
+				var targetOptions = $target.data('inspectorElementOptions');
+
+				if ( !isGenericShortcodeInspectorOption(targetOptions) )
+					return $target;
+
+				var $preferred = null;
+
+				$target.parents('.inspector-element').each(function() {
+
+					var parentOptions = $(this).data('inspectorElementOptions');
+
+					if ( typeof parentOptions !== 'object' || !parentOptions.id )
+						return;
+
+					if ( parentOptions.id.indexOf('block-content-entry-content-shortcodes-') === 0 && !isGenericShortcodeInspectorOption(parentOptions) ) {
+						$preferred = $(this);
+						return false;
+					}
+
+				});
+
+				return $preferred && $preferred.length ? $preferred : $target;
+
+			}
+
 			inspectorMouseMove = function(event) {
 
 				if ( Padma.inspectorDisabled )
 					return;
 
-				var targetInspectorElement = $(event.target);
-
-				
-				if ( !targetInspectorElement.hasClass('inspector-element') )
-					targetInspectorElement = targetInspectorElement.parents('.inspector-element').first();
+				var targetInspectorElement = findPreferredInspectorElement(event.target);
 
 				/* Only change tooltip content if the hovered element isn't the existing inspector element */
 				if (typeof inspectorElement == 'undefined' || !targetInspectorElement.is(inspectorElement) ) {
 
-					inspectorElement = $(event.target);					
-
-					if ( !inspectorElement.hasClass('inspector-element') )
-						inspectorElement = inspectorElement.parents('.inspector-element').first();
+					inspectorElement = findPreferredInspectorElement(event.target);
 
 					var inspectorElementOptions = inspectorElement.data('inspectorElementOptions');
 

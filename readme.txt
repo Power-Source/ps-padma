@@ -60,6 +60,11 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 
 == Changelog ==
 
+= 1.1.9 =
+* Fix: Optionsfilter wird im VE wieder angezeigt
+* Fix: VE-Inspector priorisiert bei verschachtelten Shortcodes wieder die typisierten Shortcode-Elemente statt pauschal "Shortcode Container (All)"
+
+
 = 1.1.8 =
 * Shortcode Builder: Farbtastic-Colorpicker entfernt und durch Padma-nativen CSS3 ColorPicker (`$.colorpicker()`) ersetzt — Favorit-Farben aus dem Visual Editor sind jetzt auch im Shortcode Builder sichtbar und nutzbar
 * Shortcode Builder: Neue AJAX-Action `su_save_swatches` — Swatches die im Shortcode Builder gesetzt werden sind sofort auch im Visual Editor verfügbar (gemeinsame Palette)

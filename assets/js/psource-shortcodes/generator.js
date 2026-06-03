@@ -1035,10 +1035,47 @@ jQuery(document).ready(function($) {
 	/**
 	 * Create new preset with specified name from current settings
 	 */
+	function normalize_class_token(value) {
+		return (value || '')
+			.toString()
+			.toLowerCase()
+			.replace(/[^a-z0-9_\-]/g, '-')
+			.replace(/-+/g, '-')
+			.replace(/^-|-$/g, '');
+	}
+
+	function ensure_unique_preset_class(shortcode, id, settings) {
+		var currentClass = $.trim(settings.class || ''),
+			tokens = currentClass ? currentClass.split(/\s+/) : [],
+			baseClass = normalize_class_token('su-preset-' + shortcode + '-' + id),
+			uniqueClass = baseClass || 'su-preset-' + new Date().getTime().toString(36),
+			exists = false;
+
+		for (var i = 0; i < tokens.length; i++) {
+			if (normalize_class_token(tokens[i]) === uniqueClass) {
+				exists = true;
+				break;
+			}
+		}
+
+		if (!exists) tokens.push(uniqueClass);
+		settings.class = $.trim(tokens.join(' '));
+
+		if ($('#su-generator-attr-class').length) {
+			$('#su-generator-attr-class').val(settings.class);
+		}
+
+		return settings;
+	}
+
 	function add_preset(id, name) {
 			// Prepare shortcode name and current settings
 			var shortcode = $('.su-generator-presets').data('shortcode'),
 				settings = get();
+
+			if (id !== 'last_used') {
+				settings = ensure_unique_preset_class(shortcode, id, settings);
+			}
 			// Perform AJAX request
 			$.ajax({
 				type: 'POST',

@@ -35,6 +35,9 @@ class PadmaContentBlock extends PadmaBlockAPI {
 		/* Add .comment class to all pingbacks */
 		add_filter('comment_class', array(__CLASS__, 'add_comment_class_to_all_types'));
 
+		/* Register VE instances for shortcode preset classes */
+		add_action('padma_register_elements_instances', array(__CLASS__, 'register_shortcode_preset_instances'), 20);
+
 	}
 
 
@@ -79,6 +82,182 @@ class PadmaContentBlock extends PadmaBlockAPI {
 		));
 
 		return $css . ',' . PadmaCompiler::get_url('editor-style');
+
+	}
+
+	private static function get_shortcode_type_bucket($shortcode_key) {
+
+		$shortcode_key = sanitize_key($shortcode_key);
+
+		if ( in_array($shortcode_key, array('row', 'column'), true) )
+			return 'layout';
+
+		if ( in_array($shortcode_key, array('tabs', 'accordion', 'spoiler', 'lightbox', 'members', 'guests', 'expand', 'service', 'menu', 'document', 'gmap', 'table', 'qrcode', 'scheduler'), true) )
+			return 'interactive';
+
+		if ( class_exists('Padma_Generator_Data') ) {
+			$shortcode = Padma_Generator_Data::shortcodes($shortcode_key);
+
+			if ( is_array($shortcode) ) {
+				$group = padma_get('group', $shortcode);
+
+				if ( $group === 'media' )
+					return 'media';
+
+				if ( $group === 'gallery' )
+					return 'gallery';
+			}
+		}
+
+		return 'typography';
+
+	}
+
+	private static function append_class_to_selector_list($selector_list, $class_name) {
+
+		$selectors = explode(',', (string)$selector_list);
+
+		foreach ( $selectors as $index => $selector ) {
+
+			$selector = trim((string)$selector);
+
+			if ( $selector === '' ) {
+				$selectors[$index] = '';
+				continue;
+			}
+
+			$selectors[$index] = $selector . '.' . $class_name;
+
+		}
+
+		return implode(', ', array_filter($selectors));
+
+	}
+
+	public static function register_shortcode_preset_instances() {
+
+		if ( !class_exists('PadmaElementAPI') || !class_exists('PadmaBlocksData') )
+			return;
+
+		$current_user_id = get_current_user_id();
+
+		if ( !$current_user_id )
+			return;
+
+		$presets = get_user_meta($current_user_id, 'padma_su_generator_presets', true);
+
+		if ( !is_array($presets) || empty($presets) )
+			return;
+
+		$preset_buckets = array();
+
+		foreach ( $presets as $shortcode_key => $shortcode_presets ) {
+
+			if ( !is_array($shortcode_presets) )
+				continue;
+
+			$type_bucket = self::get_shortcode_type_bucket($shortcode_key);
+
+			foreach ( $shortcode_presets as $preset_id => $preset_data ) {
+
+				if ( $preset_id === 'last_used' )
+					continue;
+
+				if ( !is_array($preset_data) )
+					continue;
+
+				$settings = padma_get('settings', $preset_data, array());
+
+				if ( !is_array($settings) )
+					continue;
+
+				$raw_class = trim((string)padma_get('class', $settings, ''));
+
+				if ( $raw_class === '' )
+					continue;
+
+				$class_tokens = preg_split('/\s+/', $raw_class);
+				$class_name = sanitize_html_class(padma_get(0, $class_tokens, ''));
+
+				if ( !$class_name )
+					continue;
+
+				$bucket_key = $type_bucket . '|' . $class_name;
+				$preset_name = trim((string)padma_get('name', $preset_data, $class_name));
+
+				if ( !isset($preset_buckets[$bucket_key]) ) {
+					$preset_buckets[$bucket_key] = array(
+						'type' => $type_bucket,
+						'class' => $class_name,
+						'name' => $preset_name,
+					);
+				}
+
+			}
+
+		}
+
+		if ( empty($preset_buckets) )
+			return;
+
+		$blocks = PadmaBlocksData::get_blocks_by_type('content');
+
+		if ( !is_array($blocks) || empty($blocks) )
+			return;
+
+		foreach ( $blocks as $block ) {
+
+			if ( PadmaWrappersData::is_wrapper_mirrored(PadmaWrappersData::get_wrapper(padma_get('wrapper_id', $block))) )
+				continue;
+
+			if ( PadmaBlocksData::is_block_mirrored($block) )
+				continue;
+
+			$default_name = 'Content (Unnamed)';
+			$block_name = padma_get('alias', padma_get('settings', $block, array()), $default_name);
+			$block_id_for_selector = PadmaBlocksData::get_legacy_id($block);
+
+			foreach ( $preset_buckets as $bucket ) {
+
+				$type = $bucket['type'];
+				$class_name = $bucket['class'];
+				$preset_name = $bucket['name'] !== '' ? $bucket['name'] : $class_name;
+
+				$element_ids = array(
+					'block-content-entry-content-shortcodes-' . $type,
+					'block-content-entry-content-shortcodes-' . $type . '-text',
+					'block-content-entry-content-shortcodes-' . $type . '-links',
+					'block-content-entry-content-shortcodes-' . $type . '-images',
+				);
+
+				foreach ( $element_ids as $element_id ) {
+
+					$element = PadmaElementAPI::get_element($element_id);
+
+					if ( !is_array($element) || empty($element['selector']) )
+						continue;
+
+					$base_selector = str_replace('.block-type-content', '#block-' . $block_id_for_selector, $element['selector']);
+					$instance_selector = self::append_class_to_selector_list($base_selector, $class_name);
+
+					if ( $instance_selector === '' )
+						continue;
+
+					PadmaElementAPI::register_element_instance(array(
+						'group' => 'blocks',
+						'element' => $element_id,
+						'id' => $element_id . '-block-' . $block['id'] . '-preset-' . $type . '-' . $class_name,
+						'name' => $block_name . ' &ndash; ' . padma_get('name', $element) . ' [' . $preset_name . ']',
+						'selector' => $instance_selector,
+						'layout' => $block['layout'],
+						'tooltip' => __('Styles only this shortcode preset class.', 'padma'),
+					));
+
+				}
+
+			}
+
+		}
 
 	}
 
@@ -251,7 +430,7 @@ class PadmaContentBlock extends PadmaBlockAPI {
 
 			$this->register_block_element(array(
 				'id' => 'entry-content-shortcodes',
-				'name' => __('Shortcode Container','padma'),
+				'name' => __('Shortcode Container (All)','padma'),
 				'description' => __('Common wrapper elements generated by shortcodes inside entry content.','padma'),
 				'selector' => 'div.entry-content [class^="su-"], div.entry-content [class*=" su-"], div.entry-content [class^="mp_"], div.entry-content [class*=" mp_"], div.entry-content .powerform-form, div.entry-content [class^="cpc-"], div.entry-content [class*=" cpc-"], div.entry-content .e-newsletter-widget',
 				'properties' => array('background', 'borders', 'padding', 'corners', 'box-shadow', 'animation', 'filter')
@@ -260,7 +439,7 @@ class PadmaContentBlock extends PadmaBlockAPI {
 			$this->register_block_element(array(
 				'id' => 'entry-content-shortcodes-text',
 				'parent' => 'entry-content-shortcodes',
-				'name' => __('Shortcode Text','padma'),
+				'name' => __('Shortcode Text (All)','padma'),
 				'selector' => 'div.entry-content [class^="su-"] p, div.entry-content [class*=" su-"] p, div.entry-content [class^="mp_"] p, div.entry-content [class*=" mp_"] p, div.entry-content .powerform-form p, div.entry-content [class^="cpc-"] p, div.entry-content [class*=" cpc-"] p, div.entry-content .e-newsletter-widget p'
 			));
 
@@ -278,8 +457,154 @@ class PadmaContentBlock extends PadmaBlockAPI {
 			$this->register_block_element(array(
 				'id' => 'entry-content-shortcodes-images',
 				'parent' => 'entry-content-shortcodes',
-				'name' => __('Shortcode Images','padma'),
+				'name' => __('Shortcode Images (All)','padma'),
 				'selector' => 'div.entry-content [class^="su-"] img, div.entry-content [class*=" su-"] img, div.entry-content [class^="mp_"] img, div.entry-content [class*=" mp_"] img, div.entry-content .powerform-form img, div.entry-content [class^="cpc-"] img, div.entry-content [class*=" cpc-"] img, div.entry-content .e-newsletter-widget img',
+				'properties' => array('background', 'borders', 'padding', 'corners', 'box-shadow', 'animation', 'sizes', 'filter')
+			));
+
+			/* Typed shortcode selectors for independent styling per shortcode family */
+			$this->register_block_element(array(
+				'id' => 'entry-content-shortcodes-typography',
+				'parent' => 'entry-content-shortcodes',
+				'name' => __('Text Shortcode Container','padma'),
+				'selector' => 'div.entry-content .su-heading, div.entry-content .su-divider, div.entry-content .su-spacer, div.entry-content .su-highlight, div.entry-content .su-label, div.entry-content .su-note, div.entry-content .su-dropcap, div.entry-content .su-frame, div.entry-content .su-pullquote, div.entry-content .su-list, div.entry-content .su-private, div.entry-content .su-hero, div.entry-content .su-box, div.entry-content .su-quote, div.entry-content .su-button'
+			));
+
+			$this->register_block_element(array(
+				'id' => 'entry-content-shortcodes-typography-text',
+				'parent' => 'entry-content-shortcodes-typography',
+				'name' => __('Text Shortcode Text','padma'),
+				'selector' => 'div.entry-content .su-heading p, div.entry-content .su-note p, div.entry-content .su-list p, div.entry-content .su-private p, div.entry-content .su-hero p, div.entry-content .su-box p, div.entry-content .su-quote p, div.entry-content .su-button span'
+			));
+
+			$this->register_block_element(array(
+				'id' => 'entry-content-shortcodes-typography-links',
+				'parent' => 'entry-content-shortcodes-typography',
+				'name' => __('Text Shortcode Links','padma'),
+				'selector' => 'div.entry-content .su-heading a, div.entry-content .su-note a, div.entry-content .su-list a, div.entry-content .su-private a, div.entry-content .su-hero a, div.entry-content .su-box a, div.entry-content .su-quote a, div.entry-content .su-button a'
+			));
+
+			$this->register_block_element(array(
+				'id' => 'entry-content-shortcodes-typography-images',
+				'parent' => 'entry-content-shortcodes-typography',
+				'name' => __('Text Shortcode Images','padma'),
+				'selector' => 'div.entry-content .su-heading img, div.entry-content .su-note img, div.entry-content .su-list img, div.entry-content .su-private img, div.entry-content .su-hero img, div.entry-content .su-box img, div.entry-content .su-quote img, div.entry-content .su-button img',
+				'properties' => array('background', 'borders', 'padding', 'corners', 'box-shadow', 'animation', 'sizes', 'filter')
+			));
+
+			$this->register_block_element(array(
+				'id' => 'entry-content-shortcodes-gallery',
+				'parent' => 'entry-content-shortcodes',
+				'name' => __('Slider Shortcode Container','padma'),
+				'selector' => 'div.entry-content .su-slider, div.entry-content .su-carousel, div.entry-content .su-custom-gallery'
+			));
+
+			$this->register_block_element(array(
+				'id' => 'entry-content-shortcodes-gallery-text',
+				'parent' => 'entry-content-shortcodes-gallery',
+				'name' => __('Slider Shortcode Text','padma'),
+				'selector' => 'div.entry-content .su-slider p, div.entry-content .su-carousel p, div.entry-content .su-custom-gallery p'
+			));
+
+			$this->register_block_element(array(
+				'id' => 'entry-content-shortcodes-gallery-links',
+				'parent' => 'entry-content-shortcodes-gallery',
+				'name' => __('Slider Shortcode Links','padma'),
+				'selector' => 'div.entry-content .su-slider a, div.entry-content .su-carousel a, div.entry-content .su-custom-gallery a'
+			));
+
+			$this->register_block_element(array(
+				'id' => 'entry-content-shortcodes-gallery-images',
+				'parent' => 'entry-content-shortcodes-gallery',
+				'name' => __('Slider Shortcode Images','padma'),
+				'selector' => 'div.entry-content .su-slider img, div.entry-content .su-carousel img, div.entry-content .su-custom-gallery img',
+				'properties' => array('background', 'borders', 'padding', 'corners', 'box-shadow', 'animation', 'sizes', 'filter')
+			));
+
+			$this->register_block_element(array(
+				'id' => 'entry-content-shortcodes-media',
+				'parent' => 'entry-content-shortcodes',
+				'name' => __('Media Shortcode Container','padma'),
+				'selector' => 'div.entry-content .su-youtube, div.entry-content .su-vimeo, div.entry-content .su-audio, div.entry-content .su-video, div.entry-content .su-dailymotion, div.entry-content .su-screenr, div.entry-content .su-document, div.entry-content .su-gmap'
+			));
+
+			$this->register_block_element(array(
+				'id' => 'entry-content-shortcodes-media-text',
+				'parent' => 'entry-content-shortcodes-media',
+				'name' => __('Media Shortcode Text','padma'),
+				'selector' => 'div.entry-content .su-youtube p, div.entry-content .su-vimeo p, div.entry-content .su-audio p, div.entry-content .su-video p, div.entry-content .su-dailymotion p, div.entry-content .su-screenr p, div.entry-content .su-document p, div.entry-content .su-gmap p'
+			));
+
+			$this->register_block_element(array(
+				'id' => 'entry-content-shortcodes-media-links',
+				'parent' => 'entry-content-shortcodes-media',
+				'name' => __('Media Shortcode Links','padma'),
+				'selector' => 'div.entry-content .su-youtube a, div.entry-content .su-vimeo a, div.entry-content .su-audio a, div.entry-content .su-video a, div.entry-content .su-dailymotion a, div.entry-content .su-screenr a, div.entry-content .su-document a, div.entry-content .su-gmap a'
+			));
+
+			$this->register_block_element(array(
+				'id' => 'entry-content-shortcodes-media-images',
+				'parent' => 'entry-content-shortcodes-media',
+				'name' => __('Media Shortcode Images','padma'),
+				'selector' => 'div.entry-content .su-youtube img, div.entry-content .su-vimeo img, div.entry-content .su-audio img, div.entry-content .su-video img, div.entry-content .su-dailymotion img, div.entry-content .su-screenr img, div.entry-content .su-document img, div.entry-content .su-gmap img',
+				'properties' => array('background', 'borders', 'padding', 'corners', 'box-shadow', 'animation', 'sizes', 'filter')
+			));
+
+			$this->register_block_element(array(
+				'id' => 'entry-content-shortcodes-layout',
+				'parent' => 'entry-content-shortcodes',
+				'name' => __('Layout Shortcode Container','padma'),
+				'selector' => 'div.entry-content .su-row, div.entry-content .su-column'
+			));
+
+			$this->register_block_element(array(
+				'id' => 'entry-content-shortcodes-layout-text',
+				'parent' => 'entry-content-shortcodes-layout',
+				'name' => __('Layout Shortcode Text','padma'),
+				'selector' => 'div.entry-content .su-row p, div.entry-content .su-column p'
+			));
+
+			$this->register_block_element(array(
+				'id' => 'entry-content-shortcodes-layout-links',
+				'parent' => 'entry-content-shortcodes-layout',
+				'name' => __('Layout Shortcode Links','padma'),
+				'selector' => 'div.entry-content .su-row a, div.entry-content .su-column a'
+			));
+
+			$this->register_block_element(array(
+				'id' => 'entry-content-shortcodes-layout-images',
+				'parent' => 'entry-content-shortcodes-layout',
+				'name' => __('Layout Shortcode Images','padma'),
+				'selector' => 'div.entry-content .su-row img, div.entry-content .su-column img',
+				'properties' => array('background', 'borders', 'padding', 'corners', 'box-shadow', 'animation', 'sizes', 'filter')
+			));
+
+			$this->register_block_element(array(
+				'id' => 'entry-content-shortcodes-interactive',
+				'parent' => 'entry-content-shortcodes',
+				'name' => __('Interactive Shortcode Container','padma'),
+				'selector' => 'div.entry-content .su-tabs, div.entry-content .su-accordion, div.entry-content .su-spoiler, div.entry-content .su-lightbox, div.entry-content .su-members, div.entry-content .su-guests, div.entry-content .su-expand, div.entry-content .su-service, div.entry-content .su-menu, div.entry-content .su-document, div.entry-content .su-gmap, div.entry-content .su-table, div.entry-content .su-qrcode'
+			));
+
+			$this->register_block_element(array(
+				'id' => 'entry-content-shortcodes-interactive-text',
+				'parent' => 'entry-content-shortcodes-interactive',
+				'name' => __('Interactive Shortcode Text','padma'),
+				'selector' => 'div.entry-content .su-tabs p, div.entry-content .su-accordion p, div.entry-content .su-spoiler p, div.entry-content .su-lightbox p, div.entry-content .su-members p, div.entry-content .su-guests p, div.entry-content .su-expand p, div.entry-content .su-service p, div.entry-content .su-menu p, div.entry-content .su-document p, div.entry-content .su-gmap p, div.entry-content .su-table p, div.entry-content .su-qrcode p'
+			));
+
+			$this->register_block_element(array(
+				'id' => 'entry-content-shortcodes-interactive-links',
+				'parent' => 'entry-content-shortcodes-interactive',
+				'name' => __('Interactive Shortcode Links','padma'),
+				'selector' => 'div.entry-content .su-tabs a, div.entry-content .su-accordion a, div.entry-content .su-spoiler a, div.entry-content .su-lightbox a, div.entry-content .su-members a, div.entry-content .su-guests a, div.entry-content .su-expand a, div.entry-content .su-service a, div.entry-content .su-menu a, div.entry-content .su-document a, div.entry-content .su-gmap a, div.entry-content .su-table a, div.entry-content .su-qrcode a'
+			));
+
+			$this->register_block_element(array(
+				'id' => 'entry-content-shortcodes-interactive-images',
+				'parent' => 'entry-content-shortcodes-interactive',
+				'name' => __('Interactive Shortcode Images','padma'),
+				'selector' => 'div.entry-content .su-tabs img, div.entry-content .su-accordion img, div.entry-content .su-spoiler img, div.entry-content .su-lightbox img, div.entry-content .su-members img, div.entry-content .su-guests img, div.entry-content .su-expand img, div.entry-content .su-service img, div.entry-content .su-menu img, div.entry-content .su-document img, div.entry-content .su-gmap img, div.entry-content .su-table img, div.entry-content .su-qrcode img',
 				'properties' => array('background', 'borders', 'padding', 'corners', 'box-shadow', 'animation', 'sizes', 'filter')
 			));
 
