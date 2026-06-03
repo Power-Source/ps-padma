@@ -908,6 +908,12 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 
 					var elementNode = $(this).parents('li.element').first();
 					var elementID = elementNode.data('element-id');
+					var presetInstance = resolveShortcodePresetInstance(elementID);
+
+					if ( presetInstance ) {
+						designEditor.selectSpecialElement(elementID, 'instance', presetInstance.id);
+						return;
+					}
 
 					designEditor.selectSpecialElement(elementID, 'layout', Padma.viewModels.layoutSelector.currentLayout());
 
@@ -1146,6 +1152,15 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 			}
 
 				this.selectSpecialElement = function(elementID, specialElementType, specialElementID, propertyGroup) {
+
+					if ( specialElementType == 'layout' ) {
+						var presetInstance = resolveShortcodePresetInstance(elementID);
+
+						if ( presetInstance ) {
+							specialElementType = 'instance';
+							specialElementID = presetInstance.id;
+						}
+					}
 
 					var elementNode = $('ul#design-editor-element-selector li.element-' + specialElementType)
 						.filter('[data-' + specialElementType + '-id="' + specialElementID + '"]')
@@ -3264,6 +3279,71 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 			return $.trim(elementName.escapeHTML());
 
 		}
+
+		getShortcodePresetClassFromNode = function(node) {
+
+			if ( !node || !node.length )
+				return '';
+
+			var $cursor = $(node);
+
+			for ( var i = 0; i < 8 && $cursor.length; i++ ) {
+
+				var classAttr = ($cursor.attr('class') || '').toString();
+				var classes = classAttr.split(/\s+/);
+
+				for ( var j = 0; j < classes.length; j++ ) {
+
+					if ( /^su-preset-[a-z0-9_-]+$/i.test(classes[j]) )
+						return classes[j].toLowerCase();
+
+				}
+
+				$cursor = $cursor.parent();
+
+			}
+
+			return '';
+
+		}
+
+			resolveShortcodePresetInstance = function(elementID) {
+
+				if ( typeof inspectorElement == 'undefined' || !inspectorElement || !inspectorElement.length )
+					return null;
+
+				var presetClass = getShortcodePresetClassFromNode(inspectorElement);
+
+				if ( presetClass === '' )
+					return null;
+
+				var elementObject = designEditorGetElementObject(elementID, false);
+
+				if ( !elementObject || _.isEmpty(elementObject.instances) )
+					return null;
+
+				var matchedInstance = null;
+
+				$.each(elementObject.instances, function(instanceID, instanceInfo) {
+
+					if ( typeof instanceInfo.selector != 'string' )
+						return;
+
+					if ( instanceInfo.selector.indexOf('.' + presetClass) === -1 )
+						return;
+					matchedInstance = {
+						id: instanceID,
+						name: instanceInfo.name,
+						selector: instanceInfo.selector
+					};
+					return false;
+
+				});
+
+				return matchedInstance;
+
+			}
+
 	/* END ELEMENT INFO */
 
 	/* NAVIGATION */

@@ -3,7 +3,7 @@ Contributors: PSOURCE
 Requires at least: 5.0
 Tested up to: WordPress 8.6 
 ClassicPress: 2.7.0
-Version: 1.1.8
+Version: 1.1.9
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -63,6 +63,8 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 = 1.1.9 =
 * Fix: Optionsfilter wird im VE wieder angezeigt
 * Fix: VE-Inspector priorisiert bei verschachtelten Shortcodes wieder die typisierten Shortcode-Elemente statt pauschal "Shortcode Container (All)"
+* Verbesserung: VE-Instanznamen zeigen nun den konkreten Shortcode plus Preset/Styletemplate (z. B. Accordion [XY]) statt nur generischer Container-Bezeichnungen
+* Verbesserung: VE erkennt `su-preset-*` Klassen jetzt auch direkt aus Shortcode-Markup in Inhalten (Fallback ohne User-Preset-Meta), damit konkrete Preset-Instanzen trotzdem auswählbar sind
 
 
 = 1.1.8 =
