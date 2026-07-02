@@ -60,6 +60,9 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 
 == Changelog ==
 
+= 1.2.0 =
+* Fix: Shortcode Builder Presets/`last_used` werden in Multisite jetzt strikt pro Subsite gespeichert und geladen (site-spezifischer User-Meta-Key je Blog-ID), damit keine Vorlagen mehr zwischen Subsites vorausgefüllt werden
+
 = 1.1.9 =
 * Fix: Optionsfilter wird im VE wieder angezeigt
 * Fix: VE-Inspector priorisiert bei verschachtelten Shortcodes wieder die typisierten Shortcode-Elemente statt pauschal "Shortcode Container (All)"

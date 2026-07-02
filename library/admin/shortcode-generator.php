@@ -565,13 +565,21 @@ class Padma_Shortcode_Generator {
 		}
 	}
 
+	private function get_presets_meta_key() {
+		if ( is_multisite() ) {
+			return 'padma_su_generator_presets_blog_' . get_current_blog_id();
+		}
+
+		return 'padma_su_generator_presets';
+	}
+
 	private function get_presets() {
-		$presets = get_user_meta( get_current_user_id(), 'padma_su_generator_presets', true );
+		$presets = get_user_meta( get_current_user_id(), $this->get_presets_meta_key(), true );
 		return is_array( $presets ) ? $presets : array();
 	}
 
 	private function save_presets( array $presets ) {
-		update_user_meta( get_current_user_id(), 'padma_su_generator_presets', $presets );
+		update_user_meta( get_current_user_id(), $this->get_presets_meta_key(), $presets );
 	}
 
 	private function sanitize_preset_settings( $settings ) {
