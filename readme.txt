@@ -62,6 +62,8 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 
 = 1.2.0 =
 * Fix: Shortcode Builder Presets/`last_used` werden in Multisite jetzt strikt pro Subsite gespeichert und geladen (site-spezifischer User-Meta-Key je Blog-ID), damit keine Vorlagen mehr zwischen Subsites vorausgefüllt werden
+* Fix: SEO-Optionen speichern wieder ohne Fehlerseite, weil der SEO-Menüpunkt jetzt die neue interne Einstellungsseite statt der veralteten `options.php`-Anbindung nutzt
+* Fix: `su_note` akzeptiert jetzt auch Farbwerte ohne führendes `#` zuverlässig und rendert Hintergrund sowie Schriftfarbe konsistent über den kompletten Notizblock
 
 = 1.1.9 =
 * Fix: Optionsfilter wird im VE wieder angezeigt

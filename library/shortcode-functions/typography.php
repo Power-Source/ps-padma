@@ -111,6 +111,8 @@ function padma_render_note( $args = array(), $content = '' ) {
 	);
 	
 	$args = wp_parse_args( $args, $defaults );
+	$args['note_color'] = padma_sanitize_color( $args['note_color'] );
+	$args['text_color'] = padma_sanitize_color( $args['text_color'] );
 	$args['radius'] = intval( $args['radius'] );
 	
 	$radius = ( $args['radius'] != '0' ) ? 'border-radius:' . $args['radius'] . 'px;-moz-border-radius:' . $args['radius'] . 'px;-webkit-border-radius:' . $args['radius'] . 'px;' : '';
