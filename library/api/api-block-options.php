@@ -62,16 +62,16 @@ class PadmaBlockOptionsAPI extends PadmaVisualEditorPanelAPI {
 			$this->tabs = array();
 
 		//Add the tab
-		$this->tabs['anywhere'] = 'Anywhere';
+		$this->tabs['anywhere'] = 'Shortcode';
 		$shortcode_txt = "[padma-block id='" . $args['block']['id'] ."']";
 
-		$this->tab_notices['anywhere'] = __('<strong>Use this block anywhere.</strong><p>To insert this block into your post or page use this shortcode:<p>','padma').'<input class="shortcode-anywhere" value="'.$shortcode_txt.'">';
+		$this->tab_notices['anywhere'] = __('<strong>Verwende diesen Block überall</strong><p>Um diesen Block in deinen Beitrag oder deine Seite einzufügen, verwende diesen Shortcode:<p>','padma').'<input class="shortcode-anywhere" value="'.$shortcode_txt.'">';
 
 		if(PadmaOption::get('padma-blocks-as-gutenberg-blocks')){
 			$this->inputs['anywhere']['show-as-gutenberg-block'] = array(
 					'name' => 'show-as-gutenberg-block',
 					'type' => 'checkbox',
-					'label' => 'Show as Gutenberg Block',
+					'label' => __('Als Gutenberg-Block anzeigen','padma'),
 					'default' => false
 				);
 		}
@@ -88,17 +88,17 @@ class PadmaBlockOptionsAPI extends PadmaVisualEditorPanelAPI {
 			$this->inputs = array();
 
 		//Add the tab
-		$this->tabs['config'] = 'Config';
+		$this->tabs['config'] = __('Konfiguration','padma');
 
 		/* Add the inputs */
 
 		$this->inputs['config']['mirror-block'] = array(
 			'type' => 'select',
 			'name' => 'mirror-block',
-			'label' => 'Mirror Block',
+			'label' => __('Block spiegeln','padma'),
 			'chosen' => true,
 			'default' => '',
-			'tooltip' => __('By using this option, you can tell a block to "mirror" another block and its content.  This option is useful if you are wanting to share a block&mdash;such as a header&mdash;across layouts on your site.  Select the block you wish to mirror the content from in the select box to the right.','padma'),
+			'tooltip' => __('Mit dieser Option kannst Du einen Block anweisen, einen anderen Block samt dessen Inhalt zu „spiegeln“. Diese Funktion ist nützlich, wenn Du einen Block – etwa eine Kopfzeile – auf verschiedenen Layouts Deiner Webseite gemeinsam nutzen möchtest. Wähle im Auswahlfeld auf der rechten Seite den Block aus, dessen Inhalt gespiegelt werden soll.','padma'),
 			'options' => 'get_blocks_select_options_for_mirroring()',
 			'callback' => 'updateBlockMirrorStatus(input, block.id, value);',
 			'value' => PadmaBlocksData::is_block_mirrored($this->block)
@@ -107,27 +107,27 @@ class PadmaBlockOptionsAPI extends PadmaVisualEditorPanelAPI {
 		$this->inputs['config']['alias'] = array(
 			'type' => 'text',
 			'name' => 'alias',
-			'label' => 'Block Alias',
+			'label' => __('Blockalias','padma'),
 			'default' => '',
 			'callback' => 'var $block = $i("#block-" + block.id); $block.data("alias", value); updateBlockContentCover($block);',
-			'tooltip' => __('Enter an easily recognizable name for the block alias and it will be used throughout your site admin.  For instance, if you add an alias to a widget area block, that alias will be used in the Widgets panel.','padma'),
+			'tooltip' => __('Gib einen leicht erkennbaren Namen für den Blockalias ein, und er wird im gesamten Admin-Bereich deiner Webseite verwendet. Wenn du beispielsweise einem Widget-Bereichsblock einen Alias hinzufügst, wird dieser Alias im Widgets-Panel verwendet.','padma'),
 		);
 
 		$this->inputs['config']['css-classes'] = array(
 			'type' => 'text',
 			'name' => 'css-classes',
 			'callback' => 'updateBlockCustomClasses(input, block.id, value);',
-			'label' => 'Custom CSS Class(es)',
+			'label' => __('Benutzerdefinierte CSS-Klasse(n)','padma'),
 			'default' => '',
-			'tooltip' => __('Need more finite control?  Enter the custom CSS class selectors here and they will be added to the block\'s class attribute. <strong>DO NOT</strong> put regular CSS in here.  Use the Live CSS editor for that.','padma'),
+			'tooltip' => __('Benötigst du mehr Kontrolle? Gib die benutzerdefinierten CSS-Klassenselektoren hier ein, und sie werden dem class-Attribut des Blocks hinzugefügt. <strong>Füge hier KEIN reguläres CSS ein.</strong> Verwende dafür den Live-CSS-Editor.','padma'),
 		);
 
 		$this->inputs['config']['css-classes-bubble'] = array(
 			'type' => 'checkbox',
 			'name' => 'css-classes-bubble',
-			'label' => '<em style="color: #666; font-style: italic;">Advanced:</em> Add Custom CSS Class(es) to Row/Column',
+			'label' => __('<em style="color: #666; font-style: italic;">Erweitert:</em> Benutzerdefinierte CSS-Klasse(n) zur Zeile/Spalte hinzufügen','padma'),
 			'default' => '',
-			'tooltip' => __('Copy any custom CSS classes added to this block and add them to the parent row and column &lt;section&gt;\'s','padma'),
+			'tooltip' => __('Kopiere alle benutzerdefinierten CSS-Klassen, die diesem Block hinzugefügt wurden, und füge sie dem übergeordneten Zeilen- und Spalten-&lt;section&gt; hinzu.','padma'),
 		);
 
 		/* Titles */		
@@ -136,14 +136,14 @@ class PadmaBlockOptionsAPI extends PadmaVisualEditorPanelAPI {
 				$this->inputs['config']['titles-heading'] = array(
 					'name' => 'titles-heading',
 					'type' => 'heading',
-					'label' => 'Block Title'
+					'label' => __('Blocktitel','padma')
 				);
 
 					$this->inputs['config']['block-title'] = array(
 						'name' => 'block-title',
 						'type' => 'text',
-						'label' => 'Block Title',
-						'tooltip' => __('Add a custom title above the block content.','padma')
+						'label' => __('Blocktitel','padma'),
+						'tooltip' => __('Füge einen benutzerdefinierten Titel über dem Blockinhalt hinzu.','padma')
 					);
 
 					$this->inputs['config']['block-title-tag'] = array(
@@ -157,16 +157,16 @@ class PadmaBlockOptionsAPI extends PadmaVisualEditorPanelAPI {
 							'h5' => 'H5',
 							//'h6' => 'H6',
 						),
-						'label' => 'Block Title Tag',
-						'tooltip' => __('Custom title tag.','padma')
+						'label' => __('Blocktitel-Tag','padma'),
+						'tooltip' => __('Benutzerdefiniertes Titel-Tag.','padma')
 					);
 
 
 					$this->inputs['config']['block-subtitle'] = array(
 						'name' => 'block-subtitle',
 						'type' => 'text',
-						'label' => 'Block Subtitle',
-						'tooltip' => __('Add a custom sub title above the block content and below the block title.','padma')
+						'label' => __('Blockuntertitel','padma'),
+						'tooltip' => __('Füge einen benutzerdefinierten Untertitel über dem Blockinhalt und unter dem Blocktitel hinzu.','padma')
 					);
 
 
@@ -181,15 +181,15 @@ class PadmaBlockOptionsAPI extends PadmaVisualEditorPanelAPI {
 							'h5' => 'H5',
 							'h6' => 'H6',
 						),
-						'label' => 'Block Subtitle Tag',
-						'tooltip' => __('Custom subtitle tag.','padma')
+						'label' => __('Blockuntertitel-Tag','padma'),
+						'tooltip' => __('Benutzerdefiniertes Untertitel-Tag.','padma')
 					);
 
 					$this->inputs['config']['block-title-link-check'] = array(
 						'name' => 'block-title-link-check',
 						'type' => 'checkbox',
-						'label' => 'Link Block Title?',
-						'tooltip' => __('Choose whether the block title should be a link or not','padma'),
+						'label' => __('Verlinke Blocktitel?','padma'),
+						'tooltip' => __('Wähle, ob der Blocktitel ein Link sein soll oder nicht','padma'),
 						'default' => false,
 						'toggle' => array(
 							'true' => array(
@@ -212,22 +212,22 @@ class PadmaBlockOptionsAPI extends PadmaVisualEditorPanelAPI {
 					$this->inputs['config']['block-title-link-url'] = array(
 						'name' => 'block-title-link-url',
 						'type' => 'text',
-						'label' => 'Block Title Link URL',
-						'tooltip' => __('Add a url for the block title','padma')
+						'label' => __('Blocktitel-Link URL','padma'),
+						'tooltip' => __('Füge eine URL für den Blocktitel hinzu','padma')
 					);
 
 					$this->inputs['config']['block-title-link-target'] = array(
 						'name' => 'block-title-link-target',
 						'type' => 'checkbox',
-						'label' => 'Open in a new window?',
-						'tooltip' => __('If you would like to open the link in a new window check this option','padma'),
+						'label' => __('In einem neuen Fenster öffnen?','padma'),
+						'tooltip' => __('Wenn du den Link in einem neuen Fenster öffnen möchtest, aktiviere diese Option','padma'),
 						'default' => false
 					);
 
 					$this->inputs['config']['block-title-link-rel'] = array(
 						'name' => 'block-title-link-rel',
 						'type'	=> 'text',
-							'tooltip' => 'Here you can add value for the rel attribute. Example values: noreferrer, noopener, nofollow, lightbox',
+							'tooltip' => __('Hier kannst du einen Wert für das rel-Attribut hinzufügen. Beispielwerte: noreferrer, noopener, nofollow, lightbox','padma'),
 							'default' => 'noreferrer',
 					);
 
@@ -245,36 +245,36 @@ class PadmaBlockOptionsAPI extends PadmaVisualEditorPanelAPI {
 			$this->inputs = array();
 
 		//Add the tab
-		$this->tabs['responsive'] = 'Responsive Control';
+		$this->tabs['responsive'] = __('Responsive Kontrolloptionen','padma');
 
 		/* Add the inputs */
 		$this->inputs['responsive']['responsive-options'] = array(
 			'type' => 'repeater',
 			'name' => 'responsive-options',
-			'label' => 'Configure Breakpoints.',
+			'label' => __('Haltepunkte konfigurieren.','padma'),
 			'inputs' => array(
 
 				array(
 					'type' => 'select',
 					'name' => 'blocks-breakpoint',
-					'label' => 'Set Breakpoint',
+					'label' => __('Haltepunkt setzen','padma'),
 					'options' => array(
-						'off' => 'Off - No Breakpoint',
-						'custom' => 'Custom Width',						
-						'1920px' 	=> '1920px - Very Large Screens',
-						'1824px' 	=> '1824px - Large Screens',
-						'1224px' 	=> '1224px - Desktop and Laptop',
-						'1024px' 	=> '1024px - Popular Tablet Landscape',
-						'812px' 	=> '812px - iPhone X Landscape',
-						'768px' 	=> '768px - Popular Tablet Portrait',
-						'736px' 	=> '736px - iPhone 6+ & 7+ & 8+ Landscape',
-						'667px' 	=> '667px - iPhone 6 & 7 & 8 & Android Landscape',
-						'600px' 	=> '600px - Popular Breakpoint in Padma',
-						'568px' 	=> '568px - iPhone 5 Landscape',
-						'480px' 	=> '480px - iPhone 3 & 4 Landscape',
-						'414px' 	=> '414px - iPhone 6+ & 7+ & 8+ Landscape',
-						'375px' 	=> '375px - iPhone 6 & 7 & 8 & X & Android Portrait',
-						'320px' 	=> '320px - iPhone 3 & 4 & 5 & Android Portrait',
+						'off' => __('Aus - Kein Haltepunkt','padma'),
+						'custom' => __('Benutzerdefinierte Breite','padma'),						
+						'1920px' 	=> __('1920px - Sehr große Bildschirme','padma'),
+						'1824px' 	=> __('1824px - Große Bildschirme','padma'),
+						'1224px' 	=> __('1224px - Desktop und Laptop','padma'),
+						'1024px' 	=> __('1024px - Beliebtes Tablet im Querformat','padma'),
+						'812px' 	=> __('812px - iPhone X Landscape','padma'),
+						'768px' 	=> __('768px - Beliebtes Tablet im Hochformat','padma'),
+						'736px' 	=> __('736px - iPhone 6+ & 7+ & 8+ Landscape','padma'),
+						'667px' 	=> __('667px - iPhone 6 & 7 & 8 & Android Landscape','padma'),
+						'600px' 	=> __('600px - Beliebter Haltepunkt in Padma','padma'),
+						'568px' 	=> __('568px - iPhone 5 Landscape','padma'),
+						'480px' 	=> __('480px - iPhone 3 & 4 Landscape','padma'),
+						'414px' 	=> __('414px - iPhone 6+ & 7+ & 8+ Landscape','padma'),
+						'375px' 	=> __('375px - iPhone 6 & 7 & 8 & X & Android Portrait','padma'),
+						'320px' 	=> __('320px - iPhone 3 & 4 & 5 & Android Portrait','padma'),
 					),
 					'toggle' => array(
 						'' => array(
@@ -357,24 +357,24 @@ class PadmaBlockOptionsAPI extends PadmaVisualEditorPanelAPI {
 							),
 						)
 					),
-					'tooltip' => __('Select a screen width for these change to take effect.','padma'),
+					'tooltip' => __('Wähle eine Bildschirmbreite, damit diese Änderungen wirksam werden.','padma'),
 					'default' => ''
 				),
 
 				array(
 					'type' => 'text',
 					'name' => 'max-width',
-					'label' => 'Custom Width',
+					'label' => __('Benutzerdefinierte Breite','padma'),
 					'default' => ''
 				),
 
 				array(
 					'type' => 'select',
 					'name' => 'breakpoint-min-or-max',
-					'label' => 'Min or Max width',
+					'label' => __('Min- oder Max-Breite','padma'),
 					'options' => array(
-						'min' => __('Min Width (applies to screens that are wider than breakpoint)','padma'),
-						'max' => __('Max Width (applies to screens that are narrower than breakpoint)','padma')
+						'min' => __('Min-Breite (gilt für Bildschirme, die breiter als der Haltepunkt sind)','padma'),
+						'max' => __('Max-Breite (gilt für Bildschirme, die schmaler als der Haltepunkt sind)','padma')
 					),
 					'default' => 'max'
 				),
@@ -388,32 +388,32 @@ class PadmaBlockOptionsAPI extends PadmaVisualEditorPanelAPI {
 				array(
 					'type' => 'checkbox',
 					'name' => 'disable-block-height',
-					'label' => 'Disable blocks height',
-					'tooltip'=> __('Disable the height for smaller screens if the block displays too high for smaller screens','padma'),
+					'label' => __('Blockhöhe deaktivieren','padma'),
+					'tooltip'=> __('Deaktiviert die Höhe für kleinere Bildschirme, wenn der Block auf kleineren Bildschirmen zu hoch angezeigt wird','padma'),
 					'default' => false
 				),
 
 				array(
 					'type' => 'checkbox',
 					'name' => 'mobile-center-elements',
-					'label' => __('Attempt to center block elements','padma'),
+					'label' => __('Versuche, Blockelemente zu zentrieren','padma'),
 					'default' => false
 				),
 
 				array(
 					'type' => 'checkbox',
 					'name' => 'griddify-lists',
-					'label' => __('Griddify Lists','padma'),
+					'label' => __('Listen im Raster anzeigen','padma'),
 					'default' => false,
-					'tooltip' => __('Any kind of list, such as categories, latest posts, even menus etc work fine on large screens in the sidebar. But on smaller screens where the sidebar drops below the content. The lists can look empty due to mass of whitespace. This will put the list items into 2 columns side by side.','padma')
+					'tooltip' => __('Jede Art von Liste, wie Kategorien, neueste Beiträge, sogar Menüs usw. funktionieren auf großen Bildschirmen in der Seitenleiste einwandfrei. Aber auf kleineren Bildschirmen, auf denen die Seitenleiste unter den Inhalt rutscht, können die Listen aufgrund der großen Menge an Leerraum leer aussehen. Dies wird die Listenelemente in 2 Spalten nebeneinander anordnen.','padma')
 				),
 
 				array(
 					'type' => 'checkbox',
 					'name' => 'hide-block',
-					'label' => __('Hide this block','padma'),
+					'label' => __('Diesen Block ausblenden','padma'),
 					'default' => false,
-					'tooltip' => __('This will hide this block for the set breakpoint.','padma')
+					'tooltip' => __('Dies blendet diesen Block für den festgelegten Haltepunkt aus.','padma')
 				)
 
 			),
@@ -428,14 +428,14 @@ class PadmaBlockOptionsAPI extends PadmaVisualEditorPanelAPI {
 			$this->inputs['responsive']['responsive-block-hiding'] = array(
 				'type' => 'multi-select',
 				'name' => 'responsive-block-hiding',
-				'label' => __('Legacy Responsive Grid Block Hiding','padma'),
+				'label' => __('Legacy Responsive Grid Block Ausblenden','padma'),
 				'default' => '',
-				'tooltip' => __('If you have the responsive grid enabled and the user views your website on an iPhone (or equivalent device), the grid may be cluttered do to so many blocks being in a small area.  If you wish to limit the blocks that are shown on mobile devices, you can use this setting to hide certain blocks for the devices you choose.  <strong>If no options are selected, then responsive block hiding will not be active for this block.</strong>','padma'),
+				'tooltip' => __('Wenn Du das responsive Raster aktiviert hast und der Benutzer Deine Webseite auf einem iPhone (oder einem gleichwertigen Gerät) ansieht, kann das Raster aufgrund der vielen Blöcke in einem kleinen Bereich unübersichtlich werden. Wenn Du die auf mobilen Geräten angezeigten Blöcke einschränken möchtest, kannst Du diese Einstellung verwenden, um bestimmte Blöcke für die von Dir gewählten Geräte auszublenden. <strong>Wenn keine Optionen ausgewählt sind, ist das responsive Blockausblenden für diesen Block nicht aktiv.</strong>','padma'),
 				'options' => array(
 					'smartphones' => 'iPhone/Smartphones',
 					'tablets-landscape' => 'iPad/Tablets (Landscape)',
 					'tablets-portrait' => 'iPad/Tablets (Portrait)',
-					'computers' => 'Laptops & Desktops (Not Recommended)'
+					'computers' => __('Laptops & Desktops (Nicht empfohlen)','padma')
 				)
 			);
 
@@ -452,27 +452,27 @@ class PadmaBlockOptionsAPI extends PadmaVisualEditorPanelAPI {
 			$this->inputs = array();
 
 		//Add the tab
-		$this->tabs['import-export'] = __('Import/Export','padma');
+		$this->tabs['import-export'] = __('Importieren/Exportieren','padma');
 
 		/* Add the inputs */
 
 		$this->inputs['import-export']['import-heading'] = array(
 			'name' => 'import-heading',
 			'type' => 'heading',
-			'label' => __('Import Block Settings','padma')
+			'label' => __('Blockeinstellungen importieren','padma')
 		);
 
 			$this->inputs['import-export']['block-import-settings-file'] = array(
 				'type' => 'import-file',
 				'name' => 'block-import-settings-file',
-				'button-label' => __('Select File to Import','padma'),
+				'button-label' => __('Datei zum Importieren auswählen','padma'),
 				'no-save' => true
 			);
 
 			$this->inputs['import-export']['block-import-include-options'] = array(
 				'type' => 'checkbox',
 				'name' => 'block-import-settings-include-options',
-				'label' => __('Include Block Options','padma'),
+				'label' => __('Blockoptionen einbeziehen','padma'),
 				'default' => true,
 				'no-save' => true
 			);
@@ -480,7 +480,7 @@ class PadmaBlockOptionsAPI extends PadmaVisualEditorPanelAPI {
 			$this->inputs['import-export']['block-import-include-design'] = array(
 				'type' => 'checkbox',
 				'name' => 'block-import-settings-include-design',
-				'label' => __('Include Block Design','padma'),
+				'label' => __('Blockdesign einbeziehen','padma'),
 				'default' => true,
 				'no-save' => true
 			);
@@ -488,7 +488,7 @@ class PadmaBlockOptionsAPI extends PadmaVisualEditorPanelAPI {
 			$this->inputs['import-export']['block-import-settings'] = array(
 				'type' => 'button',
 				'name' => 'block-import-settings',
-				'button-label' => __('Import Block Settings','padma'),
+				'button-label' => __('Blockeinstellungen importieren','padma'),
 				'no-save' => true,
 				'callback' => 'initiateBlockSettingsImport(args);'
 			);
@@ -496,13 +496,13 @@ class PadmaBlockOptionsAPI extends PadmaVisualEditorPanelAPI {
 		$this->inputs['import-export']['export-heading'] = array(
 			'name' => 'export-heading',
 			'type' => 'heading',
-			'label' => __('Export Block Settings','padma')
+			'label' => __('Blockeinstellungen exportieren','padma')
 		);
 
 			$this->inputs['import-export']['block-export-settings'] = array(
 				'type' => 'button',
 				'name' => 'block-export-settings',
-				'button-label' => __('Download Export File','padma'),
+				'button-label' => __('Exportdatei herunterladen','padma'),
 				'no-save' => true,
 				'callback' => 'exportBlockSettingsButtonCallback(args);'
 			);
@@ -515,7 +515,7 @@ class PadmaBlockOptionsAPI extends PadmaVisualEditorPanelAPI {
 
 		$blocks = PadmaBlocksData::get_blocks_by_type($block_type);
 
-		$options = array('' => '&ndash; '. __('Do Not Mirror','padma') . ' &ndash;');
+		$options = array('' => '&ndash; '. __('Nicht spiegeln','padma') . ' &ndash;');
 
 		//If there are no blocks, then just return the Do Not Mirror option.
 		if ( !isset($blocks) || !is_array($blocks) )

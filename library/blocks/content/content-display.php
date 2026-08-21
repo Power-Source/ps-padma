@@ -1407,7 +1407,7 @@ class PadmaContentBlockDisplay {
 		if ( !$this->get_setting('show-readmore', true) )
 			return false;
 
-		$more_text = $this->get_setting('read-more-text', 'Continue Reading');
+		$more_text = $this->get_setting('read-more-text', 'Weiterlesen');
 		$more_link = '<a href="'. get_permalink($post->ID) . '" class="more-link">' . $more_text . '</a>';
 
 		return apply_filters('padma_more_link', ' ' . $more_link);
