@@ -3,7 +3,7 @@ Contributors: PSOURCE
 Requires at least: 5.0
 Tested up to: WordPress 8.6 
 ClassicPress: 2.7.0
-Version: 1.2.0
+Version: 1.2.1
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -59,6 +59,10 @@ Hier entlang: https://power-source.github.io/ps-padma/
 Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 
 == Changelog ==
+
+= 1.2.1 =
+* Textausgaben verbessert
+* Template Cloud entfernt
 
 = 1.2.0 =
 * Fix: Shortcode Builder Presets/`last_used` werden in Multisite jetzt strikt pro Subsite gespeichert und geladen (site-spezifischer User-Meta-Key je Blog-ID), damit keine Vorlagen mehr zwischen Subsites vorausgefüllt werden

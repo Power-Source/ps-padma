@@ -1020,8 +1020,8 @@ class PadmaContentBlockDisplay {
 
 			} else {
 
-				$older_posts_text = __('<span class="meta-nav">&larr;</span> Older posts', 'padma');
-				$newer_posts_text = __('Newer posts <span class="meta-nav">&rarr;</span>', 'padma');
+				$older_posts_text = __('<span class="meta-nav">&larr;</span> Ältere Beiträge', 'padma');
+				$newer_posts_text = __('Neuere Beiträge <span class="meta-nav">&rarr;</span>', 'padma');
 
 				echo '<div class="nav-previous" itemprop="url">' . get_next_posts_link($older_posts_text, $this->query->max_num_pages) . '</div>';
 				echo '<div class="nav-next" itemprop="url">' . get_previous_posts_link($newer_posts_text) . '</div>';
