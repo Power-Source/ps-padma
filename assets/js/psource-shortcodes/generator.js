@@ -186,12 +186,12 @@ jQuery(document).ready(function($) {
 			var sel = '';
 			try {
 				sel = editor.selection ? editor.selection.getContent({ format: 'text' }) : '';
-				if (!$.trim(sel) && editor.selection) {
+				if (!sel.trim() && editor.selection) {
 					sel = su_strip_html(editor.selection.getContent());
 				}
 			} catch(err) {}
-			if ($.trim(sel) !== '') {
-				window.su_saved_raw_sel = $.trim(sel);
+			if (sel.trim() !== '') {
+				window.su_saved_raw_sel = sel.trim();
 			}
 		});
 	}

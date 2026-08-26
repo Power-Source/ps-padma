@@ -60,6 +60,9 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 
 == Changelog ==
 
+= 1.2.2 =
+* Veraltetes trim modernisiert
+
 = 1.2.1 =
 * Textausgaben verbessert
 * Template Cloud entfernt
