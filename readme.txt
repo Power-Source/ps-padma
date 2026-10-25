@@ -1,9 +1,9 @@
 === PS Padma ContentBuilder ===
 Contributors: PSOURCE
 Requires at least: 5.0
-Tested up to: WordPress 8.6 
-ClassicPress: 2.7.0
-Version: 1.2.1
+Tested up to: WordPress 7.1 
+ClassicPress: 2.7.4
+Version: 1.2.2
 Requires PHP: 8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
