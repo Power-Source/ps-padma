@@ -1,4 +1,8 @@
 define(['modules/panel.inputs'], function(panelInputs) {
+	var veI18n = (typeof Padma !== 'undefined' && Padma.i18nVE) ? Padma.i18nVE : {};
+	var t = function(key, fallback) {
+		return (typeof veI18n[key] === 'string' && veI18n[key].length) ? veI18n[key] : fallback;
+	};
 
 	/* WRAPPER FUNCTIONS */
 	getWrapperID = function(element) {
@@ -188,7 +192,7 @@ define(['modules/panel.inputs'], function(panelInputs) {
 		//var importDesign = puBoolean($(input).parents('.ui-tabs-panel').first().find('input[name="wrapper-import-settings-include-design"]').val());
 
 		if ( !fileInput.val() )
-			return alert('Du musst vor dem Import eine Wrapper-Einstellungen-Exportdatei auswaehlen.');
+			return alert(t('selectWrapperSettingsFile', 'You must select a wrapper settings export file before importing.'));
 
 		//if ( !importOptions )
 			//return alert('You must import at least the options when importing wrapper settings.');
@@ -207,14 +211,14 @@ define(['modules/panel.inputs'], function(panelInputs) {
 
 				/* Check to be sure that the JSON file is a block settings export file */
 					if ( wrapperSettingsImportArray['data-type'] != 'wrapper-settings' )
-						return alert('Wrapper-Einstellungen koennen nicht geladen werden. Bitte stelle sicher, dass es ein gueltiger Padma-Wrapper-Einstellungen-Export ist.');
+						return alert(t('invalidWrapperSettingsFile', 'Unable to load wrapper settings. Please make sure this is a valid Padma wrapper settings export.'));
 
 				/* Handle the fun stuff */
 					if ( typeof wrapperSettingsImportArray['image-definitions'] != 'undefined' && Object.keys(wrapperSettingsImportArray['image-definitions']).length ) {
 
 						showNotification({
 							id: 'importing-images',
-							message: 'Bilder werden gerade importiert.',
+							message: t('importingImages', 'Images are being imported.'),
 							closeTimer: 10000
 						});
 
@@ -232,7 +236,7 @@ define(['modules/panel.inputs'], function(panelInputs) {
 
 							/* If there's an error when sideloading images, then hault import. */
 							if ( typeof blockSettings['error'] != 'undefined' )
-								return alert('Fehler beim Importieren der Bilder fuer den Wrapper: ' + wrapperSettings['error']);
+								return alert(t('importWrapperImageError', 'Error importing images for wrapper: %s').replace('%s', wrapperSettings['error']));
 								
 							importWrapperSettingsAJAXCallback(wrapperID, wrapperSettings);
 
@@ -250,7 +254,7 @@ define(['modules/panel.inputs'], function(panelInputs) {
 
 		} else {
 
-			alert('Wrapper-Einstellungen koennen nicht geladen werden. Bitte stelle sicher, dass es ein gueltiger Padma-Wrapper-Einstellungen-Export ist.');
+			alert(t('invalidWrapperSettingsFile', 'Unable to load wrapper settings. Please make sure this is a valid Padma wrapper settings export.'));
 
 		}
 

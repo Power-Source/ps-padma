@@ -1,13 +1,13 @@
 jQuery(document).ready(function($) {
 	var suGeneratorI18n = $.extend({
 		hotkey: '',
-		isp_media_title: 'Bilder aus der Mediathek auswaehlen',
-		isp_media_insert: 'Bilder uebernehmen',
-		upload_title: 'Medium auswaehlen',
-		upload_insert: 'Medium verwenden',
-		last_used: 'Zuletzt verwendet',
-		presets_prompt_msg: 'Name fuer diese Vorlage eingeben:',
-		presets_prompt_value: 'Meine Vorlage'
+		isp_media_title: 'Select images from the media library',
+		isp_media_insert: 'Use images',
+		upload_title: 'Select media',
+		upload_insert: 'Use media',
+		last_used: 'Last used',
+		presets_prompt_msg: 'Enter a name for this template:',
+		presets_prompt_value: 'My template'
 	}, window.su_generator || {});
 
 	// Prepare data

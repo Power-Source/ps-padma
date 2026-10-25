@@ -14,7 +14,7 @@
 
 		dialog.className = 'ps-modal';
 		closeButton.className = 'ps-modal-close';
-		closeButton.setAttribute('aria-label', 'Schließen');
+		closeButton.setAttribute('aria-label', (window.Padma && Padma.i18nAdmin && Padma.i18nAdmin.close) || 'Schließen');
 		closeButton.textContent = '×';
 		contentContainer.className = 'ps-modal-content';
 		dialog.appendChild(closeButton);

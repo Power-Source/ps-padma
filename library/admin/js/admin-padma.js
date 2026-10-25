@@ -13,6 +13,10 @@ function openTabAdmin(evt, option) {
 }
 (function($) {
 $(document).ready(function() {
+	var adminI18n = (window.Padma && Padma.i18nAdmin) ? Padma.i18nAdmin : {};
+	var t = function(key, fallback) {
+		return (typeof adminI18n[key] === 'string' && adminI18n[key].length) ? adminI18n[key] : fallback;
+	};
 
 
 	showNotification = function(args) {
@@ -96,7 +100,7 @@ $(document).ready(function() {
     $('#padma-responsive-grid-notice').on('click', '.button-primary', function() {
 
         var $notice = $(this).closest('.notice');
-        var message = 'Please note: If you run into issues with the Responsive Grid you can disable it under the Grid mode in the Visual Editor.';
+        var message = t('responsiveGridNotice', 'Please note: If you run into issues with the Responsive Grid you can disable it under the Grid mode in the Visual Editor.');
 
         if ( !confirm(message) ) {
             return false;
@@ -394,7 +398,7 @@ $(document).ready(function() {
 
 				showNotification({
 					id: 'cache-cleared',
-					message: 'Der Cache wurde erfolgreich geleert!',
+					message: t('cacheCleared', 'The cache was cleared successfully!'),
 					success: true
 				});
 
@@ -402,7 +406,7 @@ $(document).ready(function() {
 
 				showErrorNotification({
 					id: 'error-could-not-clear-cache',
-					message: 'Fehler: Der Cache konnte nicht geleert werden.'
+					message: t('cacheClearError', 'Error: The cache could not be cleared.')
 				});
 
 			}

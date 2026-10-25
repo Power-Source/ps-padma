@@ -1,8 +1,8 @@
 // Wait DOM
 jQuery(document).ready(function ($) {
 	var sunriseI18n = $.extend({
-		media_title: 'Medium auswaehlen',
-		media_insert: 'Medium verwenden'
+		media_title: 'Select media',
+		media_insert: 'Use media'
 	}, window.sunrise || {});
 
 

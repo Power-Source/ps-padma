@@ -136,13 +136,13 @@ class Padma_Shortcode_Generator {
 		wp_localize_script( 'su-generator', 'su_generator', array(
 			'ajaxurl'             => admin_url( 'admin-ajax.php' ),
 			'nonce'               => wp_create_nonce( 'padma_generator_nonce' ),
-			'isp_media_title'     => __( 'Bilder aus der Mediathek auswaehlen', 'ps-padma' ),
-			'isp_media_insert'    => __( 'Bilder uebernehmen', 'ps-padma' ),
-			'upload_title'        => __( 'Medium auswaehlen', 'ps-padma' ),
-			'upload_insert'       => __( 'Medium verwenden', 'ps-padma' ),
-			'last_used'           => __( 'Zuletzt verwendet', 'ps-padma' ),
-			'presets_prompt_msg'  => __( 'Name fuer diese Vorlage eingeben:', 'ps-padma' ),
-			'presets_prompt_value'=> __( 'Meine Vorlage', 'ps-padma' ),
+			'isp_media_title'     => __( 'Select images from the media library', 'ps-padma' ),
+			'isp_media_insert'    => __( 'Use images', 'ps-padma' ),
+			'upload_title'        => __( 'Select media', 'ps-padma' ),
+			'upload_insert'       => __( 'Use media', 'ps-padma' ),
+			'last_used'           => __( 'Last used', 'ps-padma' ),
+			'presets_prompt_msg'  => __( 'Enter a name for this template:', 'ps-padma' ),
+			'presets_prompt_value'=> __( 'My template', 'ps-padma' ),
 			'colorSwatches'       => array_values( (array) PadmaSkinOption::get( 'colorpicker-swatches', false, array() ) ),
 		) );
 	}

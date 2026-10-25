@@ -356,6 +356,12 @@ class PadmaAdmin {
 		wp_localize_script('padma_admin_js', 'Padma', array(
 			'ajaxURL' 			=> admin_url('admin-ajax.php'),				
 			'security' 			=> wp_create_nonce('padma-visual-editor-ajax'),				
+			'i18nAdmin' => array(
+				'responsiveGridNotice' => __( 'Please note: If you run into issues with the Responsive Grid you can disable it under the Grid mode in the Visual Editor.', 'padma' ),
+				'cacheCleared' => __( 'The cache was cleared successfully!', 'padma' ),
+				'cacheClearError' => __( 'Error: The cache could not be cleared.', 'padma' ),
+				'close' => __( 'Schließen', 'padma' ),
+			),
 		));
 
         /* General Padma admin CSS/JS */
@@ -385,6 +391,32 @@ class PadmaAdmin {
 				'templates' 		=> PadmaTemplates::get_all(),
 				'templateActive' 	=> PadmaTemplates::get_active(),
 				'catalogIdentity' => self::get_catalog_membership_identity(),
+				'i18nTemplates' => array(
+					'notConnected' => __( 'Not connected. Show the sign-in form and check the connection.', 'padma' ),
+					'verifiedAccount' => __( 'Verified account: %s', 'padma' ),
+					'connectionMode' => __( ' | Connection mode: Superadmin bypass', 'padma' ),
+					'membershipOk' => __( ' | PS membership: OK', 'padma' ),
+					'checkedAt' => __( ' (checked: %s)', 'padma' ),
+					'publishCatalog' => __( 'Publishing template to catalog (%1$s): %2$s', 'padma' ),
+					'templateExportError' => __( 'Template could not be exported for the catalog.', 'padma' ),
+					'publishSuccess' => __( '%1$s was successfully published to the catalog (%2$s).', 'padma' ),
+					'publishError' => __( 'Catalog publishing failed.', 'padma' ),
+					'publishServerError' => __( 'Catalog publishing failed (server error).', 'padma' ),
+					'publishResponseError' => __( 'Catalog publishing failed: %s', 'padma' ),
+					'publishStartError' => __( 'Catalog publishing could not be started.', 'padma' ),
+					'installCatalog' => __( 'Installing catalog template: %s', 'padma' ),
+					'installSuccess' => __( '%s was successfully installed.', 'padma' ),
+					'installError' => __( 'Catalog installation failed.', 'padma' ),
+					'installStartError' => __( 'Catalog installation could not be started.', 'padma' ),
+					'showSignIn' => __( 'Show sign-in', 'padma' ),
+					'hideSignIn' => __( 'Hide sign-in', 'padma' ),
+					'credentialsRequired' => __( 'Enter a username/email address and password.', 'padma' ),
+					'checkingMembership' => __( 'Checking sign-in and PS membership...', 'padma' ),
+					'membershipVerified' => __( 'Sign-in successful and PS membership verified.', 'padma' ),
+					'membershipNotVerified' => __( 'Membership could not be verified.', 'padma' ),
+					'membershipCheckError' => __( 'Membership check failed.', 'padma' ),
+					'membershipMissing' => __( 'Sign-in successful, but no matching membership was found. <a href="%s" target="_blank" rel="noopener noreferrer">Set up membership now</a>.', 'padma' ),
+				),
 				'viewModels' 		=> array()
 			));
 

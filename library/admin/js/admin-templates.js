@@ -1,4 +1,15 @@
 jQuery(document).ready(function($) {
+	var templateI18n = Padma.i18nTemplates || {};
+	var t = function(key, fallback) {
+		return (typeof templateI18n[key] === 'string' && templateI18n[key].length) ? templateI18n[key] : fallback;
+	};
+	var format = function(message) {
+		var args = Array.prototype.slice.call(arguments, 1);
+		return message.replace(/%(\d+\$)?s/g, function(match, position) {
+			var index = position ? parseInt(position, 10) - 1 : 0;
+			return args[index] === undefined ? match : args[index];
+		});
+	};
 
 	var templates = {
 		renderCatalogIdentityStatus: function(identity, isError) {
@@ -8,19 +19,19 @@ jQuery(document).ready(function($) {
 			}
 
 			if (!identity || !identity.user_id) {
-				$status.css('color', '#555').text('Nicht verbunden. Bitte Anmeldung einblenden und Verbindung pruefen.');
+				$status.css('color', '#555').text(t('notConnected', 'Not connected. Show the sign-in form and check the connection.'));
 				return;
 			}
 
-			var text = 'Verifizierter Account: ' + (identity.remote_login || ('User #' + identity.user_id));
+			var text = format(t('verifiedAccount', 'Verified account: %s'), identity.remote_login || ('User #' + identity.user_id));
 			if (identity.email) {
 				text += ' | E-Mail: ' + identity.email;
 			}
 
 			if (identity.membership_ok) {
-				text += identity.admin_bypass ? ' | Verbindungsmodus: Superadmin-Bypass' : ' | PS-Mitgliedschaft: OK';
+				text += identity.admin_bypass ? t('connectionMode', ' | Connection mode: Superadmin bypass') : t('membershipOk', ' | PS membership: OK');
 				if (identity.verified_at) {
-					text += ' (geprueft: ' + identity.verified_at + ')';
+					text += format(t('checkedAt', ' (checked: %s)'), identity.verified_at);
 				}
 				$status.css('color', '#008a20').text(text);
 				return;
@@ -184,7 +195,7 @@ jQuery(document).ready(function($) {
 
 					showNotification({
 						id: 'catalog-publish-start-' + skin.id,
-						message: 'Veroeffentliche Vorlage im Katalog (' + visibility + '): ' + skin.name,
+						message: format(t('publishCatalog', 'Publishing template to catalog (%1$s): %2$s'), visibility, skin.name),
 						closable: false,
 						closeTimer: false
 					});
@@ -200,7 +211,7 @@ jQuery(document).ready(function($) {
 							hideNotification('catalog-publish-start-' + skin.id);
 							return showNotification({
 								id: 'catalog-publish-error-download-' + skin.id,
-								message: (downloadResponse && downloadResponse.error) ? downloadResponse.error : 'Template konnte nicht fuer den Katalog exportiert werden.',
+								message: (downloadResponse && downloadResponse.error) ? downloadResponse.error : t('templateExportError', 'Template could not be exported for the catalog.'),
 								closable: true,
 								closeTimer: 8000,
 								error: true
@@ -220,7 +231,7 @@ jQuery(document).ready(function($) {
 							if ( publishResponse && publishResponse.success ) {
 								return showNotification({
 									id: 'catalog-publish-success-' + skin.id,
-									message: skin.name + ' erfolgreich im Katalog veröffentlicht (' + visibility + ').',
+									message: format(t('publishSuccess', '%1$s was successfully published to the catalog (%2$s).'), skin.name, visibility),
 									closable: true,
 									closeTimer: 6000,
 									success: true
@@ -231,7 +242,7 @@ jQuery(document).ready(function($) {
 								id: 'catalog-publish-error-' + skin.id,
 								message: publishResponse && publishResponse.data && publishResponse.data.error
 									? publishResponse.data.error
-									: 'Katalog-Veröffentlichung fehlgeschlagen.',
+									: t('publishError', 'Catalog publishing failed.'),
 								closable: true,
 								closeTimer: 8000,
 								error: true
@@ -241,11 +252,11 @@ jQuery(document).ready(function($) {
 
 							hideNotification('catalog-publish-start-' + skin.id);
 
-							var publishError = 'Katalog-Veroeffentlichung fehlgeschlagen (Serverfehler).';
+							var publishError = t('publishServerError', 'Catalog publishing failed (server error).');
 							if (xhr && xhr.responseJSON && xhr.responseJSON.data && xhr.responseJSON.data.error) {
 								publishError = xhr.responseJSON.data.error;
 							} else if (xhr && xhr.responseText) {
-								publishError = 'Katalog-Veroeffentlichung fehlgeschlagen: ' + xhr.responseText.substring(0, 180);
+								publishError = format(t('publishResponseError', 'Catalog publishing failed: %s'), xhr.responseText.substring(0, 180));
 							}
 
 							showNotification({
@@ -273,7 +284,7 @@ jQuery(document).ready(function($) {
 						hideNotification('catalog-publish-start-' + skin.id);
 						showNotification({
 							id: 'catalog-publish-error-request-' + skin.id,
-							message: 'Katalog-Veröffentlichung konnte nicht gestartet werden.',
+							message: t('publishStartError', 'Catalog publishing could not be started.'),
 							closable: true,
 							closeTimer: 8000,
 							error: true
@@ -303,7 +314,7 @@ jQuery(document).ready(function($) {
 
 					showNotification({
 						id: 'catalog-install-' + template.slug,
-						message: 'Installiere Katalog-Vorlage: ' + (template.name || template.slug),
+						message: format(t('installCatalog', 'Installing catalog template: %s'), template.name || template.slug),
 						closeTimer: false,
 						closable: false
 					});
@@ -326,7 +337,7 @@ jQuery(document).ready(function($) {
 
 							return showNotification({
 								id: 'catalog-install-success-' + template.slug,
-								message: (template.name || template.slug) + ' erfolgreich installiert.',
+								message: format(t('installSuccess', '%s was successfully installed.'), template.name || template.slug),
 								closeTimer: 6000,
 								success: true
 							});
@@ -334,7 +345,7 @@ jQuery(document).ready(function($) {
 
 						showNotification({
 							id: 'catalog-install-error-' + template.slug,
-							message: response && response.data && response.data.error ? response.data.error : 'Katalog-Installation fehlgeschlagen.',
+							message: response && response.data && response.data.error ? response.data.error : t('installError', 'Catalog installation failed.'),
 							closable: true,
 							closeTimer: 8000,
 							error: true
@@ -344,7 +355,7 @@ jQuery(document).ready(function($) {
 						hideNotification('catalog-install-' + template.slug);
 						showNotification({
 							id: 'catalog-install-error-request-' + template.slug,
-							message: 'Katalog-Installation konnte nicht gestartet werden.',
+							message: t('installStartError', 'Catalog installation could not be started.'),
 							closable: true,
 							closeTimer: 8000,
 							error: true
@@ -451,7 +462,7 @@ jQuery(document).ready(function($) {
 				var isVisible = $form.is(':visible');
 
 				$form.slideToggle(120);
-				$(this).text(isVisible ? 'Anmeldung einblenden' : 'Anmeldung ausblenden');
+				$(this).text(isVisible ? t('showSignIn', 'Show sign-in') : t('hideSignIn', 'Hide sign-in'));
 
 				if (!isVisible) {
 					setTimeout(function() {
@@ -467,7 +478,7 @@ jQuery(document).ready(function($) {
 				if (!login || !password) {
 					return showNotification({
 						id: 'catalog-identity-verify-invalid',
-						message: 'Bitte Benutzername/E-Mail und Passwort eingeben.',
+						message: t('credentialsRequired', 'Enter a username/email address and password.'),
 						error: true,
 						closable: true,
 						closeTimer: 7000
@@ -476,7 +487,7 @@ jQuery(document).ready(function($) {
 
 				showNotification({
 					id: 'catalog-identity-verify-running',
-					message: 'Pruefe Anmeldung und PS-Mitgliedschaft...',
+					message: t('checkingMembership', 'Checking sign-in and PS membership...'),
 					closable: false,
 					closeTimer: false
 				});
@@ -497,13 +508,13 @@ jQuery(document).ready(function($) {
 
 						return showNotification({
 							id: 'catalog-identity-verify-ok',
-							message: 'Anmeldung erfolgreich und PS-Mitgliedschaft verifiziert.',
+							message: t('membershipVerified', 'Sign-in successful and PS membership verified.'),
 							success: true,
 							closeTimer: 6000
 						});
 					}
 
-					var errorMsg = response && response.data && response.data.error ? response.data.error : 'Mitgliedschaft konnte nicht verifiziert werden.';
+					var errorMsg = response && response.data && response.data.error ? response.data.error : t('membershipNotVerified', 'Membership could not be verified.');
 					templates.renderCatalogIdentityStatus((response && response.data && response.data.identity) ? response.data.identity : Padma.catalogIdentity, true);
 
 					showNotification({
@@ -518,7 +529,7 @@ jQuery(document).ready(function($) {
 
 					hideNotification('catalog-identity-verify-running');
 
-					var msg = 'Mitgliedschafts-Pruefung fehlgeschlagen.';
+					var msg = t('membershipCheckError', 'Membership check failed.');
 					if (xhr && xhr.responseJSON && xhr.responseJSON.data && xhr.responseJSON.data.error) {
 						msg = xhr.responseJSON.data.error;
 						if (xhr.responseJSON.data.error_code) {
@@ -539,7 +550,7 @@ jQuery(document).ready(function($) {
 						if (xhr.responseJSON.data.membership_setup_url) {
 							$('#padma-catalog-membership-status')
 								.css('color', '#b32d2e')
-								.html('Anmeldung erfolgreich, aber keine passende Mitgliedschaft gefunden. <a href="' + xhr.responseJSON.data.membership_setup_url + '" target="_blank" rel="noopener noreferrer">Mitgliedschaft jetzt einrichten</a>.');
+								.html(format(t('membershipMissing', 'Sign-in successful, but no matching membership was found. <a href="%s" target="_blank" rel="noopener noreferrer">Set up membership now</a>.'), xhr.responseJSON.data.membership_setup_url));
 						}
 					}
 
