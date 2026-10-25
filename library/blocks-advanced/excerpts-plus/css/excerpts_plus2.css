@@ -77,6 +77,28 @@ div.excerpt-heading {
 
 div.excerpt-content {line-height:150%;margin-top:0!important;}
 
+.excerpt-content {
+  overflow: hidden;
+}
+
+dialog.eplus-quickread {
+  width: min(800px, calc(100vw - 2rem));
+  max-height: calc(100vh - 2rem);
+  overflow: auto;
+  border: 0;
+  padding: 2rem;
+}
+
+dialog.eplus-quickread::backdrop {
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.eplus-quickread .qr-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
 
 div.ep-nav {
   padding:5px;

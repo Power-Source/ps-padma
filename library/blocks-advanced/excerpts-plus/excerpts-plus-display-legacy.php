@@ -63,16 +63,8 @@
       /* Quick Read scripts */
       if ($pz_uses_quickread || $pz_meta1 || $pz_meta2 || $pz_meta3) {
         if (!is_admin()) {
-          wp_enqueue_script('jquery-ui-core', false, array('jquery'), '', true);
-          wp_enqueue_script('jquery-ui-dialog', false, array('jquery'), '', true);
-          wp_enqueue_style('jquery-ui-custom-css-ep', EP_BLOCK_URL . 'css/jquery-ui.custom.css');
-          wp_enqueue_script('jquery-quickread', EP_BLOCK_URL . 'js/quickread.js');          
+          wp_enqueue_script('excerpts-plus-quickread', EP_BLOCK_URL . 'js/quickread.js', array(), '', true);
         }
-      }
-
-      /* Ellipses script */
-      if (isset($settings [ 'ep_use_dotdotdot' ]) && $settings[ 'ep_use_dotdotdot' ]) {
-        wp_enqueue_script('jquery-dotdotdot', EP_BLOCK_URL . 'js/jquery.dotdotdot-1.5.6.js', array('jquery'), '', true);
       }
 
       /* Slide scripts */
@@ -88,8 +80,7 @@
 
       /* Cycle scripts */
       if (isset($settings[ 'use-slider' ]) && $settings[ 'use-slider' ]) {
-        wp_deregister_script('jquery_cycle1', false, array('jquery'));
-        wp_enqueue_script('jquery-cycle1', EP_BLOCK_URL . 'js/jquery.cycle/jquery.cycle.all.mod.js', array('jquery'), '', true);
+        wp_enqueue_script('excerpts-plus-carousel', EP_BLOCK_URL . 'js/excerpts-plus-carousel.js', array(), '', true);
       }
 
       wp_enqueue_style('Padma-excerpts-plus-css', EP_BLOCK_URL . 'css/excerpts_plus2.css');
@@ -143,62 +134,23 @@
 
       $return   = '';
       $settings = PadmaExcerptsPBlockOptions::get_settings($block);
-      if ($settings[ 'ep_use_dotdotdot' ]) {
-        if ($settings[ 'excerpt-or-content' ] == 'excerpt') {
-          if ($settings[ 'trunc-char' ] == 'arrows') {
-            $truncchar = 'String.fromCharCode(0187)';
-          } elseif ($settings[ 'trunc-char' ] == 'ellipses' || !$settings[ 'trunc-char' ]) {
-            $truncchar = 'String.fromCharCode(8230)';
-          } else {
-            $truncchar = '';
-          }
-        }
-
-        $return .= "
-				jQuery(document).ready(function() {
-				var tc = " . $truncchar . ";
-					jQuery('#block-" . $block[ 'id' ] . " .excerpt-content').dotdotdot({ellipsis: tc ,after:'a.excerpt-read-more'});
-				});
-				";
-      }
       if (!($settings[ 'use-slider' ])) {
 
       } else {
         $transition_time = $settings[ 'transition-time' ] * 1000;
         $slide_time      = $settings[ 'slide-time' ] * 1000;
-
-        $pager_type  = 'pagerAnchorBuilder: null,';
-        $show_pager1 = ".after('<div class=\"slider-nav-" . $block[ 'id' ] . " slider-" . $settings[ 'pager-type' ] . " slider-nav-defaults slider-bg" . $settings[ 'background-type' ] . "\">')";
-        $show_pager2 = "pager: '.slider-nav-" . $block[ 'id' ] . "',";
-        if ($settings[ 'pager-type' ] == 'bullets') {
-          $pager_type = "pagerAnchorBuilder: function(idx, slide) { return '<a href=\"#\">&bull;</a>';},";
-        } else {
-          if ($settings[ 'pager-type' ] == 'none') {
-            $show_pager1 = null;
-            $show_pager2 = "page: null,";
-          }
-        }
-
         $slider_height = ($settings[ 'image-location' ] == 'behind') ? $settings[ 'image-height' ] : PadmaBlocksData::get_block_height($block[ 'id' ]);
+        $carousel_options = array(
+          'timeout'    => $slide_time,
+          'speed'      => $transition_time,
+          'height'     => $slider_height,
+          'pagerType'  => $settings[ 'pager-type' ],
+          'pagerClass' => 'slider-nav-' . $block[ 'id' ] . ' slider-' . $settings[ 'pager-type' ] . ' slider-nav-defaults slider-bg' . $settings[ 'background-type' ],
+        );
 
-
-        $return .= "
-		jQuery(document).ready(function() {
-			if(typeof jQuery != 'function' || typeof jQuery().cycle1 != 'function') return false;
-		    jQuery('#slider-" . $block[ 'id' ] . "')" . $show_pager1 . ".cycle1({
-				timeout: " . $slide_time . ",
-				pause: 0, // tried with it on but had jumpy problems
-				fastOnEvent: true,
-				height: " . $slider_height . ",
-				speed: " . $transition_time . ","
-            . $show_pager2
-            . $pager_type . "
-
-				fx: '" . $settings[ 'transition-type' ] . "' // choose your transition type, ex: fade, scrollUp, shuffle, etc...
-
-			});
-		});
-		";
+        $return .= '(function(){var init=function(){if(window.PadmaExcerptsCarousel){window.PadmaExcerptsCarousel.init(' .
+          wp_json_encode('#slider-' . $block[ 'id' ]) . ',' . wp_json_encode($carousel_options) .
+          ');}};if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",init,{once:true});}else{init();}})();';
       }
 
       return $return;
@@ -2432,4 +2384,3 @@
    */
 
   add_shortcode('excerptsplus', 'eplus_shortcode');
-

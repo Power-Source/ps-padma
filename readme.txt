@@ -63,6 +63,12 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 = 1.2.2 =
 * Veraltetes trim modernisiert
 * Von CodeQL gemeldete DOM-XSS-, Regex- und Legacy-Abhängigkeitsprobleme behoben
+* Dynamische HTML-Ausgaben im Visual Editor, in Modals und in der mobilen Navigation abgesichert
+* URL-, XML- und JSON-Verarbeitung gegen unsichere Protokolle und veraltete Auswertungsmethoden gehärtet
+* Unsichere Quicksearch-Implementierung durch eine DOM-basierte Schriftsuche ersetzt
+* Veraltete, nicht mehr verwendete jQuery-UI-Abhängigkeit entfernt
+* Excerpts Plus von jQuery UI, Cycle und dotdotdot auf lokale Vanilla-JavaScript- und CSS-Lösungen umgestellt
+* Reguläre Ausdrücke in CodeMirror- und CKEditor-Komponenten korrigiert
 * SEO-Funktionen, SEO-Metaboxen, Schema-Ausgabe und Sitemap-Generator aus dem Theme entfernt
 * PS SEO übernimmt Titel, Metadaten, Social Sharing, strukturierte Daten und Sitemap-Filter
 

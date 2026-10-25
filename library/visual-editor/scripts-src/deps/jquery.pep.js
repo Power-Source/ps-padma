@@ -98,8 +98,22 @@ define(['jquery'], function ( jQuery ) {
 
     if ( this.options.constrainTo === 'window' )
       this.$container = this.$document;
-    else if ( this.options.constrainTo && (this.options.constrainTo !== 'parent') )
-      this.$container = $(this.options.constrainTo);
+    else if ( this.options.constrainTo && (this.options.constrainTo !== 'parent') ) {
+      var container = this.options.constrainTo;
+      if (typeof container === 'string') {
+        try {
+          container = this.$el[0].ownerDocument.querySelector(container);
+        } catch (error) {
+          throw new Error('Invalid PEP containment selector.');
+        }
+      } else if (container && container.jquery) {
+        container = container[0];
+      }
+      if (!container || !container.nodeType) {
+        throw new Error('PEP containment must resolve to a DOM element.');
+      }
+      this.$container = $(container);
+    }
     else
       this.$container = this.$el.parent();
 

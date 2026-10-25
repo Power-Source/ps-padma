@@ -284,9 +284,15 @@ $.fn.ajaxSubmit = function(options) {
 			try {
 				if (s.extraData) {
 					for (var n in s.extraData) {
-						extraInputs.push(
-							$('<input type="hidden" name="'+n+'" value="'+s.extraData[n]+'" />')
-								.appendTo(form)[0]);
+						if (!Object.prototype.hasOwnProperty.call(s.extraData, n)) {
+							continue;
+						}
+						var extraInput = document.createElement('input');
+						extraInput.type = 'hidden';
+						extraInput.name = n;
+						extraInput.value = String(s.extraData[n]);
+						form.appendChild(extraInput);
+						extraInputs.push(extraInput);
 					}
 				}
 

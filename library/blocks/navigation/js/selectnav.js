@@ -59,7 +59,17 @@ window.selectnav = (function(){
       if (targ.nodeType === 3) // defeat Safari bug
         targ = targ.parentNode; 
 
-      if(targ.value) window.location.href = targ.value; 
+      if(targ.value) {
+        var destination;
+        try {
+          destination = new URL(targ.value, window.location.href);
+        } catch(error) {
+          return;
+        }
+        if(destination.protocol === 'http:' || destination.protocol === 'https:') {
+          window.location.assign(destination.href);
+        }
+      }
     }
 
     function islist(list){

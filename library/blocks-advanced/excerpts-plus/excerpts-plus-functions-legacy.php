@@ -368,12 +368,14 @@
   {
 
     echo '
-	<div id="quickread" class="block-type-content block-content hentry" style="display:none;">
+	<dialog id="quickread" class="block-type-content block-content hentry eplus-quickread">
+	<button type="button" class="qr-close" aria-label="Close">&times;</button>
 	<h2 class="qr-title entry-title"></h2>
 	<div class="qr-content"></div>
 	<div class="qr-meta"></div>
 	<div class="qr-code"></div>
-	</div>';
+	<a class="qr-open-post" href="#">Go to post</a>
+	</dialog>';
   }
 
   function ep_extra_ve_css()

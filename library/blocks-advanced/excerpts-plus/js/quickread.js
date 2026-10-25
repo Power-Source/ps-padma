@@ -1,90 +1,97 @@
-/* Uses UI.Dialog */
-	jQuery(document).ready(function($) {
-	    $.fx.speeds._default = 500;
-	    $(function() {
-	        $( "#quickread" ).dialog({
-	        		dialogClass: "eplus-quickread",
-	            autoOpen: false,
-	            title: "Loading…",
-	            modal: true,
-	            show: "drop",
-	            width:800,
-	            height: 600,
-	            position:["center",50],
-            resizable:true
+(function(document, window) {
+	'use strict';
 
-	        });
+	function sanitizeContent(content) {
+		var blockedElements = content.querySelectorAll('script, style, iframe, object, embed');
+		Array.prototype.forEach.call(blockedElements, function(element) {
+			element.remove();
+		});
 
-	        $( ".openquickread" ).click(function() {
-	        	var self = this;
-	            $("#quickread h2.qr-title" ).html($(self).attr("alt"));
-	            $("#quickread .qr-content" ).html("Loading content...");
-	            $("#quickread .qr-content" ).load($(self).attr("href")+" .entry-content", function(){$("#quickread .pzsp-container").empty().append("<p class='ep-pzsp-removed'>Open the full post to view slideshow</p>")});
-	            $("#quickread .qr-code" ).html();
-							$("#quickread .qr-meta" ).html();
-							var contents = $("#quickread");
-	            $(contents).dialog( "open")
-	                .dialog( "option", "title", $(self).attr("alt") )
-	                .dialog( "option", "buttons",
-	                         {"Close": function() {$(this).dialog("close");},
-	                    "Go to post": function() {$(this ).dialog( "close");window.open($(self).attr("href"),"_self");}}
-	                );
-	            return false;
-	        });
-	    });
+		Array.prototype.forEach.call(content.querySelectorAll('*'), function(element) {
+			Array.prototype.slice.call(element.attributes).forEach(function(attribute) {
+				var name = attribute.name.toLowerCase();
+				var value = attribute.value.trim().toLowerCase();
+				if (name.indexOf('on') === 0 || ((name === 'href' || name === 'src') && value.indexOf('javascript:') === 0)) {
+					element.removeAttribute(attribute.name);
+				}
+			});
+		});
 
-//	        function load_qr(e) {
-//	        	  var self = e;
-//
-//	            $("#quickread h2.qr-title" ).html($(self).attr("alt"));
-//	            $("#quickread .qr-content" ).load($(self).attr("href")+" .entry-content", function(){$(".pzsp-container").empty().append("<p class='ep-pzsp-removed'>Open the full post to view slideshow</p>")});
-//	            $("#quickread .qr-code" ).html();
-//							$("#quickread .qr-meta" ).html();
-//							var contents = $("#quickread");
-//            console.log($("#quickread").innerHTML);
-//            console.log(contents);
-//            console.log(contents[0]);
-//            var the_content = contents[0];
-//            console.log(contents[0].innerHTML);
-//            return contents[0].innerHTML;
-//          }
-//          $("a.openquickread").avgrund({
-//                width: 600, // max is 640px
-//                height: 800, // max is 350px THAT'S A PROBLEM!
-//                showClose: true, // switch to 'true' for enabling close button
-//                showCloseText: 'Close', // type your text for close button
-//                closeByEscape: true, // enables closing popup by 'Esc'..
-//                closeByDocument: true, // ..and by clicking document itself
-//                holderClass: '', // lets you name custom class for popin holder..
-//                overlayClass: '', // ..and overlay block
-//                enableStackAnimation: false, // enables different type of popin's animation
-//                onBlurContainer: '#whitewrap', // enables blur filter for specified block
-//                openOnEvent: true, // set to 'false' to init on load
-//                setEvent: 'click', // use your event like 'mouseover', 'touchmove', etc.
-//                    onLoad: load_qr(this), // set custom call before popin is inited..
-////                    onUnload: function (elem) { ... }, // ..and after it was closed
-//                template:'how do we make it work?'
-//              }
-//          );
+		return content;
+	}
 
+	function init() {
+		var dialog = document.getElementById('quickread');
+		if (!dialog) {
+			return;
+		}
 
-	});
+		var title = dialog.querySelector('.qr-title');
+		var content = dialog.querySelector('.qr-content');
+		var closeButton = dialog.querySelector('.qr-close');
+		var openPostLink = dialog.querySelector('.qr-open-post');
 
-// What is $(document).ready ? See: http://flowplayer.org/tools/documentation/basics.html#document_ready
+		closeButton.addEventListener('click', function() {
+			dialog.close();
+		});
 
-// var triggers = $(".modalInput").overlay({
-// 
-	// // some mask tweaks suitable for modal dialogs
-	// mask: {
-		// color: '#ebecff',
-		// loadSpeed: 200,
-		// opacity: 0.9
-	// },
-// 
-	// closeOnClick: false
-// });
-// 
-// 
-// var buttons = $("#quickread").click(function(e) {
-// 	
-// });
+		dialog.addEventListener('click', function(event) {
+			if (event.target === dialog) {
+				dialog.close();
+			}
+		});
+
+		Array.prototype.forEach.call(document.querySelectorAll('.openquickread'), function(trigger) {
+			trigger.addEventListener('click', function(event) {
+				event.preventDefault();
+
+				var destination;
+				try {
+					destination = new URL(trigger.href, window.location.href);
+				} catch (error) {
+					return;
+				}
+				if (destination.origin !== window.location.origin) {
+					return;
+				}
+
+				title.textContent = trigger.getAttribute('alt') || trigger.textContent;
+				content.textContent = 'Loading content...';
+				openPostLink.href = destination.href;
+				dialog.showModal();
+
+				window.fetch(destination.href, { credentials: 'same-origin' })
+					.then(function(response) {
+						if (!response.ok) {
+							throw new Error('Quick Read request failed with status ' + response.status + '.');
+						}
+						return response.text();
+					})
+					.then(function(html) {
+						var responseDocument = new DOMParser().parseFromString(html, 'text/html');
+						var entryContent = responseDocument.querySelector('.entry-content');
+						if (!entryContent) {
+							throw new Error('Quick Read response does not contain post content.');
+						}
+
+						content.replaceChildren(sanitizeContent(entryContent.cloneNode(true)));
+						Array.prototype.forEach.call(content.querySelectorAll('.pzsp-container'), function(slideshow) {
+							var message = document.createElement('p');
+							message.className = 'ep-pzsp-removed';
+							message.textContent = 'Open the full post to view slideshow';
+							slideshow.replaceChildren(message);
+						});
+					})
+					.catch(function(error) {
+						content.textContent = error.message;
+					});
+			});
+		});
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', init, { once: true });
+	} else {
+		init();
+	}
+})(document, window);
