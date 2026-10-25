@@ -167,12 +167,6 @@ Alle Änderungen werden erst nach Klick auf **"Änderungen speichern"** am Ende 
 2. **Scripts im Footer laden:** Bessere Page-Speed-Werte
 3. **Editor-Caching aktiviert lassen:** Schnellere Editor-Ladezeiten
 
-### SEO-Einstellungen
-
-**Hinweis:** SEO-Optionen haben seit Version 1.0.7 eine eigene Seite!
-
-→ [SEO Suite Dokumentation](/ps-padma/dokumentation/dashboard/seo)
-
 ### Standard Admin-Seite wählen
 
 - **Für Anfänger:** "Erste Schritte" (Übersicht)
@@ -185,7 +179,6 @@ Alle Änderungen werden erst nach Klick auf **"Änderungen speichern"** am Ende 
 
 - [📋 Dashboard-Übersicht](/ps-padma/dokumentation/dashboard/)
 - [🚀 Erste Schritte](/ps-padma/dokumentation/dashboard/erste-schritte)
-- [🔍 SEO Suite](/ps-padma/dokumentation/dashboard/seo)
 - [🔧 Tools](/ps-padma/dokumentation/dashboard/tools)
 
 ---

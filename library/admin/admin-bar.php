@@ -112,13 +112,6 @@ class PadmaAdminBar {
 
 					$wp_admin_bar->add_menu(array(
 						'parent' => 'padma-admin-options',
-						'id' => 'padma-admin-options-seo', 
-						'title' => __('Suchmaschinenoptimierung','padma'),  
-						'href' => admin_url('admin.php?page=padma-options#tab-seo')
-					));
-
-					$wp_admin_bar->add_menu(array(
-						'parent' => 'padma-admin-options',
 						'id' => 'padma-admin-options-scripts',
 						'title' => __('Scripts/Analytics','padma'),  
 						'href' => admin_url('admin.php?page=padma-options#tab-scripts')

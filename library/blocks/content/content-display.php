@@ -44,8 +44,6 @@ class PadmaContentBlockDisplay {
 
 		}
 
-		add_filter('the_content', array($this, 'filter_nofollow_links_in_post'));				
-
 	}
 
 	function remove_hooks() {
@@ -54,8 +52,6 @@ class PadmaContentBlockDisplay {
 
 		remove_filter( 'excerpt_more', '__return_null' );
 		remove_filter( 'wp_trim_excerpt', array( $this, 'excerpt_more_link' ) );
-
-		remove_filter('the_content', array($this, 'filter_nofollow_links_in_post'));
 
 	}
 
@@ -641,16 +637,6 @@ class PadmaContentBlockDisplay {
 
 				echo '</div>';
 			}
-
-
-
-			/**
-			 *
-			 * Schema 
-			 *
-			 */			
-
-			echo PadmaSchema::article($post);
 
 
 
@@ -1422,30 +1408,5 @@ class PadmaContentBlockDisplay {
 	}
 
 
-	function filter_nofollow_links_in_post($text) {
-
-		global $post;
-
-		if ( !is_object($post) || empty($post->ID) || !PadmaSEO::is_seo_checkbox_enabled('nofollow', $post->ID) )
-			return $text;
-
-		preg_match_all("/<a.*? href=\"(.*?)\".*?>(.*?)<\/a>/i", $text, $links);
-		$match_count = count($links[0]);
-
-		for ( $i=0; $i < $match_count; $i++ ) {
-
-			if ( !preg_match("/rel=[\"\']*nofollow[\"\']*/",$links[0][$i]) ) {
-
-				preg_match_all("/<a.*? href=\"(.*?)\"(.*?)>(.*?)<\/a>/i", $links[0][$i], $link_text);
-
-				$text = str_replace('>' . $link_text[3][0] . '</a>', ' rel="nofollow">' . $link_text[3][0] . '</a>', $text);
-
-			}
-
-		}
-
-		return $text;
-
-	}
 
 }

@@ -11,16 +11,9 @@ class PadmaHead {
 			return false;
 
 
-		if ( function_exists('wp_get_document_title') ) {
-			add_filter('pre_get_document_title', array('PadmaSEO', 'output_title'));
-		} else {
-			add_filter('wp_title', array('PadmaSEO', 'output_title'));
-		}
-
 		//Remove actions		
 		remove_action('wp_head', 'wp_print_styles', 8);
 		remove_action('wp_head', 'wp_print_head_scripts', 9);
-		remove_action('wp_head', 'rel_canonical');
 		remove_action('wp_head', 'feed_links', 2);
 		remove_action('wp_head', 'feed_links_extra', 3);
 
@@ -33,7 +26,6 @@ class PadmaHead {
 		add_action('wp_enqueue_scripts', array(__CLASS__, 'register_files'), 1);
 		add_action('wp_enqueue_scripts', array(__CLASS__, 'enqueue_scripts'), 1);
 
-		add_action('wp_head', array('PadmaSEO', 'output_meta'), 2);
 		add_action('wp_head', array(__CLASS__, 'print_stylesheets'), 7);
 		add_action('wp_head', array(__CLASS__, 'print_scripts'), 8);
 		add_action('wp_head', array(__CLASS__, 'extras'), 9);
@@ -45,8 +37,6 @@ class PadmaHead {
 		add_action('padma_scripts', 'wp_print_head_scripts');
 		add_action('padma_scripts', array(__CLASS__, 'add_standards_compliance_js'));
 		add_action('padma_scripts', array(__CLASS__, 'header_scripts'));
-
-		add_action('padma_seo_meta', 'rel_canonical');
 
 		add_action('padma_head_extras', 'feed_links');
 		add_action('padma_head_extras', 'feed_links_extra');

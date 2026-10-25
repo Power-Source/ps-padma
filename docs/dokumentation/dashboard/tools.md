@@ -339,7 +339,6 @@ Prüfe in den **System-Informationen**:
 - [📋 Dashboard-Übersicht](/ps-padma/dokumentation/dashboard/)
 - [📦 Templates](/ps-padma/dokumentation/dashboard/templates) — Template Import & Export
 - [⚙️ Optionen](/ps-padma/dokumentation/dashboard/optionen) — Performance-Einstellungen
-- [🔍 SEO](/ps-padma/dokumentation/dashboard/seo)
 
 ---
 
@@ -352,5 +351,5 @@ Prüfe in den **System-Informationen**:
 ---
 
 **Navigation:**
-- [← SEO Suite](/ps-padma/dokumentation/dashboard/seo)
+- [← Optionen](/ps-padma/dokumentation/dashboard/optionen)
 - [Dashboard-Übersicht](/ps-padma/dokumentation/dashboard/)

@@ -39,7 +39,6 @@ Die Erste Schritte-Seite ist in vier Tabs unterteilt:
   - **PS Padma – Visual Editor:** Zugang zum Layout-Builder
   - **PS Padma – Templates:** Import/Export von Layouts
   - **PS Padma – Erweiterte Blöcke:** Alle verfügbaren Advanced Blocks
-  - **PS Padma – SEO:** Integrierte SEO-Suite
   - **PS Padma – Optionen:** Globale Theme-Einstellungen
   - **PS Padma – Tools:** Wartung & System-Infos
 

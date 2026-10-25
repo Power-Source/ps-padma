@@ -4,11 +4,6 @@
  */
 ?>
 
-<div class="notice notice-info" style="margin: 20px 0; padding: 15px; border-left: 4px solid #2271b1;">
-	<h3 style="margin-top: 0;"><?php _e('SEO Settings haben jetzt eine eigene Seite!', 'padma'); ?></h3>
-	<p><?php echo sprintf(__('Alle SEO-Einstellungen findest du jetzt unter <a href="%s"><strong>Padma > SEO</strong></a>.', 'padma'), admin_url('admin.php?page=padma-seo')); ?></p>
-</div>
-
 <h2 class="nav-tab-wrapper big-tabs-tabs">
 	<a class="nav-tab" href="#tab-general"><?php _e('Allgemein', 'padma'); ?></a>
 	<a class="nav-tab" href="#tab-scripts"><?php _e('Scripts/Analytics', 'padma'); ?></a>
@@ -126,9 +121,6 @@
 				</div>
 			</div>
 		</div>
-
-		<!-- SEO Tab removed - now has its own admin page -->
-		<!-- All SEO settings moved to Padma > SEO (admin.php?page=padma-seo) -->
 
 		<div class="big-tab" id="tab-scripts-content">
 

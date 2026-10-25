@@ -29,7 +29,6 @@ Ein **Template** in PS Padma beinhaltet:
 - ✅ **Design-Einstellungen** (Farben, Fonts, Styles)
 - ✅ **Blöcke & Wrappers** (komplette Grid-Struktur)
 - ✅ **Layout-spezifische Optionen**
-- ✅ **SEO-Einstellungen** pro Layout
 
 **Nicht enthalten:**
 - ❌ WordPress-Inhalte (Posts, Pages, Medien)
@@ -264,4 +263,4 @@ Falls die Websites unterschiedliche Domains haben:
 
 **Navigation:**
 - [← Optionen](/ps-padma/dokumentation/dashboard/optionen)
-- [SEO Suite →](/ps-padma/dokumentation/dashboard/seo)
+- [Tools →](/ps-padma/dokumentation/dashboard/tools)

@@ -224,8 +224,6 @@ class Padma {
 			'common/layout' 				=> true,
 			'common/capabilities' 			=> true,
 			'common/responsive-grid' 		=> true,
-			'common/schema' 				=> true,		'common/schema-advanced' 		=> true,			'common/seo' 					=> true,
-			'common/seo-suite' 				=> true,		'common/sitemap-generator' 		=> true,			'common/social-optimization' 	=> true,
 			'common/feed' 					=> true,
 			'common/compiler' 				=> true,
 			'common/templates',

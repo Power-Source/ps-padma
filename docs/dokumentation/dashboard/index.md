@@ -57,20 +57,6 @@ Template-Verwaltung für Layouts und Designs:
 
 ---
 
-### [🔍 SEO Suite](/ps-padma/dokumentation/dashboard/seo)
-
-Integrierte SEO-Funktionen ohne externe Plugins:
-
-- Meta-Tags & Beschreibungen
-- XML Sitemaps
-- Schema.org Markup
-- Social Media Integration (Open Graph, Twitter Cards)
-- Organization Schema
-
-→ [Zur Dokumentation: SEO Suite](/ps-padma/dokumentation/dashboard/seo)
-
----
-
 ### [🔧 Tools](/ps-padma/dokumentation/dashboard/tools)
 
 Wartung, Debugging und System-Informationen:

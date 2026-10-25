@@ -30,7 +30,6 @@ Alles rund um die Admin-Oberfläche:
 - [Erste Schritte](/ps-padma/dokumentation/dashboard/erste-schritte) — Getting Started Seite
 - [Optionen](/ps-padma/dokumentation/dashboard/optionen) — Globale Theme-Einstellungen
 - [Templates](/ps-padma/dokumentation/dashboard/templates) — Template Import & Export
-- [SEO Suite](/ps-padma/dokumentation/dashboard/seo) — Integrierte SEO-Funktionen
 - [Tools](/ps-padma/dokumentation/dashboard/tools) — System-Infos & Wartung
 
 ## 🎨 Visual Editor

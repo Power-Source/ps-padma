@@ -62,6 +62,8 @@ Ja, das Theme ist für WordPress und ClassicPress ausgelegt.
 
 = 1.2.2 =
 * Veraltetes trim modernisiert
+* SEO-Funktionen, SEO-Metaboxen, Schema-Ausgabe und Sitemap-Generator aus dem Theme entfernt
+* PS SEO übernimmt Titel, Metadaten, Social Sharing, strukturierte Daten und Sitemap-Filter
 
 = 1.2.1 =
 * Textausgaben verbessert

@@ -275,7 +275,6 @@ class PadmaAdmin {
 					self::add_admin_submenu( __('Visual Editor','padma'), 'padma-visual-editor', array('PadmaAdminPages', 'visual_editor'));
 					self::add_admin_submenu( __('Templates','padma'), 'padma-templates', array('PadmaAdminPages', 'templates'));
 					self::add_admin_submenu( __('Erweiterte Blöcke','padma'), 'padma-advanced-blocks', array('PadmaAdminPages', 'advanced_blocks'));
-					self::add_admin_submenu( __('SEO','padma'), 'padma-seo', array('PadmaAdminPages', 'seo'));
 					self::add_admin_submenu( __('Optionen','padma'), 'padma-options', array('PadmaAdminPages', 'options'));
 					self::add_admin_submenu( __('Tools','padma'), 'padma-tools', array('PadmaAdminPages', 'tools'));
 				break;
@@ -284,7 +283,6 @@ class PadmaAdmin {
 					self::add_admin_submenu( __('Visual Editor','padma'), 'padma-visual-editor', array('PadmaAdminPages', 'visual_editor'));
 					self::add_admin_submenu( __('Templates','padma'), 'padma-templates', array('PadmaAdminPages', 'templates'));
 					self::add_admin_submenu( __('Erweiterte Blöcke','padma'), 'padma-advanced-blocks', array('PadmaAdminPages', 'advanced_blocks'));
-					self::add_admin_submenu( __('SEO','padma'), 'padma-seo', array('PadmaAdminPages', 'seo'));
 					self::add_admin_submenu( __('Optionen','padma'), 'padma-options', array('PadmaAdminPages', 'options'));
 					self::add_admin_submenu( __('Tools','padma'), 'padma-tools', array('PadmaAdminPages', 'tools'));
 				break;
@@ -294,7 +292,6 @@ class PadmaAdmin {
 					self::add_admin_submenu( __('Visual Editor','padma'), 'padma-visual-editor', array('PadmaAdminPages', 'visual_editor'));
 					self::add_admin_submenu( __('Templates','padma'), 'padma-templates', array('PadmaAdminPages', 'templates'));
 					self::add_admin_submenu( __('Erweiterte Blöcke','padma'), 'padma-advanced-blocks', array('PadmaAdminPages', 'advanced_blocks'));
-					self::add_admin_submenu( __('SEO','padma'), 'padma-seo', array('PadmaAdminPages', 'seo'));
 					self::add_admin_submenu( __('Tools','padma'), 'padma-tools', array('PadmaAdminPages', 'tools'));
 				break;
 
@@ -415,7 +412,6 @@ class PadmaAdmin {
 
 		wp_enqueue_style('padma_admin_write', padma_url() . '/library/admin/css/admin-write.css');
 		wp_enqueue_style('padma_alerts', padma_url() . '/library/media/css/alerts.css');
-		wp_enqueue_script('padma_admin_write', padma_url() . '/library/admin/js/admin-write.js', array('jquery'));
                 $css_src = includes_url('css/') . 'editor.css';
                 wp_register_style('tinymce_css', $css_src);
                 wp_enqueue_style('tinymce_css');
@@ -426,13 +422,6 @@ class PadmaAdmin {
 	if ( in_array( $pagenow, array( 'post.php', 'post-new.php' ) ) ) {
 
 		wp_enqueue_style('padma_admin_write', padma_url() . '/library/admin/css/admin-write.css');
-
-	}
-
-	/* SEO Suite */
-	if ( padma_get('page') == 'padma-seo' ) {
-
-		wp_enqueue_style('padma_admin_seo', padma_url() . '/library/admin/css/admin-seo.css');
 
 	}
 

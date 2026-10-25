@@ -84,7 +84,7 @@ if ( apply_filters( 'replace_editor', false, $post ) === true ) {
     Caching Enabled: 	<?php echo PadmaCompiler::caching_enabled() ? 'Yes' . "\n" : 'No' . "\n"; ?>
     Caching Plugin: 	<?php echo PadmaCompiler::is_plugin_caching() ? PadmaCompiler::is_plugin_caching() . "\n" : 'No caching plugin active' . "\n" ?>
 
-	SEO Plugin: 		<?php echo PadmaSEO::plugin_active() ? PadmaSEO::plugin_active() . "\n" : 'No SEO plugin active' . "\n" ?>
+	PS SEO: 			<?php echo defined('PS_SEO_VERSION') ? PS_SEO_VERSION . "\n" : 'Not active' . "\n" ?>
 
     Operating System:	<?php echo ucwords($browser['platform']) . "\n"; ?>
     Browser:			<?php echo $browser['name'] . "\n"; ?>
@@ -208,12 +208,12 @@ if ( is_array($active_plugins) && count($active_plugins) ) {
 		<div class="alert-red reset-alert alert">
 			<h3><?php _e('Warnung','padma'); ?></h3>
 
-			<p><?php _e('Ein Klick auf den <em>Zurücksetzen</em>-Button löscht <strong>ALLE</strong> vorhandenen Padma-Daten, einschließlich – aber nicht beschränkt auf – Blöcke, Design-Einstellungen und Padma-SEO-Einstellungen.','padma'); ?></p>
+			<p><?php _e('Ein Klick auf den <em>Zurücksetzen</em>-Button löscht <strong>ALLE</strong> vorhandenen Padma-Daten, einschließlich Blöcken und Design-Einstellungen.','padma'); ?></p>
 
 			<form method="post" id="reset-padma">
 				<input type="hidden" value="<?php echo wp_create_nonce('padma-reset-nonce'); ?>" name="padma-reset-nonce" id="padma-reset-nonce" />
 
-				<input type="submit" value="<?php esc_attr_e('Padma zurücksetzen', 'padma'); ?>" class="button alert-big-button" name="reset-padma" id="reset-padma-submit" onclick="return confirm('<?php echo esc_js(__('Warnung! ALLE vorhandenen Padma-Daten werden gelöscht, einschließlich – aber nicht beschränkt auf – Blöcke, Design-Einstellungen und SEO-Einstellungen. Dies kann nicht rückgängig gemacht werden. OK zum Löschen, Abbrechen zum Stoppen', 'padma')); ?>');" />
+				<input type="submit" value="<?php esc_attr_e('Padma zurücksetzen', 'padma'); ?>" class="button alert-big-button" name="reset-padma" id="reset-padma-submit" onclick="return confirm('<?php echo esc_js(__('Warnung! ALLE vorhandenen Padma-Daten einschließlich Blöcken und Design-Einstellungen werden gelöscht. Dies kann nicht rückgängig gemacht werden. OK zum Löschen, Abbrechen zum Stoppen', 'padma')); ?>');" />
 			</form><!-- #reset -->
 		</div>
 		<?php endif; ?>

@@ -10,9 +10,6 @@ class PadmaRoute {
 		/* Parse request runs before 'wp', but does not have $post or query set up.  This speeds things up and keeps 404s from happening */
 			add_action('parse_request', array(__CLASS__, 'maybe_run_trigger'), -1);
 
-		/* We use 'wp' on this so $post is set up so we can query meta */
-			add_action('wp', array(__CLASS__, 'maybe_redirect_301'));
-
 		/* Direct to VE, theme preview warning, or grid */
 			add_action('template_redirect', array(__CLASS__, 'direct'), 1);
 
@@ -132,39 +129,6 @@ class PadmaRoute {
 		}
 
 		exit;
-
-	}
-
-
-	/**
-	 * If a post, page, or any other singular item has the 301 Redirect set, then do the redirect.
-	 **/
-	public static function maybe_redirect_301() {
-
-		global $post;
-
-		//Don't try redirecting if the headers are already sent.  Otherwise, it'll result in an error and no redirect.
-		if ( headers_sent() )
-			return false;
-
-		//Make sure that it's a single post and that $post is a valid object.
-		if ( !is_object($post) || !is_singular() )
-			return false;
-
-		//Do not try redirecting if it's the visual editor or admin
-		if ( is_admin() || self::is_visual_editor() || self::is_visual_editor_iframe() )
-			return false;
-
-		//If the redirect URL isn't set, then don't try anything.
-		if ( !($redirect_url = PadmaLayoutOption::get($post->ID, 'redirect-301', null, true, 'seo')) )
-			return false;
-
-		//If there is no HTTP or HTTPS in the URL, add it.
-		if ( strpos($redirect_url, 'http://') !== 0 && strpos($redirect_url, 'https://') !== 0 )
-			$redirect_url = 'http://' . $redirect_url;
-
-		wp_redirect($redirect_url, 301);
-		die();
 
 	}
 

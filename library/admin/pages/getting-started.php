@@ -67,7 +67,7 @@ defined('ABSPATH') or die("No script kiddies please!");
 		<div class="content">
 			<div class="box">
 				<h3><?php _e('PS Padma Optionen','padma'); ?></h3>
-				<p><?php _e('Richte deine Google Analytics, SEO, Favicons und andere erweiterte Einstellungen ein.','padma'); ?></p>
+				<p><?php _e('Richte deine Google Analytics, Favicons und andere erweiterte Einstellungen ein.','padma'); ?></p>
 			</div>
 			<h2 class="center"><?php _e('PS Padma Werkzeuge','padma'); ?></h2>
 			<div class="box">
