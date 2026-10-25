@@ -168,6 +168,7 @@ define(['jquery', 'knockout', 'underscore'], function($, ko, _) {
 
 		}
 
+		/* Legacy content loading is disabled.
 		//Check if the content node has a template assigned to it.  
 			var possibleTemplateID = content.find('.status-template').data('template-id');
 							

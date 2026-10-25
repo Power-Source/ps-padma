@@ -15,16 +15,22 @@ this.onmessage = function(e) {
     postMessage({id: data.id, body: reqData, err: err && String(err)});
   });
   case "getFile":
+    if (typeof data.id != "number" || data.id < 1 ||
+        data.id != Math.floor(data.id) ||
+        !Object.prototype.hasOwnProperty.call(pending, data.id)) {
+      throw new Error("Unknown request id: " + data.id);
+    }
     var c = pending[data.id];
     delete pending[data.id];
-    if (typeof c != "function") throw new Error("Unknown request id: " + data.id);
+    if (typeof c != "function") throw new Error("Invalid request callback");
     return c(data.err, data.text);
   default: throw new Error("Unknown message type: " + data.type);
   }
 };
 
-var nextId = 0, pending = {};
+var nextId = 0, pending = Object.create(null);
 function getFile(file, c) {
+  if (typeof c != "function") throw new Error("Invalid file callback");
   postMessage({type: "getFile", name: file, id: ++nextId});
   pending[nextId] = c;
 }

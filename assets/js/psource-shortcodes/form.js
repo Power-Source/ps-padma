@@ -66,7 +66,7 @@ $.fn.ajaxSubmit = function(options) {
 		url:  url,
 		success: $.ajaxSettings.success,
 		type: this[0].getAttribute('method') || 'GET', // IE7 massage (see issue 57)
-		iframeSrc: /^https/i.test(window.location.href || '') ? 'javascript:false' : 'about:blank'
+		iframeSrc: 'about:blank'
 	}, options);
 
 	// hook for manipulating the form data before it is extracted;
@@ -191,8 +191,17 @@ $.fn.ajaxSubmit = function(options) {
 		var s = $.extend(true, {}, $.ajaxSettings, options);
 		s.context = s.context || s;
 		var id = 'jqFormIO' + (new Date().getTime()), fn = '_'+id;
-		var $io = $('<iframe id="' + id + '" name="' + id + '" src="'+ s.iframeSrc +'" />');
-		var io = $io[0];
+		var io = document.createElement('iframe');
+		var iframeSrc = String(s.iframeSrc || 'about:blank');
+
+		if (!/^(?:about:blank|https?:)/i.test(iframeSrc)) {
+			iframeSrc = 'about:blank';
+		}
+
+		io.id = id;
+		io.name = id;
+		io.src = iframeSrc;
+		var $io = $(io);
 
 		$io.css({ position: 'absolute', top: '-1000px', left: '-1000px' });
 
