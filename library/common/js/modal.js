@@ -8,7 +8,18 @@
 	function openModal(content) {
 		let modal = document.createElement('div');
 		modal.className = 'ps-modal-overlay';
-		modal.innerHTML = '<div class="ps-modal"><button class="ps-modal-close" aria-label="Schließen">×</button><div class="ps-modal-content"></div></div>';
+		let dialog = document.createElement('div');
+		let closeButton = document.createElement('button');
+		let contentContainer = document.createElement('div');
+
+		dialog.className = 'ps-modal';
+		closeButton.className = 'ps-modal-close';
+		closeButton.setAttribute('aria-label', 'Schließen');
+		closeButton.textContent = '×';
+		contentContainer.className = 'ps-modal-content';
+		dialog.appendChild(closeButton);
+		dialog.appendChild(contentContainer);
+		modal.appendChild(dialog);
 		
 		// Wenn content ein Element ist (nicht geklont), speichern wir das Original
 		if(content instanceof Element) {
@@ -17,7 +28,7 @@
 			content.style.display = 'block';
 		}
 		
-		modal.querySelector('.ps-modal-content').appendChild(content);
+		contentContainer.appendChild(content);
 		document.body.appendChild(modal);
 		currentModal = modal;
 		

@@ -22,8 +22,17 @@
 				e.preventDefault();
 				var imgUrl = imgTrigger.getAttribute('data-modal-image');
 				if(imgUrl) {
+					var resolvedUrl;
+					try {
+						resolvedUrl = new URL(imgUrl, window.location.href);
+					} catch(error) {
+						return;
+					}
+					if(resolvedUrl.protocol !== 'http:' && resolvedUrl.protocol !== 'https:') {
+						return;
+					}
 					var img = document.createElement('img');
-					img.src = imgUrl;
+					img.src = resolvedUrl.href;
 					window.PSModal.open(img);
 				}
 			}

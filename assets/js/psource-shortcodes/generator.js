@@ -52,7 +52,8 @@ jQuery(document).ready(function($) {
 		return null;
 	}
 	function su_strip_html(str) {
-		return (str || '').replace(/<[^>]+>/g, '');
+		var documentNode = new DOMParser().parseFromString(String(str || ''), 'text/html');
+		return documentNode.body.textContent || '';
 	}
 	function su_get_textarea_selection(editorId) {
 		var textarea = null;

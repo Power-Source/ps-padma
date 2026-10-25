@@ -1,17 +1,5 @@
 (function($) {
 
-/*!
-jQuery quicksearch 
-*/
-(function($,window,document,undefined){$.fn.quicksearch=function(target,opt){var timeout,cache,rowcache,jq_results,val="",e=this,options=$.extend({delay:100,selector:null,stripeRows:null,loader:null,noResults:"",matchedResultsCount:0,bind:"keyup",onBefore:function(){return},onAfter:function(){return},show:function(){this.style.display=""},hide:function(){this.style.display="none"},prepareQuery:function(val){return val.toLowerCase().split(" ")},testQuery:function(query,txt,_row){for(var i=0;i<query.length;i+=
-1)if(txt.indexOf(query[i])===-1)return false;return true}},opt);this.go=function(){var i=0,numMatchedRows=0,noresults=true,query=options.prepareQuery(val),val_empty=val.replace(" ","").length===0;for(var i=0,len=rowcache.length;i<len;i++)if(val_empty||options.testQuery(query,cache[i],rowcache[i])){options.show.apply(rowcache[i]);noresults=false;numMatchedRows++}else options.hide.apply(rowcache[i]);if(noresults)this.results(false);else{this.results(true);this.stripe()}this.matchedResultsCount=numMatchedRows;
-this.loader(false);options.onAfter();return this};this.search=function(submittedVal){val=submittedVal;e.trigger()};this.currentMatchedResults=function(){return this.matchedResultsCount};this.stripe=function(){if(typeof options.stripeRows==="object"&&options.stripeRows!==null){var joined=options.stripeRows.join(" ");var stripeRows_length=options.stripeRows.length;jq_results.not(":hidden").each(function(i){$(this).removeClass(joined).addClass(options.stripeRows[i%stripeRows_length])})}return this};
-this.strip_html=function(input){var output=input.replace(new RegExp("<[^<]+>","g"),"");output=$.trim(output.toLowerCase());return output};this.results=function(bool){if(typeof options.noResults==="string"&&options.noResults!=="")if(bool)$(options.noResults).hide();else $(options.noResults).show();return this};this.loader=function(bool){if(typeof options.loader==="string"&&options.loader!=="")bool?$(options.loader).show():$(options.loader).hide();return this};this.cache=function(){jq_results=$(target);
-if(typeof options.noResults==="string"&&options.noResults!=="")jq_results=jq_results.not(options.noResults);var t=typeof options.selector==="string"?jq_results.find(options.selector):$(target).not(options.noResults);cache=t.map(function(){return e.strip_html(this.innerHTML)});rowcache=jq_results.map(function(){return this});val=val||this.val()||"";return true};this.trigger=function(){this.loader(true);options.onBefore();window.clearTimeout(timeout);timeout=window.setTimeout(function(){e.go()},
-options.delay);return this};this.cache();this.results(true);this.stripe();this.loader(false);return this.each(function(){$(this).bind(options.bind,function(){val=$(this).val();e.trigger()})})}})(jQuery,this,document);
-
-
-
 /* Fonts input object */
 	function fontBrowserObj(browser) {
 
@@ -493,28 +481,45 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 
 		this.initQuickSearch = function(context) {
 
-			var id = context.attr('id');
+			var filter = context.find('.fonts-filter');
+			var fontsList = context.find('.fonts-list ul');
+			var noResults = context.find('.fonts-list .fonts-noresults');
+			var loader = context.find('.fonts-list .fonts-loading');
+			var rows = $();
+			var timeout;
 
-			var quicksearch = context.find('.fonts-filter').quicksearch('#' + id + ' .fonts-list ul li', {
-				delay: 750,
-				noResults: '#' + id + ' .fonts-list .fonts-noresults',
-				loader: '#' + id + ' .fonts-list .fonts-loading',
-				bind: 'keyup',
-				onBefore: function() {
-					context.find('.fonts-list ul').fadeOut(100);
+			var quicksearch = {
+				cache: function() {
+					rows = fontsList.find('li').not(noResults);
 				},
-				onAfter: function() {
-					/* Force fonts to be loaded */
-					context.find('.fonts-list ul')
-						.trigger('scroll')
-						.fadeIn(100);
-				},
-				prepareQuery: function (val) {
-				    return new RegExp(val, "i");
-				},
-			    testQuery: function (query, txt, _row) {
-			        return query.test(jQuery.trim(txt.replace('the quick brown fox jumps over the lazy dog.', '')));
-			    }
+				search: function() {
+					var query = $.trim(String(filter.val() || '')).toLowerCase();
+					var hasResults = false;
+
+					rows.each(function() {
+						var row = $(this);
+						var text = $.trim(row.text().replace('the quick brown fox jumps over the lazy dog.', '')).toLowerCase();
+						var matches = !query.length || text.indexOf(query) !== -1;
+
+						row.toggle(matches);
+						hasResults = hasResults || matches;
+					});
+
+					noResults.toggle(!hasResults);
+					loader.hide();
+					fontsList.trigger('scroll').fadeIn(100);
+				}
+			};
+
+			quicksearch.cache();
+			noResults.hide();
+			loader.hide();
+
+			filter.on('keyup', function() {
+				loader.show();
+				fontsList.fadeOut(100);
+				window.clearTimeout(timeout);
+				timeout = window.setTimeout(quicksearch.search, 750);
 			});
 
 
@@ -611,7 +616,10 @@ options.delay);return this};this.cache();this.results(true);this.stripe();this.l
 
 				fontPreview.fadeIn(750);
 				fontPreview.css('font-family', fontFamily);
-				fontPreview.find('h4').html($(this).parent().find('.font-family').text() + ' <span>(Vorschau)</span>');
+				var previewHeading = fontPreview.find('h4').empty();
+				previewHeading
+					.append(document.createTextNode($(this).parent().find('.font-family').text() + ' '))
+					.append($('<span>').text('(Vorschau)'));
 
 				self.previewLoadFromStorage(fontPreview);
 

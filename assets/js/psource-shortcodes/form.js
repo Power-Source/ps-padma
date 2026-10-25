@@ -418,19 +418,14 @@ $.fn.ajaxSubmit = function(options) {
 			}, 100);
 		}
 
-		var toXml = $.parseXML || function(s, doc) { // use parseXML if available (jQuery 1.5+)
-			if (window.ActiveXObject) {
-				doc = new ActiveXObject('Microsoft.XMLDOM');
-				doc.async = 'false';
-				doc.loadXML(s);
+		var toXml = function(s) {
+			if (typeof $.parseXML !== 'function') {
+				throw new Error('XML response parsing requires jQuery.parseXML.');
 			}
-			else {
-				doc = (new DOMParser()).parseFromString(s, 'text/xml');
-			}
-			return (doc && doc.documentElement && doc.documentElement.nodeName != 'parsererror') ? doc : null;
+			return $.parseXML(s);
 		};
 		var parseJSON = $.parseJSON || function(s) {
-			return window['eval']('(' + s + ')');
+			return JSON.parse(s);
 		};
 		
 		var httpData = function( xhr, type, s ) { // mostly lifted from jq1.4.4

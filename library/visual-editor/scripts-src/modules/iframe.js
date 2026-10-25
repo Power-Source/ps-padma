@@ -21,6 +21,16 @@ define(['jquery', 'deps/itstylesheet', 'util.saving', 'util.usability', 'util.to
 		if ( typeof url == 'undefined' || !url)
 			var url = Padma.homeURL;
 
+		var parsedIframeURL;
+		try {
+			parsedIframeURL = new URL(url, window.location.href);
+		} catch (error) {
+			throw new Error('Invalid visual editor iframe URL.');
+		}
+
+		if ( parsedIframeURL.protocol != 'http:' && parsedIframeURL.protocol != 'https:' )
+			throw new Error('Unsupported visual editor iframe URL protocol.');
+
 		/* Choose contents iframe or preview iframe depending on argument */
 			var iframe = Padma.iframe;
 
@@ -32,7 +42,7 @@ define(['jquery', 'deps/itstylesheet', 'util.saving', 'util.usability', 'util.to
 		closeBox('grid-manager');
 
 		/* Build the URL */
-			iframeURL = url;
+			iframeURL = parsedIframeURL.href;
 			iframeURL = updateQueryStringParameter(iframeURL, 've-iframe', 'true');
 			iframeURL = updateQueryStringParameter(iframeURL, 've-layout', encodeURIComponent(Padma.viewModels.layoutSelector.currentLayout()));
             iframeURL = updateQueryStringParameter(iframeURL, 've-layout-customized', Padma.viewModels.layoutSelector.currentLayoutCustomized());

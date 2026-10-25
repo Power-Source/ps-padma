@@ -17,6 +17,7 @@ this.onmessage = function(e) {
   case "getFile":
     var c = pending[data.id];
     delete pending[data.id];
+    if (typeof c != "function") throw new Error("Unknown request id: " + data.id);
     return c(data.err, data.text);
   default: throw new Error("Unknown message type: " + data.type);
   }

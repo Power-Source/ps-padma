@@ -11,15 +11,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 
 function gup( name )
 {
-	name = name.replace( /[\[]/, '\\\[' ).replace( /[\]]/, '\\\]' ) ;
-	var regexS = '[\\?&]' + name + '=([^&#]*)' ;
-	var regex = new RegExp( regexS ) ;
-	var results = regex.exec( window.location.href ) ;
-
-	if ( results )
-		return results[ 1 ] ;
-	else
-		return '' ;
+	return new URL( window.location.href ).searchParams.get( name ) || '';
 }
 
 var interval;

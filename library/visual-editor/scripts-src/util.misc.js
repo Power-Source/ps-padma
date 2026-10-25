@@ -175,8 +175,33 @@ define(['jquery'], function($) {
 
 		/*		Is a valid URL?		*/
 		is_url = function(str){
- 			regexp =  /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
-        	return regexp.test(str);
+			if ( typeof str != 'string' || !str.length )
+				return false;
+
+			try {
+				var parsedURL = new URL(/^[a-z][a-z0-9+.-]*:\/\//i.test(str) ? str : 'http://' + str);
+				var hostname = parsedURL.hostname.toLowerCase();
+				var octets = hostname.split('.');
+
+				if ( ['http:', 'https:', 'ftp:'].indexOf(parsedURL.protocol) === -1 || !hostname )
+					return false;
+
+				if ( octets.length == 4 && octets.every(function(octet) {
+					return /^\d{1,3}$/.test(octet) && Number(octet) <= 255;
+				}) ) {
+					var first = Number(octets[0]);
+					var second = Number(octets[1]);
+					return first !== 10 &&
+						first !== 127 &&
+						!(first === 169 && second === 254) &&
+						!(first === 192 && second === 168) &&
+						!(first === 172 && second >= 16 && second <= 31);
+				}
+
+				return hostname.indexOf('.') > 0 && !/\s/.test(str);
+			} catch (error) {
+				return false;
+			}
 		}
 
 

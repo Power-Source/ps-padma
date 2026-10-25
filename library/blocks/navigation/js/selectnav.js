@@ -23,11 +23,6 @@ window.selectnav = (function(){
       return;
     }
 
-    // return immediately if no support for insertAdjacentHTML (Firefox 7 and under)
-    if( ! ('insertAdjacentHTML' in window.document.documentElement) ){
-      return;
-    }
-
     // add a js class to <html> tag
     document.documentElement.className += " js";
 
@@ -38,16 +33,11 @@ window.selectnav = (function(){
       autoselect = typeof(o.autoselect) === "boolean" ? o.autoselect : true,
       nested = typeof(o.nested) === "boolean" ? o.nested : true,
       indent = o.indent || "→",
-      label = o.label || "- Navigation -",
-
-      // helper variables
-      level = 0,
-      selected = " selected ";
+      label = o.label || "- Navigation -";
 
     // insert the freshly created dropdown navigation after the existing navigation
-    element.insertAdjacentHTML('afterend', parselist(element) );
-
-    var nav = document.getElementById(id());
+    var nav = parselist(element);
+    element.parentNode.insertBefore(nav, element.nextSibling);
 
     // autoforward on click
     if (nav.addEventListener) {
@@ -83,71 +73,55 @@ window.selectnav = (function(){
     }
 
     function parselist(list){
+      var select = document.createElement('select');
+      select.className = 'selectnav';
+      select.id = id(true);
 
-      // go one level down
-      level++;
-
-      var length = list.children.length,
-        html = '',
-        prefix = '',
-        k = level-1
-        ;
-
-      // return immediately if has no children
-      if (!length) {
-        return;
+      if(label) {
+        var labelOption = document.createElement('option');
+        labelOption.value = '';
+        labelOption.textContent = label;
+        select.appendChild(labelOption);
       }
 
-      if(k) {
-        while(k--){
-          prefix += indent;
-        }
-        prefix += " ";
+      appendOptions(list, select, 0);
+      return select;
+    }
+
+    function appendOptions(list, select, depth) {
+      var prefix = '';
+      for(var prefixLevel = 0; prefixLevel < depth; prefixLevel++) {
+        prefix += indent;
       }
+      if(prefix) prefix += ' ';
 
-      for(var i=0; i < length; i++){
-
+      for(var i = 0; i < list.children.length; i++) {
         var link = list.children[i].children[0];
-        if(typeof(link) !== 'undefined'){
-          var linkToGetText = jQuery(link);
-          	linkToGetText.find('.sf-sub-indicator').remove();
+        if(typeof(link) === 'undefined') continue;
 
-          var text = linkToGetText.text();
-          var isselected = '';
+        var linkToGetText = jQuery(link).clone();
+        linkToGetText.find('.sf-sub-indicator').remove();
 
-          if(activeclass){
-            isselected = link.className.search(activeclass) !== -1 || link.parentNode.className.search(activeclass) !== -1 ? selected : '';
-          }
+        var option = document.createElement('option');
+        option.value = link.href;
+        option.textContent = prefix + linkToGetText.text();
+        option.selected = activeclass && (
+          link.className.search(activeclass) !== -1 ||
+          link.parentNode.className.search(activeclass) !== -1
+        );
 
-          if(autoselect && !isselected){
-            isselected = link.href === document.URL ? selected : '';
-          }
+        if(autoselect && !option.selected) {
+          option.selected = link.href === document.URL;
+        }
+        select.appendChild(option);
 
-          html += '<option value="' + link.href + '" ' + isselected + '>' + prefix + text +'</option>';
-
-          if(nested){
-            var subElement = list.children[i].children[1];
-            if( subElement && islist(subElement) ){
-              html += parselist(subElement);
-            }
+        if(nested) {
+          var subElement = list.children[i].children[1];
+          if(subElement && islist(subElement)) {
+            appendOptions(subElement, select, depth + 1);
           }
         }
       }
-
-      // adds label
-      if(level === 1 && label) {
-        html = '<option value="">' + label + '</option>' + html;
-      }
-
-      // add <select> tag to the top level of the list
-      if(level === 1) {
-        html = '<select class="selectnav" id="'+id(true)+'">' + html + '</select>';
-      }
-
-      // go 1 level up
-      level--;
-
-      return html;
     }
 
   };

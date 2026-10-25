@@ -432,7 +432,9 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 
 						}
 
-						$('ul#design-editor-styles').prepend('<h2>' + elementNode.children('.element-name').first().text() + '</h2>');
+						$('ul#design-editor-styles').prepend(
+							$('<h2>').text(elementNode.children('.element-name').first().text())
+						);
 
 						var elementProperties = Padma.elementData[elementID];
 
@@ -513,7 +515,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 						if ( typeof Padma.designEditorProperties[property] == 'undefined' )
 							return false;
 
-						var formattedPropertyValue;
+						var formattedPropertyValue = $();
 						var propertyObject = Padma.designEditorProperties[property];
 						var propertyGroupID = propertyObject.group.toLowerCase().replace(' ', '-');
 
@@ -527,7 +529,7 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 							/* Uncustomizations */
 							if ( _.isEmpty(propertyValue) ) {
 
-								formattedPropertyValue = t('propertyInheriting', 'Wird geerbt');
+								formattedPropertyValue = $(document.createTextNode(t('propertyInheriting', 'Wird geerbt')));
 
 							/* Colors */
 							} else if ( propertyObject['type'] == 'color' ) {
@@ -537,20 +539,20 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 								if ( colorValue.length == 6 )
 									colorValue = '#' + colorValue;
 
-								formattedPropertyValue = '\
-									<div class="colorpicker-box-container">\
-										<div style="background-color: ' + colorValue + '" class="colorpicker-box"></div>\
-									</div>';
+								var colorPickerBox = $('<div class="colorpicker-box">').css('background-color', colorValue);
+								formattedPropertyValue = $('<div class="colorpicker-box-container">').append(colorPickerBox);
 
 								if ( propertyValue.replace('#', '').toUpperCase().length == 6 )
-									formattedPropertyValue += '<span style="font-family:monospace;">#' + propertyValue.replace('#', '').toUpperCase() + '</span>';
+									formattedPropertyValue = formattedPropertyValue.add(
+										$('<span>').css('font-family', 'monospace').text('#' + propertyValue.replace('#', '').toUpperCase())
+									);
 
 							/* Colors */
 							} else if ( propertyObject['type'] == 'image' ) {
 
-								formattedPropertyValue = '\
-									<span class="tooltip tooltip-left" title="&lt;img src=\'' + propertyValue + '\' style=\'max-width:300px;height:auto;\' /&gt;" >' + t('propertyPreview', 'Vorschau') + '</span>\
-								';
+								formattedPropertyValue = $('<span class="tooltip tooltip-left">')
+									.attr('title', "<img src='" + propertyValue + "' style='max-width:300px;height:auto;' />")
+									.text(t('propertyPreview', 'Vorschau'));
 
 							/* Integers with units */
 							} else if ( propertyObject['unit'] && propertyValue ) {
@@ -577,7 +579,9 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 
 								}
 
-								formattedPropertyValue = propertyValue + '<span class="unit">' + unitString + '</span>';
+								formattedPropertyValue = $(document.createTextNode(propertyValue)).add(
+									$('<span class="unit">').text(unitString)
+								);
 
 							/* Font families */
 							} else if ( propertyObject['type'] == 'font-family-select' ) {
@@ -592,12 +596,14 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 									var fontName = propertyValue;
 								}
 
-								formattedPropertyValue = '<span style="font-family:' + fontName + ';">' + fontName.capitalize() + '</span>';
+								formattedPropertyValue = $('<span>')
+									.css('font-family', fontName)
+									.text(fontName.capitalize());
 
 							/* Everything else */
 							} else if ( _.isString(propertyValue) ) {
 
-								formattedPropertyValue = propertyValue.capitalize();
+								formattedPropertyValue = $(document.createTextNode(propertyValue.capitalize()));
 
 							}
 
@@ -605,13 +611,21 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 							/* If it's a regular element handle it like normal */
 								if ( typeof specialElement == 'undefined' ) {
 
-									var propertyNode = $('\
-										<li class="property" data-property-id="' + property + '" data-property-group-id="' + propertyGroupID + '">\
-											<strong title="' + propertyObject['name'] + '">' + propertyObject['name'] + '</strong> \
-											<span class="property-delete"></span>\
-											<span class="property-value" title="' + t('propertyClickToEdit', 'Zum Bearbeiten klicken') + '">' + formattedPropertyValue + '</span>\
-										</li>\
-									');
+									var propertyNode = $('<li class="property">')
+										.attr('data-property-id', property)
+										.attr('data-property-group-id', propertyGroupID)
+										.append(
+											$('<strong>')
+												.attr('title', propertyObject['name'])
+												.text(propertyObject['name'])
+										)
+										.append(document.createTextNode(' '))
+										.append($('<span class="property-delete">'))
+										.append(
+											$('<span class="property-value">')
+												.attr('title', t('propertyClickToEdit', 'Zum Bearbeiten klicken'))
+												.append(formattedPropertyValue)
+										);
 
 									propertyNode.appendTo(context.find('ul[data-property-group-id="' + propertyGroupID + '"]'));
 
@@ -621,21 +635,33 @@ define(['jquery', 'underscore', 'helper.contentEditor', 'deps/interact', 'util.n
 									/* Insure that the property name exists... In some cases it may not if the only customizations are special elements */
 										if ( !context.find('[data-property-id="' + property + '"]:not([data-special-element-type])').length ) {
 
-											context.find('ul[data-property-group-id="' + propertyGroupID + '"]').append('\
-												<li class="property" data-property-id="' + property + '" data-property-group-id="' + propertyGroupID + '">\
-													<strong>' + propertyObject['name'] + '</strong> \
-												</li>\
-											');
+											var missingPropertyNode = $('<li class="property">')
+												.attr('data-property-id', property)
+												.attr('data-property-group-id', propertyGroupID)
+												.append($('<strong>').text(propertyObject['name']));
+
+											context.find('ul[data-property-group-id="' + propertyGroupID + '"]').append(missingPropertyNode);
 
 										}
 
-									var propertyNode = $('\
-										<li class="property" data-property-id="' + property + '" data-property-group-id="' + propertyGroupID + '" data-special-element-type="' + specialElement.type + '" data-special-element-id="' + specialElement.id + '">\
-											<strong title="' + specialElement.name.split(' &ndash; ')[0] + specialElement.layoutName + '">' + specialElement.name.split(' &ndash; ')[0] + '</strong> \
-											<span class="property-delete"></span>\
-											<span class="property-value" title="' + t('propertyClickToEdit', 'Zum Bearbeiten klicken') + '">' + formattedPropertyValue + '</span>\
-										</li>\
-									');
+									var specialElementName = specialElement.name.split(' &ndash; ')[0];
+									var propertyNode = $('<li class="property">')
+										.attr('data-property-id', property)
+										.attr('data-property-group-id', propertyGroupID)
+										.attr('data-special-element-type', specialElement.type)
+										.attr('data-special-element-id', specialElement.id)
+										.append(
+											$('<strong>')
+												.attr('title', specialElementName + specialElement.layoutName)
+												.text(specialElementName)
+										)
+										.append(document.createTextNode(' '))
+										.append($('<span class="property-delete">'))
+										.append(
+											$('<span class="property-value">')
+												.attr('title', t('propertyClickToEdit', 'Zum Bearbeiten klicken'))
+												.append(formattedPropertyValue)
+										);
 
 									/* Add class to the regular element property to say that there are special elements that way we can adjust the border */
 										context.find('[data-property-id="' + property + '"]').not('[data-special-element-type]').last().addClass('has-special-element-properties');
