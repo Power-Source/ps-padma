@@ -1,6 +1,22 @@
 (function(document, window) {
 	'use strict';
 
+	function hasSafeUrl(attribute, value) {
+		var url;
+
+		try {
+			url = new URL(value, window.location.href);
+		} catch (error) {
+			return false;
+		}
+
+		if (url.protocol === 'http:' || url.protocol === 'https:') {
+			return true;
+		}
+
+		return attribute === 'href' && (url.protocol === 'mailto:' || url.protocol === 'tel:');
+	}
+
 	function sanitizeContent(content) {
 		var blockedElements = content.querySelectorAll('script, style, iframe, object, embed');
 		Array.prototype.forEach.call(blockedElements, function(element) {
@@ -10,8 +26,23 @@
 		Array.prototype.forEach.call(content.querySelectorAll('*'), function(element) {
 			Array.prototype.slice.call(element.attributes).forEach(function(attribute) {
 				var name = attribute.name.toLowerCase();
-				var value = attribute.value.trim().toLowerCase();
-				if (name.indexOf('on') === 0 || ((name === 'href' || name === 'src') && value.indexOf('javascript:') === 0)) {
+				var value = attribute.value.trim();
+				if (
+					name.indexOf('on') === 0 ||
+					(
+						[
+							'action',
+							'background',
+							'cite',
+							'formaction',
+							'href',
+							'poster',
+							'src',
+							'xlink:href'
+						].indexOf(name) !== -1 &&
+						!hasSafeUrl(name, value)
+					)
+				) {
 					element.removeAttribute(attribute.name);
 				}
 			});
